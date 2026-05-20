@@ -1,0 +1,4 @@
+CREATE USER [s.thangaraj@tranetechnologies.com]
+    WITH SID = 0x74474A02C399A84F9F2A21AE1144F9DA, TYPE = E;
+GO
+

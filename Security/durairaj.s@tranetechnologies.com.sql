@@ -1,0 +1,4 @@
+CREATE USER [durairaj.s@tranetechnologies.com]
+    WITH SID = 0x46F640BF7076404493F648216698F67F, TYPE = E;
+GO
+

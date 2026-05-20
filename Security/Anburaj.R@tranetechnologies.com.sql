@@ -1,0 +1,4 @@
+CREATE USER [Anburaj.R@tranetechnologies.com]
+    WITH SID = 0xEC10ECBEE04FF04BB05003AFA5FF2CC8, TYPE = E;
+GO
+

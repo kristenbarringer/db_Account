@@ -1,0 +1,4 @@
+CREATE USER [HamsaR.R@tranetechnologies.com]
+    WITH SID = 0xE52D0F4D6EA61E42AD41E8E6A9BDA921, TYPE = E;
+GO
+

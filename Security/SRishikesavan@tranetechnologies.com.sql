@@ -1,0 +1,4 @@
+CREATE USER [SRishikesavan@tranetechnologies.com]
+    WITH SID = 0x9226F76A37FB394CBA342FBD82E47FA5, TYPE = E;
+GO
+
