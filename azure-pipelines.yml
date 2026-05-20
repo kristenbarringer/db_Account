@@ -2,7 +2,7 @@ trigger:
   branches:
     include:
       - main
-      - create_pipeline_Account
+      - create_pipeline_account
 
 pool:
   vmImage: 'windows-latest'
