@@ -19,6 +19,7 @@ CREATE TABLE [dbo].[account_details] (
     [country]                NVARCHAR (50)  NULL,
     [admin_user_rid]         INT            NULL,
     [account_type_rid]       INT            NULL,
+    [account_type_code]      NVARCHAR (50),
     [migrated_data]          INT            NULL
 );
 GO
@@ -55,8 +56,12 @@ CREATE NONCLUSTERED INDEX [IDX_account_details_admin_user_rid]
     ON [dbo].[account_details]([admin_user_rid] ASC);
 GO
 
+--ALTER TABLE [dbo].[account_details]
+    --ADD CONSTRAINT [FK_account_details_account_type] FOREIGN KEY ([account_type_rid]) REFERENCES [dbo].[account_type] ([rid]);
+--GO
+
 ALTER TABLE [dbo].[account_details]
-    ADD CONSTRAINT [FK_account_details_account_type] FOREIGN KEY ([account_type_rid]) REFERENCES [dbo].[account_type] ([rid]);
+    ADD CONSTRAINT [FK_account_details_account_type] FOREIGN KEY ([account_type_code]) REFERENCES [dbo].[lookup_code] ([code]);
 GO
 
 ALTER TABLE [dbo].[account_details]
