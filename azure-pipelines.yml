@@ -1,0 +1,55 @@
+trigger:
+  branches:
+    include:
+      - main
+      - create_pipeline
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  sqlServerName: 'asql-tkv2-eastus-dev.database.windows.net'
+  databaseName: 'Account'
+  projectPath: '**/*.sqlproj'
+
+steps:
+  - task: UseDotNet@2
+    displayName: 'Use .NET SDK'
+    inputs:
+      packageType: 'sdk'
+      version: '8.x'
+
+  - task: DotNetCoreCLI@2
+    displayName: 'Build database project'
+    inputs:
+      command: 'build'
+      projects: '$(projectPath)'
+      arguments: '--configuration Release'
+
+  - task: CopyFiles@2
+    displayName: 'Copy dacpac to artifact staging'
+    inputs:
+      contents: '**/bin/Release/*.dacpac'
+      targetFolder: '$(Build.ArtifactStagingDirectory)'
+      flattenFolders: true
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish dacpac as artifact'
+    inputs:
+      pathToPublish: '$(Build.ArtifactStagingDirectory)'
+      artifactName: 'dacpac'
+
+  - task: PowerShell@2
+    displayName: 'Deploy dacpac to Azure SQL Dev'
+    inputs:
+      targetType: 'inline'
+      script: |
+        dotnet tool install -g Microsoft.SqlPackage
+        $dacpac = Get-ChildItem -Path "$(Build.ArtifactStagingDirectory)" -Filter *.dacpac -Recurse | Select-Object -First 1
+        Write-Host "Deploying $($dacpac.FullName)"
+        SqlPackage /Action:Publish `
+          /SourceFile:"$($dacpac.FullName)" `
+          /TargetServerName:"$(sqlServerName)" `
+          /TargetDatabaseName:"$(databaseName)" `
+          /TargetUser:"$(sqlUser)" `
+          /TargetPassword:"$(sqlPassword)"
