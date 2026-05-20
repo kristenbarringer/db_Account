@@ -10,7 +10,7 @@ BEGIN
         (CheckName, TableName, ColumnName, OffendingValue, RowKey, ExpectedCategory, Notes)
     SELECT
         'WrongLookupCategory',
-        'dbo.Employee',
+        'dbo.Employee', -- TODO FIX
         'DesignationCode',
         e.account_type_code, 
         CAST(e.account_rid AS NVARCHAR(50)),

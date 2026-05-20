@@ -82,3 +82,34 @@ steps:
           /TargetDatabaseName:"$(databaseName)" `
           /TargetUser:"$(sqlUser)" `
           /TargetPassword:"$(sqlPassword)"
+
+  - task: PowerShell@2
+    displayName: 'Run data integrity checks (non-blocking)'
+    continueOnError: true
+    inputs:
+      targetType: 'inline'
+      script: |
+        $connString = "Server=tcp:$(sqlServerName),1433;Database=$(databaseName);User ID=$(sqlUser);Password=$(sqlPassword);Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+
+        $conn = New-Object System.Data.SqlClient.SqlConnection($connString)
+        $conn.Open()
+
+        # Run the integrity check proc
+        $cmd = $conn.CreateCommand()
+        $cmd.CommandText = "EXEC dbo.usp_dq_data_integrity_check"
+        $cmd.CommandTimeout = 600
+        $cmd.ExecuteNonQuery() | Out-Null
+        Write-Host "Integrity check proc completed."
+
+        # Query the count of unresolved issues
+        $cmd.CommandText = "SELECT COUNT(*) FROM dbo.dq_data_integrity_check WHERE ResolvedDate IS NULL"
+        $issueCount = $cmd.ExecuteScalar()
+
+        if ($issueCount -gt 0) {
+          Write-Host "##vso[task.logissue type=warning]Found $issueCount unresolved data integrity issue(s). Query dbo.dq_data_integrity_check for details."
+          Write-Host "##vso[task.complete result=SucceededWithIssues;]Pipeline succeeded with warnings."
+        } else {
+          Write-Host "No data integrity issues found."
+        }
+
+        $conn.Close()
