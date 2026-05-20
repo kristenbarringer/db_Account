@@ -4,18 +4,18 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Clear previous unresolved issues from this check run
-    --TODO do I need this? -- DELETE FROM dbo.dq_data_integrity_check WHERE ResolvedDate IS NULL;
+  DELETE FROM dbo.dq_data_integrity_check WHERE ResolvedDate IS NULL;
 
     INSERT INTO dbo.dq_data_integrity_check
         (CheckName, TableName, ColumnName, OffendingValue, RowKey, ExpectedCategory, Notes)
     SELECT
-        'WrongLookupCategory',
-        'dbo.Employee', -- TODO FIX
-        'DesignationCode',
+        'WrongLookupList',
+        'dbo.account_details',
+        'account_type_code',
         e.account_type_code, 
         CAST(e.account_rid AS NVARCHAR(50)),
-        'DesignationType',
-        'Code does not belong to expected category'
+        'account_type_code',
+        'Code does not belong to expected lookup list'
         -- select *
     FROM [dbo].[account_details]  e
     LEFT JOIN dbo.lookup_code lc
