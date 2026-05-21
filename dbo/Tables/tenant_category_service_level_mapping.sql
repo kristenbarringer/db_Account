@@ -1,25 +1,26 @@
-CREATE TABLE [dbo].[tenant_category_service_level_mapping] (
-    [rid]              INT      IDENTITY (1, 1) NOT NULL,
-    [category_id]      INT      NULL,
-    [service_level_id] INT      NULL,
-    [created]          DATETIME NULL
+CREATE TABLE [dbo].[tenant_category_service_level_mapping]
+(
+    [rid] INT IDENTITY (1, 1) NOT NULL,
+    [account_type_code] VARCHAR(30) NULL,
+    [service_level_code] VARCHAR(30) NULL,
+    [created] DATETIME NULL
 );
 GO
 
-CREATE NONCLUSTERED INDEX [IDX_tenant_category_service_level_mapping_service_level_id]
-    ON [dbo].[tenant_category_service_level_mapping]([service_level_id] ASC);
+CREATE NONCLUSTERED INDEX [ix_tenant_category_service_level_mapping_service_level_code]
+    ON [dbo].[tenant_category_service_level_mapping]([service_level_code] ASC);
 GO
 
-CREATE NONCLUSTERED INDEX [IDX_tenant_category_service_level_mapping_category_id]
-    ON [dbo].[tenant_category_service_level_mapping]([category_id] ASC);
-GO
-
-ALTER TABLE [dbo].[tenant_category_service_level_mapping]
-    ADD CONSTRAINT [FK_tenant_category_service_level_mapping_account_type] FOREIGN KEY ([category_id]) REFERENCES [dbo].[account_type] ([rid]);
+CREATE NONCLUSTERED INDEX [ix_tenant_category_service_level_mapping_account_type_code]
+    ON [dbo].[tenant_category_service_level_mapping]([account_type_code] ASC);
 GO
 
 ALTER TABLE [dbo].[tenant_category_service_level_mapping]
-    ADD CONSTRAINT [FK_tenant_category_service_level_mapping_service_level] FOREIGN KEY ([service_level_id]) REFERENCES [dbo].[service_level] ([service_level_rid]);
+    ADD CONSTRAINT [fk_tenant_category_service_level_mapping_account_type] FOREIGN KEY ([account_type_code]) REFERENCES [dbo].[lookup_code] ([code]);
+GO
+
+ALTER TABLE [dbo].[tenant_category_service_level_mapping]
+    ADD CONSTRAINT [fk_tenant_category_service_level_mapping_service_level_code] FOREIGN KEY ([service_level_code]) REFERENCES [dbo].[lookup_code] ([code]);
 GO
 
 ALTER TABLE [dbo].[tenant_category_service_level_mapping]

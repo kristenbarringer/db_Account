@@ -1,34 +1,35 @@
-CREATE TABLE [dbo].[user_accounts] (
-    [user_rid]             INT            IDENTITY (1, 1) NOT NULL,
-    [user_name]            NVARCHAR (200) NULL,
-    [first_name]           NVARCHAR (50)  NOT NULL,
-    [last_name]            NVARCHAR (50)  NOT NULL,
-    [account_type_rid]     INT            NULL,
-    [tenant_id]            NVARCHAR (50)  NOT NULL,
-    [role_rid]             INT            NULL,
-    [active]               BIT            NOT NULL,
-    [created]              DATETIME       NOT NULL,
-    [email_address]        NVARCHAR (50)  NOT NULL,
-    [object_id]            NVARCHAR (50)  NULL,
-    [phone_number]         NVARCHAR (50)  NULL,
-    [title]                NVARCHAR (200) NULL,
-    [phone_type]           INT            NULL,
-    [status]               INT            NOT NULL,
-    [updated]              DATETIME       NULL,
-    [activated]            DATETIME       NULL,
-    [phone_extension]      INT            NULL,
-    [created_by]           INT            NULL,
-    [speed_type_rid]       TINYINT        NOT NULL,
-    [language_code]        VARCHAR (30)   NOT NULL,
-    [temperature_type_code] VARCHAR (30)  NOT NULL,
-    [fuel_type_rid]        TINYINT        NOT NULL,
-    [timezone_rid]         INT            NOT NULL,
-    [theme_rid]            TINYINT        NOT NULL,
-    [tour_status]          TINYINT        NULL,
-    [onboarding_status]    BIT            NOT NULL,
-    [expires]              DATETIME       NULL,
-    [migrated_data]        BIT            NOT NULL,
-    [landing_page]         NVARCHAR (55)  NULL
+CREATE TABLE [dbo].[user_accounts]
+(
+    [user_rid] INT IDENTITY (1, 1) NOT NULL,
+    [user_name] NVARCHAR (200) NULL,
+    [first_name] NVARCHAR (50) NOT NULL,
+    [last_name] NVARCHAR (50) NOT NULL,
+    [account_type_code] VARCHAR(30) NULL,
+    [tenant_id] NVARCHAR (50) NOT NULL,
+    [role_rid] INT NULL,
+    [active] BIT NOT NULL,
+    [created] DATETIME NOT NULL,
+    [email_address] NVARCHAR (50) NOT NULL,
+    [object_id] NVARCHAR (50) NULL,
+    [phone_number] NVARCHAR (50) NULL,
+    [title] NVARCHAR (200) NULL,
+    [phone_type_code] VARCHAR (30) NULL,
+    [status_code] VARCHAR (30) NOT NULL,
+    [updated] DATETIME NULL,
+    [activated] DATETIME NULL,
+    [phone_extension] INT NULL,
+    [created_by] INT NULL,
+    [speed_type_code] VARCHAR (30) NOT NULL,
+    [language_code] VARCHAR (30) NOT NULL,
+    [temperature_type_code] VARCHAR (30) NOT NULL,
+    [fuel_type_code] VARCHAR (30) NOT NULL,
+    [timezone_code] VARCHAR (30) NOT NULL,
+    [theme_code] VARCHAR (30) NOT NULL,
+    [tour_status] TINYINT NULL,
+    [onboarding_status] BIT NOT NULL,
+    [expires] DATETIME NULL,
+    [migrated_data] BIT NOT NULL,
+    [landing_page] NVARCHAR (55) NULL
 );
 GO
 
@@ -45,15 +46,15 @@ ALTER TABLE [dbo].[user_accounts]
 GO
 
 ALTER TABLE [dbo].[user_accounts]
-    ADD CONSTRAINT [DF_user_accounts_account_type_rid] DEFAULT ((1)) FOR [account_type_rid];
+    ADD CONSTRAINT [DF_user_accounts_account_type_code] DEFAULT (('ACT_CUSTOMER')) FOR [account_type_code];
 GO
 
 ALTER TABLE [dbo].[user_accounts]
-    ADD CONSTRAINT [DF_user_accounts_speed_type_rid] DEFAULT ((2)) FOR [speed_type_rid];
+    ADD CONSTRAINT [DF_user_accounts_speed_type_code] DEFAULT (('SPT_MPH')) FOR [speed_type_code];
 GO
 
 ALTER TABLE [dbo].[user_accounts]
-    ADD CONSTRAINT [DF_user_accounts_theme_rid] DEFAULT ((2)) FOR [theme_rid];
+    ADD CONSTRAINT [df_user_accounts_theme_code] DEFAULT (('THM_LIGHT')) FOR [theme_code];
 GO
 
 ALTER TABLE [dbo].[user_accounts]
@@ -61,7 +62,7 @@ ALTER TABLE [dbo].[user_accounts]
 GO
 
 ALTER TABLE [dbo].[user_accounts]
-    ADD CONSTRAINT [DF_user_accounts_fuel_type_rid] DEFAULT ((3)) FOR [fuel_type_rid];
+    ADD CONSTRAINT [df_user_accounts_fuel_type_code] DEFAULT (('FLT_U_S_GALLONS')) FOR [fuel_type_code];
 GO
 
 ALTER TABLE [dbo].[user_accounts]
@@ -93,11 +94,11 @@ ALTER TABLE [dbo].[user_accounts]
 GO
 
 ALTER TABLE [dbo].[user_accounts]
-    ADD CONSTRAINT [DF_user_accounts_timezone_rid] DEFAULT ((5)) FOR [timezone_rid];
+    ADD CONSTRAINT [DF_user_accounts_timezone_code] DEFAULT (('TMZ_AMERICA_CHICAGO')) FOR [timezone_code];
 GO
 
 ALTER TABLE [dbo].[user_accounts]
-    ADD CONSTRAINT [DF_user_accounts_status] DEFAULT ((2)) FOR [status];
+    ADD CONSTRAINT [df_user_accounts_status_code] DEFAULT (('USR_ACTIVE')) FOR [status_code];
 GO
 
 ALTER TABLE [dbo].[user_accounts]
@@ -109,7 +110,7 @@ ALTER TABLE [dbo].[user_accounts]
 GO
 
 ALTER TABLE [dbo].[user_accounts]
-    ADD CONSTRAINT [FK_user_accounts_account_type] FOREIGN KEY ([account_type_rid]) REFERENCES [dbo].[account_type] ([rid]);
+    ADD CONSTRAINT [FK_user_accounts_account_type] FOREIGN KEY ([account_type_code]) REFERENCES [dbo].[lookup_code] ([code]);
 GO
 
 ALTER TABLE [dbo].[user_accounts]
@@ -117,15 +118,15 @@ ALTER TABLE [dbo].[user_accounts]
 GO
 
 ALTER TABLE [dbo].[user_accounts]
-    ADD CONSTRAINT [FK_user_accounts_speed_type] FOREIGN KEY ([speed_type_rid]) REFERENCES [dbo].[speed_type] ([speed_type_rid]);
+    ADD CONSTRAINT [FK_user_accounts_speed_type] FOREIGN KEY ([speed_type_code]) REFERENCES [dbo].[lookup_code] ([code]);
 GO
 
 ALTER TABLE [dbo].[user_accounts]
-    ADD CONSTRAINT [FK_user_accounts_fuel_type] FOREIGN KEY ([fuel_type_rid]) REFERENCES [dbo].[fuel_type] ([fuel_type_rid]);
+    ADD CONSTRAINT [FK_user_accounts_fuel_type_code] FOREIGN KEY ([fuel_type_code]) REFERENCES [dbo].[lookup_code] ([code]);
 GO
 
 ALTER TABLE [dbo].[user_accounts]
-    ADD CONSTRAINT [FK_user_accounts_timezone] FOREIGN KEY ([timezone_rid]) REFERENCES [dbo].[timezone] ([timezone_rid]);
+    ADD CONSTRAINT [fk_user_accounts_timezone_code] FOREIGN KEY ([timezone_code]) REFERENCES [dbo].[lookup_code] ([code]);
 GO
 
 ALTER TABLE [dbo].[user_accounts]
@@ -133,43 +134,43 @@ ALTER TABLE [dbo].[user_accounts]
 GO
 
 ALTER TABLE [dbo].[user_accounts]
-    ADD CONSTRAINT [FK_user_accounts_user_status] FOREIGN KEY ([status]) REFERENCES [dbo].[user_status] ([status_rid]);
+    ADD CONSTRAINT [FK_user_accounts_user_status_code] FOREIGN KEY ([status_code]) REFERENCES [dbo].[lookup_code] ([code]);
 GO
 
 ALTER TABLE [dbo].[user_accounts]
-    ADD CONSTRAINT [FK_user_accounts_theme] FOREIGN KEY ([theme_rid]) REFERENCES [dbo].[theme] ([theme_rid]);
+    ADD CONSTRAINT [fk_user_accounts_theme_code] FOREIGN KEY ([theme_code]) REFERENCES [dbo].[lookup_code] ([code]);
 GO
 
 ALTER TABLE [dbo].[user_accounts]
     ADD CONSTRAINT [FK_user_accounts_language_code] FOREIGN KEY ([language_code]) REFERENCES [dbo].[lookup_code] ([code]);
 GO
 
-CREATE NONCLUSTERED INDEX [IDX_user_accounts_account_type_rid]
-    ON [dbo].[user_accounts]([account_type_rid] ASC);
+CREATE NONCLUSTERED INDEX [IDX_user_accounts_account_type_code]
+    ON [dbo].[user_accounts]([account_type_code] ASC);
 GO
 
-CREATE NONCLUSTERED INDEX [IDX_user_accounts_speed_type_rid]
-    ON [dbo].[user_accounts]([speed_type_rid] ASC);
+CREATE NONCLUSTERED INDEX [ix_user_accounts_speed_type_code]
+    ON [dbo].[user_accounts]([speed_type_code] ASC);
 GO
 
-CREATE NONCLUSTERED INDEX [IDX_user_accounts_fuel_type_rid]
-    ON [dbo].[user_accounts]([fuel_type_rid] ASC);
+CREATE NONCLUSTERED INDEX [ix_user_accounts_fuel_type_code]
+    ON [dbo].[user_accounts]([fuel_type_code] ASC);
 GO
 
 CREATE NONCLUSTERED INDEX [ix_user_accounts_temperature_type_code]
     ON [dbo].[user_accounts]([temperature_type_code] ASC);
 GO
 
-CREATE NONCLUSTERED INDEX [IDX_user_accounts_theme_rid]
-    ON [dbo].[user_accounts]([theme_rid] ASC);
+CREATE NONCLUSTERED INDEX [ix_user_accounts_theme_code]
+    ON [dbo].[user_accounts]([theme_code] ASC);
 GO
 
-CREATE NONCLUSTERED INDEX [IDX_user_accounts_tenant_id_status]
-    ON [dbo].[user_accounts]([tenant_id] ASC, [status] ASC);
+CREATE NONCLUSTERED INDEX [ix_user_accounts_tenant_id_status_code]
+    ON [dbo].[user_accounts]([tenant_id] ASC, [status_code] ASC);
 GO
 
-CREATE NONCLUSTERED INDEX [IDX_user_accounts_status]
-    ON [dbo].[user_accounts]([status] ASC);
+CREATE NONCLUSTERED INDEX [ix_user_accounts_status_code]
+    ON [dbo].[user_accounts]([status_code] ASC);
 GO
 
 CREATE NONCLUSTERED INDEX [IDX_user_accounts_role_rid]
@@ -180,8 +181,8 @@ CREATE NONCLUSTERED INDEX [ix_user_accounts_language_code]
     ON [dbo].[user_accounts]([language_code] ASC);
 GO
 
-CREATE NONCLUSTERED INDEX [IDX_user_accounts_timezone_rid]
-    ON [dbo].[user_accounts]([timezone_rid] ASC);
+CREATE NONCLUSTERED INDEX [ix_user_accounts_timezone_code]
+    ON [dbo].[user_accounts]([timezone_code] ASC);
 GO
 
 ALTER TABLE [dbo].[user_accounts]

@@ -1,27 +1,28 @@
-CREATE TABLE [dbo].[tenant_service_level_mapping] (
-    [rid]                INT           IDENTITY (1, 1) NOT NULL,
-    [tenant_id]          NVARCHAR (50) NOT NULL,
-    [service_level_rid]  INT           NOT NULL,
-    [created_by]         INT           NOT NULL,
-    [created_at]         DATETIME      NULL,
-    [tenant_category_id] INT           NULL
+CREATE TABLE [dbo].[tenant_service_level_mapping]
+(
+    [rid] INT IDENTITY (1, 1) NOT NULL,
+    [tenant_id] NVARCHAR (50) NOT NULL,
+    [service_level_code] VARCHAR(30) NOT NULL,
+    [created_by] INT NOT NULL,
+    [created_at] DATETIME NULL,
+    [account_type_code] VARCHAR(30) NULL
 );
 GO
 
 ALTER TABLE [dbo].[tenant_service_level_mapping]
-    ADD CONSTRAINT [FK_tenant_service_level_mapping_account_type] FOREIGN KEY ([tenant_category_id]) REFERENCES [dbo].[account_type] ([rid]);
+    ADD CONSTRAINT [FK_tenant_service_level_mapping_account_type_code] FOREIGN KEY ([account_type_code]) REFERENCES [dbo].[lookup_code] ([code]);
 GO
 
 ALTER TABLE [dbo].[tenant_service_level_mapping]
-    ADD CONSTRAINT [FK_tenant_service_level_mapping_service_level] FOREIGN KEY ([service_level_rid]) REFERENCES [dbo].[service_level] ([service_level_rid]);
+    ADD CONSTRAINT [fk_tenant_service_level_mapping_service_level_code] FOREIGN KEY ([service_level_code]) REFERENCES [dbo].[lookup_code] ([code]);
 GO
 
-CREATE NONCLUSTERED INDEX [IDX_tenant_service_level_mapping_tenant_category_id]
-    ON [dbo].[tenant_service_level_mapping]([tenant_category_id] ASC);
+CREATE NONCLUSTERED INDEX [ix_tenant_service_level_mapping_tenant_account_type_code]
+    ON [dbo].[tenant_service_level_mapping]([account_type_code] ASC);
 GO
 
-CREATE NONCLUSTERED INDEX [IDX_tenant_service_level_mapping_service_level_rid]
-    ON [dbo].[tenant_service_level_mapping]([service_level_rid] ASC);
+CREATE NONCLUSTERED INDEX [ix_tenant_service_level_mapping_service_level_code]
+    ON [dbo].[tenant_service_level_mapping]([service_level_code] ASC);
 GO
 
 ALTER TABLE [dbo].[tenant_service_level_mapping]

@@ -1,4 +1,0 @@
-CREATE TABLE [dbo].[zzz_test_table_20260520_1215]
-(
-  [Id] INT NOT NULL PRIMARY KEY
-)

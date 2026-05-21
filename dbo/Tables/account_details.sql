@@ -14,7 +14,7 @@ CREATE TABLE [dbo].[account_details] (
     [support_contact_number] NVARCHAR (50)  NULL,
     [city]                   NVARCHAR (50)  NULL,
     [state]                  NVARCHAR (50)  NULL,
-    [phone_type]             INT            NULL,
+    [phone_type_code]        VARCHAR(30)    NULL,
     [phone_extension]        INT            NULL,
     [country]                NVARCHAR (50)  NULL,
     [admin_user_rid]         INT            NULL,
@@ -44,8 +44,8 @@ ALTER TABLE [dbo].[account_details]
     ADD CONSTRAINT [DF_account_details_account_type_rid] DEFAULT ((1)) FOR [account_type_rid];
 GO
 
-CREATE NONCLUSTERED INDEX [IDX_account_details_phone_type]
-    ON [dbo].[account_details]([phone_type] ASC);
+CREATE NONCLUSTERED INDEX [ix_account_details_phone_type_code]
+    ON [dbo].[account_details]([phone_type_code] ASC);
 GO
 
 CREATE NONCLUSTERED INDEX [IDX_account_details_account_type_rid]
@@ -65,7 +65,7 @@ ALTER TABLE [dbo].[account_details]
 GO
 
 ALTER TABLE [dbo].[account_details]
-    ADD CONSTRAINT [FK_account_details_phone_type] FOREIGN KEY ([phone_type]) REFERENCES [dbo].[phone_type] ([phone_type_rid]);
+    ADD CONSTRAINT [fk_account_details_phone_type_code] FOREIGN KEY ([phone_type_code]) REFERENCES [dbo].[lookup_code] ([code]);
 GO
 
 ALTER TABLE [dbo].[account_details]
