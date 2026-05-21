@@ -19,7 +19,7 @@ CREATE TABLE [dbo].[account_details] (
     [country]                NVARCHAR (50)  NULL,
     [admin_user_rid]         INT            NULL,
     [account_type_rid]       INT            NULL,
-    [account_type_code]      NVARCHAR (50),
+    [account_type_code]      VARCHAR (30)   NULL,
     [migrated_data]          INT            NULL
 );
 GO
