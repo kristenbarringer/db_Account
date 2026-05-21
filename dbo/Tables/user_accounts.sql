@@ -19,8 +19,8 @@ CREATE TABLE [dbo].[user_accounts] (
     [phone_extension]      INT            NULL,
     [created_by]           INT            NULL,
     [speed_type_rid]       TINYINT        NOT NULL,
-    [language_rid]         INT            NOT NULL,
-    [temperature_type_rid] TINYINT        NOT NULL,
+    [language_code]        VARCHAR (30)   NOT NULL,
+    [temperature_type_code] VARCHAR (30)  NOT NULL,
     [fuel_type_rid]        TINYINT        NOT NULL,
     [timezone_rid]         INT            NOT NULL,
     [theme_rid]            TINYINT        NOT NULL,
@@ -81,7 +81,7 @@ ALTER TABLE [dbo].[user_accounts]
 GO
 
 ALTER TABLE [dbo].[user_accounts]
-    ADD CONSTRAINT [DF_user_accounts_temperature_type_rid] DEFAULT ((2)) FOR [temperature_type_rid];
+    ADD CONSTRAINT [DF_user_accounts_temperature_type_code] DEFAULT (('TMP_FAHRENHEIT')) FOR [temperature_type_code];
 GO
 
 ALTER TABLE [dbo].[user_accounts]
@@ -89,7 +89,7 @@ ALTER TABLE [dbo].[user_accounts]
 GO
 
 ALTER TABLE [dbo].[user_accounts]
-    ADD CONSTRAINT [DF_user_accounts_language_rid] DEFAULT ((3)) FOR [language_rid];
+    ADD CONSTRAINT [DF_user_accounts_language_code] DEFAULT (('ENUS')) FOR [language_code];
 GO
 
 ALTER TABLE [dbo].[user_accounts]
@@ -113,7 +113,7 @@ ALTER TABLE [dbo].[user_accounts]
 GO
 
 ALTER TABLE [dbo].[user_accounts]
-    ADD CONSTRAINT [FK_user_accounts_temperature_type] FOREIGN KEY ([temperature_type_rid]) REFERENCES [dbo].[temperature_type] ([temperature_type_rid]);
+    ADD CONSTRAINT [FK_user_accounts_temperature_type_code] FOREIGN KEY ([temperature_type_code]) REFERENCES [dbo].[lookup_code] ([code]);
 GO
 
 ALTER TABLE [dbo].[user_accounts]
@@ -141,7 +141,7 @@ ALTER TABLE [dbo].[user_accounts]
 GO
 
 ALTER TABLE [dbo].[user_accounts]
-    ADD CONSTRAINT [FK_user_accounts_language] FOREIGN KEY ([language_rid]) REFERENCES [dbo].[language] ([language_rid]);
+    ADD CONSTRAINT [FK_user_accounts_language_code] FOREIGN KEY ([language_code]) REFERENCES [dbo].[lookup_code] ([code]);
 GO
 
 CREATE NONCLUSTERED INDEX [IDX_user_accounts_account_type_rid]
@@ -156,8 +156,8 @@ CREATE NONCLUSTERED INDEX [IDX_user_accounts_fuel_type_rid]
     ON [dbo].[user_accounts]([fuel_type_rid] ASC);
 GO
 
-CREATE NONCLUSTERED INDEX [IDX_user_accounts_temperature_type_rid]
-    ON [dbo].[user_accounts]([temperature_type_rid] ASC);
+CREATE NONCLUSTERED INDEX [ix_user_accounts_temperature_type_code]
+    ON [dbo].[user_accounts]([temperature_type_code] ASC);
 GO
 
 CREATE NONCLUSTERED INDEX [IDX_user_accounts_theme_rid]
@@ -176,8 +176,8 @@ CREATE NONCLUSTERED INDEX [IDX_user_accounts_role_rid]
     ON [dbo].[user_accounts]([role_rid] ASC);
 GO
 
-CREATE NONCLUSTERED INDEX [IDX_user_accounts_language_rid]
-    ON [dbo].[user_accounts]([language_rid] ASC);
+CREATE NONCLUSTERED INDEX [ix_user_accounts_language_code]
+    ON [dbo].[user_accounts]([language_code] ASC);
 GO
 
 CREATE NONCLUSTERED INDEX [IDX_user_accounts_timezone_rid]

@@ -2,8 +2,8 @@ CREATE TABLE [dbo].[customer_billing_information] (
     [customer_billing_information_rid]    INT             IDENTITY (1, 1) NOT NULL,
     [billing_service_level_rid]           INT             NULL,
     [service_assist_subscription_flag]    BIT             NOT NULL,
-    [logging_interval_rid_on]             INT             NULL,
-    [logging_interval_rid_off]            INT             NULL,
+    [logging_interval_code_on]            VARCHAR (30)    NULL,
+    [logging_interval_code_off]           VARCHAR (30)    NULL,
     [restrict_logging_service_level_flag] BIT             NOT NULL,
     [pay_up_front_auto_renew_flag]        BIT             NOT NULL,
     [pay_up_front_term_rid]               TINYINT         NULL,
@@ -43,8 +43,8 @@ CREATE NONCLUSTERED INDEX [IDX_customer_billing_information_contract_term_rid]
     ON [dbo].[customer_billing_information]([contract_term_rid] ASC);
 GO
 
-CREATE NONCLUSTERED INDEX [IDX_customer_billing_information_logging_interval_rid_on]
-    ON [dbo].[customer_billing_information]([logging_interval_rid_on] ASC);
+CREATE NONCLUSTERED INDEX [ix_customer_billing_information_logging_interval_code_on]
+    ON [dbo].[customer_billing_information]([logging_interval_code_on] ASC);
 GO
 
 CREATE NONCLUSTERED INDEX [IDX_customer_billing_information_pay_up_front_term_rid]
@@ -59,8 +59,8 @@ CREATE NONCLUSTERED INDEX [IDX_customer_billing_information_billing_option_type_
     ON [dbo].[customer_billing_information]([billing_option_type_rid] ASC);
 GO
 
-CREATE NONCLUSTERED INDEX [IDX_customer_billing_information_logging_interval_rid_off]
-    ON [dbo].[customer_billing_information]([logging_interval_rid_off] ASC);
+CREATE NONCLUSTERED INDEX [ix_customer_billing_information_logging_interval_code_off]
+    ON [dbo].[customer_billing_information]([logging_interval_code_off] ASC);
 GO
 
 ALTER TABLE [dbo].[customer_billing_information]
@@ -72,7 +72,8 @@ ALTER TABLE [dbo].[customer_billing_information]
 GO
 
 ALTER TABLE [dbo].[customer_billing_information]
-    ADD CONSTRAINT [FK_customer_billing_information_off_logging_interval] FOREIGN KEY ([logging_interval_rid_off]) REFERENCES [dbo].[logging_interval] ([logging_interval_rid]);
+    ADD CONSTRAINT [fk_customer_billing_information_logging_interval_code_off] FOREIGN KEY ([logging_interval_code_off]) 
+    REFERENCES [dbo].[lookup_code] ([code]);
 GO
 
 ALTER TABLE [dbo].[customer_billing_information]
@@ -80,7 +81,8 @@ ALTER TABLE [dbo].[customer_billing_information]
 GO
 
 ALTER TABLE [dbo].[customer_billing_information]
-    ADD CONSTRAINT [FK_customer_billing_information_on_logging_interval] FOREIGN KEY ([logging_interval_rid_on]) REFERENCES [dbo].[logging_interval] ([logging_interval_rid]);
+    ADD CONSTRAINT [fk_customer_billing_information_logging_interval_code_on] FOREIGN KEY ([logging_interval_code_on]) 
+    REFERENCES [dbo].[lookup_code] ([code]);
 GO
 
 ALTER TABLE [dbo].[customer_billing_information]
