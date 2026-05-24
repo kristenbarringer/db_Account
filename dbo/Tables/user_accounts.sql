@@ -40,7 +40,7 @@ CREATE TABLE [dbo].[user_accounts]
     [status_code] VARCHAR (30) CONSTRAINT [df_user_accounts_status_code] DEFAULT ('USR_ACTIVE') NOT NULL,
 -- flags: all bit flags prefixed by "is_"
     [active] BIT CONSTRAINT [df_user_accounts_active] DEFAULT (1) NOT NULL,    
-    [is_onboarded] BIT CONSTRAINT [df_user_accounts_is_onboarded] DEFAULT (1) NOT NULL,
+    [is_onboarded] BIT CONSTRAINT [df_user_accounts_is_onboarded] DEFAULT (1)  NULL,
     [migrated_data] BIT CONSTRAINT [df_user_accounts_migrated_data] DEFAULT (0) NOT NULL,
 -- dates: all dates suffixed by "_date"
     [created] DATETIME CONSTRAINT [df_user_accounts_created] DEFAULT (getdate()) NOT NULL,
