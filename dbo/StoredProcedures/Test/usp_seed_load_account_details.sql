@@ -1,4 +1,4 @@
-CREATE    OR ALTER   PROCEDURE [dbo].[usp_seed_load_account_details] 
+CREATE /* OR ALTER */ PROCEDURE [dbo].[usp_seed_load_account_details] 
 AS
 BEGIN
     SET NOCOUNT ON;

@@ -6,7 +6,7 @@
 -- Notes:    Each individual loader already does its own DELETE, so this proc
 --           is for "wipe without re-load" scenarios.
 -- =============================================================================
-CREATE  OR ALTER   PROCEDURE dbo.usp_seed_reset_all
+CREATE /* OR ALTER */ PROCEDURE dbo.usp_seed_reset_all
 AS
 BEGIN
     SET NOCOUNT ON;
