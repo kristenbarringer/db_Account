@@ -20,6 +20,9 @@
       <SameDatabase>True</SameDatabase>
     </ArtifactReference>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="dbo\StoredProcedures\Test" />
+  </ItemGroup>
   <Target Name="BeforeBuild">
     <Delete Files="$(BaseIntermediateOutputPath)\project.assets.json" />
   </Target>

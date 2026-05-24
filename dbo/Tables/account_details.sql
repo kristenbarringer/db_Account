@@ -1,7 +1,13 @@
+--sp_helpconstraint 'account_details'
+
+--drop table if exists dbo.customer_dealer_mapping;
+--drop table if exists dbo.account_details;
 CREATE TABLE [dbo].[account_details] (
-    [account_rid]            INT            IDENTITY (1, 1) NOT NULL,
+    [account_uuid] UNIQUEIDENTIFIER CONSTRAINT [df_account_uuid] DEFAULT (NEWID ()) NOT NULL,
+    [account_rid] INT IDENTITY (1, 1) NOT NULL,
     [organization]           NVARCHAR (100) NOT NULL,
-    [tenant_id]              NVARCHAR (50)  NOT NULL,
+    [tenant_id] NVARCHAR (50) NOT NULL,
+    [tenant_uuid] UNIQUEIDENTIFIER NULL, 
     [company_address]        NVARCHAR (200) NULL,
     [additional_address]     NVARCHAR (200) NULL,
     [zip_code]               NVARCHAR (50)  NULL,
