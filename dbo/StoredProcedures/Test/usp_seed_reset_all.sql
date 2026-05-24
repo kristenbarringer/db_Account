@@ -6,7 +6,7 @@
 -- Notes:    Each individual loader already does its own DELETE, so this proc
 --           is for "wipe without re-load" scenarios.
 -- =============================================================================
-CREATE /* OR ALTER */ PROCEDURE dbo.usp_seed_reset_all
+CREATE  OR ALTER   PROCEDURE dbo.usp_seed_reset_all
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -21,8 +21,12 @@ BEGIN
     PRINT '=== Starting seed data reset ===';
 
     -- Reverse FK order: children first, then parents
+    DELETE FROM dbo.user_accounts where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV';
+    PRINT CONCAT('  Cleared dbo.user_accounts (', @@ROWCOUNT, ' row(s)).');
     DELETE FROM dbo.account_details where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV';
     PRINT CONCAT('  Cleared dbo.account_details (', @@ROWCOUNT, ' row(s)).');
+
+     
 
     PRINT '=== Seed data reset complete ===';
 END;

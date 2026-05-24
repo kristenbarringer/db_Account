@@ -4,7 +4,7 @@
 --           dependency order (parents first).
 -- Scope:    Dev environments ONLY.
 -- =============================================================================
-CREATE /* OR ALTER */ PROCEDURE dbo.usp_seed_load_all
+CREATE   OR ALTER  PROCEDURE dbo.usp_seed_load_all
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -18,6 +18,7 @@ BEGIN
 
     PRINT '=== Starting seed data load ===';
 
+    EXEC dbo.usp_seed_load_user_accounts;
     EXEC dbo.usp_seed_load_account_details;
 
     PRINT '=== Seed data load complete ===';

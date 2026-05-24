@@ -4,8 +4,9 @@ CREATE TABLE [dbo].[user_accounts]
     [user_name] NVARCHAR (200) NULL,
     [first_name] NVARCHAR (50) NOT NULL,
     [last_name] NVARCHAR (50) NOT NULL,
-    [account_type_code] VARCHAR(30) NULL,
+    [account_type_code] VARCHAR(30) NULL,   
     [tenant_id] NVARCHAR (50) NOT NULL,
+    [tenant_uuid] UNIQUEIDENTIFIER NULL, 
     [role_rid] INT NULL,
     [active] BIT NOT NULL,
     [created] DATETIME NOT NULL,
@@ -29,7 +30,8 @@ CREATE TABLE [dbo].[user_accounts]
     [onboarding_status] BIT NOT NULL,
     [expires] DATETIME NULL,
     [migrated_data] BIT NOT NULL,
-    [landing_page] NVARCHAR (55) NULL
+    [landing_page] NVARCHAR (55) NULL,
+    [notes] varchar(255) NULL 
 );
 GO
 

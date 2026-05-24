@@ -10,8 +10,10 @@
   <ItemGroup>
     <None Include=".vscode\tasks.json" />
   </ItemGroup>
+
   <ItemGroup>
     <None Include="dbo\Scripts\Utility*" />
+    <None Include="dbo\Scripts\Utility\checks_account.sql" />
   </ItemGroup>
   <ItemGroup>
     <ArtifactReference Include="references\Shared.dacpac">
