@@ -1,8 +1,7 @@
 CREATE /* OR ALTER */ PROCEDURE [dbo].[usp_seed_load_account_details] 
 AS
 BEGIN
-print 'TODO FIX THIS'
-/* TODO FIX THIS
+ 
     SET NOCOUNT ON;
 
     -- Guard: only allow on Dev servers
@@ -64,7 +63,7 @@ select @user_rid = max(user_rid) from dbo.user_accounts
         [phone_extension],
         [country],
         [admin_user_rid],
-        [account_type_rid],
+       -- [account_type_rid],
         [account_type_code],
         [migrated_data],
         notes
@@ -91,7 +90,7 @@ select @user_rid = max(user_rid) from dbo.user_accounts
       phone_extension2 as phone_extension,
       'USA' as country,
       @user_rid as admin_user_rid, 
-      1 as account_type_rid,
+     -- 1 as account_type_rid,
       account_type_code2 as account_type_code,
       0 as migrated_data,
       'TEST DATA PROCESS ON DEV' 
@@ -100,5 +99,5 @@ select @user_rid = max(user_rid) from dbo.user_accounts
     FROM #test_data c
     DECLARE @rows INT = @@ROWCOUNT;
     PRINT CONCAT('usp_seed_load_account_details: inserted ', @rows, ' row(s) into dbo.account_details.');
-*/END;
+END;
 GO

@@ -35,12 +35,12 @@ CREATE TABLE [dbo].[user_accounts]
     [timezone_code] VARCHAR (30) CONSTRAINT [df_user_accounts_timezone_code] DEFAULT ('TMZ_AMERICA_CHICAGO') NOT NULL,
     [theme_code] VARCHAR (30) CONSTRAINT [df_user_accounts_theme_code] DEFAULT ('THM_LIGHT') NOT NULL,
     [tour_status_code] VARCHAR (30) CONSTRAINT [df_user_accounts_tour_status_code] DEFAULT (0) NOT NULL,
-    [onboarding_status_code] VARCHAR (30) CONSTRAINT [df_user_accounts_onboarding_status_code] DEFAULT (1) NOT NULL,
     [phone_type_code] VARCHAR (30) CONSTRAINT [df_user_accounts_phone_type_code] DEFAULT ('PHT_MOBILE') NOT NULL,
     --select * from lookup_code where lookup_list_code like '%phone%type%'
     [status_code] VARCHAR (30) CONSTRAINT [df_user_accounts_status_code] DEFAULT ('USR_ACTIVE') NOT NULL,
 -- flags: all bit flags prefixed by "is_"
-    [active] BIT CONSTRAINT [df_user_accounts_active] DEFAULT (1) NOT NULL,
+    [active] BIT CONSTRAINT [df_user_accounts_active] DEFAULT (1) NOT NULL,    
+    [is_onboarded] BIT CONSTRAINT [df_user_accounts_is_onboarded] DEFAULT (1) NOT NULL,
     [migrated_data] BIT CONSTRAINT [df_user_accounts_migrated_data] DEFAULT (0) NOT NULL,
 -- dates: all dates suffixed by "_date"
     [created] DATETIME CONSTRAINT [df_user_accounts_created] DEFAULT (getdate()) NOT NULL,
@@ -139,12 +139,8 @@ CREATE NONCLUSTERED INDEX [ix_fk_user_accounts_tour_status_code] -- add explicit
 ON [dbo].[user_accounts]([tour_status_code] ASC); 
  --   [onboarding_status_code] VARCHAR (30) CONSTRAINT [df_user_accounts_onboarding_status_code] DEFAULT (1) NOT NULL,
 GO
-ALTER TABLE [dbo].[user_accounts] ADD CONSTRAINT [fk_user_accounts_nboarding_status_code] FOREIGN KEY ([onboarding_status_code]) REFERENCES [dbo].[lookup_code] ([code]); 
-GO
-CREATE NONCLUSTERED INDEX [ix_fk_user_accounts_nboarding_status_code] -- add explicit index for the FK column, to improve join performance
-ON [dbo].[user_accounts]([onboarding_status_code] ASC); 
- --   [phone_type_code] VARCHAR (30) CONSTRAINT [df_user_accounts_phone_type_code] DEFAULT ('PHT_MOBILE') NOT NULL,
-GO
+
+
 ALTER TABLE [dbo].[user_accounts] ADD CONSTRAINT [fk_user_accountsphone_type_code] FOREIGN KEY ([phone_type_code]) REFERENCES [dbo].[lookup_code] ([code]); 
 GO
 CREATE NONCLUSTERED INDEX [ix_fk_user_accounts_phone_type_code] -- add explicit index for the FK column, to improve join performance
