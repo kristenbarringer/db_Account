@@ -1,6 +1,8 @@
 CREATE /* OR ALTER */ PROCEDURE [dbo].[usp_seed_load_user_accounts] 
 AS
 BEGIN
+print 'TODO FIX THIS'
+/* ATODO FIX THIS
     SET NOCOUNT ON;
 
     -- Guard: only allow on Dev servers
@@ -293,6 +295,6 @@ select @role_rid = max(role_rid) from dbo.role
 
     DECLARE @rows INT = @@ROWCOUNT;
     PRINT CONCAT('usp_seed_load_user_accounts: inserted ', @rows, ' row(s) into dbo.user_accounts.');
-END;
+*/END;
 GO
 -- select * from zzz_seed_test_data_customer
