@@ -11,7 +11,6 @@ CREATE TABLE [dbo].[user_accounts]
     [active] BIT NOT NULL,
     [created] DATETIME NOT NULL,
     [email_address] NVARCHAR (50) NOT NULL,
-    [object_id] NVARCHAR (50) NULL,
     [phone_number] NVARCHAR (50) NULL,
     [title] NVARCHAR (200) NULL,
     [phone_type_code] VARCHAR (30) NULL,

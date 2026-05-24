@@ -21,6 +21,8 @@ BEGIN
     EXEC dbo.usp_seed_load_user_accounts;
     EXEC dbo.usp_seed_load_account_details;
 
+    --select distinct user_rid from user_accounts
+    --sp_helpconstraint 'account_details'  -- FK_account_details_user_accounts
     PRINT '=== Seed data load complete ===';
 END;
 GO

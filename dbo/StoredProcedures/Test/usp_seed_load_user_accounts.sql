@@ -12,6 +12,7 @@ BEGIN
 
     -- Flush-fill: clear existing data first
   --  alter table dbo.user_accounts add notes varchar(255) null
+    DELETE FROM dbo.account_details where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV';
     DELETE FROM dbo.user_accounts where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV';
 
  drop table if exists #test_data
@@ -52,19 +53,19 @@ BEGIN
    -- select *    FROM dbo.zzz_seed_test_data_customer 
 update #test_data 
     set user_rid = 'user_rid'
-        ,user_name = 'user_name'
-        ,first_name = 'first_name'
-        ,last_name = 'last_name'
+        ,user_name = 'jhsmith'
+        ,first_name = 'John'
+        ,last_name = 'Smith'
         ,account_type_code = 'account_type_code'
         ,tenant_id = 'tenant_id'
         ,role_code = 'role_code'
         ,active2 = 'active2'
         ,created2 = 'created2'
-        ,email_address = 'email_address'
+        ,email_address = 'example@example.com'
         ,object_id = 'object_id'
         ,phone_number2 = 'phone_number2'
-        ,title = 'title'
-        ,phone_type = 'phone_type'
+        ,title = 'President'
+        ,phone_type = 'PHT_MOBILE'
         ,status = 'status'
         ,updated = 'updated'
         ,activated = 'activated'
@@ -80,23 +81,23 @@ update #test_data
         ,onboarding_status = 'onboarding_status'
         ,expires = 'expires'
         ,migrated_data = 'migrated_data'
-        ,landing_page = 'landing_page'
+        ,landing_page = 'www.example.com'
 where name like '%Walmart%'
 update  #test_data 
     set user_rid = 'user_rid'
-        ,user_name = 'user_name'
-        ,first_name = 'first_name'
-        ,last_name = 'last_name'
+        ,user_name = 'jasmith'
+        ,first_name = 'Jane'
+        ,last_name = 'Smith'
         ,account_type_code = 'account_type_code'
         ,tenant_id = 'tenant_id'
         ,role_code = 'role_code'
         ,active2 = 'active2'
         ,created2 = 'created2'
-        ,email_address = 'email_address'
+        ,email_address = 'example@example.com'
         ,object_id = 'object_id'
         ,phone_number2 = 'phone_number2'
-        ,title = 'title'
-        ,phone_type = 'phone_type'
+        ,title = 'Vice President'
+        ,phone_type = 'PHT_MOBILE'
         ,status = 'status'
         ,updated = 'updated'
         ,activated = 'activated'
@@ -112,22 +113,22 @@ update  #test_data
         ,onboarding_status = 'onboarding_status'
         ,expires = 'expires'
         ,migrated_data = 'migrated_data'
-        ,landing_page = 'landing_page'  where name like '%Prime%'
+        ,landing_page = 'www.example.com'  where name like '%Prime%'
 update #test_data 
     set user_rid = 'user_rid'
-        ,user_name = 'user_name'
-        ,first_name = 'first_name'
-        ,last_name = 'last_name'
+        ,user_name = 'bbunny'
+        ,first_name = 'Bugs'
+        ,last_name = 'Bunny'
         ,account_type_code = 'account_type_code'
         ,tenant_id = 'tenant_id'
         ,role_code = 'role_code'
         ,active2 = 'active2'
         ,created2 = 'created2'
-        ,email_address = 'email_address'
+        ,email_address = 'example@example.com'
         ,object_id = 'object_id'
         ,phone_number2 = 'phone_number2'
-        ,title = 'title'
-        ,phone_type = 'phone_type'
+        ,title = 'CEO'
+        ,phone_type = 'PHT_MOBILE'
         ,status = 'status'
         ,updated = 'updated'
         ,activated = 'activated'
@@ -143,22 +144,22 @@ update #test_data
         ,onboarding_status = 'onboarding_status'
         ,expires = 'expires'
         ,migrated_data = 'migrated_data'
-        ,landing_page = 'landing_page'   where name like '%Hunt%'
+        ,landing_page = 'www.example.com'   where name like '%Hunt%'
 update #test_data 
     set user_rid = 'user_rid'
-        ,user_name = 'user_name'
-        ,first_name = 'first_name'
-        ,last_name = 'last_name'
+        ,user_name = 'rrunner'
+        ,first_name = 'Road'
+        ,last_name = 'Runner'
         ,account_type_code = 'account_type_code'
         ,tenant_id = 'tenant_id'
         ,role_code = 'role_code'
         ,active2 = 'active2'
         ,created2 = 'created2'
-        ,email_address = 'email_address'
+        ,email_address = 'example@example.com'
         ,object_id = 'object_id'
         ,phone_number2 = 'phone_number2'
-        ,title = 'title'
-        ,phone_type = 'phone_type'
+        ,title = 'CIO'
+        ,phone_type = 'PHT_MOBILE'
         ,status = 'status'
         ,updated = 'updated'
         ,activated = 'activated'
@@ -174,22 +175,22 @@ update #test_data
         ,onboarding_status = 'onboarding_status'
         ,expires = 'expires'
         ,migrated_data = 'migrated_data'
-        ,landing_page = 'landing_page'   where name like '%Premier%'
+        ,landing_page = 'www.example.com'   where name like '%Premier%'
 update #test_data 
     set user_rid = 'user_rid'
-        ,user_name = 'user_name'
-        ,first_name = 'first_name'
-        ,last_name = 'last_name'
+        ,user_name = 'wcoyote'
+        ,first_name = 'Wiley'
+        ,last_name = 'Coyote'
         ,account_type_code = 'account_type_code'
         ,tenant_id = 'tenant_id'
         ,role_code = 'role_code'
         ,active2 = 'active2'
         ,created2 = 'created2'
-        ,email_address = 'email_address'
+        ,email_address = 'example@example.com'
         ,object_id = 'object_id'
         ,phone_number2 = 'phone_number2'
-        ,title = 'title'
-        ,phone_type = 'phone_type'
+        ,title = 'CFO'
+        ,phone_type = 'PHT_MOBILE'
         ,status = 'status'
         ,updated = 'updated'
         ,activated = 'activated'
@@ -205,13 +206,18 @@ update #test_data
         ,onboarding_status = 'onboarding_status'
         ,expires = 'expires'
         ,migrated_data = 'migrated_data'
-        ,landing_page = 'landing_page'   where name like '%Martin%'
+        ,landing_page = 'www.example.com'   where name like '%Martin%'
 
-
+        --select * from lookup_code where lookup_list_code like '%account_type%'
+        -- select * from lookup_code where lookup_list_code like '%user_status%'
+        -- select * from lookup_code where lookup_list_code like '%phone_type%'
  --select top 100 * from dbo.user_accounts where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV' order by tenant_uuid asc
  -- [usp_seed_load_user_accounts]
  --select * from dbo.user_accounts
+ declare @role_rid int
+select @role_rid = max(role_rid) from dbo.role
 
+--alter table dbo.user_accounts drop column object_id
  --select * from information_schema.columns where TABLE_NAME = 'user_accounts' and TABLE_SCHEMA = 'dbo' order by ORDINAL_POSITION
     INSERT INTO dbo.user_accounts
     (
@@ -226,7 +232,7 @@ update #test_data
         ,active
         ,created
         ,email_address
-        ,object_id
+        --,object_id
         ,phone_number
         ,title
         ,phone_type_code
@@ -257,14 +263,14 @@ update #test_data
 
        , c.tenant_uuid      AS tenant_id
       ,  c.tenant_uuid      AS tenant_uuid
-    ,null as role_rid
+    ,@role_rid as role_rid
     , active
     , '1/1/1900' as created
     , email_address
-    , object_id
+    --, object_id
     , phone_number
     , title
-    , 'phone_type_code' as phone_type_code
+    , phone_type as phone_type_code
     , 'USR_ACTIVE' as status_code
     , '1/1/1900' as updated
     , '1/1/1900' as activated
