@@ -1,6 +1,8 @@
 CREATE /* OR ALTER */ PROCEDURE [dbo].[usp_seed_load_account_details] 
 AS
 BEGIN
+print 'TODO FIX THIS'
+/* TODO FIX THIS
     SET NOCOUNT ON;
 
     -- Guard: only allow on Dev servers
@@ -98,5 +100,5 @@ select @user_rid = max(user_rid) from dbo.user_accounts
     FROM #test_data c
     DECLARE @rows INT = @@ROWCOUNT;
     PRINT CONCAT('usp_seed_load_account_details: inserted ', @rows, ' row(s) into dbo.account_details.');
-END;
+*/END;
 GO
