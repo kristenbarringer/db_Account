@@ -1,4 +1,4 @@
-CREATE PROCEDURE [dbo].[usp_seed_load_account_details] 
+CREATE /* OR ALTER */ PROCEDURE [dbo].[usp_seed_load_account_details] 
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -12,7 +12,7 @@ BEGIN
 
     -- Flush-fill: clear existing data first
 
-    DELETE FROM dbo.account_details;
+    DELETE FROM dbo.account_details where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV';
  
 
     INSERT INTO dbo.account_details
@@ -46,8 +46,8 @@ BEGIN
       NEWID() as account_uuid,
      -- xxxx as account_rid,
       c.name as organization,
-     NEWID() as tenant_id,
-      NEWID() as tenant_uuid,
+        c.tenant_uuid      AS tenant_id,
+        c.tenant_uuid      AS tenant_id,
       address_1 as company_address,
       address_2 as additional_address,
       '60803' as zip_code,

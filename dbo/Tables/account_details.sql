@@ -26,7 +26,8 @@ CREATE TABLE [dbo].[account_details] (
     [admin_user_rid]         INT            NULL,
     [account_type_rid]       INT            NULL,
     [account_type_code]      VARCHAR (30)   NULL,
-    [migrated_data]          INT            NULL
+    [migrated_data]          INT            NULL,
+    notes varchar(1000) NULL 
 );
 GO
 
