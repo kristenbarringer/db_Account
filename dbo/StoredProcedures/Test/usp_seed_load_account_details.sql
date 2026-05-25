@@ -45,7 +45,7 @@ select @user_rid = max(user_rid) from dbo.user_accounts
         [account_uuid],
        -- [account_rid],
         [organization],
-        [tenant_id],
+        
         [tenant_uuid],
         [company_address],
         [additional_address],
@@ -72,7 +72,7 @@ select @user_rid = max(user_rid) from dbo.user_accounts
       NEWID() as account_uuid,
      -- xxxx as account_rid,
       c.name as organization,
-        c.tenant_uuid      AS tenant_id,
+        
         c.tenant_uuid      AS tenant_id,
       address_1 as company_address,
       additional_address2 as additional_address,

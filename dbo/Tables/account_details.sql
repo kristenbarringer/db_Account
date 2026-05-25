@@ -5,7 +5,6 @@ CREATE TABLE [dbo].[account_details]
     [account_uuid] UNIQUEIDENTIFIER CONSTRAINT [df_account_details_id] DEFAULT (NEWID()) NOT NULL,
     [account_rid] INT IDENTITY (1, 1) NOT NULL,
     -- fk columns - to tenant
-    [tenant_id] UNIQUEIDENTIFIER CONSTRAINT [df_account_details_tenant_id] DEFAULT (NEWID()) NOT NULL,
     [tenant_uuid] UNIQUEIDENTIFIER CONSTRAINT [df_account_details_tenant_uuid] DEFAULT (NEWID()) NOT NULL,
     -- main attribute columns of this entity
     [organization] NVARCHAR (100) NOT NULL,
@@ -67,11 +66,6 @@ ALTER TABLE [dbo].[account_details] ADD CONSTRAINT [fk_account_details_tenant_uu
  GO
 CREATE NONCLUSTERED INDEX [ix_fk_account_details_tenant_uuid] 
   ON [dbo].[account_details]([tenant_uuid] ASC); 
-  GO
-ALTER TABLE [dbo].[account_details] ADD CONSTRAINT [fk_account_details_tenant_id] FOREIGN KEY ([tenant_id]) REFERENCES [dbo].[tenantinfo] ([tenant_uuid]); 
- GO
-CREATE NONCLUSTERED INDEX [ix_fk_account_details_tenant_id] 
-  ON [dbo].[account_details]([tenant_id] ASC); 
   GO
 
 -- fks - to user

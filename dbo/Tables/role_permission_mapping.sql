@@ -5,7 +5,6 @@ CREATE TABLE [dbo].[role_permission_mapping]
     [role_permission_mapping_uuid] UNIQUEIDENTIFIER CONSTRAINT [df_role_permission_mapping_id] DEFAULT (NEWID()) NOT NULL,
     [role_permission_mapping_rid] INT IDENTITY (1, 1) NOT NULL,
     -- fk columns - to tenant
-    [tenant_id] UNIQUEIDENTIFIER CONSTRAINT [df_role_permission_mapping_tenant_id] DEFAULT (NEWID()) NOT NULL,
     [tenant_uuid] UNIQUEIDENTIFIER CONSTRAINT [df_role_permission_mapping_tenant_uuid] DEFAULT (NEWID()) NOT NULL,
     -- main attribute columns of this entity 
     [permission_code] VARCHAR (100) NOT NULL ,
@@ -38,11 +37,6 @@ ALTER TABLE [dbo].[role_permission_mapping] ADD CONSTRAINT [fk_role_permission_m
  GO
 CREATE NONCLUSTERED INDEX [ix_fk_role_permission_mapping_tenant_uuid] 
   ON [dbo].[role_permission_mapping]([tenant_uuid] ASC); 
-  GO
-ALTER TABLE [dbo].[role_permission_mapping] ADD CONSTRAINT [fk_role_permission_mapping_tenant_id] FOREIGN KEY ([tenant_id]) REFERENCES [dbo].[tenantinfo] ([tenant_uuid]); 
- GO
-CREATE NONCLUSTERED INDEX [ix_fk_role_permission_mapping_tenant_id] 
-  ON [dbo].[role_permission_mapping]([tenant_id] ASC); 
   GO
 -- fks - to user
 ALTER TABLE [dbo].[role_permission_mapping]

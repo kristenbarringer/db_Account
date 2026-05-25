@@ -6,7 +6,6 @@ CREATE TABLE [dbo].[contact]
     [contact_uuid] UNIQUEIDENTIFIER CONSTRAINT [df_contact_id] DEFAULT (NEWID()) NOT NULL,
     [contact_rid] INT IDENTITY (1, 1) NOT NULL,
     -- fk columns - to tenant
-    [tenant_id] UNIQUEIDENTIFIER CONSTRAINT [df_contact_tenant_id] DEFAULT (NEWID()) NOT NULL,
     [tenant_uuid] UNIQUEIDENTIFIER CONSTRAINT [df_contact_tenant_uuid] DEFAULT (NEWID()) NOT NULL,
     -- main attribute columns of this entity 
     [first_name] NVARCHAR (100) NULL,
@@ -53,11 +52,6 @@ ALTER TABLE [dbo].[contact] ADD CONSTRAINT [fk_contact_tenant_uuid] FOREIGN KEY 
  GO
 CREATE NONCLUSTERED INDEX [ix_fk_contact_tenant_uuid] 
   ON [dbo].[contact]([tenant_uuid] ASC); 
-  GO
-ALTER TABLE [dbo].[contact] ADD CONSTRAINT [fk_contact_tenant_id] FOREIGN KEY ([tenant_id]) REFERENCES [dbo].[tenantinfo] ([tenant_uuid]); 
- GO
-CREATE NONCLUSTERED INDEX [ix_fk_contact_tenant_id] 
-  ON [dbo].[contact]([tenant_id] ASC); 
   GO
 -- fks - to user
 ALTER TABLE [dbo].[contact]

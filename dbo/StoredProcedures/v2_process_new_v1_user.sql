@@ -6,6 +6,8 @@
 CREATE PROCEDURE [dbo].[v2_process_new_v1_user]
 AS
 BEGIN
+print 'TODO FIX THIS'
+/* TODO FIX THIS
     -- SET NOCOUNT ON added to prevent extra result sets from
     -- interfering with SELECT statements.
     SET NOCOUNT ON
@@ -62,6 +64,6 @@ BEGIN
     COMMIT TRAN;
 
     -- TRUNCATE TABLE [dbo].[v1_user_change_log];
-END;
+*/END;
 GO
 

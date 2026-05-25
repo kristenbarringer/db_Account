@@ -88,3 +88,24 @@ drop table if exists account_details2
 drop table if exists user_accounts
 drop table if exists role
 drop table if exists tenantinfo
+
+
+
+ sp_helpconstraint 'tenantinfo'
+
+drop table if exists user_accounts
+drop table if exists role
+drop table if exists tenantinfo 
+alter table dbo.account_details drop constraint if exists fk_account_details_tenant_id
+alter table dbo.account_details drop constraint if exists fk_account_details_tenant_uuid
+alter table dbo.contact drop constraint if exists fk_contact_tenant_id
+alter table dbo.contact drop constraint if exists fk_contact_tenant_uuid
+alter table dbo.role drop constraint if exists fk_role_tenant_id
+alter table dbo.role drop constraint if exists fk_role_tenant_uuid
+alter table dbo.role_permission_mapping drop constraint if exists fk_role_permission_mapping_tenant_id
+alter table dbo.role_permission_mapping drop constraint if exists fk_role_permission_mapping_tenant_uuid
+alter table dbo.user_accounts drop constraint if exists fk_user_accounts_tenant_id
+alter table dbo.user_accounts drop constraint if exists fk_user_accounts_tenant_uuid
+alter table dbo.user_grid_view_preference drop constraint if exists fk_user_grid_view_pref_tenant_id
+alter table dbo.user_grid_view_preference drop constraint if exists fk_user_grid_view_pref_tenant_uuid
+

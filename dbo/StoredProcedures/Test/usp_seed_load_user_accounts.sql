@@ -242,8 +242,7 @@ select @role_rid = max(role_rid) from dbo.role
         ,first_name
         ,last_name
         ,account_type_code
-        ,tenant_id
-        ,tenant_uuid
+          ,tenant_uuid
         ,role_rid
         ,active
         ,created
@@ -277,7 +276,7 @@ select @role_rid = max(role_rid) from dbo.role
     , last_name
     , 'ACT_CUSTOMER' as account_type_code
 
-       , c.tenant_uuid      AS tenant_id
+  
       ,  c.tenant_uuid      AS tenant_uuid
     ,@role_rid as role_rid
     , active

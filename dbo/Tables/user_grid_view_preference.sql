@@ -6,7 +6,6 @@ CREATE TABLE [dbo].[user_grid_view_preference]
     [user_grid_view_preference_uuid] UNIQUEIDENTIFIER CONSTRAINT [df_user_grid_view_preference_id] DEFAULT (NEWID()) NOT NULL,
     [user_grid_view_preference_rid] INT IDENTITY (1, 1) NOT NULL,
     -- fk columns - to tenant
-    [tenant_id] UNIQUEIDENTIFIER CONSTRAINT [df_user_grid_view_preference_tenant_id] DEFAULT (NEWID()) NOT NULL,
     [tenant_uuid] UNIQUEIDENTIFIER CONSTRAINT [df_user_grid_view_preference_tenant_uuid] DEFAULT (NEWID()) NOT NULL,
     -- main attribute columns of this entity 
     [grid_name] NVARCHAR (200) NOT NULL,
@@ -42,11 +41,6 @@ ALTER TABLE [dbo].[user_grid_view_preference] ADD CONSTRAINT [fk_user_grid_view_
  GO
 CREATE NONCLUSTERED INDEX [ix_fk_user_grid_view_pref_tenant_uuid] 
   ON [dbo].[user_grid_view_preference]([tenant_uuid] ASC); 
-  GO
-ALTER TABLE [dbo].[user_grid_view_preference] ADD CONSTRAINT [fk_user_grid_view_pref_tenant_id] FOREIGN KEY ([tenant_id]) REFERENCES [dbo].[tenantinfo] ([tenant_uuid]); 
- GO
-CREATE NONCLUSTERED INDEX [ix_fk_user_grid_view_pref_tenant_id] 
-  ON [dbo].[user_grid_view_preference]([tenant_id] ASC); 
   GO
 -- fks - to user
 ALTER TABLE [dbo].[user_grid_view_preference] ADD CONSTRAINT [fk_user_grid_view_pref_user_uuid] FOREIGN KEY ([user_uuid]) REFERENCES [dbo].user_accounts ([user_uuid]); 
