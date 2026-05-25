@@ -256,7 +256,7 @@ select @role_rid = max(role_rid) from dbo.role
         ,updated_date
         ,activated_date
         ,phone_extension
-        ,created_by
+        ,created_by_user_uuid
         ,speed_type_code
         ,language_code
         ,temperature_type_code
@@ -266,7 +266,7 @@ select @role_rid = max(role_rid) from dbo.role
         ,tour_status_code
         ,is_onboarded
         ,expiration_date
-        ,migrated_data
+        ,is_migrated_data
         ,landing_page
         ,notes
     )
