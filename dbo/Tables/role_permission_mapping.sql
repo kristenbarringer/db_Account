@@ -1,26 +1,28 @@
 CREATE TABLE [dbo].[role_permission_mapping]
 (
--- ------------------------------------
--- pks and main uq columns
+    -- ------------------------------------
+    -- pks and main uq columns
     [role_permission_mapping_uuid] UNIQUEIDENTIFIER CONSTRAINT [df_role_permission_mapping_id] DEFAULT (NEWID()) NOT NULL,
     [role_permission_mapping_rid] INT IDENTITY (1, 1) NOT NULL,
--- fk columns - to tenant
-    [tenant_id] UNIQUEIDENTIFIER CONSTRAINT [df_role_permission_mapping_tenant_id] DEFAULT (NEWID()) NOT NULL,    
+    -- fk columns - to tenant
+    [tenant_id] UNIQUEIDENTIFIER CONSTRAINT [df_role_permission_mapping_tenant_id] DEFAULT (NEWID()) NOT NULL,
     [tenant_uuid] UNIQUEIDENTIFIER CONSTRAINT [df_role_permission_mapping_tenant_uuid] DEFAULT (NEWID()) NOT NULL,
--- main attribute columns of this entity 
-    [permission_code] VARCHAR (100) NOT NULL , 
--- fk columns - other main fks    
+    -- main attribute columns of this entity 
+    [permission_code] VARCHAR (100) NOT NULL ,
+    -- fk columns - other main fks    
     [role_rid] int NOT NULL,
-    [role_uuid] UNIQUEIDENTIFIER NOT NULL, 
--- fk columns - to lookup code
--- bit flag columns
--- date columns
--- fk columns - to user
--- note columns
--- test data columns (only used for test data process on dev)
--- columns to be deprecated
+    [role_uuid] UNIQUEIDENTIFIER NOT NULL,
 
--- ------------------------------------
+    -- fk columns - to lookup code
+    -- bit flag columns
+    -- date columns
+    -- fk columns - to user
+    [created_by_user_uuid] UNIQUEIDENTIFIER NULL
+    -- note columns
+    -- test data columns (only used for test data process on dev)
+    -- columns to be deprecated
+
+    -- ------------------------------------
 );
 GO
 -- ------------------------------------
@@ -30,28 +32,34 @@ ALTER TABLE [dbo].[role_permission_mapping]
 GO
 ALTER TABLE dbo.[role_permission_mapping]
 ADD CONSTRAINT uk_role_permission_mapping_uuid UNIQUE ([role_permission_mapping_uuid]);
-GO 
+GO
 -- fks - to tenant
- ALTER TABLE [dbo].[role_permission_mapping] ADD CONSTRAINT [fk_role_permission_mapping_tenant_uuid] FOREIGN KEY ([tenant_uuid]) REFERENCES [dbo].[tenantinfo] ([tenant_uuid]); 
+ALTER TABLE [dbo].[role_permission_mapping] ADD CONSTRAINT [fk_role_permission_mapping_tenant_uuid] FOREIGN KEY ([tenant_uuid]) REFERENCES [dbo].[tenantinfo] ([tenant_uuid]); 
  GO
- CREATE NONCLUSTERED INDEX [ix_fk_role_permission_mapping_tenant_uuid] 
+CREATE NONCLUSTERED INDEX [ix_fk_role_permission_mapping_tenant_uuid] 
   ON [dbo].[role_permission_mapping]([tenant_uuid] ASC); 
   GO
- ALTER TABLE [dbo].[role_permission_mapping] ADD CONSTRAINT [fk_role_permission_mapping_tenant_id] FOREIGN KEY ([tenant_id]) REFERENCES [dbo].[tenantinfo] ([tenant_uuid]); 
+ALTER TABLE [dbo].[role_permission_mapping] ADD CONSTRAINT [fk_role_permission_mapping_tenant_id] FOREIGN KEY ([tenant_id]) REFERENCES [dbo].[tenantinfo] ([tenant_uuid]); 
  GO
- CREATE NONCLUSTERED INDEX [ix_fk_role_permission_mapping_tenant_id] 
+CREATE NONCLUSTERED INDEX [ix_fk_role_permission_mapping_tenant_id] 
   ON [dbo].[role_permission_mapping]([tenant_id] ASC); 
   GO
 -- fks - to user
+ALTER TABLE [dbo].[role_permission_mapping]
+    ADD CONSTRAINT [fk_role_permission_mapping_created_by_user_uuid] FOREIGN KEY ([created_by_user_uuid]) REFERENCES [dbo].[user_accounts] ([user_uuid]);
+GO
+CREATE NONCLUSTERED INDEX [ix_fk_role_permission_mapping_created_by_user_uuid] -- add explicit index for the FK column, to improve join performance
+    ON [dbo].[role_permission_mapping]([created_by_user_uuid] ASC);
+GO
 -- fks - other main fks
-  ALTER TABLE [dbo].[role_permission_mapping] ADD CONSTRAINT [fk_role_permission_mapping_role_uuid] FOREIGN KEY ([role_uuid]) REFERENCES [dbo].role ([role_uuid]); 
+ALTER TABLE [dbo].[role_permission_mapping] ADD CONSTRAINT [fk_role_permission_mapping_role_uuid] FOREIGN KEY ([role_uuid]) REFERENCES [dbo].role ([role_uuid]); 
  GO
- CREATE NONCLUSTERED INDEX [ix_fk_role_permission_mapping_role_uuid] 
+CREATE NONCLUSTERED INDEX [ix_fk_role_permission_mapping_role_uuid] 
   ON [dbo].[role_permission_mapping]([role_uuid] ASC); 
   GO
- ALTER TABLE [dbo].[role_permission_mapping] ADD CONSTRAINT [fk_role_permission_mapping_user_rid] FOREIGN KEY ([role_rid]) REFERENCES [dbo].role ([role_rid]); 
+ALTER TABLE [dbo].[role_permission_mapping] ADD CONSTRAINT [fk_role_permission_mapping_user_rid] FOREIGN KEY ([role_rid]) REFERENCES [dbo].role ([role_rid]); 
  GO
- CREATE NONCLUSTERED INDEX [ix_fk_role_permission_mapping_user_rid] 
+CREATE NONCLUSTERED INDEX [ix_fk_role_permission_mapping_user_rid] 
   ON [dbo].[role_permission_mapping]([role_rid] ASC); 
   GO
 -- fks - to lookup code
