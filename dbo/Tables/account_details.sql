@@ -5,7 +5,7 @@ CREATE TABLE [dbo].[account_details]
     [account_uuid] UNIQUEIDENTIFIER CONSTRAINT [df_account_details_id] DEFAULT (NEWID()) NOT NULL,
     [account_rid] INT IDENTITY (1, 1) NOT NULL,
     -- fk columns - to tenant
-    [tenant_uuid] UNIQUEIDENTIFIER CONSTRAINT [df_account_details_tenant_uuid] DEFAULT (NEWID()) NOT NULL,
+    [tenant_uuid] UNIQUEIDENTIFIER  NOT NULL,
     -- main attribute columns of this entity
     [organization] NVARCHAR (100) NOT NULL,
     [company_address] NVARCHAR (200) NULL,

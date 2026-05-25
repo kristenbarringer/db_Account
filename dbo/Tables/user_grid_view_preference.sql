@@ -6,7 +6,7 @@ CREATE TABLE [dbo].[user_grid_view_preference]
     [user_grid_view_preference_uuid] UNIQUEIDENTIFIER CONSTRAINT [df_user_grid_view_preference_id] DEFAULT (NEWID()) NOT NULL,
     [user_grid_view_preference_rid] INT IDENTITY (1, 1) NOT NULL,
     -- fk columns - to tenant
-    [tenant_uuid] UNIQUEIDENTIFIER CONSTRAINT [df_user_grid_view_preference_tenant_uuid] DEFAULT (NEWID()) NOT NULL,
+    [tenant_uuid] UNIQUEIDENTIFIER  NOT NULL,
     -- main attribute columns of this entity 
     [grid_name] NVARCHAR (200) NOT NULL,
     [columns_hidden] NVARCHAR (3000) NOT NULL,

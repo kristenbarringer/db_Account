@@ -6,7 +6,7 @@ CREATE TABLE [dbo].[contact]
     [contact_uuid] UNIQUEIDENTIFIER CONSTRAINT [df_contact_id] DEFAULT (NEWID()) NOT NULL,
     [contact_rid] INT IDENTITY (1, 1) NOT NULL,
     -- fk columns - to tenant
-    [tenant_uuid] UNIQUEIDENTIFIER CONSTRAINT [df_contact_tenant_uuid] DEFAULT (NEWID()) NOT NULL,
+    [tenant_uuid] UNIQUEIDENTIFIER  NOT NULL,
     -- main attribute columns of this entity 
     [first_name] NVARCHAR (100) NULL,
     [last_name] NVARCHAR (100) NULL,
