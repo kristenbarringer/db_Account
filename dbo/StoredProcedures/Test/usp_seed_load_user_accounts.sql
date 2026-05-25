@@ -1,4 +1,4 @@
-CREATE /* OR ALTER */ PROCEDURE [dbo].[usp_seed_load_user_accounts] 
+CREATE PROCEDURE [dbo].[usp_seed_load_user_accounts] 
 AS
 BEGIN
 
@@ -7,7 +7,7 @@ BEGIN
     -- Guard: only allow on Dev servers
     IF @@SERVERNAME NOT LIKE '%dev%'
     BEGIN
-        RAISERROR('usp_seed_load_asset may only run on Dev servers. Current server: %s', 16, 1, @@SERVERNAME);
+        RAISERROR('usp_seed_load_user_accounts may only run on Dev servers. Current server: %s', 16, 1, @@SERVERNAME);
         RETURN;
     END;
 
@@ -290,7 +290,7 @@ select @role_rid = max(role_rid) from dbo.role
     , '1/1/1900' as updated
     , '1/1/1900' as activated
     , 1 as phone_extension
-    , 123 as created_by
+    , NULL as created_by
     , 'SPT_MPH' as speed_type_code
     , 'LNG_EN' as language_code
     --         select * from lookup_code where lookup_list_code like '%user_status%'

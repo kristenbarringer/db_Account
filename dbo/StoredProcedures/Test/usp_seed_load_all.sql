@@ -4,7 +4,7 @@
 --           dependency order (parents first).
 -- Scope:    Dev environments ONLY.
 -- =============================================================================
-CREATE /* OR ALTER */ PROCEDURE dbo.usp_seed_load_all
+CREATE PROCEDURE dbo.usp_seed_load_all
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -17,10 +17,15 @@ BEGIN
     END;
 
     PRINT '=== Starting seed data load ===';
-
+    
+    EXEC dbo.usp_seed_load_tenantinfo;
+    EXEC dbo.usp_seed_load_role;
     EXEC dbo.usp_seed_load_user_accounts;
     EXEC dbo.usp_seed_load_account_details;
-
+    EXEC dbo.usp_seed_load_contact;
+    EXEC dbo.usp_seed_load_user_grid_pref;
+    EXEC dbo.usp_seed_load_role_perm;
+ 
     --select distinct user_rid from user_accounts
     --sp_helpconstraint 'account_details'  -- FK_account_details_user_accounts
     PRINT '=== Seed data load complete ===';

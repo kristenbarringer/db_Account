@@ -1,4 +1,4 @@
-CREATE /* OR ALTER */ PROCEDURE [dbo].[usp_seed_load_account_details] 
+CREATE PROCEDURE [dbo].[usp_seed_load_account_details] 
 AS
 BEGIN
  
@@ -7,7 +7,7 @@ BEGIN
     -- Guard: only allow on Dev servers
     IF @@SERVERNAME NOT LIKE '%dev%'
     BEGIN
-        RAISERROR('usp_seed_load_asset may only run on Dev servers. Current server: %s', 16, 1, @@SERVERNAME);
+        RAISERROR('usp_seed_load_account_details may only run on Dev servers. Current server: %s', 16, 1, @@SERVERNAME);
         RETURN;
     END;
 
@@ -34,8 +34,8 @@ update #test_data set additional_address2 = 'PO Box 123' ,phone_number2 = '555-5
 update #test_data set additional_address2 = 'PO Box 123' ,phone_number2 = '555-555-1212',fax_number2 = '555-555-1212',company_website2 = 'www.example.com',support_contact_number2 = '555-555-1212',phone_extension2 = '123',account_type_code2 = 'ACT_CUSTOMER'  where name like '%Premier%'
 update #test_data set additional_address2 = 'PO Box 123' ,phone_number2 = '555-555-1212',fax_number2 = '555-555-1212',company_website2 = 'www.example.com',support_contact_number2 = '555-555-1212',phone_extension2 = '123',account_type_code2 = 'ACT_CUSTOMER'  where name like '%Martin%'
 
-declare @user_rid int
-select @user_rid = max(user_rid) from dbo.user_accounts
+declare @user_rid uniqueidentifier
+select @user_rid = max(user_uuid) from dbo.user_accounts
 
  --select top 100 * from dbo.account_details where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV' order by tenant_uuid asc
  -- [usp_seed_load_account_details]

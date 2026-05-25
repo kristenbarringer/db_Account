@@ -14,7 +14,7 @@ CREATE TABLE [dbo].[contact]
     [mobile_number] NVARCHAR (20) NULL,
     -- fk columns - other main fks
     -- fk columns - to lookup code
-    [language_code] VARCHAR (30) CONSTRAINT [df_contact_language_code] DEFAULT ('ENUS') NOT NULL,
+    [language_code] VARCHAR (30) CONSTRAINT [df_contact_language_code] DEFAULT ('LANG_ENUS') NOT NULL,
     [timezone_code] VARCHAR (30) CONSTRAINT [df_contact_timezone_code] DEFAULT ('TMZ_AMERICA_DETROIT') NOT NULL,
     [speed_type_code] VARCHAR (30) CONSTRAINT [df_contact_speed_type_code] DEFAULT ('SPT_MPH') NOT NULL,
     [temperature_type_code] VARCHAR (30) CONSTRAINT [df_contact_temperature_type_code] DEFAULT ('TMP_FAHRENHEIT') NOT NULL,
