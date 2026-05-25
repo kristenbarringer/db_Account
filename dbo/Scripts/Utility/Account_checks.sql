@@ -70,16 +70,20 @@ order by count(*) desc, tenant_uuid asc
 
  select * from dbo.account_details
  select * from dbo.user_accounts
+ sp_helpconstraint 'role'
  
 alter table dbo.account_details drop constraint if exists FK_account_details_user_accounts
 alter table dbo.contact drop constraint if exists FK_contact_user_accounts
 alter table dbo.customer_dealer_mapping drop constraint if exists FK_customer_dealer_mapping_users_created
 alter table dbo.customer_dealer_mapping drop constraint if exists FK_customer_dealer_mapping_users_updated
 alter table dbo.user_grid_view_preference drop constraint if exists FK_user_grid_view_preference_user_accounts
+alter table dbo.user_grid_view_preference drop constraint if exists fk_user_grid_view_pref_user_id
+alter table dbo.user_grid_view_preference drop constraint if exists fk_user_grid_view_pref_user_uuid
  
 alter table dbo.tenantinfo drop constraint if exists fk_tenantinfo_user_rid
 alter table dbo.tenantinfo drop constraint if exists fk_tenantinfo_user_uuid
  
+drop table if exists account_details
 drop table if exists user_accounts
 drop table if exists role
 drop table if exists tenantinfo
