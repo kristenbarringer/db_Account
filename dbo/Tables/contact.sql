@@ -30,6 +30,7 @@ CREATE TABLE [dbo].[contact]
     -- fk columns - to user
     [created_by_user_uuid] UNIQUEIDENTIFIER NULL,
     -- note columns
+    [notes] NVARCHAR (1000) NULL,
     -- test data columns (only used for test data process on dev)
     -- columns to be deprecated
     [active] BIT CONSTRAINT [df_contact_active] DEFAULT (1) NOT NULL,

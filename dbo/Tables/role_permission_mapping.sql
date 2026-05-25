@@ -16,8 +16,9 @@ CREATE TABLE [dbo].[role_permission_mapping]
     -- bit flag columns
     -- date columns
     -- fk columns - to user
-    [created_by_user_uuid] UNIQUEIDENTIFIER NULL
+    [created_by_user_uuid] UNIQUEIDENTIFIER NULL,
     -- note columns
+    [notes] NVARCHAR (1000) NULL
     -- test data columns (only used for test data process on dev)
     -- columns to be deprecated
 
