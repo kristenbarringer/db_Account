@@ -6,6 +6,8 @@
 CREATE PROCEDURE v2_process_contactsChanges
 AS
 BEGIN
+print 'TODO FIX THIS'
+/* TODO FIX THIS
     -- SET NOCOUNT ON added to prevent extra result sets from
     -- interfering with SELECT statements.
     SET NOCOUNT ON
@@ -106,6 +108,6 @@ BEGIN
     UPDATE ct SET ct.tenant_id=tenant.tenant_id 
     FROM [dbo].[contact]  AS ct INNER JOIN
         [dbo].[tenantinfo] as tenant ON ct.tenant_id = CAST(tenant.customer_rid AS NVARCHAR(255));
-END
+*/ END
 GO
 

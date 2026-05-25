@@ -7,6 +7,8 @@ CREATE PROCEDURE [dbo].[v2_process_contacts_changes_custom]
 @PipeLine_Run_Id nvarchar(100)
 AS
 BEGIN
+print 'TODO FIX THIS'
+/* TODO FIX THIS
     -- SET NOCOUNT ON added to prevent extra result sets from
     -- interfering with SELECT statements.
     SET NOCOUNT ON
@@ -90,6 +92,6 @@ BEGIN
     FROM [dbo].[contact]  AS ct INNER JOIN
         [dbo].[v1_contact] AS v1c ON ct.tenant_id = v1c.customer_rid AND v1c.Pipeline_Id = @PipeLine_Run_Id INNER JOIN
         [dbo].[tenantinfo] as tenant ON ct.tenant_id = CAST(tenant.customer_rid AS NVARCHAR(255));
-END
+*/ END
 GO
 
