@@ -22,7 +22,7 @@ tenant_uuid, organization
 ,user_rid
 ,user_name
 ,v2_user_rid
-,Pipeline_Id)
+,Pipeline_Id, notes)
 select 
  tenant_uuid
 ,name
@@ -32,7 +32,7 @@ select
 ,105334
 ,NULL
 ,105334
-,105334
+,105334, 'TEST DATA PROCESS ON DEV'
  from dbo.zzz_seed_test_data_customer where tenant_uuid not in (select tenant_uuid from tenantinfo)
 
  

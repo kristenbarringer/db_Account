@@ -1,5 +1,5 @@
-select * from zzz_test_20260525_0832
-select * from lookup_code_list where lookup_list_code = 'zzz_test_20260525_0832'
+--select * from zzz_test_20260525_0832
+--select * from lookup_code_list where lookup_list_code = 'zzz_test_20260525_0832'
 
 
 ----------DELETE FROM dbo.controller --where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV';
@@ -44,68 +44,121 @@ select * from lookup_code_list where lookup_list_code = 'zzz_test_20260525_0832'
 
 
 
+--exec usp_seed_reset_all
+
+--exec usp_seed_load_all
+
+--alter table dbo.role_permission_mapping drop constraint FK_role_permission_mapping_role
+--alter table dbo.user_accounts drop constraint FK_user_accounts_role
+--[dbo].[user_accounts] 
+--drop table role
+--sp_helpconstraint 'role'
+
+--select 'account_details' as table_name, count(*) counts, c.name,a.tenant_uuid, a.tenant_id , notes
+--from dbo.account_details a
+--left join zzz_seed_test_data_customer c on a.tenant_uuid = c.tenant_uuid
+--group by c.name,a.tenant_uuid, a.tenant_id , notes
+--order by count(*) desc, tenant_uuid asc
+
+--select 'user_accounts' as table_name, count(*) counts, c.name,a.tenant_uuid, a.tenant_id , notes
+--from dbo.user_accounts a
+--left join zzz_seed_test_data_customer c on a.tenant_uuid = c.tenant_uuid
+--group by c.name,a.tenant_uuid, a.tenant_id , notes
+--order by count(*) desc, tenant_uuid asc
+
+ 
+
+-- select * from dbo.account_details
+-- select * from dbo.user_accounts
+-- sp_helpconstraint 'role'
+ 
+--alter table dbo.account_details drop constraint if exists FK_account_details_user_accounts
+--alter table dbo.contact drop constraint if exists FK_contact_user_accounts
+--alter table dbo.customer_dealer_mapping drop constraint if exists FK_customer_dealer_mapping_users_created
+--alter table dbo.customer_dealer_mapping drop constraint if exists FK_customer_dealer_mapping_users_updated
+--alter table dbo.user_grid_view_preference drop constraint if exists FK_user_grid_view_preference_user_accounts
+--alter table dbo.user_grid_view_preference drop constraint if exists fk_user_grid_view_pref_user_id
+--alter table dbo.user_grid_view_preference drop constraint if exists fk_user_grid_view_pref_user_uuid
+ 
+--alter table dbo.tenantinfo drop constraint if exists fk_tenantinfo_user_rid
+--alter table dbo.tenantinfo drop constraint if exists fk_tenantinfo_user_uuid
+ 
+--drop table if exists account_details
+--drop table if exists account_details2
+--drop table if exists user_accounts
+--drop table if exists role
+--drop table if exists tenantinfo
+
+
+
+-- sp_helpconstraint 'tenantinfo'
+
+--drop table if exists user_accounts
+--drop table if exists role
+--drop table if exists tenantinfo 
+--alter table dbo.account_details drop constraint if exists fk_account_details_tenant_id
+--alter table dbo.account_details drop constraint if exists fk_account_details_tenant_uuid
+--alter table dbo.contact drop constraint if exists fk_contact_tenant_id
+--alter table dbo.contact drop constraint if exists fk_contact_tenant_uuid
+--alter table dbo.role drop constraint if exists fk_role_tenant_id
+--alter table dbo.role drop constraint if exists fk_role_tenant_uuid
+--alter table dbo.role_permission_mapping drop constraint if exists fk_role_permission_mapping_tenant_id
+--alter table dbo.role_permission_mapping drop constraint if exists fk_role_permission_mapping_tenant_uuid
+--alter table dbo.user_accounts drop constraint if exists fk_user_accounts_tenant_id
+--alter table dbo.user_accounts drop constraint if exists fk_user_accounts_tenant_uuid
+--alter table dbo.user_grid_view_preference drop constraint if exists fk_user_grid_view_pref_tenant_id
+--alter table dbo.user_grid_view_preference drop constraint if exists fk_user_grid_view_pref_tenant_uuid
+
+
+
+
+
 exec usp_seed_reset_all
 
 exec usp_seed_load_all
 
-alter table dbo.role_permission_mapping drop constraint FK_role_permission_mapping_role
-alter table dbo.user_accounts drop constraint FK_user_accounts_role
-[dbo].[user_accounts] 
-drop table role
-sp_helpconstraint 'role'
-
-select 'account_details' as table_name, count(*) counts, c.name,a.tenant_uuid, a.tenant_id , notes
-from dbo.account_details a
+ 
+select 'tenantinfo' as table_name, count(*) counts, c.name,a.tenant_uuid,  notes
+from dbo.tenantinfo a
 left join zzz_seed_test_data_customer c on a.tenant_uuid = c.tenant_uuid
-group by c.name,a.tenant_uuid, a.tenant_id , notes
+group by c.name,a.tenant_uuid,  notes
 order by count(*) desc, tenant_uuid asc
 
-select 'user_accounts' as table_name, count(*) counts, c.name,a.tenant_uuid, a.tenant_id , notes
+select 'role' as table_name, count(*) counts, c.name,a.tenant_uuid,  notes
+from dbo.role a
+left join zzz_seed_test_data_customer c on a.tenant_uuid = c.tenant_uuid
+group by c.name,a.tenant_uuid,  notes
+order by count(*) desc, tenant_uuid asc
+
+select 'user_accounts' as table_name, count(*) counts, c.name,a.tenant_uuid, notes
 from dbo.user_accounts a
 left join zzz_seed_test_data_customer c on a.tenant_uuid = c.tenant_uuid
-group by c.name,a.tenant_uuid, a.tenant_id , notes
+group by c.name,a.tenant_uuid,  notes
 order by count(*) desc, tenant_uuid asc
 
+select 'account_details' as table_name, count(*) counts, c.name,a.tenant_uuid,  notes
+from dbo.account_details a
+left join zzz_seed_test_data_customer c on a.tenant_uuid = c.tenant_uuid
+group by c.name,a.tenant_uuid,  notes
+order by count(*) desc, tenant_uuid asc
+
+select 'contact' as table_name, count(*) counts, c.name,a.tenant_uuid,  notes
+from dbo.contact a
+left join zzz_seed_test_data_customer c on a.tenant_uuid = c.tenant_uuid
+group by c.name,a.tenant_uuid,  notes
+order by count(*) desc, tenant_uuid asc
+
+select 'user_grid_view_preference' as table_name, count(*) counts, c.name,a.tenant_uuid,  notes
+from dbo.user_grid_view_preference a
+left join zzz_seed_test_data_customer c on a.tenant_uuid = c.tenant_uuid
+group by c.name,a.tenant_uuid,  notes
+order by count(*) desc, tenant_uuid asc
+
+select 'role_permission_mapping' as table_name, count(*) counts, c.name,a.tenant_uuid,  notes
+from dbo.role_permission_mapping a
+left join zzz_seed_test_data_customer c on a.tenant_uuid = c.tenant_uuid
+group by c.name,a.tenant_uuid,  notes
+order by count(*) desc, tenant_uuid asc
  
-
- select * from dbo.account_details
- select * from dbo.user_accounts
- sp_helpconstraint 'role'
- 
-alter table dbo.account_details drop constraint if exists FK_account_details_user_accounts
-alter table dbo.contact drop constraint if exists FK_contact_user_accounts
-alter table dbo.customer_dealer_mapping drop constraint if exists FK_customer_dealer_mapping_users_created
-alter table dbo.customer_dealer_mapping drop constraint if exists FK_customer_dealer_mapping_users_updated
-alter table dbo.user_grid_view_preference drop constraint if exists FK_user_grid_view_preference_user_accounts
-alter table dbo.user_grid_view_preference drop constraint if exists fk_user_grid_view_pref_user_id
-alter table dbo.user_grid_view_preference drop constraint if exists fk_user_grid_view_pref_user_uuid
- 
-alter table dbo.tenantinfo drop constraint if exists fk_tenantinfo_user_rid
-alter table dbo.tenantinfo drop constraint if exists fk_tenantinfo_user_uuid
- 
-drop table if exists account_details
-drop table if exists account_details2
-drop table if exists user_accounts
-drop table if exists role
-drop table if exists tenantinfo
-
-
-
- sp_helpconstraint 'tenantinfo'
-
-drop table if exists user_accounts
-drop table if exists role
-drop table if exists tenantinfo 
-alter table dbo.account_details drop constraint if exists fk_account_details_tenant_id
-alter table dbo.account_details drop constraint if exists fk_account_details_tenant_uuid
-alter table dbo.contact drop constraint if exists fk_contact_tenant_id
-alter table dbo.contact drop constraint if exists fk_contact_tenant_uuid
-alter table dbo.role drop constraint if exists fk_role_tenant_id
-alter table dbo.role drop constraint if exists fk_role_tenant_uuid
-alter table dbo.role_permission_mapping drop constraint if exists fk_role_permission_mapping_tenant_id
-alter table dbo.role_permission_mapping drop constraint if exists fk_role_permission_mapping_tenant_uuid
-alter table dbo.user_accounts drop constraint if exists fk_user_accounts_tenant_id
-alter table dbo.user_accounts drop constraint if exists fk_user_accounts_tenant_uuid
-alter table dbo.user_grid_view_preference drop constraint if exists fk_user_grid_view_pref_tenant_id
-alter table dbo.user_grid_view_preference drop constraint if exists fk_user_grid_view_pref_tenant_uuid
-
+  
+     
