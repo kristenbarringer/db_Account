@@ -12,8 +12,9 @@ CREATE TABLE [dbo].[account_details]
 -- important fks to other trx tables - these should be in almost every table (tenant_id is needed on almost all tables, including many-to-many tables)
     [tenant_id] NVARCHAR (50) CONSTRAINT [df_account_details_tenant_id] DEFAULT (NEWID()) NOT NULL,    
     [tenant_uuid] UNIQUEIDENTIFIER CONSTRAINT [df_account_details_tenant_uuid] DEFAULT (NEWID()) NOT NULL, -- every table must have a tenant_uuid  
-   -- [account_details_rid] INT NULL,
-    --[account_details_uuid] UNIQUEIDENTIFIER NULL,
+    [dealer_rid] INT NULL, -- TODO came from customer_dealer_mapping 
+    [dealer_uuid] UNIQUEIDENTIFIER NULL, -- TODO came from customer_dealer_mapping 
+        -- customer_rid and dealer_rid were both ints in account_details.  In most cases a customer only has one device.  There was some bad data on Dev resulting in a few dupes.
     --[equipment_rid] NVARCHAR (50) NOT NULL,
     --[equipment_uuid] UNIQUEIDENTIFIER NOT NULL, 
 -- attributes of this entity -- avoid using the table_name as a prefix in the column_name (so just "name" instead of "account_details_name")
