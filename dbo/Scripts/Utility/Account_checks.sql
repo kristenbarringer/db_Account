@@ -48,7 +48,11 @@ exec usp_seed_reset_all
 
 exec usp_seed_load_all
 
-
+alter table dbo.role_permission_mapping drop constraint FK_role_permission_mapping_role
+alter table dbo.user_accounts drop constraint FK_user_accounts_role
+[dbo].[user_accounts] 
+drop table role
+sp_helpconstraint 'role'
 
 select 'account_details' as table_name, count(*) counts, c.name,a.tenant_uuid, a.tenant_id , notes
 from dbo.account_details a
@@ -66,3 +70,16 @@ order by count(*) desc, tenant_uuid asc
 
  select * from dbo.account_details
  select * from dbo.user_accounts
+ 
+alter table dbo.account_details drop constraint if exists FK_account_details_user_accounts
+alter table dbo.contact drop constraint if exists FK_contact_user_accounts
+alter table dbo.customer_dealer_mapping drop constraint if exists FK_customer_dealer_mapping_users_created
+alter table dbo.customer_dealer_mapping drop constraint if exists FK_customer_dealer_mapping_users_updated
+alter table dbo.user_grid_view_preference drop constraint if exists FK_user_grid_view_preference_user_accounts
+ 
+alter table dbo.tenantinfo drop constraint if exists fk_tenantinfo_user_rid
+alter table dbo.tenantinfo drop constraint if exists fk_tenantinfo_user_uuid
+ 
+drop table if exists user_accounts
+drop table if exists role
+drop table if exists tenantinfo

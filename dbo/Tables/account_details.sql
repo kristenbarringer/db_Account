@@ -84,9 +84,9 @@ CREATE NONCLUSTERED INDEX [ix_fk_account_details_account_details_type] -- add ex
     ON [dbo].[account_details]([account_type_code] ASC);
 GO
 -- -- FKs and indexes - other FKs: anything that is a reference must have a FK constraint 
-ALTER TABLE [dbo].[account_details]
-    ADD CONSTRAINT [FK_account_details_user_accounts] FOREIGN KEY ([admin_user_rid]) REFERENCES [dbo].[user_accounts] ([user_rid]);
-GO
+-- ALTER TABLE [dbo].[account_details] -- TODO FIX THIS
+--     ADD CONSTRAINT [FK_account_details_user_accounts] FOREIGN KEY ([admin_user_rid]) REFERENCES [dbo].[user_accounts] ([user_rid]);
+-- GO -- TODO
  
  CREATE NONCLUSTERED INDEX [ix_fk_account_details_admin_user_rid] -- add explicit index for the FK column, to improve join performance
   ON [dbo].[account_details]([admin_user_rid] ASC); 
