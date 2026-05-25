@@ -84,6 +84,7 @@ alter table dbo.tenantinfo drop constraint if exists fk_tenantinfo_user_rid
 alter table dbo.tenantinfo drop constraint if exists fk_tenantinfo_user_uuid
  
 drop table if exists account_details
+drop table if exists account_details2
 drop table if exists user_accounts
 drop table if exists role
 drop table if exists tenantinfo
