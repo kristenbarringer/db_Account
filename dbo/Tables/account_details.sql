@@ -38,7 +38,7 @@ CREATE TABLE [dbo].[account_details]
     [updated_date] DATETIME NULL,
     [activated_date] DATETIME NULL,
 -- fk columns - to user
-    [admin_user_rid]     UNIQUEIDENTIFIER CONSTRAINT [df_account_details_created_by_user_rid] DEFAULT (1) NOT NULL,
+    [admin_user_rid]     UNIQUEIDENTIFIER CONSTRAINT [df_account_details2_created_by_user_rid] DEFAULT (NEWID()) NOT NULL,
 -- note columns
     [notes] NVARCHAR (1000) NULL,
 -- test data columns (only used for test data process on dev)
