@@ -10,7 +10,7 @@ CREATE TABLE [dbo].[account_details]
     [account_uuid] UNIQUEIDENTIFIER CONSTRAINT [df_account_details_id] DEFAULT (NEWID()) NOT NULL,
     [account_rid] INT IDENTITY (1, 1) NOT NULL,
 -- important fks to other trx tables - these should be in almost every table (tenant_id is needed on almost all tables, including many-to-many tables)
-    [tenant_id] NVARCHAR (50) CONSTRAINT [df_account_details_tenant_id] DEFAULT (NEWID()) NOT NULL,    
+    [tenant_id] UNIQUEIDENTIFIER CONSTRAINT [df_account_details_tenant_id] DEFAULT (NEWID()) NOT NULL,    
     [tenant_uuid] UNIQUEIDENTIFIER CONSTRAINT [df_account_details_tenant_uuid] DEFAULT (NEWID()) NOT NULL, -- every table must have a tenant_uuid  
     [dealer_rid] INT NULL, -- TODO came from customer_dealer_mapping 
     [dealer_uuid] UNIQUEIDENTIFIER NULL, -- TODO came from customer_dealer_mapping 
@@ -96,7 +96,17 @@ GO
 -- CREATE NONCLUSTERED INDEX [ix_fk_account_details_tenant_id] -- add explicit index for the FK column, to improve join performance
 --  ON [dbo].[account_details]([tenant_id] ASC); 
 --  GO
-
+ -- FKs and indexes - other FKs: anything that is a reference must have a FK constraint 
+ ALTER TABLE [dbo].[account_details] ADD CONSTRAINT [fk_account_details_tenant_uuid] FOREIGN KEY ([tenant_uuid]) REFERENCES [dbo].[tenantinfo] ([tenant_uuid]); 
+ GO
+ CREATE NONCLUSTERED INDEX [ix_fk_account_details_tenant_uuid] -- add explicit index for the FK column, to improve join performance
+  ON [dbo].[account_details]([tenant_uuid] ASC); 
+  GO
+ ALTER TABLE [dbo].[account_details] ADD CONSTRAINT [fk_account_details_tenant_id] FOREIGN KEY ([tenant_id]) REFERENCES [dbo].[tenantinfo] ([tenant_uuid]); 
+ GO
+ CREATE NONCLUSTERED INDEX [ix_fk_account_details_tenant_id] -- add explicit index for the FK column, to improve join performance
+  ON [dbo].[account_details]([tenant_id] ASC); 
+  GO
  
 -- -- FKs and indexes - lookup_code: anything that is a reference must have a FK constraint 
 -- -- [account_details_type_code]

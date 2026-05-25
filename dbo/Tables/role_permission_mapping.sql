@@ -5,8 +5,8 @@ CREATE TABLE [dbo].[role_permission_mapping]
     [role_permission_mapping_uuid] UNIQUEIDENTIFIER CONSTRAINT [df_role_permission_mapping_id] DEFAULT (NEWID()) NOT NULL,
     [role_permission_mapping_rid] INT IDENTITY (1, 1) NOT NULL,
 ---- important fks to other trx tables - these should be in almost every table (tenant_id is needed on almost all tables, including many-to-many tables)
---    [tenant_id] UNIQUEIDENTIFIER CONSTRAINT [df_role_permission_mapping_tenant_id] DEFAULT (NEWID()) NOT NULL,    
---    [tenant_uuid] UNIQUEIDENTIFIER CONSTRAINT [df_role_permission_mapping_tenant_uuid] DEFAULT (NEWID()) NOT NULL, -- every table must have a tenant_uuid  
+    [tenant_id] UNIQUEIDENTIFIER CONSTRAINT [df_role_permission_mapping_tenant_id] DEFAULT (NEWID()) NOT NULL,    
+    [tenant_uuid] UNIQUEIDENTIFIER CONSTRAINT [df_role_permission_mapping_tenant_uuid] DEFAULT (NEWID()) NOT NULL, -- every table must have a tenant_uuid  
 --    [role_permission_mapping_rid] INT NULL,
 --    [role_permission_mapping_uuid] UNIQUEIDENTIFIER NULL,
     [role_rid] int NOT NULL,
@@ -64,6 +64,17 @@ GO
 ALTER TABLE dbo.[role_permission_mapping]
 ADD CONSTRAINT uk_role_permission_mapping_uuid UNIQUE ([role_permission_mapping_uuid]);
 GO 
+ -- FKs and indexes - other FKs: anything that is a reference must have a FK constraint 
+ ALTER TABLE [dbo].[role_permission_mapping] ADD CONSTRAINT [fk_role_permission_mapping_tenant_uuid] FOREIGN KEY ([tenant_uuid]) REFERENCES [dbo].[tenantinfo] ([tenant_uuid]); 
+ GO
+ CREATE NONCLUSTERED INDEX [ix_fk_role_permission_mapping_tenant_uuid] -- add explicit index for the FK column, to improve join performance
+  ON [dbo].[role_permission_mapping]([tenant_uuid] ASC); 
+  GO
+ ALTER TABLE [dbo].[role_permission_mapping] ADD CONSTRAINT [fk_role_permission_mapping_tenant_id] FOREIGN KEY ([tenant_id]) REFERENCES [dbo].[tenantinfo] ([tenant_uuid]); 
+ GO
+ CREATE NONCLUSTERED INDEX [ix_fk_role_permission_mapping_tenant_id] -- add explicit index for the FK column, to improve join performance
+  ON [dbo].[role_permission_mapping]([tenant_id] ASC); 
+  GO
 -- -- FKs and indexes - MAIN FKs: anything that is a reference must have a FK constraint 
  
   ALTER TABLE [dbo].[role_permission_mapping] ADD CONSTRAINT [fk_role_permission_mapping_role_uuid] FOREIGN KEY ([role_uuid]) REFERENCES [dbo].role ([role_uuid]); 
