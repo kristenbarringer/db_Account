@@ -31,6 +31,8 @@ BEGIN
     PRINT CONCAT('  Cleared dbo.user_accounts (', @@ROWCOUNT, ' row(s)).');
     DELETE FROM dbo.account_details --where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV';
     PRINT CONCAT('  Cleared dbo.account_details (', @@ROWCOUNT, ' row(s)).');
+    --DELETE FROM dbo.dealer --where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV'; -- TODO UNCOMMENT
+    --PRINT CONCAT('  Cleared dbo.dealer (', @@ROWCOUNT, ' row(s)).');
     DELETE FROM dbo.role --where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV';
     PRINT CONCAT('  Cleared dbo.role (', @@ROWCOUNT, ' row(s)).');
     DELETE FROM dbo.tenantinfo --where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV';

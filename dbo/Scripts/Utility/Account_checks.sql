@@ -160,6 +160,7 @@ left join zzz_seed_test_data_customer c on a.tenant_uuid = c.tenant_uuid
 group by c.name,a.tenant_uuid,  notes
 order by count(*) desc, tenant_uuid asc
  
+ select db_name()
   
 select top 10 * from tenantinfo
 select top 10 * from user_accounts
@@ -168,3 +169,14 @@ select top 10 * from account_details
 select top 10 * from contact
 select top 10 * from user_grid_view_preference
 select top 10 * from role_permission_mapping
+
+drop proc usp_dq_data_integrity_check
+
+truncate table dq_data_integrity_check
+
+EXEC dbo.usp_dq_data_integrity_check 
+EXEC dbo.usp_dq_data_integrity_rid_to_uuid_check 
+
+ 
+SELECT * FROM dbo.dq_data_integrity_check WHERE CheckName = 'WrongLookupList' AND ResolvedDate IS NULL 
+SELECT * FROM dbo.dq_data_integrity_check WHERE CheckName = 'Wrong_rid_to_uuid' AND ResolvedDate IS NULL
