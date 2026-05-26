@@ -84,7 +84,7 @@ steps:
           /TargetPassword:"$(sqlPassword)"
 
   
-  - task: PowerShell@2
+ - task: PowerShell@2
     displayName: 'Run LOOKUP data integrity checks (non-blocking)'
     continueOnError: true
     inputs:
@@ -107,7 +107,7 @@ steps:
         $issueCount = $cmd.ExecuteScalar()
 
         if ($issueCount -gt 0) {
-          Write-Host "##vso[task.logissue type=warning]Found $issueCount unresolved data integrity issue(s). Query dbo.dq_data_integrity_check for details."
+          Write-Host "##vso[task.logissue type=warning]Found $issueCount unresolved data integrity issue(s). Query SELECT COUNT(*) FROM dbo.dq_data_integrity_check WHERE CheckName = 'WrongLookupList' AND ResolvedDate IS NULL for details."
           Write-Host "##vso[task.complete result=SucceededWithIssues;]Pipeline succeeded with warnings."
         } else {
           Write-Host "No data integrity issues found."
@@ -138,7 +138,7 @@ steps:
         $issueCount = $cmd.ExecuteScalar()
 
         if ($issueCount -gt 0) {
-          Write-Host "##vso[task.logissue type=warning]Found $issueCount unresolved data integrity issue(s). Query dbo.dq_data_integrity_check for details."
+          Write-Host "##vso[task.logissue type=warning]Found $issueCount unresolved data integrity issue(s). Query SELECT COUNT(*) FROM dbo.dq_data_integrity_check WHERE CheckName = 'Wrong_rid_to_uuid' AND ResolvedDate IS NULL for details."
           Write-Host "##vso[task.complete result=SucceededWithIssues;]Pipeline succeeded with warnings."
         } else {
           Write-Host "No data integrity issues found."
