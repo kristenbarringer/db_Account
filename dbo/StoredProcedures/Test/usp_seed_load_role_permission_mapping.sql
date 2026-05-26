@@ -15,10 +15,10 @@ BEGIN
     declare @tenant_uuid uniqueidentifier
     select @user_uuid = max(user_uuid) from dbo.user_accounts
     select @tenant_uuid = max(tenant_uuid) from dbo.tenantinfo --where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV'
-    declare @role_uuid uniqueidentifier
-    select @role_uuid = max(role_uuid) from dbo.role
     declare @role_id int
-    select @role_id = max(role_rid) from dbo.role --where coalesce(note
+    select @role_id = max(role_rid) from dbo.role
+    declare @role_uuid uniqueidentifier
+    select @role_uuid = max(role_uuid) from dbo.role where role_rid = @role_id
 
     insert into dbo.role_permission_mapping (role_permission_mapping_uuid, tenant_uuid, permission_code, role_rid, role_uuid, created_by_user_uuid, notes)
     values ( NEWID(), '3E2070B4-5B0E-499B-BFC0-2001D796581A', '', @role_id, @role_uuid, @user_uuid, 'TEST DATA PROCESS ON DEV')
