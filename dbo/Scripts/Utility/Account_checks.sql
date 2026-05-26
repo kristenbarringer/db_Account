@@ -161,4 +161,10 @@ group by c.name,a.tenant_uuid,  notes
 order by count(*) desc, tenant_uuid asc
  
   
-     
+select top 10 * from tenantinfo
+select top 10 * from user_accounts
+select top 10 * from role
+select top 10 * from account_details
+select top 10 * from contact
+select top 10 * from user_grid_view_preference
+select top 10 * from role_permission_mapping
