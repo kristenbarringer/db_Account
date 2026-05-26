@@ -23,8 +23,8 @@ CREATE TABLE [dbo].[user_grid_view_preference]
     -- test data columns (only used for test data process on dev)
     -- columns to be deprecated
     [created] DATETIME CONSTRAINT [df_user_grid_view_preference_created] DEFAULT (getdate()) NOT NULL,
-    [user_rid] INT NULL,
-    [user_uuid] UNIQUEIDENTIFIER NULL
+    [user_rid] INT NULL, -- TODO keep these?
+    [user_uuid] UNIQUEIDENTIFIER NULL -- TODO keep these?
 
     -- ------------------------------------
 );
