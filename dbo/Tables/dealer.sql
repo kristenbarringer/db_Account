@@ -4,22 +4,23 @@ CREATE TABLE [dbo].[dealer]
 -- pks and main uq columns
     [dealer_uuid] UNIQUEIDENTIFIER CONSTRAINT [df_dealer_id] DEFAULT (NEWID()) NOT NULL,
     [dealer_rid] INT IDENTITY (1, 1) NOT NULL,
+    [dealer_code] VARCHAR (50) NULL,
 -- fk columns - to tenant
     [tenant_uuid] UNIQUEIDENTIFIER  NOT NULL,
 -- main attribute columns of this entity 
     [name] VARCHAR (50) NULL,
-    [address] VARCHAR (50) NULL,
+    [address] VARCHAR (300) NULL,
     [phone_number] VARCHAR (50) NULL,
     [email_address] VARCHAR (50) NULL,
     [zip_code] VARCHAR (10) NULL,
     [oracle_id] INT NULL,
-    [party_site_id_code ] INT NULL,
+    [party_site_id_code] INT NULL,
     [atlas_terr_id_code] VARCHAR (50) NULL,
     [atlas_terr_name] VARCHAR (50) NULL,
     [atlas_terr_id] INT NULL,
 -- fk columns - other main fks
 -- fk columns - to lookup code
-    [dealer_type_code] VARCHAR (30) CONSTRAINT [df_dealer_dealer_type_code] DEFAULT ('ROL_BASIC') NOT NULL,
+  --  [dealer_type_code] VARCHAR (30) CONSTRAINT [df_dealer_dealer_type_code] DEFAULT ('ROL_BASIC')  NULL,
 -- bit flag columns
     [is_active] BIT CONSTRAINT [df_dealer_is_active] DEFAULT (1) NOT NULL,
     [is_blue_track_dealer] BIT NULL,
@@ -69,15 +70,9 @@ GO
 -- fks - other main fks
 -- fks - to lookup code
 
-ALTER TABLE [dbo].[dealer]
-    ADD CONSTRAINT [fk_dealer_dealer_type] FOREIGN KEY ([dealer_type_code]) REFERENCES [dbo].[lookup_code] ([code]);
-GO
-CREATE NONCLUSTERED INDEX [ix_fk_dealer_dealer_type_code] 
-    ON [dbo].[dealer]([dealer_type_code] ASC);
-GO
+ 
 -- other constraints and indexes 
 -- extended properties: table
 -- extended properties: columns
 -- ------------------------------------
 -- END
-

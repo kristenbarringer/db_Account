@@ -159,7 +159,14 @@ from dbo.role_permission_mapping a
 left join zzz_seed_test_data_customer c on a.tenant_uuid = c.tenant_uuid
 group by c.name,a.tenant_uuid,  notes
 order by count(*) desc, tenant_uuid asc
+
+select 'dealer' as table_name, count(*) counts, c.name,a.tenant_uuid,  notes
+from dbo.dealer a
+left join zzz_seed_test_data_customer c on a.tenant_uuid = c.tenant_uuid
+group by c.name,a.tenant_uuid,  notes
+order by count(*) desc, tenant_uuid asc
  
+ select * from information_schema.columns where table_name = 'dealer'
  select db_name()
   
 select top 10 * from tenantinfo
