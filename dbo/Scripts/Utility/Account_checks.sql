@@ -180,3 +180,6 @@ EXEC dbo.usp_dq_data_integrity_rid_to_uuid_check
  
 SELECT * FROM dbo.dq_data_integrity_check WHERE CheckName = 'WrongLookupList' AND ResolvedDate IS NULL 
 SELECT * FROM dbo.dq_data_integrity_check WHERE CheckName = 'Wrong_rid_to_uuid' AND ResolvedDate IS NULL
+
+select table_name, column_name from information_schema.columns where table_name in ('tenantinfo','user_accounts','role','account_details','contact','user_grid_view_preference','role_permission_mapping','dealer','asset','equipment','device','controller','device_sim'
+) order by table_name, column_name

@@ -69,7 +69,7 @@ steps:
           /TargetPassword:"$(sqlPassword)"
 
   - task: PowerShell@2
-    displayName: 'Deploy dacpac to Azure SQL Dev'
+    displayName: 'Deploy Account dacpac to Azure SQL Dev'
     inputs:
       targetType: 'inline'
       script: |
@@ -81,8 +81,9 @@ steps:
           /TargetServerName:"$(sqlServerName)" `
           /TargetDatabaseName:"$(databaseName)" `
           /TargetUser:"$(sqlUser)" `
-          /TargetPassword:"$(sqlPassword)"
-
+          /TargetPassword:"$(sqlPassword)"          
+          /p:DropObjectsNotInSource=true
+          /p:BlockOnPossibleDataLoss=true
   
   - task: PowerShell@2
     displayName: 'Run LOOKUP data integrity checks (non-blocking)'
