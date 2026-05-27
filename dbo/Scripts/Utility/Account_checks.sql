@@ -211,7 +211,7 @@ if db_name() = 'Account' drop table if exists xxxxx
 if db_name() = 'Account' drop table if exists xxxxx
 if db_name() = 'Account' drop table if exists xxxxx
 
-sp_helpconstraint 'account_type_role_mapping'
+sp_helpconstraint 'work_schedule'
 alter table dbo.account_type_permission_mapping drop constraint if exists FK_account_type_permission_mapping_account_type_role_mapping
 if db_name() = 'Account' drop table if exists account_type_role_mapping
 if db_name() = 'Account' drop table if exists control_table
@@ -229,3 +229,7 @@ if db_name() = 'Account' drop table if exists zzz_test_table_20260520_1215
 if db_name() = 'Account' drop table if exists zzz_test_table_20260522_1355_account_new
 if db_name() = 'Account' drop table if exists zzz_test_table_20260522_1355_accountb
 if db_name() = 'Account' drop table if exists zzz_test_table_20260522_1418_account
+
+
+fk_tenantinfo_work_schedule_code
+
