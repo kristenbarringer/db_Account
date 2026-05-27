@@ -183,3 +183,42 @@ SELECT * FROM dbo.dq_data_integrity_check WHERE CheckName = 'Wrong_rid_to_uuid' 
 
 select table_name, column_name from information_schema.columns where table_name in ('tenantinfo','user_accounts','role','account_details','contact','user_grid_view_preference','role_permission_mapping','dealer','asset','equipment','device','controller','device_sim'
 ) order by table_name, column_name
+
+select * from lookup_code where code like '%basic%'
+
+
+select * from information_schema.tables 
+where table_type = 'BASE TABLE'
+--and table_name not like 'zzz%' 
+and table_name not like 'lookup%' 
+and table_name not like 'dq%'
+and table_name not in ('xxx','xxx','xxx','xxx')
+order by table_name
+
+
+
+
+if db_name() = 'Account' drop table if exists account_type_role_mapping
+if db_name() = 'Account' drop table if exists xxxxx
+if db_name() = 'Account' drop table if exists xxxxx
+if db_name() = 'Account' drop table if exists xxxxx
+if db_name() = 'Account' drop table if exists xxxxx
+
+sp_helpconstraint 'account_type_role_mapping'
+alter table dbo.account_type_permission_mapping drop constraint if exists FK_account_type_permission_mapping_account_type_role_mapping
+if db_name() = 'Account' drop table if exists account_type_role_mapping
+if db_name() = 'Account' drop table if exists control_table
+if db_name() = 'Account' drop table if exists subscription_detail
+if db_name() = 'Account' drop table if exists tenant_subscription_mapping
+if db_name() = 'Account' drop table if exists user_type_permission_template
+if db_name() = 'Account' drop table if exists v1_contact
+if db_name() = 'Account' drop table if exists v1_user_change_log
+
+if db_name() = 'Account' drop table if exists zzz_test_20260524_1709_account
+if db_name() = 'Account' drop table if exists zzz_test_20260525_0832
+if db_name() = 'Account' drop table if exists zzz_test_added_to_Account_20260520
+if db_name() = 'Account' drop table if exists zzz_test_added_to_Account_20260520_1020
+if db_name() = 'Account' drop table if exists zzz_test_table_20260520_1215
+if db_name() = 'Account' drop table if exists zzz_test_table_20260522_1355_account_new
+if db_name() = 'Account' drop table if exists zzz_test_table_20260522_1355_accountb
+if db_name() = 'Account' drop table if exists zzz_test_table_20260522_1418_account

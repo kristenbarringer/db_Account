@@ -29,6 +29,7 @@ CREATE TABLE [dbo].[account_details]
     -- fk columns - to lookup code
     [account_type_code] VARCHAR (30) CONSTRAINT [df_account_details_type_code] DEFAULT ('ACT_CUSTOMER') NOT NULL,
     [phone_type_code] VARCHAR(30) NULL,
+    [default_role_code] VARCHAR (30) CONSTRAINT [df_account_default_role_code] DEFAULT ('ROL_BASIC') NOT NULL,
     -- bit flag columns
     [is_active] BIT CONSTRAINT [df_account_details_is_active] DEFAULT (1) NOT NULL,
     [is_door_sensor_1] BIT NULL,
@@ -94,6 +95,12 @@ ALTER TABLE [dbo].[account_details]
 GO
 CREATE NONCLUSTERED INDEX [ix_fk_account_details_phone_type_code] 
     ON [dbo].[account_details]([phone_type_code] ASC);
+GO
+ALTER TABLE [dbo].[account_details]
+    ADD CONSTRAINT [fk_account_details_default_role_code] FOREIGN KEY ([default_role_code]) REFERENCES [dbo].[lookup_code] ([code]);
+GO
+CREATE NONCLUSTERED INDEX [ix_fk_account_details_default_role_code] 
+    ON [dbo].[account_details]([default_role_code] ASC);
 GO
 -- other constraints and indexes 
 -- extended properties: table
