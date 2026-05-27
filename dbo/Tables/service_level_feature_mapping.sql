@@ -1,13 +1,14 @@
-CREATE TABLE [dbo].[service_level_feature_mapping] (
-    [rid]               INT           IDENTITY (1, 1) NOT NULL,
-    [service_level_rid] INT           NOT NULL,
-    [created]           DATETIME      NOT NULL,
-    [feature_code]      VARCHAR (100) NOT NULL
+CREATE TABLE [dbo].[service_level_feature_mapping]
+(
+    [rid] INT IDENTITY (1, 1) NOT NULL,
+    [service_level_code] VARCHAR(30) NOT NULL,
+    [created] DATETIME NOT NULL,
+    [feature_code] VARCHAR (100) NOT NULL
 );
 GO
 
-CREATE NONCLUSTERED INDEX [IDX_service_level_feature_mapping_service_level_rid]
-    ON [dbo].[service_level_feature_mapping]([service_level_rid] ASC);
+CREATE NONCLUSTERED INDEX [ix_service_level_feature_mapping_service_level_code]
+    ON [dbo].[service_level_feature_mapping]([service_level_code] ASC);
 GO
 
 ALTER TABLE [dbo].[service_level_feature_mapping]
@@ -15,7 +16,7 @@ ALTER TABLE [dbo].[service_level_feature_mapping]
 GO
 
 ALTER TABLE [dbo].[service_level_feature_mapping]
-    ADD CONSTRAINT [FK_service_level_feature_mapping_service_level] FOREIGN KEY ([service_level_rid]) REFERENCES [dbo].[service_level] ([service_level_rid]);
+    ADD CONSTRAINT [FK_service_level_feature_mapping_service_level] FOREIGN KEY ([service_level_code]) REFERENCES [dbo].[lookup_code] ([code]);
 GO
 
 ALTER TABLE [dbo].[service_level_feature_mapping]

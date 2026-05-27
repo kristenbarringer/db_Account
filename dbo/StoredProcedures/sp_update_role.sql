@@ -2,6 +2,8 @@
   @pipeline_run_id nvarchar(100)
   AS
   BEGIN
+  print 'TODO FIX THIS'
+  /* TODO FIX THIS
 	DROP TABLE IF EXISTS #admin_users;
     DROP TABLE IF EXISTS #customer_role_admin;
 	DROP TABLE IF EXISTS #basic_users;
@@ -98,7 +100,7 @@
 	 from account_details a left join user_accounts b on a.admin_user_rid = b.user_rid
 	 WHERE a.tenant_id IN (SELECT tenant_id FROM #admin_users);
 	
-
+*/
 end
 GO
 

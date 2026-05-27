@@ -1,7 +1,8 @@
 CREATE procedure [dbo].[control_table_max_rid]
 AS
 BEGIN
-
+print 'TODO FIX THIS'
+/* TODO FIX THIS
     DECLARE @maxaccount_detailsrid INT;
     SELECT @maxaccount_detailsrid = MAX(account_rid)
     FROM account_details;
@@ -13,7 +14,7 @@ BEGIN
     FROM user_accounts;
 
     UPDATE control_table set maxrid=@maxuser_accountsrid where destinationTable = 'user_accounts';
-
+*/
 END
 GO
 

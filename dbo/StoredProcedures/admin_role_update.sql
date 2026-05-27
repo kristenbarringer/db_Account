@@ -1,6 +1,8 @@
 CREATE PROCEDURE [dbo].[admin_role_update]
 as
 begin
+print 'TODO FIX THIS'
+/* TODO FIX THIS
 delete from role_permission_mapping where role_rid in (SELECT role_rid
 FROM role where tenant_id in (select tenant_id  from tenantinfo) and description = 'ADMIN')
 
@@ -128,6 +130,6 @@ END
 CLOSE tenant_role_admin
 DEALLOCATE tenant_role_admin
 
-end
+*/end
 GO
 

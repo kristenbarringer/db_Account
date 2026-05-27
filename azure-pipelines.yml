@@ -1,0 +1,146 @@
+trigger:
+  branches:
+    include:
+      - main
+      - create_pipeline_account
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  sqlServerName: 'asql-tkv2-eastus-dev.database.windows.net'
+  databaseName: 'Account'
+  projectPath: '**/*.sqlproj'
+
+steps:
+  - task: UseDotNet@2
+    displayName: 'Use .NET SDK'
+    inputs:
+      packageType: 'sdk'
+      version: '8.x'
+
+  - task: DownloadPipelineArtifact@2
+    displayName: 'Download Shared dacpac'
+    inputs:
+      buildType: 'specific'
+      project: 'TKATelematics'
+      definition: 'db_Shared'
+      buildVersionToDownload: 'latest'
+      artifactName: 'shared-dacpac'
+      targetPath: '$(Build.SourcesDirectory)/references'
+      
+  - task: DotNetCoreCLI@2
+    displayName: 'Build database project'
+    inputs:
+      command: 'build'
+      projects: '$(projectPath)'
+      arguments: '--configuration Release'
+
+  - task: CopyFiles@2
+    displayName: 'Copy dacpac to artifact staging'
+    inputs:
+      contents: '**/bin/Release/*.dacpac'
+      targetFolder: '$(Build.ArtifactStagingDirectory)'
+      flattenFolders: true
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish dacpac as artifact'
+    inputs:
+      pathToPublish: '$(Build.ArtifactStagingDirectory)'
+      artifactName: 'dacpac'
+
+  - task: PowerShell@2
+    displayName: 'Deploy Shared dacpac to Azure SQL Dev'
+    inputs:
+      targetType: 'inline'
+      script: |
+        dotnet tool install -g Microsoft.SqlPackage
+        $dacpac = Get-ChildItem -Path "$(Build.SourcesDirectory)/references" -Filter Shared.dacpac -Recurse -ErrorAction SilentlyContinue | Select-Object -First 1
+        if (-not $dacpac) {
+            Write-Error "Shared.dacpac not found in $(Build.SourcesDirectory)/references"
+            exit 1
+            }
+        Write-Host "Deploying shared dacpac: $($dacpac.FullName)"
+        SqlPackage /Action:Publish `
+          /SourceFile:"$($dacpac.FullName)" `
+          /TargetServerName:"$(sqlServerName)" `
+          /TargetDatabaseName:"$(databaseName)" `
+          /TargetUser:"$(sqlUser)" `
+          /TargetPassword:"$(sqlPassword)"
+
+  - task: PowerShell@2
+    displayName: 'Deploy Account dacpac to Azure SQL Dev'
+    inputs:
+      targetType: 'inline'
+      script: |
+        dotnet tool install -g Microsoft.SqlPackage
+        $dacpac = Get-ChildItem -Path "$(Build.ArtifactStagingDirectory)" -Filter *.dacpac -Recurse | Select-Object -First 1
+        Write-Host "Deploying $($dacpac.FullName)"
+        SqlPackage /Action:Publish `
+          /SourceFile:"$($dacpac.FullName)" `
+          /TargetServerName:"$(sqlServerName)" `
+          /TargetDatabaseName:"$(databaseName)" `
+          /TargetUser:"$(sqlUser)" `
+          /TargetPassword:"$(sqlPassword)"          
+  
+  - task: PowerShell@2
+    displayName: 'Run LOOKUP data integrity checks (non-blocking)'
+    continueOnError: true
+    inputs:
+      targetType: 'inline'
+      script: |
+        $connString = "Server=tcp:$(sqlServerName),1433;Database=$(databaseName);User ID=$(sqlUser);Password=$(sqlPassword);Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+
+        $conn = New-Object System.Data.SqlClient.SqlConnection($connString)
+        $conn.Open()
+
+        # Run the integrity check proc
+        $cmd = $conn.CreateCommand()
+        $cmd.CommandText = "EXEC dbo.usp_dq_data_integrity_check"
+        $cmd.CommandTimeout = 600
+        $cmd.ExecuteNonQuery() | Out-Null
+        Write-Host "Integrity check proc completed."
+
+        # Query the count of unresolved issues
+        $cmd.CommandText = "SELECT COUNT(*) FROM dbo.dq_data_integrity_check WHERE CheckName = 'WrongLookupList' AND ResolvedDate IS NULL"
+        $issueCount = $cmd.ExecuteScalar()
+
+        if ($issueCount -gt 0) {
+          Write-Host "##vso[task.logissue type=warning]Found $issueCount unresolved data integrity issue(s). Query SELECT * FROM dbo.dq_data_integrity_check WHERE CheckName = WrongLookupList AND ResolvedDate IS NULL for details."
+          Write-Host "##vso[task.complete result=SucceededWithIssues;]Pipeline succeeded with warnings."
+        } else {
+          Write-Host "No data integrity issues found."
+        }
+
+        $conn.Close()
+        
+  - task: PowerShell@2
+    displayName: 'Run UUID data integrity checks (non-blocking)'
+    continueOnError: true
+    inputs:
+      targetType: 'inline'
+      script: |
+        $connString = "Server=tcp:$(sqlServerName),1433;Database=$(databaseName);User ID=$(sqlUser);Password=$(sqlPassword);Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+
+        $conn = New-Object System.Data.SqlClient.SqlConnection($connString)
+        $conn.Open()
+
+        # Run the integrity check proc
+        $cmd = $conn.CreateCommand()
+        $cmd.CommandText = "EXEC dbo.usp_dq_data_integrity_rid_to_uuid_check"
+        $cmd.CommandTimeout = 600
+        $cmd.ExecuteNonQuery() | Out-Null
+        Write-Host "Integrity check proc completed."
+
+        # Query the count of unresolved issues
+        $cmd.CommandText = "SELECT COUNT(*) FROM dbo.dq_data_integrity_check WHERE CheckName = 'Wrong_rid_to_uuid' AND ResolvedDate IS NULL"
+        $issueCount = $cmd.ExecuteScalar()
+
+        if ($issueCount -gt 0) {
+          Write-Host "##vso[task.logissue type=warning]Found $issueCount unresolved data integrity issue(s). Query SELECT * FROM dbo.dq_data_integrity_check WHERE CheckName = Wrong_rid_to_uuid AND ResolvedDate IS NULL for details."
+          Write-Host "##vso[task.complete result=SucceededWithIssues;]Pipeline succeeded with warnings."
+        } else {
+          Write-Host "No data integrity issues found."
+        }
+
+        $conn.Close()

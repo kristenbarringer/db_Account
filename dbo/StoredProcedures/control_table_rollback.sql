@@ -2,6 +2,8 @@ CREATE procedure [dbo].[control_table_rollback]
   AS
   BEGIN
 
+print 'TODO FIX THIS'
+/* TODO FIX THIS
         DECLARE @deleteuser_accountsrid INT;
         SELECT @deleteuser_accountsrid = minrid
         FROM control_table where  destinationTable = 'user_accounts';
@@ -14,6 +16,6 @@ CREATE procedure [dbo].[control_table_rollback]
 
         DELETE from account_details where account_rid > @deleteaccount_detailsrid
 
-   END
+  */ END
 GO
 
