@@ -72,7 +72,5 @@ GO
 
  
 -- other constraints and indexes 
--- extended properties: table
--- extended properties: columns
--- ------------------------------------
+-- N/A
 -- END

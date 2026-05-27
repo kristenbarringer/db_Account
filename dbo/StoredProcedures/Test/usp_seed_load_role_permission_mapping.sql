@@ -28,11 +28,6 @@ BEGIN
     , ( NEWID(), '30B4F849-7138-4817-8F3B-DAB8AE5C9A54', '', @role_id, @role_uuid, @user_uuid, 'TEST DATA PROCESS ON DEV')
 
     
-
-
-
-
-
     DECLARE @rows INT = @@ROWCOUNT;
     PRINT CONCAT('usp_seed_load_role_perm: inserted ', @rows, ' row(s) into dbo.role_perm.');
 END;

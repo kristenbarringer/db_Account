@@ -103,19 +103,5 @@ CREATE NONCLUSTERED INDEX [ix_fk_account_details_default_role_code]
     ON [dbo].[account_details]([default_role_code] ASC);
 GO
 -- other constraints and indexes 
--- extended properties: table
-EXEC sys.sp_addextendedproperty  
-    @name = N'Description',  
-    @value = N'This table stores customer information.',  
-    @level0type = N'SCHEMA',  @level0name = N'dbo',  
-    @level1type = N'TABLE',   @level1name = N'account_details';
-GO
--- extended properties: columns
-EXEC sys.sp_addextendedproperty  
-    @name = N'Description',  
-    @value = N'Customer unique identifier',  
-    @level0type = N'SCHEMA',  @level0name = N'dbo',  
-    @level1type = N'TABLE',   @level1name = N'account_details',  
-    @level2type = N'COLUMN',  @level2name = N'account_rid';
-GO
--- ------------------------------------
+-- N/A
+-- END

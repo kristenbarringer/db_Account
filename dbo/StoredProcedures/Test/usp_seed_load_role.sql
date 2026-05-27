@@ -10,9 +10,7 @@ BEGIN
     BEGIN
         RAISERROR('usp_seed_load_role may only run on Dev servers. Current server: %s', 16, 1, @@SERVERNAME);
         RETURN;
-    END;
-
- 
+    END; 
 
  -- alter table role alter column [created_by_user_uuid] UNIQUEIDENTIFIER NULL 
    insert into role (role_uuid,  tenant_uuid, name, description, role_type_code, is_active, is_standard_role, created_date, updated_date,
@@ -27,11 +25,6 @@ BEGIN
   'TEST DATA PROCESS ON DEV', 1, GETDATE(), 1),
   (NEWID(),'30B4F849-7138-4817-8F3B-DAB8AE5C9A54', 'Admin', 'Admin role with all permissions', 'ROL_ADMIN', 1, 1, GETDATE(), GETDATE(), 
   'TEST DATA PROCESS ON DEV', 1, GETDATE(), 1)
-
-  
-
-
-
 
     DECLARE @rows INT = @@ROWCOUNT;
     PRINT CONCAT('usp_seed_load_role: inserted ', @rows, ' row(s) into dbo.role.');

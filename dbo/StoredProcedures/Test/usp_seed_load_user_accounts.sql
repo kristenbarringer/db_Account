@@ -1,4 +1,4 @@
-CREATE PROCEDURE [dbo].[usp_seed_load_user_accounts] 
+CREATE PROCEDURE [dbo].[usp_seed_load_user_accounts]
 AS
 BEGIN
 
@@ -12,14 +12,14 @@ BEGIN
     END;
 
     -- Flush-fill: clear existing data first
-  --  alter table dbo.user_accounts add notes varchar(255) null
+    --  alter table dbo.user_accounts add notes varchar(255) null
     DELETE FROM dbo.account_details where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV';
     DELETE FROM dbo.user_accounts where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV';
 
-  --  alter table dbo.user_accounts drop constraint if exists fk_user_accounts_nboarding_status_code
+    --  alter table dbo.user_accounts drop constraint if exists fk_user_accounts_nboarding_status_code
     -- alter table dbo.user_accounts add is_onboarded bit null
- drop table if exists #test_data
- select *   
+    drop table if exists #test_data
+    select *   
             , cast(null as varchar(50) ) as user_rid
             , cast(null as varchar(50) ) as user_name
             , cast(null as varchar(50) ) as first_name
@@ -49,25 +49,25 @@ BEGIN
             , cast(null as varchar(50) ) as onboarding_status
             , cast(null as varchar(50) ) as expires
             , cast(null as varchar(50) ) as migrated_data
-            , cast(null as varchar(50) ) as landing_page    
-    into #test_data 
-    from dbo.zzz_seed_test_data_customer
+            , cast(null as varchar(50) ) as landing_page
+    into #test_data
+    from dbo.test_seed_data_customer
 
---insert into dbo.lookup_code_list (lookup_list_code, lookup_list_short_desc, lookup_list_long_desc, lookup_list_abbrev, former_table_db, former_table_schema, former_table_name)
---values ('TOR_0','Tour Status','Tour Status','TOR','tk2_Accounts','dbo','NULL')
---insert into dbo.lookup_code (lookup_list_code, code, code_without_prefix_all_caps, code_without_prefix_camel_case, 
---short_desc, long_desc, notes, custom_col1_desc, custom_col1, custom_col2_desc, custom_col2, 
---custom_col3_desc, custom_col3, custom_col4_desc, custom_col4, former_code, former_code_2, is_active)
---VALUES 
---('TOR_0','TOR_0','1','1','1','1','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','0','NULL','1')
---,('TOR_0','TOR_1','1','1','1','1','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','1','NULL','1')
---,('TOR_0','TOR_2','1','1','1','1','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','2','NULL','1')
---,('TOR_0','TOR_3','1','1','1','1','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','3','NULL','1')
+    --insert into dbo.lookup_code_list (lookup_list_code, lookup_list_short_desc, lookup_list_long_desc, lookup_list_abbrev, former_table_db, former_table_schema, former_table_name)
+    --values ('TOR_0','Tour Status','Tour Status','TOR','tk2_Accounts','dbo','NULL')
+    --insert into dbo.lookup_code (lookup_list_code, code, code_without_prefix_all_caps, code_without_prefix_camel_case, 
+    --short_desc, long_desc, notes, custom_col1_desc, custom_col1, custom_col2_desc, custom_col2, 
+    --custom_col3_desc, custom_col3, custom_col4_desc, custom_col4, former_code, former_code_2, is_active)
+    --VALUES 
+    --('TOR_0','TOR_0','1','1','1','1','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','0','NULL','1')
+    --,('TOR_0','TOR_1','1','1','1','1','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','1','NULL','1')
+    --,('TOR_0','TOR_2','1','1','1','1','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','2','NULL','1')
+    --,('TOR_0','TOR_3','1','1','1','1','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','3','NULL','1')
 
     -- select * from lookup_code_list where lookup_list_code like '%tour%' or lookup_list_abbrev like '%TOR%'
-    
-   -- select *    FROM dbo.zzz_seed_test_data_customer 
-update #test_data 
+
+    -- select *    FROM dbo.test_seed_data_customer 
+    update #test_data 
     set user_rid = 'user_rid'
         ,user_name = 'jhsmith'
         ,first_name = 'John'
@@ -99,7 +99,7 @@ update #test_data
         ,migrated_data = 'migrated_data'
         ,landing_page = 'www.example.com'
 where name like '%Walmart%'
-update  #test_data 
+    update  #test_data 
     set user_rid = 'user_rid'
         ,user_name = 'jasmith'
         ,first_name = 'Jane'
@@ -130,7 +130,7 @@ update  #test_data
         ,expires = 'expires'
         ,migrated_data = 'migrated_data'
         ,landing_page = 'www.example.com'  where name like '%Prime%'
-update #test_data 
+    update #test_data 
     set user_rid = 'user_rid'
         ,user_name = 'bbunny'
         ,first_name = 'Bugs'
@@ -161,7 +161,7 @@ update #test_data
         ,expires = 'expires'
         ,migrated_data = 'migrated_data'
         ,landing_page = 'www.example.com'   where name like '%Hunt%'
-update #test_data 
+    update #test_data 
     set user_rid = 'user_rid'
         ,user_name = 'rrunner'
         ,first_name = 'Road'
@@ -192,7 +192,7 @@ update #test_data
         ,expires = 'expires'
         ,migrated_data = 'migrated_data'
         ,landing_page = 'www.example.com'   where name like '%Premier%'
-update #test_data 
+    update #test_data 
     set user_rid = 'user_rid'
         ,user_name = 'wcoyote'
         ,first_name = 'Wiley'
@@ -224,25 +224,26 @@ update #test_data
         ,migrated_data = 'migrated_data'
         ,landing_page = 'www.example.com'   where name like '%Martin%'
 
-        --select * from lookup_code where lookup_list_code like '%account_type%'
-        -- select * from lookup_code where lookup_list_code like '%user_status%'
-        -- select * from lookup_code where lookup_list_code like '%phone_type%'
- --select top 100 * from dbo.user_accounts where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV' order by tenant_uuid asc
- -- [usp_seed_load_user_accounts]
- --select * from dbo.user_accounts
- declare @role_rid int
-select @role_rid = max(role_rid) from dbo.role
+    --select * from lookup_code where lookup_list_code like '%account_type%'
+    -- select * from lookup_code where lookup_list_code like '%user_status%'
+    -- select * from lookup_code where lookup_list_code like '%phone_type%'
+    --select top 100 * from dbo.user_accounts where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV' order by tenant_uuid asc
+    -- [usp_seed_load_user_accounts]
+    --select * from dbo.user_accounts
+    declare @role_rid int
+    select @role_rid = max(role_rid)
+    from dbo.role
 
---alter table dbo.user_accounts drop column object_id
- --select * from information_schema.columns where TABLE_NAME = 'user_accounts' and TABLE_SCHEMA = 'dbo' order by ORDINAL_POSITION
+    --alter table dbo.user_accounts drop column object_id
+    --select * from information_schema.columns where TABLE_NAME = 'user_accounts' and TABLE_SCHEMA = 'dbo' order by ORDINAL_POSITION
     INSERT INTO dbo.user_accounts
-    (
+        (
         -- user_rid
         user_name
         ,first_name
         ,last_name
         ,account_type_code
-          ,tenant_uuid
+        ,tenant_uuid
         ,role_rid
         ,active
         ,created
@@ -268,17 +269,17 @@ select @role_rid = max(role_rid) from dbo.role
         ,is_migrated_data
         ,landing_page
         ,notes
-    )
+        )
     SELECT
-      --user_rid
-      user_name
+        --user_rid
+        user_name
     , first_name
     , last_name
     , 'ACT_CUSTOMER' as account_type_code
 
   
-      ,  c.tenant_uuid      AS tenant_uuid
-    ,@role_rid as role_rid
+      , c.tenant_uuid      AS tenant_uuid
+    , @role_rid as role_rid
     , active
     , '1/1/1900' as created
     , email_address
@@ -299,15 +300,15 @@ select @role_rid = max(role_rid) from dbo.role
     , 'TMZ_AMERICA_PHOENIX' as timezone_code
     , 'THM_DARK' as theme_code
     , tour_status as tour_status
-    ,  1 as is_onboarded
+    , 1 as is_onboarded
     , '1/1/1900' as expires
     , 0 as migrated_data
     , landing_page
-    ,'TEST DATA PROCESS ON DEV'
+    , 'TEST DATA PROCESS ON DEV'
     FROM #test_data c
 
     DECLARE @rows INT = @@ROWCOUNT;
     PRINT CONCAT('usp_seed_load_user_accounts: inserted ', @rows, ' row(s) into dbo.user_accounts.');
 END;
 GO
--- select * from zzz_seed_test_data_customer
+-- select * from test_seed_data_customer

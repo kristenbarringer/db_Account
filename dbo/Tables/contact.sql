@@ -99,23 +99,7 @@ CREATE NONCLUSTERED INDEX [ix_fk_contact_fuel_type_code]
   ON [dbo].[contact]([fuel_type_code] ASC); 
   GO
 -- other constraints and indexes 
--- extended properties: table
-EXEC sys.sp_addextendedproperty  
-    @name = N'Description',  
-    @value = N'This table stores customer information.',  
-    @level0type = N'SCHEMA',  @level0name = N'dbo',  
-    @level1type = N'TABLE',   @level1name = N'contact';
-GO
--- extended properties: columns
-EXEC sys.sp_addextendedproperty  
-    @name = N'Description',  
-    @value = N'Customer unique identifier',  
-    @level0type = N'SCHEMA',  @level0name = N'dbo',  
-    @level1type = N'TABLE',   @level1name = N'contact',  
-    @level2type = N'COLUMN',  @level2name = N'contact_rid';
-GO
- 
--- ------------------------------------
+-- N/A
 -- END
 
   

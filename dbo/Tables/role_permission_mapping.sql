@@ -59,20 +59,6 @@ CREATE NONCLUSTERED INDEX [ix_fk_role_permission_mapping_user_rid]
   GO
 -- fks - to lookup code
 -- other constraints and indexes 
--- extended properties: table
-EXEC sys.sp_addextendedproperty  
-    @name = N'Description',  
-    @value = N'This table stores customer information.',  
-    @level0type = N'SCHEMA',  @level0name = N'dbo',  
-    @level1type = N'TABLE',   @level1name = N'role_permission_mapping';
-GO
--- extended properties: columns
-EXEC sys.sp_addextendedproperty  
-    @name = N'Description',  
-    @value = N'Customer unique identifier',  
-    @level0type = N'SCHEMA',  @level0name = N'dbo',  
-    @level1type = N'TABLE',   @level1name = N'role_permission_mapping',  
-    @level2type = N'COLUMN',  @level2name = N'role_permission_mapping_rid';
-GO
--- ------------------------------------
+-- N/A
+-- END
  
