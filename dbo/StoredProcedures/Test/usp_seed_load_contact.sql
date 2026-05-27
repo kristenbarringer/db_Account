@@ -34,11 +34,6 @@ BEGIN
         ('30B4F849-7138-4817-8F3B-DAB8AE5C9A54', 'John', 'Smith', @user_uuid, @user_uuid, 'LNG_ENUS', 'TEST DATA PROCESS ON DEV')
 
 
-
-
-
-
-
     DECLARE @rows INT = @@ROWCOUNT;
     PRINT CONCAT('usp_seed_load_contact: inserted ', @rows, ' row(s) into dbo.contact.');
 END;

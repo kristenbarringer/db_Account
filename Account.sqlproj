@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <None Include="dbo\Scripts\Utility*" />
-    <None Include="dbo\Scripts\Utility\checks_account.sql" />
     <None Include="dbo\Scripts\Utility\Account_checks.sql" />
   </ItemGroup>
   <ItemGroup>
