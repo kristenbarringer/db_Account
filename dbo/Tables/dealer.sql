@@ -5,6 +5,7 @@ CREATE TABLE [dbo].[dealer]
     [dealer_uuid] UNIQUEIDENTIFIER CONSTRAINT [df_dealer_id] DEFAULT (NEWID()) NOT NULL,
     [dealer_rid] INT IDENTITY (1, 1) NOT NULL,
 -- fk columns - to tenant
+    [tenant_uuid] UNIQUEIDENTIFIER  NOT NULL,
 -- main attribute columns of this entity 
     [name] VARCHAR (50) NULL,
     [address] VARCHAR (50) NULL,
@@ -45,9 +46,35 @@ ALTER TABLE dbo.[dealer]
 ADD CONSTRAINT uk_dealer_uuid UNIQUE ([dealer_uuid]);
 GO
 -- fks - to tenant
+ALTER TABLE [dbo].[dealer] ADD CONSTRAINT [fk_dealer_tenant_uuid] FOREIGN KEY ([tenant_uuid]) REFERENCES [dbo].[tenantinfo] ([tenant_uuid]); 
+ GO
+CREATE NONCLUSTERED INDEX [ix_fk_dealer_tenant_uuid] 
+  ON [dbo].[dealer]([tenant_uuid] ASC); 
+  GO
 -- fks - to user
+ALTER TABLE [dbo].[dealer]
+    ADD CONSTRAINT [fk_dealer_created_by_user_uuid] FOREIGN KEY ([created_by_user_uuid]) REFERENCES [dbo].[user_accounts] ([user_uuid]);
+GO
+CREATE NONCLUSTERED INDEX [ix_fk_dealer_created_by_user_uuid] -- add explicit index for the FK column, to improve join performance
+    ON [dbo].[dealer]([created_by_user_uuid] ASC);
+GO
+
+ALTER TABLE [dbo].[dealer]
+    ADD CONSTRAINT [fk_dealer_updated_by_user_uuid] FOREIGN KEY ([updated_by_user_uuid]) REFERENCES [dbo].[user_accounts] ([user_uuid]);
+GO
+CREATE NONCLUSTERED INDEX [ix_fk_dealer_updated_by_user_uuid] -- add explicit index for the FK column, to improve join performance
+    ON [dbo].[dealer]([updated_by_user_uuid] ASC);
+GO
+
 -- fks - other main fks
 -- fks - to lookup code
+
+ALTER TABLE [dbo].[dealer]
+    ADD CONSTRAINT [fk_dealer_dealer_type] FOREIGN KEY ([dealer_type_code]) REFERENCES [dbo].[lookup_code] ([code]);
+GO
+CREATE NONCLUSTERED INDEX [ix_fk_dealer_dealer_type_code] 
+    ON [dbo].[dealer]([dealer_type_code] ASC);
+GO
 -- other constraints and indexes 
 -- extended properties: table
 -- extended properties: columns
