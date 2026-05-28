@@ -3,6 +3,7 @@ trigger:
     include:
       - main
       - create_pipeline_account
+      - dm_changes
 
 pool:
   vmImage: 'windows-latest'
@@ -83,6 +84,48 @@ steps:
           /TargetUser:"$(sqlUser)" `
           /TargetPassword:"$(sqlPassword)"          
   
+  
+  - task: PowerShell@2
+    displayName: 'Update extended properties'
+    continueOnError: true
+    inputs:
+      targetType: 'inline'
+      script: |
+        $connString = "Server=tcp:$(sqlServerName),1433;Database=$(databaseName);User ID=$(sqlUser);Password=$(sqlPassword);Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+
+        $conn = New-Object System.Data.SqlClient.SqlConnection($connString)
+        $conn.Open()
+
+        # Run the integrity check proc
+        $cmd = $conn.CreateCommand()
+        $cmd.CommandText = "EXEC dbo.usp_update_extended_properties"
+        $cmd.CommandTimeout = 600
+        $cmd.ExecuteNonQuery() | Out-Null
+        Write-Host "Integrity check proc completed."
+
+        $conn.Close()        
+
+  - task: PowerShell@2
+    displayName: 'Populate test data on DEV'
+    continueOnError: true
+    inputs:
+      targetType: 'inline'
+      script: |
+        $connString = "Server=tcp:$(sqlServerName),1433;Database=$(databaseName);User ID=$(sqlUser);Password=$(sqlPassword);Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+
+        $conn = New-Object System.Data.SqlClient.SqlConnection($connString)
+        $conn.Open()
+
+        # Run the integrity check proc
+        $cmd = $conn.CreateCommand()
+        $cmd.CommandText = "EXEC dbo.usp_seed_load_all"
+        $cmd.CommandTimeout = 600
+        $cmd.ExecuteNonQuery() | Out-Null
+        Write-Host "Integrity check proc completed."
+
+        $conn.Close()
+
+
   - task: PowerShell@2
     displayName: 'Run LOOKUP data integrity checks (non-blocking)'
     continueOnError: true

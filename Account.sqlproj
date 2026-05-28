@@ -13,7 +13,7 @@
 
   <ItemGroup>
     <None Include="dbo\Scripts\Utility*" />
-    <None Include="dbo\Scripts\Utility\Account_checks.sql" />
+    <None Include="dbo\Scripts\Utility\*" />
   </ItemGroup>
   <ItemGroup>
     <ArtifactReference Include="references\Shared.dacpac">
