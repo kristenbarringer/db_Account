@@ -16,6 +16,9 @@ BEGIN
         RETURN;
     END;
 
+    PRINT '=== Starting seed data reset ===';
+    exec dbo.usp_seed_reset_all
+
     PRINT '=== Starting seed data load ===';
     
     EXEC dbo.usp_seed_load_tenantinfo;
