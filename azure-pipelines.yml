@@ -2,8 +2,7 @@ trigger:
   branches:
     include:
       - main
-      - create_pipeline_account
-      - dm_changes
+      - Story150432_Sprint2026K_RefactorAzureSQL
 
 pool:
   vmImage: 'windows-latest'
