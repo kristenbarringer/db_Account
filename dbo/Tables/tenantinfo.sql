@@ -1,4 +1,4 @@
-CREATE TABLE [dbo].[tenantinfo]
+CREATE TABLE [dbo].[tenantinfo] -- (TODO - tenantinfo is only used for migration.  account_details is the source)
 (
     -- ------------------------------------
     -- pks and main uq columns

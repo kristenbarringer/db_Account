@@ -43,7 +43,7 @@ BEGIN
   --select * from dbo.user_accounts
   INSERT INTO dbo.account_details
     (
-    [account_uuid],
+    --[account_uuid],
     -- [account_rid],
     [organization],
 
@@ -70,7 +70,7 @@ BEGIN
     notes
     )
   SELECT
-    NEWID() as account_uuid,
+    --NEWID() as account_uuid,
     -- xxxx as account_rid,
     c.name as organization,
 

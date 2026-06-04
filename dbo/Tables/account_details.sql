@@ -2,10 +2,8 @@ CREATE TABLE [dbo].[account_details]
 (
     -- ------------------------------------
     -- pks and main uq columns
-    [account_uuid] UNIQUEIDENTIFIER CONSTRAINT [df_account_details_id] DEFAULT (NEWID()) NOT NULL,
-    [account_rid] INT IDENTITY (1, 1) NOT NULL,
-    -- fk columns - to tenant
     [tenant_uuid] UNIQUEIDENTIFIER  NOT NULL,
+    [customer_rid] INT IDENTITY (1, 1) NOT NULL,
     -- main attribute columns of this entity
     [organization] NVARCHAR (100) NOT NULL,
     [company_address] NVARCHAR (200) NULL,
@@ -57,17 +55,17 @@ GO
 -- ------------------------------------
 -- pks and main uq indexes
 ALTER TABLE [dbo].[account_details]
-    ADD CONSTRAINT [cix_account_details_rid] PRIMARY KEY CLUSTERED ([account_rid] ASC) WITH (FILLFACTOR = 100, DATA_COMPRESSION = PAGE);
+    ADD CONSTRAINT [cix_account_details_tenant_uuid] PRIMARY KEY CLUSTERED ([tenant_uuid] ASC) WITH (FILLFACTOR = 100, DATA_COMPRESSION = PAGE);
 GO
 ALTER TABLE dbo.[account_details]
-ADD CONSTRAINT uk_account_details_uuid UNIQUE ([account_uuid]);
+ADD CONSTRAINT uk_account_details_customer_rid UNIQUE ([customer_rid]);
 GO
--- fks - to tenant
-ALTER TABLE [dbo].[account_details] ADD CONSTRAINT [fk_account_details_tenant_uuid] FOREIGN KEY ([tenant_uuid]) REFERENCES [dbo].[tenantinfo] ([tenant_uuid]); 
- GO
-CREATE NONCLUSTERED INDEX [ix_fk_account_details_tenant_uuid] 
-  ON [dbo].[account_details]([tenant_uuid] ASC); 
-  GO
+-- -- fks - to tenant -- TODO no FK needed.  account = customer = tenant.  (TODO - tenantinfo is only used for migration.  account_details is the source)
+-- ALTER TABLE [dbo].[account_details] ADD CONSTRAINT [fk_account_details_tenant_uuid] FOREIGN KEY ([tenant_uuid]) REFERENCES [dbo].[tenantinfo] ([tenant_uuid]); 
+--  GO
+-- CREATE NONCLUSTERED INDEX [ix_fk_account_details_tenant_uuid] 
+--   ON [dbo].[account_details]([tenant_uuid] ASC); 
+--   GO
 
 -- fks - to user
 ALTER TABLE [dbo].[account_details]
