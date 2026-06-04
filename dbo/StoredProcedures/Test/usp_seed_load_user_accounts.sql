@@ -3,7 +3,10 @@ AS
 BEGIN
 
     SET NOCOUNT ON;
-
+   -- delete from dbo.contact
+   -- delete from dbo.dealer
+   -- delete from dbo.role_permission_mapping
+   -- delete from dbo.user_grid_view_preference
     -- Guard: only allow on Dev servers
     IF @@SERVERNAME NOT LIKE '%dev%'
     BEGIN
