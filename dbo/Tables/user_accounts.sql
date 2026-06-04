@@ -10,7 +10,7 @@ CREATE TABLE [dbo].[user_accounts]
     [user_name] NVARCHAR (200) NULL,
     [first_name] NVARCHAR (50) CONSTRAINT [df_user_accounts_first_name] DEFAULT ('Tracking') NOT NULL,
     [last_name] NVARCHAR (50) CONSTRAINT [df_user_accounts_last_name] DEFAULT ('User') NOT NULL,
-    [email_address] NVARCHAR (50) NOT NULL,
+    [email_address] NVARCHAR (300) NOT NULL,
     [phone_number] NVARCHAR (50) NULL,
     [phone_extension] INT NULL,
     [title] NVARCHAR (200) NULL,
