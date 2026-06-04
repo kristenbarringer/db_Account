@@ -2,7 +2,7 @@ CREATE TABLE [dbo].[role_permission_mapping]
 (
     -- ------------------------------------
     -- pks and main uq columns
-    [role_permission_mapping_uuid] UNIQUEIDENTIFIER CONSTRAINT [df_role_permission_mapping_id] DEFAULT (NEWID()) NOT NULL,
+    [role_permission_mapping_uuid] UNIQUEIDENTIFIER CONSTRAINT [df_role_permission_mapping_uuid] DEFAULT (NEWID()) NOT NULL,
     [role_permission_mapping_rid] INT IDENTITY (1, 1) NOT NULL,
     -- fk columns - to tenant
     [tenant_uuid] UNIQUEIDENTIFIER  NOT NULL,
@@ -28,10 +28,10 @@ GO
 -- ------------------------------------
 -- pks and main uq indexes
 ALTER TABLE [dbo].[role_permission_mapping]
-    ADD CONSTRAINT [cix_role_permission_mapping_rid] PRIMARY KEY CLUSTERED ([role_permission_mapping_rid] ASC) WITH (FILLFACTOR = 100, DATA_COMPRESSION = PAGE);
+    ADD CONSTRAINT [cix_role_permission_mapping_uuid] PRIMARY KEY CLUSTERED ([role_permission_mapping_uuid] ASC) WITH (FILLFACTOR = 100, DATA_COMPRESSION = PAGE);
 GO
 ALTER TABLE dbo.[role_permission_mapping]
-ADD CONSTRAINT uk_role_permission_mapping_uuid UNIQUE ([role_permission_mapping_uuid]);
+ADD CONSTRAINT uk_role_permission_mapping_rid UNIQUE ([role_permission_mapping_rid]);
 GO
 -- fks - to tenant
 ALTER TABLE [dbo].[role_permission_mapping] ADD CONSTRAINT [fk_role_permission_mapping_tenant_uuid] FOREIGN KEY ([tenant_uuid]) REFERENCES [dbo].[tenantinfo] ([tenant_uuid]); 

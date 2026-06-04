@@ -34,10 +34,10 @@ GO
 -- ------------------------------------
 -- pks and main uq indexes
 ALTER TABLE [dbo].[role]
-    ADD CONSTRAINT [cix_role_rid] PRIMARY KEY CLUSTERED ([role_rid] ASC) WITH (FILLFACTOR = 100, DATA_COMPRESSION = PAGE);
+    ADD CONSTRAINT [cix_role_uuid] PRIMARY KEY CLUSTERED ([role_uuid] ASC) WITH (FILLFACTOR = 100, DATA_COMPRESSION = PAGE);
 GO
 ALTER TABLE dbo.[role]
-ADD CONSTRAINT uk_role_uuid UNIQUE ([role_uuid]);
+ADD CONSTRAINT uk_role_rid UNIQUE ([role_rid]);
 GO
 -- fks - to tenant
 ALTER TABLE [dbo].[role] ADD CONSTRAINT [fk_role_tenant_uuid] FOREIGN KEY ([tenant_uuid]) REFERENCES [dbo].[tenantinfo] ([tenant_uuid]); 

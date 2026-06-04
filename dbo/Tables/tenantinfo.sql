@@ -42,7 +42,7 @@ GO
 ALTER TABLE [dbo].[tenantinfo]
     ADD CONSTRAINT [cix_tenantinfo_tenant_uuid] PRIMARY KEY CLUSTERED ([tenant_uuid] ASC) WITH (FILLFACTOR = 100, DATA_COMPRESSION = PAGE);
 GO
--- fks - to tenant
+-- fks - to tenant   
 -- N/A
 -- fks - to user -- TODO this creates a circular dependency so let's rethink this
 -- ALTER TABLE [dbo].[tenantinfo]

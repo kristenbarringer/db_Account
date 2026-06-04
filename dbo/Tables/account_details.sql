@@ -54,7 +54,7 @@ CREATE TABLE [dbo].[account_details]
 GO
 -- ------------------------------------
 -- pks and main uq indexes
-ALTER TABLE [dbo].[account_details]
+ALTER TABLE [dbo].[account_details]  
     ADD CONSTRAINT [cix_account_details_tenant_uuid] PRIMARY KEY CLUSTERED ([tenant_uuid] ASC) WITH (FILLFACTOR = 100, DATA_COMPRESSION = PAGE);
 GO
 ALTER TABLE dbo.[account_details]

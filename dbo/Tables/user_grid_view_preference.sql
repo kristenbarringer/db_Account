@@ -3,7 +3,7 @@ CREATE TABLE [dbo].[user_grid_view_preference]
 (
     -- ------------------------------------
     -- pks and main uq columns
-    [user_grid_view_preference_uuid] UNIQUEIDENTIFIER CONSTRAINT [df_user_grid_view_preference_id] DEFAULT (NEWID()) NOT NULL,
+    [user_grid_view_preference_uuid] UNIQUEIDENTIFIER CONSTRAINT [df_user_grid_view_preference_uuid] DEFAULT (NEWID()) NOT NULL,
     [user_grid_view_preference_rid] INT IDENTITY (1, 1) NOT NULL,
     -- fk columns - to tenant
     [tenant_uuid] UNIQUEIDENTIFIER  NOT NULL,
@@ -32,10 +32,10 @@ GO
 -- ------------------------------------
 -- pks and main uq indexes
 ALTER TABLE [dbo].[user_grid_view_preference]
-    ADD CONSTRAINT [cix_user_grid_view_preference_rid] PRIMARY KEY CLUSTERED ([user_grid_view_preference_rid] ASC) WITH (FILLFACTOR = 100, DATA_COMPRESSION = PAGE);
+    ADD CONSTRAINT [cix_user_grid_view_preference_uuid] PRIMARY KEY CLUSTERED ([user_grid_view_preference_uuid] ASC) WITH (FILLFACTOR = 100, DATA_COMPRESSION = PAGE);
 GO
 ALTER TABLE dbo.[user_grid_view_preference]
-ADD CONSTRAINT uk_user_grid_view_preference_uuid UNIQUE ([user_grid_view_preference_uuid]);
+ADD CONSTRAINT uk_user_grid_view_preference_rid UNIQUE ([user_grid_view_preference_rid]);
 GO
 -- fks - to tenant
 ALTER TABLE [dbo].[user_grid_view_preference] ADD CONSTRAINT [fk_user_grid_view_pref_tenant_uuid] FOREIGN KEY ([tenant_uuid]) REFERENCES [dbo].[tenantinfo] ([tenant_uuid]); 

@@ -43,10 +43,10 @@ GO
 -- ------------------------------------
 -- pks and main uq indexes
 ALTER TABLE [dbo].[contact]
-    ADD CONSTRAINT [cix_contact_rid] PRIMARY KEY CLUSTERED ([contact_rid] ASC) WITH (FILLFACTOR = 100, DATA_COMPRESSION = PAGE);
+    ADD CONSTRAINT [cix_contact_uuid] PRIMARY KEY CLUSTERED ([contact_uuid] ASC) WITH (FILLFACTOR = 100, DATA_COMPRESSION = PAGE);
 GO
 ALTER TABLE dbo.[contact]
-ADD CONSTRAINT uk_contact_uuid UNIQUE ([contact_uuid]);
+ADD CONSTRAINT uk_contact_rid UNIQUE ([contact_rid]);
 GO
 -- fks - to tenant
 ALTER TABLE [dbo].[contact] ADD CONSTRAINT [fk_contact_tenant_uuid] FOREIGN KEY ([tenant_uuid]) REFERENCES [dbo].[tenantinfo] ([tenant_uuid]); 

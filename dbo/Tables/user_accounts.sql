@@ -53,10 +53,10 @@ GO
 -- ------------------------------------
 -- pks and main uq indexes
 ALTER TABLE [dbo].[user_accounts]
-    ADD CONSTRAINT [cix_user_rid] PRIMARY KEY CLUSTERED ([user_rid] ASC) WITH (FILLFACTOR = 100, DATA_COMPRESSION = PAGE);
+    ADD CONSTRAINT [cix_user_uuid] PRIMARY KEY CLUSTERED ([user_uuid] ASC) WITH (FILLFACTOR = 100, DATA_COMPRESSION = PAGE);
 GO
 ALTER TABLE dbo.[user_accounts]
-ADD CONSTRAINT uk_user_uuid UNIQUE ([user_uuid]);
+ADD CONSTRAINT uk_user_rid UNIQUE ([user_rid]);
 GO
 -- fks - to tenant
 ALTER TABLE [dbo].[user_accounts] ADD CONSTRAINT [fk_user_accounts_tenant_uuid] FOREIGN KEY ([tenant_uuid]) REFERENCES [dbo].[tenantinfo] ([tenant_uuid]); 
