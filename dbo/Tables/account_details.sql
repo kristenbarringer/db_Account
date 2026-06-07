@@ -2,7 +2,7 @@ CREATE TABLE [dbo].[account_details]
 (
     -- ------------------------------------
     -- pks and main uq columns
-    [tenant_uuid] UNIQUEIDENTIFIER  NOT NULL,
+    [tenant_uuid] UNIQUEIDENTIFIER NOT NULL,
     [customer_rid] INT IDENTITY (1, 1) NOT NULL,
     -- main attribute columns of this entity
     [organization] NVARCHAR (100) NOT NULL,
@@ -18,10 +18,22 @@ CREATE TABLE [dbo].[account_details]
     [state] NVARCHAR (50) NULL,
     [phone_extension] INT NULL,
     [country] NVARCHAR (50) NULL,
-    -- fk columns - other main fks
-    [dealer_rid] INT NULL,
-    -- TODO came from customer_dealer_mapping 
-    [dealer_uuid] UNIQUEIDENTIFIER NULL,
+    -- fk columns - other main fks    
+    /*
+        The CSM-->Dealer-->Customer hierarchy goes from:
+            v1                              v2
+                CSM (tk_service_manager)        All three stored in account_details?
+                    |
+                    V
+                Dealer (tk_dealer)
+                    |
+                    V
+                Customer (tk_customer)
+    */
+    [dealer_uuid] UNIQUEIDENTIFIER NULL,-- TODO came from customer_dealer_mapping 
+    [dealer_rid] INT NULL,-- TODO came from customer_dealer_mapping 
+    [csm_uuid] UNIQUEIDENTIFIER NULL, -- TODO do we need this?  This is for tk_Admin and tk_Master (formerly known as celtrak_service_manager, a.k.a. "CSM")
+    [csm_rid] INT NULL, -- TODO do we need this?  This is for tk_Admin and tk_Master (formerly known as celtrak_service_manager, a.k.a. "CSM")
     -- TODO came from customer_dealer_mapping  
     -- customer_rid and dealer_rid were both ints in account_details.  In most cases a customer only has one device.  There was some bad data on Dev resulting in a few dupes.
     -- fk columns - to lookup code

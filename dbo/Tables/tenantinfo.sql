@@ -1,8 +1,9 @@
 CREATE TABLE [dbo].[tenantinfo] -- (TODO - tenantinfo is only used for migration.  account_details is the source)
+-- TODO I don't understand why this table is needed - why not just use account_details?
 (
     -- ------------------------------------
     -- pks and main uq columns
-    [tenant_uuid] UNIQUEIDENTIFIER CONSTRAINT [df_tenantinfo_tenant_uuid] DEFAULT (NEWID()) NOT NULL,
+    [tenant_uuid] UNIQUEIDENTIFIER NOT NULL,
     -- fk columns - to tenant
     -- N/A
     -- main attribute columns of this entity 

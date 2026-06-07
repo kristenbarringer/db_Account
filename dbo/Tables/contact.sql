@@ -3,7 +3,7 @@ CREATE TABLE [dbo].[contact]
 (
     -- ------------------------------------
     -- pks and main uq columns
-    [contact_uuid] UNIQUEIDENTIFIER CONSTRAINT [df_contact_id] DEFAULT (NEWID()) NOT NULL,
+    [contact_uuid] UNIQUEIDENTIFIER NOT NULL,
     [contact_rid] INT IDENTITY (1, 1) NOT NULL,
     -- fk columns - to tenant
     [tenant_uuid] UNIQUEIDENTIFIER  NOT NULL,

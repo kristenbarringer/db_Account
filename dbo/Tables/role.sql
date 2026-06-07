@@ -2,7 +2,7 @@ CREATE TABLE [dbo].[role]
 (
     -- ------------------------------------
     -- pks and main uq columns
-    [role_uuid] UNIQUEIDENTIFIER CONSTRAINT [df_role_id] DEFAULT (NEWID()) NOT NULL,
+    [role_uuid] UNIQUEIDENTIFIER NOT NULL,
     [role_rid] INT IDENTITY (1, 1) NOT NULL,
     -- fk columns - to tenant
     [tenant_uuid] UNIQUEIDENTIFIER NOT NULL,

@@ -2,7 +2,7 @@ CREATE TABLE [dbo].[user_accounts]
 (
     -- ------------------------------------
     -- pks and main uq columns
-    [user_uuid] UNIQUEIDENTIFIER CONSTRAINT [df_user_accounts_id] DEFAULT (NEWID()) NOT NULL,
+    [user_uuid] UNIQUEIDENTIFIER NOT NULL,
     [user_rid] INT IDENTITY (1, 1) NOT NULL,
     -- fk columns - to tenant
     [tenant_uuid] UNIQUEIDENTIFIER NOT NULL,

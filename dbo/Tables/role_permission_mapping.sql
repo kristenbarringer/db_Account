@@ -2,7 +2,7 @@ CREATE TABLE [dbo].[role_permission_mapping]
 (
     -- ------------------------------------
     -- pks and main uq columns
-    [role_permission_mapping_uuid] UNIQUEIDENTIFIER CONSTRAINT [df_role_permission_mapping_uuid] DEFAULT (NEWID()) NOT NULL,
+    [role_permission_mapping_uuid] UNIQUEIDENTIFIER NOT NULL,
     [role_permission_mapping_rid] INT IDENTITY (1, 1) NOT NULL,
     -- fk columns - to tenant
     [tenant_uuid] UNIQUEIDENTIFIER  NOT NULL,

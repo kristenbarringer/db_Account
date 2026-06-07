@@ -70,7 +70,7 @@ BEGIN
     notes
     )
   SELECT
-    --NEWID() as account_uuid,
+  
     -- xxxx as account_rid,
     c.name as organization,
 

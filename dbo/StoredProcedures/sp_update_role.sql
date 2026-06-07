@@ -36,7 +36,7 @@
 
     );
 	CREATE TABLE cosmos_table (
-        id  VARCHAR(255) DEFAULT (NEWID()),
+        id  VARCHAR(255),
 		tenant_id VARCHAR(255),
 		adminName nvarchar(100),
 		organization nvarchar(200),

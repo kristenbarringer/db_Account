@@ -3,7 +3,7 @@ CREATE TABLE [dbo].[user_grid_view_preference]
 (
     -- ------------------------------------
     -- pks and main uq columns
-    [user_grid_view_preference_uuid] UNIQUEIDENTIFIER CONSTRAINT [df_user_grid_view_preference_uuid] DEFAULT (NEWID()) NOT NULL,
+    [user_grid_view_preference_uuid] UNIQUEIDENTIFIER NOT NULL,
     [user_grid_view_preference_rid] INT IDENTITY (1, 1) NOT NULL,
     -- fk columns - to tenant
     [tenant_uuid] UNIQUEIDENTIFIER  NOT NULL,
