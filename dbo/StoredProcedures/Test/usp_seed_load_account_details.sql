@@ -48,7 +48,7 @@ BEGIN
     -- [account_rid],
     [organization],
 
-    [tenant_uuid],
+    [tenant_uuid],customer_rid,
     [company_address],
     [additional_address],
     [zip_code],
@@ -75,7 +75,7 @@ BEGIN
     -- xxxx as account_rid,
     c.name as organization,
 
-    c.tenant_uuid      AS tenant_id,
+    c.tenant_uuid      AS tenant_id, rid,
     address_1 as company_address,
     additional_address2 as additional_address,
     '60803' as zip_code,

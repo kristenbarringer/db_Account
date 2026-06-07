@@ -3,7 +3,7 @@ CREATE TABLE [dbo].[account_details]
     -- ------------------------------------
     -- pks and main uq columns
     [tenant_uuid] UNIQUEIDENTIFIER NOT NULL,
-    [customer_rid] INT IDENTITY (1, 1) NOT NULL,
+    [customer_rid] INT NOT NULL,
     -- main attribute columns of this entity
     [organization] NVARCHAR (100) NOT NULL,
     [company_address] NVARCHAR (200) NULL,
