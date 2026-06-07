@@ -241,8 +241,8 @@ where name like '%Walmart%'
     --select * from information_schema.columns where TABLE_NAME = 'user_accounts' and TABLE_SCHEMA = 'dbo' order by ORDINAL_POSITION
     INSERT INTO dbo.user_accounts
         (
-        -- user_rid
-        user_name
+         user_uuid
+        ,user_name
         ,first_name
         ,last_name
         ,account_type_code
@@ -274,8 +274,8 @@ where name like '%Walmart%'
         ,notes
         )
     SELECT
-        --user_rid
-        user_name
+       NEWID()
+     ,user_name
     , first_name
     , last_name
     , 'ACT_CUSTOMER' as account_type_code

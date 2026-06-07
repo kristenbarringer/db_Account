@@ -1,6 +1,6 @@
 
 CREATE TABLE [dbo].[user_grid_view_preference]
-(
+( -- REFACTOR DONE as of 6/7/2026
     -- ------------------------------------
     -- pks and main uq columns
     [user_grid_view_preference_uuid] UNIQUEIDENTIFIER NOT NULL,

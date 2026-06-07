@@ -1,5 +1,5 @@
 CREATE TABLE [dbo].[account_details]
-(
+( -- REFACTOR DONE as of 6/7/2026
     -- ------------------------------------
     -- pks and main uq columns
     [tenant_uuid] UNIQUEIDENTIFIER NOT NULL,

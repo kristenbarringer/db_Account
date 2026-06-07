@@ -1,5 +1,5 @@
 CREATE TABLE [dbo].[role]
-(
+( -- REFACTOR DONE as of 6/7/2026
     -- ------------------------------------
     -- pks and main uq columns
     [role_uuid] UNIQUEIDENTIFIER NOT NULL,

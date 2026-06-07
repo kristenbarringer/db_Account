@@ -37,6 +37,7 @@ BEGIN
   declare @user_rid uniqueidentifier
   select @user_rid = max(user_uuid)
   from dbo.user_accounts
+    if @user_rid is null set @user_rid = NEWID()
 
   --select top 100 * from dbo.account_details where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV' order by tenant_uuid asc
   -- [usp_seed_load_account_details]

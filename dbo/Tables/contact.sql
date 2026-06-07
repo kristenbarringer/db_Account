@@ -1,6 +1,6 @@
 
 CREATE TABLE [dbo].[contact]
-(
+( -- REFACTOR DONE as of 6/7/2026
     -- ------------------------------------
     -- pks and main uq columns
     [contact_uuid] UNIQUEIDENTIFIER NOT NULL,

@@ -1,5 +1,5 @@
 CREATE TABLE [dbo].[user_accounts]
-(
+( -- REFACTOR DONE as of 6/7/2026
     -- ------------------------------------
     -- pks and main uq columns
     [user_uuid] UNIQUEIDENTIFIER NOT NULL,

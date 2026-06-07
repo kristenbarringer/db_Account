@@ -1,5 +1,5 @@
 CREATE TABLE [dbo].[tenant_category_service_level_mapping]
-(
+( -- TODO what is this table?
     [rid] INT IDENTITY (1, 1) NOT NULL,
     [account_type_code] VARCHAR(30) NULL,
     [service_level_code] VARCHAR(30) NULL,

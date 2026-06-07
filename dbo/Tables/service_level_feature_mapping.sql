@@ -1,5 +1,5 @@
 CREATE TABLE [dbo].[service_level_feature_mapping]
-(
+( -- TODO what is this table?
     [rid] INT IDENTITY (1, 1) NOT NULL,
     [service_level_code] VARCHAR(30) NOT NULL,
     [created] DATETIME NOT NULL,
