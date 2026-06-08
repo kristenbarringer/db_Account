@@ -21,10 +21,10 @@ BEGIN
 
     PRINT '=== Starting seed data load ===';
     
+    EXEC dbo.usp_seed_load_account_details;
     EXEC dbo.usp_seed_load_tenantinfo;
     EXEC dbo.usp_seed_load_role;
     EXEC dbo.usp_seed_load_user_accounts;
-    EXEC dbo.usp_seed_load_account_details;
     EXEC dbo.usp_seed_load_dealer;
     EXEC dbo.usp_seed_load_contact;
     EXEC dbo.usp_seed_load_user_grid_pref;

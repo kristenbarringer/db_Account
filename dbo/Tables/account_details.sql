@@ -74,11 +74,6 @@ ALTER TABLE dbo.[account_details]
 ADD CONSTRAINT uk_account_details_customer_rid UNIQUE ([customer_rid]);
 GO
 -- -- fks - to tenant -- TODO no FK needed.  account = customer = tenant.  (TODO - tenantinfo is only used for migration.  account_details is the source)
--- ALTER TABLE [dbo].[account_details] ADD CONSTRAINT [fk_account_details_tenant_uuid] FOREIGN KEY ([tenant_uuid]) REFERENCES [dbo].[tenantinfo] ([tenant_uuid]); 
---  GO
--- CREATE NONCLUSTERED INDEX [ix_fk_account_details_tenant_uuid] 
---   ON [dbo].[account_details]([tenant_uuid] ASC); 
---   GO
 
 -- fks - to user
 ALTER TABLE [dbo].[account_details]

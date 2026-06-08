@@ -14,7 +14,7 @@ BEGIN
        declare @user_uuid uniqueidentifier
     declare @tenant_uuid uniqueidentifier
     select @user_uuid = max(user_uuid) from dbo.user_accounts
-    select @tenant_uuid = max(tenant_uuid) from dbo.tenantinfo --where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV'
+    select @tenant_uuid = max(tenant_uuid) from dbo.account_details where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV'
     declare @role_id int
     select @role_id = max(role_rid) from dbo.role
     declare @role_uuid uniqueidentifier

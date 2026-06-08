@@ -18,7 +18,7 @@ BEGIN
     from dbo.user_accounts
     if @user_uuid is null set @user_uuid = NEWID()
     select @tenant_uuid = max(tenant_uuid)
-    from dbo.tenantinfo
+    from dbo.account_details
     --where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV'
 
     insert into contact

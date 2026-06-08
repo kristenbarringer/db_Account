@@ -60,7 +60,7 @@ ALTER TABLE dbo.[user_accounts]
 ADD CONSTRAINT uk_user_rid UNIQUE ([user_rid]);
 GO
 -- fks - to tenant
-ALTER TABLE [dbo].[user_accounts] ADD CONSTRAINT [fk_user_accounts_tenant_uuid] FOREIGN KEY ([tenant_uuid]) REFERENCES [dbo].[tenantinfo] ([tenant_uuid]); 
+ALTER TABLE [dbo].[user_accounts] ADD CONSTRAINT [fk_user_accounts_tenant_uuid] FOREIGN KEY ([tenant_uuid]) REFERENCES [dbo].[account_details] ([tenant_uuid]); 
  GO
 CREATE NONCLUSTERED INDEX [ix_fk_user_accounts_tenant_uuid] -- add explicit index for the FK column, to improve join performance
   ON [dbo].[user_accounts]([tenant_uuid] ASC); 

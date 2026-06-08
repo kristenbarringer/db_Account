@@ -51,7 +51,7 @@ ALTER TABLE dbo.[contact]
 ADD CONSTRAINT uk_contact_rid UNIQUE ([contact_rid]);
 GO
 -- fks - to tenant
-ALTER TABLE [dbo].[contact] ADD CONSTRAINT [fk_contact_tenant_uuid] FOREIGN KEY ([tenant_uuid]) REFERENCES [dbo].[tenantinfo] ([tenant_uuid]); 
+ALTER TABLE [dbo].[contact] ADD CONSTRAINT [fk_contact_tenant_uuid] FOREIGN KEY ([tenant_uuid]) REFERENCES [dbo].[account_details] ([tenant_uuid]); 
  GO
 CREATE NONCLUSTERED INDEX [ix_fk_contact_tenant_uuid] 
   ON [dbo].[contact]([tenant_uuid] ASC); 

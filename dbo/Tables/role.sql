@@ -41,7 +41,7 @@ ALTER TABLE dbo.[role]
 ADD CONSTRAINT uk_role_rid UNIQUE ([role_rid]);
 GO
 -- fks - to tenant
-ALTER TABLE [dbo].[role] ADD CONSTRAINT [fk_role_tenant_uuid] FOREIGN KEY ([tenant_uuid]) REFERENCES [dbo].[tenantinfo] ([tenant_uuid]); 
+ALTER TABLE [dbo].[role] ADD CONSTRAINT [fk_role_tenant_uuid] FOREIGN KEY ([tenant_uuid]) REFERENCES [dbo].[account_details] ([tenant_uuid]); 
  GO
 CREATE NONCLUSTERED INDEX [ix_fk_role_tenant_uuid] -- add explicit index for the FK column, to improve join performance
   ON [dbo].[role]([tenant_uuid] ASC); 

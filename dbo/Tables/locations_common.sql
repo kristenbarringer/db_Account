@@ -96,7 +96,7 @@ ADD CONSTRAINT uk_location_rid UNIQUE ([location_rid]);
 GO
 -- fks - to tenant
 -- todo change all tenant fks to account_details?
-ALTER TABLE [dbo].[locations_common] ADD CONSTRAINT [fk_location_tenant_uuid] FOREIGN KEY ([tenant_uuid]) REFERENCES [dbo].[tenantinfo] ([tenant_uuid]); 
+ALTER TABLE [dbo].[locations_common] ADD CONSTRAINT [fk_location_tenant_uuid] FOREIGN KEY ([tenant_uuid]) REFERENCES [dbo].[account_details] ([tenant_uuid]); 
  GO
 CREATE NONCLUSTERED INDEX [ix_fk_location_tenant_uuid] -- add explicit index for the FK column, to improve join performance
   ON [dbo].[locations_common]([tenant_uuid] ASC); 

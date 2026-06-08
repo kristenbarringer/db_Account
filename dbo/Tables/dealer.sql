@@ -92,7 +92,7 @@ ALTER TABLE dbo.[dealer]
 ADD CONSTRAINT uk_dealer_rid UNIQUE ([dealer_rid]);
 GO
 -- fks - to tenant
-ALTER TABLE [dbo].[dealer] ADD CONSTRAINT [fk_dealer_tenant_uuid] FOREIGN KEY ([tenant_uuid]) REFERENCES [dbo].[tenantinfo] ([tenant_uuid]); 
+ALTER TABLE [dbo].[dealer] ADD CONSTRAINT [fk_dealer_tenant_uuid] FOREIGN KEY ([tenant_uuid]) REFERENCES [dbo].[account_details] ([tenant_uuid]); 
  GO
 CREATE NONCLUSTERED INDEX [ix_fk_dealer_tenant_uuid] 
   ON [dbo].[dealer]([tenant_uuid] ASC); 

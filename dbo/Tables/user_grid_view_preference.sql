@@ -38,7 +38,7 @@ ALTER TABLE dbo.[user_grid_view_preference]
 ADD CONSTRAINT uk_user_grid_view_preference_rid UNIQUE ([user_grid_view_preference_rid]);
 GO
 -- fks - to tenant
-ALTER TABLE [dbo].[user_grid_view_preference] ADD CONSTRAINT [fk_user_grid_view_pref_tenant_uuid] FOREIGN KEY ([tenant_uuid]) REFERENCES [dbo].[tenantinfo] ([tenant_uuid]); 
+ALTER TABLE [dbo].[user_grid_view_preference] ADD CONSTRAINT [fk_user_grid_view_pref_tenant_uuid] FOREIGN KEY ([tenant_uuid]) REFERENCES [dbo].[account_details] ([tenant_uuid]); 
  GO
 CREATE NONCLUSTERED INDEX [ix_fk_user_grid_view_pref_tenant_uuid] 
   ON [dbo].[user_grid_view_preference]([tenant_uuid] ASC); 

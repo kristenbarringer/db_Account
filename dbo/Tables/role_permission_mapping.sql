@@ -78,7 +78,7 @@ ALTER TABLE dbo.[role_permission_mapping]
 ADD CONSTRAINT uk_role_permission_mapping_rid UNIQUE ([role_permission_mapping_rid]);
 GO
 -- fks - to tenant
-ALTER TABLE [dbo].[role_permission_mapping] ADD CONSTRAINT [fk_role_permission_mapping_tenant_uuid] FOREIGN KEY ([tenant_uuid]) REFERENCES [dbo].[tenantinfo] ([tenant_uuid]); 
+ALTER TABLE [dbo].[role_permission_mapping] ADD CONSTRAINT [fk_role_permission_mapping_tenant_uuid] FOREIGN KEY ([tenant_uuid]) REFERENCES [dbo].[account_details] ([tenant_uuid]); 
  GO
 CREATE NONCLUSTERED INDEX [ix_fk_role_permission_mapping_tenant_uuid] 
   ON [dbo].[role_permission_mapping]([tenant_uuid] ASC); 
