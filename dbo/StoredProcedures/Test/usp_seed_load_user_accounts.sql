@@ -1,4 +1,4 @@
-CREATE PROCEDURE [dbo].[usp_seed_load_user_accounts]
+alter PROCEDURE [dbo].[usp_seed_load_user_accounts]
 AS
 BEGIN
 
@@ -16,7 +16,7 @@ BEGIN
 
     -- Flush-fill: clear existing data first
     --  alter table dbo.user_accounts add notes varchar(255) null
-    DELETE FROM dbo.account_details where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV';
+    --DELETE FROM dbo.account_details where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV';
     DELETE FROM dbo.user_accounts where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV';
 
     --  alter table dbo.user_accounts drop constraint if exists fk_user_accounts_nboarding_status_code

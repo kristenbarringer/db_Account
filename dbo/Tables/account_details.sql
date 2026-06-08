@@ -75,20 +75,20 @@ ADD CONSTRAINT uk_account_details_customer_rid UNIQUE ([customer_rid]);
 GO
 -- -- fks - to tenant -- TODO no FK needed.  account = customer = tenant.  (TODO - tenantinfo is only used for migration.  account_details is the source)
 
--- fks - to user
-ALTER TABLE [dbo].[account_details]
-    ADD CONSTRAINT [fk_account_details_admin_user_rid] FOREIGN KEY ([admin_user_rid]) REFERENCES [dbo].[user_accounts] ([user_uuid]);
-GO
-CREATE NONCLUSTERED INDEX [ix_fk_account_details_admin_user_rid]
-    ON [dbo].[account_details]([admin_user_rid] ASC);
-GO
-ALTER TABLE [dbo].[account_details]
-    ADD CONSTRAINT [fk_account_details_created_by_user_uuid] FOREIGN KEY ([created_by_user_uuid]) REFERENCES [dbo].[user_accounts] ([user_uuid]);
-GO
-CREATE NONCLUSTERED INDEX [ix_fk_account_details_created_by_user_uuid] -- add explicit index for the FK column, to improve join performance
-    ON [dbo].[account_details]([created_by_user_uuid] ASC);
-GO
--- fks - other main fks
+-- fks - to user -- todo creates circular reference - possibly remove these fks
+-- ALTER TABLE [dbo].[account_details]
+--     ADD CONSTRAINT [fk_account_details_admin_user_rid] FOREIGN KEY ([admin_user_rid]) REFERENCES [dbo].[user_accounts] ([user_uuid]);
+-- GO
+-- CREATE NONCLUSTERED INDEX [ix_fk_account_details_admin_user_rid]
+--     ON [dbo].[account_details]([admin_user_rid] ASC);
+-- GO
+-- ALTER TABLE [dbo].[account_details]
+--     ADD CONSTRAINT [fk_account_details_created_by_user_uuid] FOREIGN KEY ([created_by_user_uuid]) REFERENCES [dbo].[user_accounts] ([user_uuid]);
+-- GO
+-- CREATE NONCLUSTERED INDEX [ix_fk_account_details_created_by_user_uuid] -- add explicit index for the FK column, to improve join performance
+--     ON [dbo].[account_details]([created_by_user_uuid] ASC);
+-- GO
+-- -- fks - other main fks
 -- fks - to lookup code
 ALTER TABLE [dbo].[account_details]
     ADD CONSTRAINT [fk_account_details_account_details_type] FOREIGN KEY ([account_type_code]) REFERENCES [dbo].[lookup_code] ([code]);
