@@ -41,6 +41,7 @@ CREATE TABLE [dbo].[user_accounts]
     [expiration_date] DATETIME NULL,
     -- fk columns - to user
     [created_by_user_uuid] UNIQUEIDENTIFIER NULL,
+    [updated_by_user_uuid] UNIQUEIDENTIFIER NULL, -- TODO add this to all tables
     -- note columns
     [notes] NVARCHAR (1000) NULL,
     -- test data columns (only used for test data process on dev)

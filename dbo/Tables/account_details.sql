@@ -52,6 +52,7 @@ CREATE TABLE [dbo].[account_details]
     -- fk columns - to user
     [admin_user_rid] UNIQUEIDENTIFIER NOT NULL,
     [created_by_user_uuid] UNIQUEIDENTIFIER NULL,
+    [updated_by_user_uuid] UNIQUEIDENTIFIER NULL, -- TODO add this to all tables
     -- note columns
     [notes] NVARCHAR (1000) NULL,
     -- test data columns (only used for test data process on dev)

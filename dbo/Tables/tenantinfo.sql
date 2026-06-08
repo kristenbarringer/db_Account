@@ -23,6 +23,7 @@ CREATE TABLE [dbo].[tenantinfo] -- (TODO - tenantinfo is only used for migration
     [updated_date] DATETIME CONSTRAINT [df_tenantinfo_updated_date] DEFAULT (getdate()) NOT NULL,
     -- fk columns - to user
     [created_by_user_uuid] UNIQUEIDENTIFIER NULL,
+    [updated_by_user_uuid] UNIQUEIDENTIFIER NULL, -- TODO add this to all tables
     -- note columns
     [notes] NVARCHAR (1000) NULL,
     -- N/A

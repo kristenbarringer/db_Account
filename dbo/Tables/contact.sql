@@ -1,3 +1,4 @@
+-- drop table if exists [dbo].[contact];
 
 CREATE TABLE [dbo].[contact]
 ( -- REFACTOR DONE as of 6/7/2026
@@ -14,7 +15,7 @@ CREATE TABLE [dbo].[contact]
     [mobile_number] NVARCHAR (20) NULL,
     -- fk columns - other main fks
     -- fk columns - to lookup code
-    [language_code] VARCHAR (30) CONSTRAINT [df_contact_language_code] DEFAULT ('LANG_ENUS') NOT NULL,
+    [language_code] VARCHAR (30) CONSTRAINT [df_contact_language_code] DEFAULT ('LNG_ENUS') NOT NULL,
     [timezone_code] VARCHAR (30) CONSTRAINT [df_contact_timezone_code] DEFAULT ('TMZ_AMERICA_DETROIT') NOT NULL,
     [speed_type_code] VARCHAR (30) CONSTRAINT [df_contact_speed_type_code] DEFAULT ('SPT_MPH') NOT NULL,
     [temperature_type_code] VARCHAR (30) CONSTRAINT [df_contact_temperature_type_code] DEFAULT ('TMP_FAHRENHEIT') NOT NULL,
@@ -29,13 +30,14 @@ CREATE TABLE [dbo].[contact]
     [updated_date] DATETIME NULL,
     -- fk columns - to user
     [created_by_user_uuid] UNIQUEIDENTIFIER NULL,
+    [updated_by_user_uuid] UNIQUEIDENTIFIER NULL, -- TODO add this to all tables
     -- note columns
     [notes] NVARCHAR (1000) NULL,
     -- test data columns (only used for test data process on dev)
     -- columns to be deprecated
-    [active] BIT CONSTRAINT [df_contact_active] DEFAULT (1) NOT NULL,
-    [created] DATETIME CONSTRAINT [df_contact_created] DEFAULT (getdate()) NOT NULL,
-    [created_by] UNIQUEIDENTIFIER NOT NULL,
+    [active] BIT CONSTRAINT [df_contact_active] DEFAULT (1) NULL, -- TODO make all deprecated columns are nullable
+    [created] DATETIME CONSTRAINT [df_contact_created] DEFAULT (getdate()) NULL,
+    [created_by] UNIQUEIDENTIFIER NULL,
 
     -- ------------------------------------
 );
@@ -56,16 +58,16 @@ CREATE NONCLUSTERED INDEX [ix_fk_contact_tenant_uuid]
   GO
 -- fks - to user
 ALTER TABLE [dbo].[contact]
-    ADD CONSTRAINT [fk_contact_admin_user_rid] FOREIGN KEY ([created_by]) REFERENCES [dbo].[user_accounts] ([user_uuid]);
-GO
-CREATE NONCLUSTERED INDEX [ix_fk_contact_admin_user_rid]
-    ON [dbo].[contact]([created_by] ASC);
-GO
-ALTER TABLE [dbo].[contact]
     ADD CONSTRAINT [fk_contact_created_by_user_uuid] FOREIGN KEY ([created_by_user_uuid]) REFERENCES [dbo].[user_accounts] ([user_uuid]);
 GO
 CREATE NONCLUSTERED INDEX [ix_fk_contact_created_by_user_uuid] -- add explicit index for the FK column, to improve join performance
     ON [dbo].[contact]([created_by_user_uuid] ASC);
+GO
+ALTER TABLE [dbo].[contact]
+    ADD CONSTRAINT [fk_contact_updated_by_user_uuid] FOREIGN KEY ([updated_by_user_uuid]) REFERENCES [dbo].[user_accounts] ([user_uuid]);
+GO
+CREATE NONCLUSTERED INDEX [ix_fk_contact_updated_by_user_uuid] -- add explicit index for the FK column, to improve join performance
+    ON [dbo].[contact]([updated_by_user_uuid] ASC);
 GO
 -- fks - other main fks
 -- fks - to lookup code
