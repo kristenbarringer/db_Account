@@ -1,4 +1,4 @@
-alter PROCEDURE [dbo].[usp_seed_load_user_accounts]
+CREATE PROCEDURE [dbo].[usp_seed_load_user_accounts]
 AS
 BEGIN
 
