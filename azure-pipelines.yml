@@ -11,6 +11,12 @@ variables:
   sqlServerName: 'asql-tkv2-eastus-dev.database.windows.net'
   databaseName: 'Account'
   projectPath: '**/*.sqlproj'
+  ${{ if contains(variables['sqlServerName'], '-dev') }}:
+    blockDataLoss: 'false'
+    dropObjects: 'false'
+  ${{ else }}:
+    blockDataLoss: 'true'
+    dropObjects: 'false'
 
 steps:
   - task: UseDotNet@2
@@ -67,6 +73,7 @@ steps:
           /TargetDatabaseName:"$(databaseName)" `
           /TargetUser:"$(sqlUser)" `
           /TargetPassword:"$(sqlPassword)"
+      additionalArguments: '/p:BlockOnPossibleDataLoss=$(blockDataLoss) /p:DropObjectsNotInSource=$(dropObjects)'
 
   - task: PowerShell@2
     displayName: 'Deploy Account dacpac to Azure SQL Dev'
@@ -81,7 +88,8 @@ steps:
           /TargetServerName:"$(sqlServerName)" `
           /TargetDatabaseName:"$(databaseName)" `
           /TargetUser:"$(sqlUser)" `
-          /TargetPassword:"$(sqlPassword)"          
+          /TargetPassword:"$(sqlPassword)"    
+      additionalArguments: '/p:BlockOnPossibleDataLoss=$(blockDataLoss) /p:DropObjectsNotInSource=$(dropObjects)'    
   
   
   - task: PowerShell@2
