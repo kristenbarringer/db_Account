@@ -1,4 +1,0 @@
-CREATE USER [Abisuga.Prasath@tranetechnologies.com]
-    WITH SID = 0xAD479338C272B04FACDE29CE09D19639, TYPE = E;
-GO
-

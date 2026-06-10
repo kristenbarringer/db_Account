@@ -1,4 +1,0 @@
-CREATE USER [Baskar.Dhanapal@tranetechnologies.com]
-    WITH SID = 0x29B48726A274564480349339CC9F9C2F, TYPE = E;
-GO
-
