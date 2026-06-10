@@ -2,7 +2,7 @@ CREATE TABLE [dbo].[user_accounts]
 ( -- REFACTOR DONE as of 6/7/2026
     -- ------------------------------------
     -- pks and main uq columns
-    [user_uuid] UNIQUEIDENTIFIER NOT NULL,
+    [user_uuid] UNIQUEIDENTIFIER NOT NULL,-- TODO 6/10 -- research how to make lower case
     [user_rid] INT IDENTITY (1, 1) NOT NULL,
     -- fk columns - to tenant
     [tenant_uuid] UNIQUEIDENTIFIER NOT NULL,
@@ -18,7 +18,8 @@ CREATE TABLE [dbo].[user_accounts]
     [object_id] NVARCHAR (50) NULL,
     -- the object_id in user_accounts is the Entra ID object ID for the user 
     -- fk columns - other main fks
-    [role_rid] INT CONSTRAINT [DF_user_accounts_role_rid] DEFAULT (1) NOT NULL,
+    [role_uuid] -- -- TODO 6/10 - ADD THIS
+    [role_rid] INT CONSTRAINT [DF_user_accounts_role_rid] DEFAULT (1) NOT NULL,-- TODO 6/10 - MAKE NULLABLE bc ROLE CREATED IN ENRICHMENT
     -- fk columns - to lookup code
     [account_type_code] VARCHAR (30) CONSTRAINT [df_user_accounts_account_type_code] DEFAULT ('ACT_CUSTOMER') NOT NULL,
     [speed_type_code] VARCHAR (30) CONSTRAINT [df_user_accounts_speed_type_code] DEFAULT ('SPT_MPH') NOT NULL,

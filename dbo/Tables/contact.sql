@@ -29,8 +29,8 @@ CREATE TABLE [dbo].[contact]
     [created_date] DATETIME CONSTRAINT [df_contact_created_date] DEFAULT (getdate()) NOT NULL,
     [updated_date] DATETIME NULL,
     -- fk columns - to user
-    [created_by_user_uuid] UNIQUEIDENTIFIER NULL,
-    [updated_by_user_uuid] UNIQUEIDENTIFIER NULL, -- TODO add this to all tables
+    [created_by_user_uuid] UNIQUEIDENTIFIER NULL,-- TODO 6/10 - make NULLABLE ON ALL TABLES
+    [updated_by_user_uuid] UNIQUEIDENTIFIER NULL, -- TODO 6/10 - make NULLABLE ON ALL TABLES  -- TODO add this to all tables
     -- note columns
     [notes] NVARCHAR (1000) NULL,
     -- test data columns (only used for test data process on dev)

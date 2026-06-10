@@ -6,7 +6,7 @@
 -- Notes:    Each individual loader already does its own DELETE, so this proc
 --           is for "wipe without re-load" scenarios.
 -- =============================================================================
-CREATE PROCEDURE dbo.usp_seed_reset_all
+alter PROCEDURE dbo.usp_seed_reset_all
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -25,7 +25,7 @@ BEGIN
     PRINT CONCAT('  Cleared dbo.role_permission_mapping (', @@ROWCOUNT, ' row(s)).');
     DELETE FROM dbo.user_grid_view_preference where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV';
     PRINT CONCAT('  Cleared dbo.user_grid_view_preference (', @@ROWCOUNT, ' row(s)).');
-    DELETE FROM dbo.contact where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV';
+    DELETE FROM dbo.contact --where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV'; -- todo fix this
     PRINT CONCAT('  Cleared dbo.contact (', @@ROWCOUNT, ' row(s)).');
     DELETE FROM dbo.dealer where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV';
     PRINT CONCAT('  Cleared dbo.dealer (', @@ROWCOUNT, ' row(s)).');
@@ -35,7 +35,7 @@ BEGIN
     PRINT CONCAT('  Cleared dbo.role (', @@ROWCOUNT, ' row(s)).');
     DELETE FROM dbo.tenantinfo where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV';
     PRINT CONCAT('  Cleared dbo.tenantinfo (', @@ROWCOUNT, ' row(s)).'); 
-    DELETE FROM dbo.account_details where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV';
+    DELETE FROM dbo.account_details --where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV'; -- todo fix this
     PRINT CONCAT('  Cleared dbo.account_details (', @@ROWCOUNT, ' row(s)).');
 
     PRINT '=== Seed data reset complete ===';
