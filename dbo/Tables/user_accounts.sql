@@ -18,7 +18,7 @@ CREATE TABLE [dbo].[user_accounts]
     [object_id] NVARCHAR (50) NULL,
     -- the object_id in user_accounts is the Entra ID object ID for the user 
     -- fk columns - other main fks
-    [role_rid] BIGINT CONSTRAINT [DF_user_accounts_role_rid] DEFAULT (1) NULL,-- TODO 6/10 - MAKE NULLABLE bc ROLE CREATED IN ENRICHMENT
+    [role_rid] BIGINT CONSTRAINT [DF_user_accounts_role_rid] DEFAULT (1) NULL,
     -- fk columns - to lookup code
     [account_type_code] VARCHAR (30) CONSTRAINT [df_user_accounts_account_type_code] DEFAULT ('ACT_CUSTOMER') NOT NULL,
     [speed_type_code] VARCHAR (30) CONSTRAINT [df_user_accounts_speed_type_code] DEFAULT ('SPT_MPH') NOT NULL,

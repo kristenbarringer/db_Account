@@ -1,4 +1,5 @@
 
+
 CREATE TABLE [dbo].[user_grid_view_preference]
 ( -- REFACTOR DONE as of 6/7/2026
     -- ------------------------------------

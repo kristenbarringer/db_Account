@@ -29,8 +29,8 @@ CREATE TABLE [dbo].[contact]
     [created_date] DATETIME CONSTRAINT [df_contact_created_date] DEFAULT (getdate()) NOT NULL,
     [updated_date] DATETIME NULL,
     -- fk columns - to user
-    [created_by_user_rid] BIGINT NULL,-- TODO 6/10 - make NULLABLE ON ALL TABLES
-    [updated_by_user_rid] BIGINT NULL, -- TODO 6/10 - make NULLABLE ON ALL TABLES  -- TODO add this to all tables
+    [created_by_user_rid] BIGINT NULL,
+    [updated_by_user_rid] BIGINT NULL,
     -- note columns
     [notes] NVARCHAR (1000) NULL,
     -- test data columns (only used for test data process on dev)
