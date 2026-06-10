@@ -34,7 +34,7 @@ CREATE TABLE [dbo].[account_details]
     -- TODO came from customer_dealer_mapping  
     -- customer_rid and dealer_rid were both ints in account_details.  In most cases a customer only has one device.  There was some bad data on Dev resulting in a few dupes.
     -- fk columns - to lookup code
-    [account_type_code] VARCHAR (30) CONSTRAINT [df_account_details_type_code] DEFAULT ('ACT_CUSTOMER') NOT NULL,
+    [account_type_rid] BIGINT CONSTRAINT [df_account_details_type_rid] DEFAULT (1) NOT NULL,
     [phone_type_code] VARCHAR(30) NULL,
     [default_role_code] VARCHAR (30) CONSTRAINT [df_account_default_role_code] DEFAULT ('ROL_BASIC') NOT NULL,
     -- bit flag columns
@@ -72,6 +72,10 @@ ALTER TABLE [dbo].[account_details] ADD CONSTRAINT [fk_account_details_dealer_ri
 GO
 CREATE NONCLUSTERED INDEX [ix_fk_account_details_dealer_rid] ON [dbo].[account_details] ([dealer_rid] ASC);
 GO
+ALTER TABLE [dbo].[account_details] ADD CONSTRAINT [fk_account_details_account_type_rid] FOREIGN KEY ([account_type_rid]) REFERENCES [dbo].[account_type] ([account_type_rid]);
+GO
+CREATE NONCLUSTERED INDEX [ix_fk_account_details_account_type_rid] ON [dbo].[account_details] ([account_type_rid] ASC);
+GO
 
  
 -- -- fks - to tenant -- TODO no FK needed.  account = customer = tenant.  (TODO - tenant-info is only used for migration.  account_details is the source)
@@ -91,12 +95,7 @@ GO
 -- GO
 -- -- fks - other main fks
 -- fks - to lookup code
-ALTER TABLE [dbo].[account_details]
-    ADD CONSTRAINT [fk_account_details_account_details_type] FOREIGN KEY ([account_type_code]) REFERENCES [dbo].[lookup_code] ([code]);
-GO
-CREATE NONCLUSTERED INDEX [ix_fk_account_details_account_details_type] 
-    ON [dbo].[account_details]([account_type_code] ASC);
-GO
+
 ALTER TABLE [dbo].[account_details]
     ADD CONSTRAINT [fk_account_details_phone_type_code] FOREIGN KEY ([phone_type_code]) REFERENCES [dbo].[lookup_code] ([code]);
 GO

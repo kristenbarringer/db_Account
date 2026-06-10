@@ -66,7 +66,7 @@ BEGIN
     [country],
     [admin_user_rid],
     -- [account_type_rid],
-    [account_type_code],
+    [account_type_rid],
     [migrated_data],
     notes
     )
@@ -93,7 +93,7 @@ BEGIN
     'USA' as country,
     @user_rid as admin_user_rid,
     -- 1 as account_type_rid,
-    account_type_code2 as account_type_code,
+    1 as account_type_rid,
     0 as migrated_data,
     'TEST DATA PROCESS ON DEV'
 
