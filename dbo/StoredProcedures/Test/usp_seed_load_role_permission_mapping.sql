@@ -11,9 +11,9 @@ BEGIN
         RAISERROR('usp_seed_load_role_perm may only run on Dev servers. Current server: %s', 16, 1, @@SERVERNAME);
         RETURN;
     END;
-       declare @user_uuid uniqueidentifier
+       declare @user_uuid BIGINT
     declare @tenant_uuid uniqueidentifier
-    select @user_uuid = max(user_uuid) from dbo.user_accounts
+    select @user_uuid = max(user_rid) from dbo.user_accounts
     select @tenant_uuid = max(tenant_uuid) from dbo.account_details where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV'
     declare @role_id bigint
     select @role_id = max(role_rid) from dbo.role
