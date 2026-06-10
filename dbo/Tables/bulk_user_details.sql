@@ -2,7 +2,7 @@
 -- drop table if exists [dbo].[TABLENAME];
 drop table if exists [dbo].[TABLENAME];
 CREATE TABLE [dbo].[TABLENAME]
-( -- TODO REFACTOR TEMPLATE IS AS FOLLOWS:
+(  
     -- ------------------------------------
     -- pks and main uq columns
     [TABLENAME_uuid] UNIQUEIDENTIFIER CONSTRAINT [df_TABLENAME_TABLENAME_uuid] DEFAULT (NEWSEQUENTIALID()) NOT NULL,   
@@ -12,7 +12,7 @@ CREATE TABLE [dbo].[TABLENAME]
     -- main attribute columns of this entity 
     -- fk columns - other main fks (todo check legacy DB for all existing fks)
     -- fk columns - to lookup code (suffixed with "_code")
-    [language_code] VARCHAR (30) CONSTRAINT [df_TABLENAME_language_code] DEFAULT ('LNG_ENUS') NOT NULL,
+  
     -- bit flag columns (prefixed with "is_")        
     [is_active] BIT CONSTRAINT [df_TABLENAME_is_active] DEFAULT (1) NOT NULL,
     -- date columns (suffixed with "_date")
@@ -68,11 +68,7 @@ CREATE NONCLUSTERED INDEX [ix_fk_TABLENAME_updated_by_user_rid]
 GO
 -- fks - other main fks
 -- fks - to lookup code
-ALTER TABLE [dbo].[TABLENAME] ADD CONSTRAINT [fk_TABLENAME_language_code] FOREIGN KEY ([language_code]) REFERENCES [dbo].[lookup_code] ([code]); 
- GO
-CREATE NONCLUSTERED INDEX [ix_fk_TABLENAME_language_code] 
-  ON [dbo].[TABLENAME]([language_code] ASC); 
-  GO
+
 -- other constraints and indexes 
 -- N/A
 -- END
@@ -84,6 +80,7 @@ CREATE NONCLUSTERED INDEX [ix_fk_TABLENAME_language_code]
 
 
 CREATE TABLE [dbo].[bulk_user_details] (
+    -- todo what is this table?
     [rid]        INT            IDENTITY (1, 1) NOT NULL,
     [first_name] VARCHAR (50)   NULL,
     [last_name]  VARCHAR (50)   NULL,
