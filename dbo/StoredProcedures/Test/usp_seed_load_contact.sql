@@ -22,7 +22,7 @@ BEGIN
     --where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV'
 
     insert into contact
-        (contact_uuid, tenant_uuid,first_name,last_name,created_by_user_uuid,created_by, language_code, notes)
+        (contact_uuid, tenant_uuid,first_name,last_name,created_by_user_rid,created_by, language_code, notes)
     values
         (NEWID(), '3E2070B4-5B0E-499B-BFC0-2001D796581A', 'John', 'Smith', @user_uuid, @user_uuid, 'LNG_ENUS', 'TEST DATA PROCESS ON DEV')
 ,

@@ -2,8 +2,8 @@ CREATE TABLE [dbo].[role]
 ( -- REFACTOR DONE as of 6/7/2026
     -- ------------------------------------
     -- pks and main uq columns
-    [role_uuid] UNIQUEIDENTIFIER NOT NULL,
-    [role_rid] INT IDENTITY (1, 1) NOT NULL,
+    [role_uuid] UNIQUEIDENTIFIER CONSTRAINT [df_role_role_uuid] DEFAULT (NEWSEQUENTIALID()) NOT NULL,   
+    [role_rid]  BIGINT IDENTITY (1, 1) NOT NULL,
     -- fk columns - to tenant
     [tenant_uuid] UNIQUEIDENTIFIER NOT NULL,
     -- every table must have a tenant_uuid  
@@ -20,8 +20,8 @@ CREATE TABLE [dbo].[role]
     [created_date] DATETIME CONSTRAINT [df_role_created_date] DEFAULT (getdate()) NOT NULL,
     [updated_date] DATETIME CONSTRAINT [df_role_updated_date] DEFAULT (getdate()) NOT NULL,
     -- fk columns - to user
-    [created_by_user_uuid] UNIQUEIDENTIFIER NULL,
-    [updated_by_user_uuid] UNIQUEIDENTIFIER NULL, -- TODO add this to all tables
+    [created_by_user_rid] UNIQUEIDENTIFIER NULL,
+    [updated_by_user_rid] UNIQUEIDENTIFIER NULL, -- TODO add this to all tables
     -- note columns
     [notes] NVARCHAR (1000) NULL,
     -- test data columns (only used for test data process on dev)
@@ -34,12 +34,13 @@ GO
 
 -- ------------------------------------
 -- pks and main uq indexes
-ALTER TABLE [dbo].[role]
-    ADD CONSTRAINT [cix_role_uuid] PRIMARY KEY CLUSTERED ([role_uuid] ASC) WITH (FILLFACTOR = 100, DATA_COMPRESSION = PAGE);
+ALTER TABLE [dbo].[role] ADD CONSTRAINT [pk_role_tenant_uuid_role_rid] PRIMARY KEY CLUSTERED ([tenant_uuid] ASC, [role_rid] ASC) WITH (FILLFACTOR = 100, DATA_COMPRESSION = PAGE);
 GO
-ALTER TABLE dbo.[role]
-ADD CONSTRAINT uk_role_rid UNIQUE ([role_rid]);
+ALTER TABLE [dbo].[role] ADD CONSTRAINT [uk_role_uuid] UNIQUE NONCLUSTERED ([role_uuid] ASC) WITH (FILLFACTOR = 100, DATA_COMPRESSION = PAGE);
 GO
+ALTER TABLE [dbo].[role] ADD CONSTRAINT [uk_role_rid] UNIQUE ([role_rid]);
+GO
+
 -- fks - to tenant
 ALTER TABLE [dbo].[role] ADD CONSTRAINT [fk_role_tenant_uuid] FOREIGN KEY ([tenant_uuid]) REFERENCES [dbo].[account_details] ([tenant_uuid]); 
  GO
@@ -48,10 +49,10 @@ CREATE NONCLUSTERED INDEX [ix_fk_role_tenant_uuid] -- add explicit index for the
   GO
 -- -- fks - to user - TODO circular logic - need to rethink this
 -- ALTER TABLE [dbo].[role]
---     ADD CONSTRAINT [fk_role_user_uuid] FOREIGN KEY ([created_by_user_uuid]) REFERENCES [dbo].[user_accounts] ([user_uuid]);
+--     ADD CONSTRAINT [fk_role_user_uuid] FOREIGN KEY ([created_by_user_rid]) REFERENCES [dbo].[user_accounts] ([user_uuid]);
 -- GO
 -- CREATE NONCLUSTERED INDEX [ix_fk_role_user_uuid] -- add explicit index for the FK column, to improve join performance
---     ON [dbo].[role]([created_by_user_uuid] ASC);
+--     ON [dbo].[role]([created_by_user_rid] ASC);
 -- GO
 -- fks - other main fks
 -- fks - to lookup code

@@ -1,4 +1,4 @@
-CREATE TABLE [dbo].[tenantinfo] -- (TODO - tenantinfo is only used for migration.  account_details is the source)
+CREATE TABLE [dbo].[db_m_tenantinfo] -- (TODO - tenantinfo is only used for migration.  account_details is the source)
 -- TODO I don't understand why this table is needed - why not just use account_details?
 ( -- REFACTOR DONE as of 6/7/2026
     -- ------------------------------------
@@ -23,8 +23,8 @@ CREATE TABLE [dbo].[tenantinfo] -- (TODO - tenantinfo is only used for migration
     [created_date] DATETIME CONSTRAINT [df_ti_created_date] DEFAULT (getdate()) NOT NULL,
     [updated_date] DATETIME CONSTRAINT [df_ti_updated_date] DEFAULT (getdate()) NOT NULL,
     -- fk columns - to user
-    [created_by_user_uuid] UNIQUEIDENTIFIER NULL,
-    [updated_by_user_uuid] UNIQUEIDENTIFIER NULL, -- TODO add this to all tables
+    [created_by_user_rid] UNIQUEIDENTIFIER NULL,
+    [updated_by_user_rid] UNIQUEIDENTIFIER NULL, -- TODO add this to all tables
     -- note columns
     [notes] NVARCHAR (1000) NULL,
     -- N/A
@@ -42,7 +42,7 @@ CREATE TABLE [dbo].[tenantinfo] -- (TODO - tenantinfo is only used for migration
 GO
 -- ------------------------------------
 -- pks and main uq indexes
-ALTER TABLE [dbo].[tenantinfo]
+ALTER TABLE [dbo].[db_m_tenantinfo]
     ADD CONSTRAINT [cix_tenantinfo_tenant_uuid] PRIMARY KEY CLUSTERED ([tenant_uuid] ASC) WITH (FILLFACTOR = 100, DATA_COMPRESSION = PAGE);
 GO
 -- fks - to tenant   

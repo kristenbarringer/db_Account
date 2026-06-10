@@ -46,8 +46,8 @@ CREATE TABLE [dbo].[dealer]
 (
 -- ------------------------------------
 -- pks and main uq columns
-    [dealer_uuid] UNIQUEIDENTIFIER NOT NULL,
-    [dealer_rid] INT IDENTITY (1, 1) NOT NULL,
+    [dealer_uuid] UNIQUEIDENTIFIER CONSTRAINT [df_dealer_dealer_uuid] DEFAULT (NEWSEQUENTIALID()) NOT NULL,   
+    [dealer_rid]  BIGINT IDENTITY (1, 1) NOT NULL,
     [dealer_code] VARCHAR (50) NULL,
 -- fk columns - to tenant
     [tenant_uuid] UNIQUEIDENTIFIER  NOT NULL,
@@ -63,7 +63,7 @@ CREATE TABLE [dbo].[dealer]
     [atlas_terr_name] VARCHAR (50) NULL,
     [atlas_terr_id] INT NULL,
 -- fk columns - other main fks
-    [dealer_family_uuid] UNIQUEIDENTIFIER NULL, -- TODO join to dealer_family
+    [dealer_family_rid] BIGINT NULL, -- TODO join to dealer_family
 -- fk columns - to lookup code
   --  [dealer_type_code] VARCHAR (30) CONSTRAINT [df_dealer_dealer_type_code] DEFAULT ('ROL_BASIC')  NULL,
 -- bit flag columns
@@ -73,8 +73,8 @@ CREATE TABLE [dbo].[dealer]
     [created_date] DATETIME CONSTRAINT [df_dealer_created_date] DEFAULT (getdate()) NOT NULL,
     [updated_date] DATETIME NULL,
 -- fk columns - to user
-    [created_by_user_uuid] UNIQUEIDENTIFIER NULL,
-    [updated_by_user_uuid] UNIQUEIDENTIFIER NULL,
+    [created_by_user_rid] UNIQUEIDENTIFIER NULL,
+    [updated_by_user_rid] UNIQUEIDENTIFIER NULL,
 -- note columns
     [notes] NVARCHAR (1000) NULL
 -- test data columns (only used for test data process on dev)
@@ -85,12 +85,13 @@ CREATE TABLE [dbo].[dealer]
 GO
 -- ------------------------------------
 -- pks and main uq indexes
-ALTER TABLE [dbo].[dealer]
-    ADD CONSTRAINT [cix_dealer_uuid] PRIMARY KEY CLUSTERED ([dealer_uuid] ASC) WITH (FILLFACTOR = 100, DATA_COMPRESSION = PAGE);
+ALTER TABLE [dbo].[dealer] ADD CONSTRAINT [pk_dealer_tenant_uuid_dealer_rid] PRIMARY KEY CLUSTERED ([tenant_uuid] ASC, [dealer_rid] ASC) WITH (FILLFACTOR = 100, DATA_COMPRESSION = PAGE);
 GO
-ALTER TABLE dbo.[dealer]
-ADD CONSTRAINT uk_dealer_rid UNIQUE ([dealer_rid]);
+ALTER TABLE [dbo].[dealer] ADD CONSTRAINT [uk_dealer_uuid] UNIQUE NONCLUSTERED ([dealer_uuid] ASC) WITH (FILLFACTOR = 100, DATA_COMPRESSION = PAGE);
 GO
+ALTER TABLE [dbo].[dealer] ADD CONSTRAINT [uk_dealer_rid] UNIQUE ([dealer_rid]);
+GO
+
 -- fks - to tenant
 ALTER TABLE [dbo].[dealer] ADD CONSTRAINT [fk_dealer_tenant_uuid] FOREIGN KEY ([tenant_uuid]) REFERENCES [dbo].[account_details] ([tenant_uuid]); 
  GO
@@ -99,26 +100,26 @@ CREATE NONCLUSTERED INDEX [ix_fk_dealer_tenant_uuid]
   GO
 -- fks - to user
 ALTER TABLE [dbo].[dealer]
-    ADD CONSTRAINT [fk_dealer_created_by_user_uuid] FOREIGN KEY ([created_by_user_uuid]) REFERENCES [dbo].[user_accounts] ([user_uuid]);
+    ADD CONSTRAINT [fk_dealer_created_by_user_rid] FOREIGN KEY ([created_by_user_rid]) REFERENCES [dbo].[user_accounts] ([user_uuid]);
 GO
-CREATE NONCLUSTERED INDEX [ix_fk_dealer_created_by_user_uuid] -- add explicit index for the FK column, to improve join performance
-    ON [dbo].[dealer]([created_by_user_uuid] ASC);
+CREATE NONCLUSTERED INDEX [ix_fk_dealer_created_by_user_rid] -- add explicit index for the FK column, to improve join performance
+    ON [dbo].[dealer]([created_by_user_rid] ASC);
 GO
 
 ALTER TABLE [dbo].[dealer]
-    ADD CONSTRAINT [fk_dealer_updated_by_user_uuid] FOREIGN KEY ([updated_by_user_uuid]) REFERENCES [dbo].[user_accounts] ([user_uuid]);
+    ADD CONSTRAINT [fk_dealer_updated_by_user_rid] FOREIGN KEY ([updated_by_user_rid]) REFERENCES [dbo].[user_accounts] ([user_uuid]);
 GO
-CREATE NONCLUSTERED INDEX [ix_fk_dealer_updated_by_user_uuid] -- add explicit index for the FK column, to improve join performance
-    ON [dbo].[dealer]([updated_by_user_uuid] ASC);
+CREATE NONCLUSTERED INDEX [ix_fk_dealer_updated_by_user_rid] -- add explicit index for the FK column, to improve join performance
+    ON [dbo].[dealer]([updated_by_user_rid] ASC);
 GO
 
 -- fks - other main fks
 
 ALTER TABLE [dbo].[dealer]
-    ADD CONSTRAINT [fk_dealer_dealer_family_uuid] FOREIGN KEY ([dealer_family_uuid]) REFERENCES [dbo].[dealer_family] ([dealer_family_uuid]);
+    ADD CONSTRAINT [fk_dealer_dealer_family_rid] FOREIGN KEY ([dealer_family_rid]) REFERENCES [dbo].[dealer_family] ([dealer_family_rid]);
 GO
-CREATE NONCLUSTERED INDEX [ix_fk_dealer_dealer_family_uuid] -- add explicit index for the FK column, to improve join performance
-    ON [dbo].[dealer]([dealer_family_uuid] ASC);
+CREATE NONCLUSTERED INDEX [ix_fk_dealer_dealer_family_rid] -- add explicit index for the FK column, to improve join performance
+    ON [dbo].[dealer]([dealer_family_rid] ASC);
 GO
 -- fks - to lookup code
 

@@ -18,11 +18,11 @@ BEGIN
     --if @user_uuid is null set @user_uuid = NEWID()
     -- TODO create dealer table and uncomment this section
 
-    -- alter table dealer alter column [created_by_user_uuid] UNIQUEIDENTIFIER NULL 
+    -- alter table dealer alter column [created_by_user_rid] UNIQUEIDENTIFIER NULL 
     insert into dealer
         (dealer_uuid, dealer_code,tenant_uuid,name,address,phone_number,email_address,zip_code,oracle_id,party_site_id_code ,atlas_terr_id_code,atlas_terr_name,atlas_terr_id
         ,is_blue_track_dealer
-        ,notes,created_by_user_uuid, updated_by_user_uuid, updated_date)
+        ,notes,created_by_user_rid, updated_by_user_rid, updated_date)
     values
         (NEWID(), 'C0960001', '3E2070B4-5B0E-499B-BFC0-2001D796581A', 'Mid Missouri Thermo King', '11085 OO Hwy, Boonville, MO 65233', '660-882-6030', 'dianah@midmissouritk.com', '65233', 123456, '19568426'
    , 'T0697', 'Fleetsource TK', 456789

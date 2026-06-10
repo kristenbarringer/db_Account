@@ -12,7 +12,7 @@ BEGIN
         RETURN;
     END; 
 
- -- alter table role alter column [created_by_user_uuid] UNIQUEIDENTIFIER NULL 
+ -- alter table role alter column [created_by_user_rid] UNIQUEIDENTIFIER NULL 
    insert into role (role_uuid,  tenant_uuid, name, description, role_type_code, is_active, is_standard_role, created_date, updated_date,
     notes, test_data_group, created, active)
    values (NEWID(),'3E2070B4-5B0E-499B-BFC0-2001D796581A', 'Admin', 'Admin role with all permissions', 'ROL_ADMIN', 1, 1, GETDATE(), GETDATE(), 

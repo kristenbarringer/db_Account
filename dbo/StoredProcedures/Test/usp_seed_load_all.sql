@@ -16,7 +16,7 @@ BEGIN
         RETURN;
     END;
     -- alter table account_details drop constraint fk_account_details_admin_user_rid
-    -- alter table account_details drop constraint fk_account_details_created_by_user_uuid
+    -- alter table account_details drop constraint fk_account_details_created_by_user_rid
     PRINT '=== Starting seed data reset ===';
     exec dbo.usp_seed_reset_all
 

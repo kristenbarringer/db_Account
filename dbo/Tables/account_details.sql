@@ -2,8 +2,7 @@ CREATE TABLE [dbo].[account_details]
 ( -- REFACTOR DONE as of 6/7/2026
     -- ------------------------------------
     -- pks and main uq columns
-    [tenant_uuid] UNIQUEIDENTIFIER NOT NULL,
-    [customer_rid] INT NOT NULL,
+    [tenant_uuid] UNIQUEIDENTIFIER CONSTRAINT [df_account_details_account_details_uuid] DEFAULT (NEWSEQUENTIALID()) NOT NULL,   
     -- main attribute columns of this entity
     [organization] NVARCHAR (100) NOT NULL,
     [company_address] NVARCHAR (200) NULL,
@@ -30,10 +29,8 @@ CREATE TABLE [dbo].[account_details]
                     V
                 Customer (tk_customer)
     */
-    [dealer_uuid] UNIQUEIDENTIFIER NULL,-- TODO came from customer_dealer_mapping 
-    [dealer_rid] INT NULL,-- TODO came from customer_dealer_mapping 
-    [csm_uuid] UNIQUEIDENTIFIER NULL, -- TODO do we need this?  This is for tk_Admin and tk_Master (formerly known as celtrak_service_manager, a.k.a. "CSM")
-    [csm_rid] INT NULL, -- TODO do we need this?  This is for tk_Admin and tk_Master (formerly known as celtrak_service_manager, a.k.a. "CSM")
+    [dealer_rid] BIGINT NULL,-- TODO came from customer_dealer_mapping 
+    [csm_rid] BIGINT NULL, -- TODO do we need this?  This is for tk_Admin and tk_Master (formerly known as celtrak_service_manager, a.k.a. "CSM")
     -- TODO came from customer_dealer_mapping  
     -- customer_rid and dealer_rid were both ints in account_details.  In most cases a customer only has one device.  There was some bad data on Dev resulting in a few dupes.
     -- fk columns - to lookup code
@@ -51,8 +48,8 @@ CREATE TABLE [dbo].[account_details]
     [activated_date] DATETIME NULL,
     -- fk columns - to user
     [admin_user_rid] UNIQUEIDENTIFIER NOT NULL,
-    [created_by_user_uuid] UNIQUEIDENTIFIER NULL,
-    [updated_by_user_uuid] UNIQUEIDENTIFIER NULL, -- TODO add this to all tables
+    [created_by_user_rid] BIGINT NULL,
+    [updated_by_user_rid] BIGINT NULL, -- TODO add this to all tables
     -- note columns
     [notes] NVARCHAR (1000) NULL,
     -- test data columns (only used for test data process on dev)
@@ -67,13 +64,17 @@ CREATE TABLE [dbo].[account_details]
 GO
 -- ------------------------------------
 -- pks and main uq indexes
-ALTER TABLE [dbo].[account_details]  
-    ADD CONSTRAINT [cix_account_details_tenant_uuid] PRIMARY KEY CLUSTERED ([tenant_uuid] ASC) WITH (FILLFACTOR = 100, DATA_COMPRESSION = PAGE);
+ALTER TABLE [dbo].[account_details] ADD CONSTRAINT [pk_account_details_tenant_uuid] PRIMARY KEY CLUSTERED ([tenant_uuid] ASC) WITH (FILLFACTOR = 100, DATA_COMPRESSION = PAGE);
 GO
-ALTER TABLE dbo.[account_details]
-ADD CONSTRAINT uk_account_details_customer_rid UNIQUE ([customer_rid]);
+
+-- fks - other main fks
+ALTER TABLE [dbo].[account_details] ADD CONSTRAINT [fk_account_details_dealer_rid] FOREIGN KEY ([dealer_rid]) REFERENCES [dbo].[dealer] ([dealer_rid]);
 GO
--- -- fks - to tenant -- TODO no FK needed.  account = customer = tenant.  (TODO - tenantinfo is only used for migration.  account_details is the source)
+CREATE NONCLUSTERED INDEX [ix_fk_account_details_dealer_rid] ON [dbo].[account_details] ([dealer_rid] ASC);
+GO
+
+ 
+-- -- fks - to tenant -- TODO no FK needed.  account = customer = tenant.  (TODO - tenant-info is only used for migration.  account_details is the source)
 
 -- fks - to user -- todo creates circular reference - possibly remove these fks
 -- ALTER TABLE [dbo].[account_details]
@@ -83,10 +84,10 @@ GO
 --     ON [dbo].[account_details]([admin_user_rid] ASC);
 -- GO
 -- ALTER TABLE [dbo].[account_details]
---     ADD CONSTRAINT [fk_account_details_created_by_user_uuid] FOREIGN KEY ([created_by_user_uuid]) REFERENCES [dbo].[user_accounts] ([user_uuid]);
+--     ADD CONSTRAINT [fk_account_details_created_by_user_rid] FOREIGN KEY ([created_by_user_rid]) REFERENCES [dbo].[user_accounts] ([user_uuid]);
 -- GO
--- CREATE NONCLUSTERED INDEX [ix_fk_account_details_created_by_user_uuid] -- add explicit index for the FK column, to improve join performance
---     ON [dbo].[account_details]([created_by_user_uuid] ASC);
+-- CREATE NONCLUSTERED INDEX [ix_fk_account_details_created_by_user_rid] -- add explicit index for the FK column, to improve join performance
+--     ON [dbo].[account_details]([created_by_user_rid] ASC);
 -- GO
 -- -- fks - other main fks
 -- fks - to lookup code

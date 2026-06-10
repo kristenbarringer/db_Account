@@ -70,7 +70,7 @@ CREATE TABLE [dbo].[locations_common]
   [created_date] DATETIME CONSTRAINT [df_location_created_date] DEFAULT (getdate()) NOT NULL,
   [updated_date] DATETIME CONSTRAINT [df_location_updated_date] DEFAULT (getdate()) NOT NULL,
   -- fk columns - to user
-  [created_by_user_uuid] UNIQUEIDENTIFIER NULL,
+  [created_by_user_rid] UNIQUEIDENTIFIER NULL,
   -- note columns
   [notes] NVARCHAR (1000) NULL,
   -- test data columns (only used for test data process on dev)
@@ -103,10 +103,10 @@ CREATE NONCLUSTERED INDEX [ix_fk_location_tenant_uuid] -- add explicit index for
   GO
 -- fks - to user
 ALTER TABLE [dbo].[locations_common]
-    ADD CONSTRAINT [fk_location_user_uuid] FOREIGN KEY ([created_by_user_uuid]) REFERENCES [dbo].[user_accounts] ([user_uuid]);
+    ADD CONSTRAINT [fk_location_user_uuid] FOREIGN KEY ([created_by_user_rid]) REFERENCES [dbo].[user_accounts] ([user_uuid]);
 GO
 CREATE NONCLUSTERED INDEX [ix_fk_location_user_uuid] -- add explicit index for the FK column, to improve join performance
-    ON [dbo].[locations_common]([created_by_user_uuid] ASC);
+    ON [dbo].[locations_common]([created_by_user_rid] ASC);
 GO
 -- fks - other main fks
 ALTER TABLE [dbo].[locations_common]

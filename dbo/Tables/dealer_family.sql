@@ -44,11 +44,17 @@ GO
 
 CREATE TABLE [dbo].[dealer_family]
 (
-    [dealer_family_uuid] UNIQUEIDENTIFIER NOT NULL,
+    [dealer_family_uuid] UNIQUEIDENTIFIER CONSTRAINT [df_dealer_family_dealer_family_uuid] DEFAULT (NEWSEQUENTIALID()) NOT NULL,   
+    [dealer_family_rid]  BIGINT IDENTITY (1, 1) NOT NULL,
+    [tenant_uuid] UNIQUEIDENTIFIER  NOT NULL,
     -- TODO what other columns are needed?
     [name] varchar(300) NULL
 )
 GO
-ALTER TABLE [dbo].[dealer_family]
-    ADD CONSTRAINT [cix_dealer_family_uuid] PRIMARY KEY CLUSTERED ([dealer_family_uuid] ASC) WITH (FILLFACTOR = 100, DATA_COMPRESSION = PAGE);
+-- pks and main uq indexes
+ALTER TABLE [dbo].[dealer_family] ADD CONSTRAINT [pk_dealer_family_tenant_uuid_dealer_family_rid] PRIMARY KEY CLUSTERED ([tenant_uuid] ASC, [dealer_family_rid] ASC) WITH (FILLFACTOR = 100, DATA_COMPRESSION = PAGE);
+GO
+ALTER TABLE [dbo].[dealer_family] ADD CONSTRAINT [uk_dealer_family_uuid] UNIQUE NONCLUSTERED ([dealer_family_uuid] ASC) WITH (FILLFACTOR = 100, DATA_COMPRESSION = PAGE);
+GO
+ALTER TABLE [dbo].[dealer_family] ADD CONSTRAINT [uk_dealer_family_rid] UNIQUE ([dealer_family_rid]);
 GO

@@ -11,11 +11,11 @@ BEGIN
         RETURN;
     END;
 
-    declare @user_uuid uniqueidentifier
-    select @user_uuid = max(user_uuid)
+    declare @user_uuid BIGINT
+    select @user_uuid = max(user_rid)
     from dbo.user_accounts
-    declare @role_uuid uniqueidentifier
-    select @role_uuid = max(role_uuid)
+    declare @role_uuid BIGINT
+    select @role_uuid = max(role_rid)
     from dbo.role
     declare @role_id int
     select @role_id = max(role_rid)
@@ -23,7 +23,7 @@ BEGIN
     --where coalesce(note
 
     insert into user_grid_view_preference
-        (user_grid_view_preference_uuid, tenant_uuid, user_uuid, grid_name, columns_hidden, created_by_user_uuid, notes)
+        (user_grid_view_preference_uuid, tenant_uuid, user_rid, grid_name, columns_hidden, created_by_user_rid, notes)
     values
         (NEWID(), '3E2070B4-5B0E-499B-BFC0-2001D796581A', @user_uuid, '', '', @user_uuid, 'TEST DATA PROCESS ON DEV')
         ,

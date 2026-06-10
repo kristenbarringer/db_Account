@@ -259,7 +259,7 @@ where name like '%Walmart%'
         ,updated_date
         ,activated_date
         ,phone_extension
-        ,created_by_user_uuid
+        ,created_by_user_rid
         ,speed_type_code
         ,language_code
         ,temperature_type_code

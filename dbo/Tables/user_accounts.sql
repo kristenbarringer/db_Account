@@ -2,8 +2,8 @@ CREATE TABLE [dbo].[user_accounts]
 ( -- REFACTOR DONE as of 6/7/2026
     -- ------------------------------------
     -- pks and main uq columns
-    [user_uuid] UNIQUEIDENTIFIER NOT NULL,-- TODO 6/10 -- research how to make lower case
-    [user_rid] INT IDENTITY (1, 1) NOT NULL,
+    [user_uuid] UNIQUEIDENTIFIER CONSTRAINT [df_user_accounts_user_accounts_uuid] DEFAULT (NEWSEQUENTIALID()) NOT NULL,   
+    [user_rid]  BIGINT IDENTITY (1, 1) NOT NULL,
     -- fk columns - to tenant
     [tenant_uuid] UNIQUEIDENTIFIER NOT NULL,
     -- main attribute columns of this entity 
@@ -18,8 +18,7 @@ CREATE TABLE [dbo].[user_accounts]
     [object_id] NVARCHAR (50) NULL,
     -- the object_id in user_accounts is the Entra ID object ID for the user 
     -- fk columns - other main fks
-    [role_uuid] UNIQUEIDENTIFIER NULL, -- -- TODO 6/10 - ADD THIS
-    [role_rid] INT CONSTRAINT [DF_user_accounts_role_rid] DEFAULT (1) NOT NULL,-- TODO 6/10 - MAKE NULLABLE bc ROLE CREATED IN ENRICHMENT
+    [role_rid] BIGINT CONSTRAINT [DF_user_accounts_role_rid] DEFAULT (1) NULL,-- TODO 6/10 - MAKE NULLABLE bc ROLE CREATED IN ENRICHMENT
     -- fk columns - to lookup code
     [account_type_code] VARCHAR (30) CONSTRAINT [df_user_accounts_account_type_code] DEFAULT ('ACT_CUSTOMER') NOT NULL,
     [speed_type_code] VARCHAR (30) CONSTRAINT [df_user_accounts_speed_type_code] DEFAULT ('SPT_MPH') NOT NULL,
@@ -41,8 +40,8 @@ CREATE TABLE [dbo].[user_accounts]
     [activated_date] DATETIME NULL,
     [expiration_date] DATETIME NULL,
     -- fk columns - to user
-    [created_by_user_uuid] UNIQUEIDENTIFIER NULL,
-    [updated_by_user_uuid] UNIQUEIDENTIFIER NULL, -- TODO add this to all tables
+    [created_by_user_rid] UNIQUEIDENTIFIER NULL,
+    [updated_by_user_rid] UNIQUEIDENTIFIER NULL, -- TODO add this to all tables
     -- note columns
     [notes] NVARCHAR (1000) NULL,
     -- test data columns (only used for test data process on dev)
@@ -54,12 +53,19 @@ CREATE TABLE [dbo].[user_accounts]
 GO
 -- ------------------------------------
 -- pks and main uq indexes
-ALTER TABLE [dbo].[user_accounts]
-    ADD CONSTRAINT [cix_user_uuid] PRIMARY KEY CLUSTERED ([user_uuid] ASC) WITH (FILLFACTOR = 100, DATA_COMPRESSION = PAGE);
+ALTER TABLE [dbo].[user_accounts] ADD CONSTRAINT [pk_user_accounts_tenant_uuid_user_accounts_rid] PRIMARY KEY CLUSTERED ([tenant_uuid] ASC, [user_rid] ASC) WITH (FILLFACTOR = 100, DATA_COMPRESSION = PAGE);
 GO
-ALTER TABLE dbo.[user_accounts]
-ADD CONSTRAINT uk_user_rid UNIQUE ([user_rid]);
+ALTER TABLE [dbo].[user_accounts] ADD CONSTRAINT [uk_user_accounts_uuid] UNIQUE NONCLUSTERED ([user_uuid] ASC) WITH (FILLFACTOR = 100, DATA_COMPRESSION = PAGE);
 GO
+ALTER TABLE [dbo].[user_accounts] ADD CONSTRAINT [uk_user_accounts_rid] UNIQUE ([user_rid]);
+GO
+
+-- fks - other main fks
+ALTER TABLE [dbo].[user_accounts] ADD CONSTRAINT [fk_user_accounts_role_rid] FOREIGN KEY ([role_rid]) REFERENCES [dbo].[role] ([role_rid]);
+GO
+CREATE NONCLUSTERED INDEX [ix_fk_user_accounts_role_rid] ON [dbo].[user_accounts] ([role_rid] ASC);
+GO
+
 -- fks - to tenant
 ALTER TABLE [dbo].[user_accounts] ADD CONSTRAINT [fk_user_accounts_tenant_uuid] FOREIGN KEY ([tenant_uuid]) REFERENCES [dbo].[account_details] ([tenant_uuid]); 
  GO
@@ -68,18 +74,12 @@ CREATE NONCLUSTERED INDEX [ix_fk_user_accounts_tenant_uuid] -- add explicit inde
   GO
 -- -- fks - to user
 -- ALTER TABLE [dbo].[user_accounts]
---     ADD CONSTRAINT [fk_user_accounts_user_uuid] FOREIGN KEY ([created_by_user_uuid]) REFERENCES [dbo].[user_accounts] ([user_uuid]);
+--     ADD CONSTRAINT [fk_user_accounts_user_uuid] FOREIGN KEY ([created_by_user_rid]) REFERENCES [dbo].[user_accounts] ([user_uuid]);
 -- GO
 -- CREATE NONCLUSTERED INDEX [ix_fk_user_accounts_user_uuid] -- add explicit index for the FK column, to improve join performance
---     ON [dbo].[user_accounts]([created_by_user_uuid] ASC);
+--     ON [dbo].[user_accounts]([created_by_user_rid] ASC);
 -- GO
--- fks - other main fks
-ALTER TABLE [dbo].[user_accounts]
-    ADD CONSTRAINT [FK_user_accounts_role] FOREIGN KEY ([role_rid]) REFERENCES [dbo].[role] ([role_rid]);
-GO
-CREATE NONCLUSTERED INDEX [ix_fk_user_accounts_role]
-    ON [dbo].[user_accounts]([role_rid] ASC);
-GO
+ 
 -- fks - to lookup code
 --   [[account_type_code]] VARCHAR (30) CONSTRAINT [df_user_accounts_account_type_code] DEFAULT ('ACT_CUSTOMER') NOT NULL,
 ALTER TABLE [dbo].[user_accounts] ADD CONSTRAINT [fk_user_accounts_account_type_code] FOREIGN KEY ([account_type_code]) REFERENCES [dbo].[lookup_code] ([code]); 
