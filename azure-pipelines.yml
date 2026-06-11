@@ -96,6 +96,7 @@ steps:
   
   - task: PowerShell@2
     displayName: 'Generate ERD with tbls'
+    continueOnError: true
     env:
       SQLPASS: $(sqlPassword)
     inputs:
@@ -125,17 +126,19 @@ steps:
  
   - task: PublishPipelineArtifact@1
     displayName: 'Publish ERD artifact'
+    continueOnError: true
     inputs:
       targetPath: '$(Build.SourcesDirectory)/docs/erd'
       artifact: 'erd'
   
   - task: PowerShell@2
     displayName: 'Commit ERD to repo'
+    continueOnError: true
     inputs:
       targetType: 'inline'
       script: |
-        git config user.email "buildservice@dev.azure.com"
-        git config user.name "Pipeline Build Service"
+        git config user.email "$(Build.RequestedForEmail)"
+        git config user.name "$(Build.RequestedFor)"
         git add docs/erd
         $changes = git status --porcelain docs/erd
         if ([string]::IsNullOrWhiteSpace($changes)) {
