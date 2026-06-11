@@ -4,8 +4,8 @@ CREATE TABLE [dbo].[customer_billing_information]
 ( 
     -- ------------------------------------
     -- pks and main uq columns
-    [customer_billing_info_uuid] UNIQUEIDENTIFIER CONSTRAINT [df_customer_billing_info_customer_billing_info_uuid] DEFAULT (NEWSEQUENTIALID()) NOT NULL,   
-    [customer_billing_info_rid]  BIGINT IDENTITY (1, 1) NOT NULL,
+    [customer_billing_information_uuid] UNIQUEIDENTIFIER CONSTRAINT [df_customer_billing_information_customer_billing_information_uuid] DEFAULT (NEWSEQUENTIALID()) NOT NULL,   
+    [customer_billing_information_rid]  BIGINT IDENTITY (1, 1) NOT NULL,
     -- fk columns - to tenant
     [tenant_uuid] UNIQUEIDENTIFIER  NOT NULL,
     -- main attribute columns of this entity 
@@ -17,7 +17,7 @@ CREATE TABLE [dbo].[customer_billing_information]
        [customer_type_rid] INT NULL,
     [master_customer_rid] INT NULL,
     -- fk columns - to lookup code (suffixed with "_code")
-    --[lookup_code] VARCHAR (30) CONSTRAINT [df_customer_billing_info_language_code] DEFAULT ('LNG_ENUS') NOT NULL,
+    --[lookup_code] VARCHAR (30) CONSTRAINT [df_customer_billing_information_language_code] DEFAULT ('LNG_ENUS') NOT NULL,
       [billing_service_type_code] VARCHAR(30) NULL,
        [billing_option_type_code] VARCHAR (30) NOT NULL,
            [pay_up_front_term_code] VARCHAR (30) NULL,
@@ -29,12 +29,12 @@ CREATE TABLE [dbo].[customer_billing_information]
 
 
     -- bit flag columns (prefixed with "is_")        
-    [is_active] BIT CONSTRAINT [df_customer_billing_info_is_active] DEFAULT (1) NOT NULL,
+    [is_active] BIT CONSTRAINT [df_customer_billing_information_is_active] DEFAULT (1) NOT NULL,
         [restrict_logging_service_level_flag] BIT NOT NULL,
         [service_assist_subscription_flag] BIT NOT NULL,
     [pay_up_front_auto_renew_flag] BIT NOT NULL,
     -- date columns (suffixed with "_date")
-    [created_date] DATETIME CONSTRAINT [df_customer_billing_info_created_date] DEFAULT (getdate()) NOT NULL,
+    [created_date] DATETIME CONSTRAINT [df_customer_billing_information_created_date] DEFAULT (getdate()) NOT NULL,
     [updated_date] DATETIME NULL,
     -- fk columns - to user
     [created_by_user_rid] BIGINT NULL,
@@ -51,37 +51,37 @@ CREATE TABLE [dbo].[customer_billing_information]
 GO
 -- ------------------------------------
 -- pks and main uq indexes
-ALTER TABLE [dbo].[customer_billing_information] ADD CONSTRAINT [pk_customer_billing_info_tenant_uuid_customer_billing_info_rid] PRIMARY KEY CLUSTERED ([tenant_uuid] ASC, [customer_billing_info_rid] ASC) WITH (FILLFACTOR = 100, DATA_COMPRESSION = PAGE);
+ALTER TABLE [dbo].[customer_billing_information] ADD CONSTRAINT [pk_customer_billing_information_tenant_uuid_customer_billing_information_rid] PRIMARY KEY CLUSTERED ([tenant_uuid] ASC, [customer_billing_information_rid] ASC) WITH (FILLFACTOR = 100, DATA_COMPRESSION = PAGE);
 GO
-ALTER TABLE [dbo].[customer_billing_information] ADD CONSTRAINT [uk_customer_billing_info_uuid] UNIQUE NONCLUSTERED ([customer_billing_info_uuid] ASC) WITH (FILLFACTOR = 100, DATA_COMPRESSION = PAGE);
+ALTER TABLE [dbo].[customer_billing_information] ADD CONSTRAINT [uk_customer_billing_information_uuid] UNIQUE NONCLUSTERED ([customer_billing_information_uuid] ASC) WITH (FILLFACTOR = 100, DATA_COMPRESSION = PAGE);
 GO
-ALTER TABLE [dbo].[customer_billing_information] ADD CONSTRAINT [uk_customer_billing_info_rid] UNIQUE ([customer_billing_info_rid]);
+ALTER TABLE [dbo].[customer_billing_information] ADD CONSTRAINT [uk_customer_billing_information_rid] UNIQUE ([customer_billing_information_rid]);
 GO
 
 
 -- fks - to tenant
-ALTER TABLE [dbo].[customer_billing_information] ADD CONSTRAINT [fk_customer_billing_info_tenant_uuid] FOREIGN KEY ([tenant_uuid]) 
+ALTER TABLE [dbo].[customer_billing_information] ADD CONSTRAINT [fk_customer_billing_information_tenant_uuid] FOREIGN KEY ([tenant_uuid]) 
 /* On Fleet, should reference tenant_ref, on Account should reference account_details */
 REFERENCES [dbo].account_details  ([tenant_uuid]); 
  GO
-CREATE NONCLUSTERED INDEX [ix_fk_customer_billing_info_tenant_uuid] 
+CREATE NONCLUSTERED INDEX [ix_fk_customer_billing_information_tenant_uuid] 
   ON [dbo].[customer_billing_information]([tenant_uuid] ASC); 
   GO
 -- fks - to user
 ALTER TABLE [dbo].[customer_billing_information]
-    ADD CONSTRAINT [fk_customer_billing_info_created_by_user_rid] FOREIGN KEY ([created_by_user_rid]) 
+    ADD CONSTRAINT [fk_customer_billing_information_created_by_user_rid] FOREIGN KEY ([created_by_user_rid]) 
 /* On Fleet, should reference user_ref, on Account should reference user_accounts */
     REFERENCES [dbo].user_accounts ([user_rid]);
 GO
-CREATE NONCLUSTERED INDEX [ix_fk_customer_billing_info_created_by_user_rid] 
+CREATE NONCLUSTERED INDEX [ix_fk_customer_billing_information_created_by_user_rid] 
     ON [dbo].[customer_billing_information]([created_by_user_rid] ASC);
 GO
 ALTER TABLE [dbo].[customer_billing_information]
-    ADD CONSTRAINT [fk_customer_billing_info_updated_by_user_rid] FOREIGN KEY ([updated_by_user_rid]) 
+    ADD CONSTRAINT [fk_customer_billing_information_updated_by_user_rid] FOREIGN KEY ([updated_by_user_rid]) 
 /* On Fleet, should reference user_ref, on Account should reference user_accounts */
     REFERENCES [dbo].user_accounts ([user_rid]);
 GO
-CREATE NONCLUSTERED INDEX [ix_fk_customer_billing_info_updated_by_user_rid] 
+CREATE NONCLUSTERED INDEX [ix_fk_customer_billing_information_updated_by_user_rid] 
 
     ON [dbo].[customer_billing_information]([updated_by_user_rid] ASC);
 GO
