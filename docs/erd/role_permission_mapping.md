@@ -8,8 +8,8 @@ the table that stores the mappings of roles to permissions
 
 | Name | Type | Default | Nullable | Children | Parents | Comment |
 | ---- | ---- | ------- | -------- | -------- | ------- | ------- |
-| role_permission_mapping_uuid | uniqueidentifier | (newsequentialid()) | false |  |  | the uuid of the role_permission_mapping, Data type = uniqueidentifier, Nullable = No |
-| role_permission_mapping_rid | bigint |  | false |  |  | the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = bigint, Nullable = No |
+| role_permission_mapping_uuid | uniqueidentifier | (newsequentialid()) | false |  |  | Unique identifier for the record, a unique nonclustered key for the table. Must be a SQL-sortable UUIDv7. , Data type = uniqueidentifier, Nullable = No |
+| role_permission_mapping_rid | bigint |  | false |  |  | Unique RowID for the record, part of composite primary key for the table after tenant_uuid, a unique clustered key for the table, Data type = bigint, Nullable = No |
 | tenant_uuid | uniqueidentifier |  | false |  | [account_details](account_details.md) | the uniqueidentifier for the tenant/customer.  Used as a partitioning key., Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid] |
 | permission_code | varchar(100) |  | false |  |  | the code of the permissions - this is not currently a foreign key, Data type = varchar(100), Nullable = No |
 | role_rid | bigint |  | false |  | [role](role.md) | the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = bigint, Nullable = No, References = [dbo].[role].[role_rid] |
@@ -34,9 +34,9 @@ the table that stores the mappings of roles to permissions
 | pk_role_permission_mapping_tenant_uuid_role_permission_mapping_rid | CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, role_permission_mapping_rid ] |
 | uk_role_permission_mapping_uuid | NONCLUSTERED, unique, part of a UNIQUE constraint, [ role_permission_mapping_uuid ] |
 | uk_role_permission_mapping_rid | NONCLUSTERED, unique, part of a UNIQUE constraint, [ role_permission_mapping_rid ] |
-| ix_fk_role_permission_mapping_user_rid | NONCLUSTERED, [ role_rid ] |
 | ix_fk_role_permission_mapping_created_by_user_rid | NONCLUSTERED, [ created_by_user_rid ] |
 | ix_fk_role_permission_mapping_tenant_uuid | NONCLUSTERED, [ tenant_uuid ] |
+| ix_fk_role_permission_mapping_user_rid | NONCLUSTERED, [ role_rid ] |
 
 ## Relations
 

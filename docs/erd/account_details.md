@@ -8,7 +8,7 @@ the table that stores the details of the accounts
 
 | Name | Type | Default | Nullable | Children | Parents | Comment |
 | ---- | ---- | ------- | -------- | -------- | ------- | ------- |
-| tenant_uuid | uniqueidentifier | (newsequentialid()) | false | [contact](contact.md) [customer_account_information](customer_account_information.md) [customer_billing_information](customer_billing_information.md) [customer_internal_view](customer_internal_view.md) [customer_rate_information](customer_rate_information.md) [dealer](dealer.md) [dealer_family](dealer_family.md) [locations_common](locations_common.md) [role](role.md) [role_permission_mapping](role_permission_mapping.md) [subscription](subscription.md) [tenant_service_level_mapping](tenant_service_level_mapping.md) [user_accounts](user_accounts.md) [user_grid_view_preference](user_grid_view_preference.md) |  | the uniqueidentifier for the tenant/customer.  Used as a partitioning key., Data type = uniqueidentifier, Nullable = No |
+| tenant_uuid | uniqueidentifier | (newsequentialid()) | false | [locations_common](locations_common.md) [role](role.md) [role_permission_mapping](role_permission_mapping.md) [subscription](subscription.md) [tenant_service_level_mapping](tenant_service_level_mapping.md) [user_accounts](user_accounts.md) [user_grid_view_preference](user_grid_view_preference.md) [contact](contact.md) [customer_account_information](customer_account_information.md) [customer_billing_information](customer_billing_information.md) [customer_internal_view](customer_internal_view.md) [customer_rate_information](customer_rate_information.md) [dealer](dealer.md) [dealer_family](dealer_family.md) |  | the uniqueidentifier for the tenant/customer.  Used as a partitioning key., Data type = uniqueidentifier, Nullable = No |
 | organization | nvarchar(100) |  | false |  |  | the company name, Data type = nvarchar(200), Nullable = No |
 | company_address | nvarchar(200) |  | true |  |  | the address for the company, Data type = nvarchar(400), Nullable = Yes |
 | additional_address | nvarchar(200) |  | true |  |  | the second line of the address, Data type = nvarchar(400), Nullable = Yes |
@@ -39,8 +39,8 @@ the table that stores the details of the accounts
 | updated_by_user_rid | bigint |  | true |  |  |  |
 | notes | nvarchar(1000) |  | true |  |  | optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes |
 | test_data_group | int |  | true |  |  | used for the Dev test data process, Data type = int, Nullable = Yes |
-| active | bit |  | false |  |  | deprecated - replaced by is_active, Data type = bit, Nullable = No |
-| created | datetime | (getdate()) | false |  |  | deprecated - replaced by created_date, Data type = datetime, Nullable = No |
+| active | bit |  | false |  |  | DEPRECATED - replaced by is_active, Data type = bit, Nullable = No |
+| created | datetime | (getdate()) | false |  |  | DEPRECATED - replaced by created_date, Data type = datetime, Nullable = No |
 | migrated_data | bit | ((0)) | false |  |  | is the data from the data migration process from v1 to v2, Data type = bit, Nullable = No |
 
 ## Constraints

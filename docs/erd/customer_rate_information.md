@@ -4,8 +4,8 @@
 
 | Name | Type | Default | Nullable | Children | Parents | Comment |
 | ---- | ---- | ------- | -------- | -------- | ------- | ------- |
-| customer_rate_information_uuid | uniqueidentifier | (newsequentialid()) | false |  |  |  |
-| customer_rate_information_rid | bigint |  | false |  |  |  |
+| customer_rate_information_uuid | uniqueidentifier | (newsequentialid()) | false |  |  | Unique identifier for the record, a unique nonclustered key for the table. Must be a SQL-sortable UUIDv7. , Data type = uniqueidentifier, Nullable = No |
+| customer_rate_information_rid | bigint |  | false |  |  | Unique RowID for the record, part of composite primary key for the table after tenant_uuid, a unique clustered key for the table, Data type = bigint, Nullable = No |
 | tenant_uuid | uniqueidentifier |  | false |  | [account_details](account_details.md) | the customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid] |
 | rate_deviation_pct | decimal |  | true |  |  |  |
 | standard_rate | decimal |  | true |  |  |  |
@@ -38,9 +38,9 @@
 | pk_customer_rate_information_tenant_uuid_customer_rate_information_rid | CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, customer_rate_information_rid ] |
 | uk_customer_rate_information_uuid | NONCLUSTERED, unique, part of a UNIQUE constraint, [ customer_rate_information_uuid ] |
 | uk_customer_rate_information_rid | NONCLUSTERED, unique, part of a UNIQUE constraint, [ customer_rate_information_rid ] |
+| ix_fk_customer_rate_information_tenant_uuid | NONCLUSTERED, [ tenant_uuid ] |
 | ix_fk_customer_rate_information_created_by_user_rid | NONCLUSTERED, [ created_by_user_rid ] |
 | ix_fk_customer_rate_information_updated_by_user_rid | NONCLUSTERED, [ updated_by_user_rid ] |
-| ix_fk_customer_rate_information_tenant_uuid | NONCLUSTERED, [ tenant_uuid ] |
 
 ## Relations
 

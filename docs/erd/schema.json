@@ -2,6 +2,2176 @@
   "name": "Account",
   "tables": [
     {
+      "name": "feedback_question",
+      "type": "BASIC TABLE",
+      "columns": [
+        {
+          "name": "feedback_question_rid",
+          "type": "int",
+          "nullable": false,
+          "comment": "Unique RowID for the record, part of composite primary key for the table after tenant_uuid, a unique clustered key for the table, Data type = int, Nullable = No"
+        },
+        {
+          "name": "question_name",
+          "type": "nvarchar(450)",
+          "nullable": false
+        },
+        {
+          "name": "type",
+          "type": "nvarchar(155)",
+          "nullable": false
+        },
+        {
+          "name": "is_active",
+          "type": "bit",
+          "nullable": false,
+          "default": "((1))",
+          "comment": "the record is active, Data type = bit, Nullable = No"
+        },
+        {
+          "name": "attributes",
+          "type": "nvarchar(155)",
+          "nullable": true
+        }
+      ],
+      "indexes": [
+        {
+          "name": "PK_feedback_question",
+          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ feedback_question_rid ]",
+          "table": "feedback_question",
+          "columns": [
+            "feedback_question_rid"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "PK_feedback_question",
+          "type": "PRIMARY KEY",
+          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ feedback_question_rid ]",
+          "table": "feedback_question",
+          "columns": [
+            "feedback_question_rid"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "file_processing_tracker",
+      "type": "BASIC TABLE",
+      "columns": [
+        {
+          "name": "file_rid",
+          "type": "int",
+          "nullable": false
+        },
+        {
+          "name": "file_name",
+          "type": "varchar(100)",
+          "nullable": false
+        },
+        {
+          "name": "total_record_count",
+          "type": "int",
+          "nullable": true
+        },
+        {
+          "name": "processed_count",
+          "type": "int",
+          "nullable": true
+        },
+        {
+          "name": "status",
+          "type": "varchar(30)",
+          "nullable": true
+        },
+        {
+          "name": "tenant_id",
+          "type": "varchar(50)",
+          "nullable": true
+        },
+        {
+          "name": "created_by",
+          "type": "int",
+          "nullable": true
+        },
+        {
+          "name": "created_at",
+          "type": "datetime",
+          "nullable": true
+        },
+        {
+          "name": "updated_at",
+          "type": "datetime",
+          "nullable": true
+        },
+        {
+          "name": "upload_type",
+          "type": "varchar(30)",
+          "nullable": false
+        }
+      ],
+      "indexes": [
+        {
+          "name": "PK_file_processing_tracker",
+          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ file_rid ]",
+          "table": "file_processing_tracker",
+          "columns": [
+            "file_rid"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "PK_file_processing_tracker",
+          "type": "PRIMARY KEY",
+          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ file_rid ]",
+          "table": "file_processing_tracker",
+          "columns": [
+            "file_rid"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "locations_common",
+      "type": "BASIC TABLE",
+      "columns": [
+        {
+          "name": "locations_common_uuid",
+          "type": "uniqueidentifier",
+          "nullable": false,
+          "default": "(newsequentialid())",
+          "comment": "Unique identifier for the record, a unique nonclustered key for the table. Must be a SQL-sortable UUIDv7. , Data type = uniqueidentifier, Nullable = No"
+        },
+        {
+          "name": "locations_common_rid",
+          "type": "bigint",
+          "nullable": false,
+          "comment": "Unique RowID for the record, part of composite primary key for the table after tenant_uuid, a unique clustered key for the table, Data type = bigint, Nullable = No"
+        },
+        {
+          "name": "tenant_uuid",
+          "type": "uniqueidentifier",
+          "nullable": false,
+          "comment": "the customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
+        },
+        {
+          "name": "address_1",
+          "type": "nvarchar(100)",
+          "nullable": false
+        },
+        {
+          "name": "address_2",
+          "type": "nvarchar(100)",
+          "nullable": true
+        },
+        {
+          "name": "address_3",
+          "type": "nvarchar(1)",
+          "nullable": true
+        },
+        {
+          "name": "city",
+          "type": "nvarchar(50)",
+          "nullable": false
+        },
+        {
+          "name": "zip_code",
+          "type": "nvarchar(50)",
+          "nullable": true
+        },
+        {
+          "name": "country",
+          "type": "nvarchar(50)",
+          "nullable": false
+        },
+        {
+          "name": "longitude",
+          "type": "float",
+          "nullable": false
+        },
+        {
+          "name": "latitude",
+          "type": "float",
+          "nullable": false
+        },
+        {
+          "name": "calculated_longitude_in_radians",
+          "type": "float",
+          "nullable": false
+        },
+        {
+          "name": "calculated_latitude_in_radians",
+          "type": "float",
+          "nullable": false
+        },
+        {
+          "name": "dealer_rid",
+          "type": "bigint",
+          "nullable": true
+        },
+        {
+          "name": "is_active",
+          "type": "bit",
+          "nullable": false,
+          "default": "((1))",
+          "comment": "the record is active, Data type = bit, Nullable = No"
+        },
+        {
+          "name": "created_date",
+          "type": "datetime",
+          "nullable": false,
+          "default": "(getdate())"
+        },
+        {
+          "name": "updated_date",
+          "type": "datetime",
+          "nullable": true
+        },
+        {
+          "name": "created_by_user_rid",
+          "type": "bigint",
+          "nullable": true
+        },
+        {
+          "name": "updated_by_user_rid",
+          "type": "bigint",
+          "nullable": true
+        },
+        {
+          "name": "notes",
+          "type": "nvarchar(1000)",
+          "nullable": true,
+          "comment": "optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
+        },
+        {
+          "name": "phone_number",
+          "type": "float",
+          "nullable": true
+        },
+        {
+          "name": "phone_number_2",
+          "type": "nvarchar(1)",
+          "nullable": true
+        },
+        {
+          "name": "fax_number",
+          "type": "float",
+          "nullable": true
+        },
+        {
+          "name": "opening_hours",
+          "type": "nvarchar(50)",
+          "nullable": true
+        },
+        {
+          "name": "key_name",
+          "type": "nvarchar(100)",
+          "nullable": false
+        },
+        {
+          "name": "image_rid",
+          "type": "int",
+          "nullable": false
+        },
+        {
+          "name": "system_function_rid",
+          "type": "int",
+          "nullable": true
+        },
+        {
+          "name": "name",
+          "type": "nvarchar(100)",
+          "nullable": false
+        }
+      ],
+      "indexes": [
+        {
+          "name": "pk_locations_common_tenant_uuid_locations_common_rid",
+          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, locations_common_rid ]",
+          "table": "locations_common",
+          "columns": [
+            "tenant_uuid",
+            "locations_common_rid"
+          ]
+        },
+        {
+          "name": "uk_locations_common_uuid",
+          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ locations_common_uuid ]",
+          "table": "locations_common",
+          "columns": [
+            "locations_common_uuid"
+          ]
+        },
+        {
+          "name": "uk_locations_common_rid",
+          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ locations_common_rid ]",
+          "table": "locations_common",
+          "columns": [
+            "locations_common_rid"
+          ]
+        },
+        {
+          "name": "ix_fk_locations_common_created_by_user_rid",
+          "def": "NONCLUSTERED, [ created_by_user_rid ]",
+          "table": "locations_common",
+          "columns": [
+            "created_by_user_rid"
+          ]
+        },
+        {
+          "name": "ix_fk_locations_common_updated_by_user_rid",
+          "def": "NONCLUSTERED, [ updated_by_user_rid ]",
+          "table": "locations_common",
+          "columns": [
+            "updated_by_user_rid"
+          ]
+        },
+        {
+          "name": "ix_fk_locations_common_tenant_uuid",
+          "def": "NONCLUSTERED, [ tenant_uuid ]",
+          "table": "locations_common",
+          "columns": [
+            "tenant_uuid"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "pk_locations_common_tenant_uuid_locations_common_rid",
+          "type": "PRIMARY KEY",
+          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, locations_common_rid ]",
+          "table": "locations_common",
+          "columns": [
+            "tenant_uuid",
+            "locations_common_rid"
+          ]
+        },
+        {
+          "name": "uk_locations_common_uuid",
+          "type": "UNIQUE",
+          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ locations_common_uuid ]",
+          "table": "locations_common",
+          "columns": [
+            "locations_common_uuid"
+          ]
+        },
+        {
+          "name": "uk_locations_common_rid",
+          "type": "UNIQUE",
+          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ locations_common_rid ]",
+          "table": "locations_common",
+          "columns": [
+            "locations_common_rid"
+          ]
+        },
+        {
+          "name": "fk_locations_common_created_by_user_rid",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY(created_by_user_rid) REFERENCES user_accounts(user_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
+          "table": "locations_common",
+          "referenced_table": "user_accounts",
+          "columns": [
+            "created_by_user_rid"
+          ],
+          "referenced_columns": [
+            "user_rid"
+          ]
+        },
+        {
+          "name": "fk_locations_common_tenant_uuid",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY(tenant_uuid) REFERENCES account_details(tenant_uuid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
+          "table": "locations_common",
+          "referenced_table": "account_details",
+          "columns": [
+            "tenant_uuid"
+          ],
+          "referenced_columns": [
+            "tenant_uuid"
+          ]
+        },
+        {
+          "name": "fk_locations_common_updated_by_user_rid",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY(updated_by_user_rid) REFERENCES user_accounts(user_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
+          "table": "locations_common",
+          "referenced_table": "user_accounts",
+          "columns": [
+            "updated_by_user_rid"
+          ],
+          "referenced_columns": [
+            "user_rid"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "role",
+      "type": "BASIC TABLE",
+      "comment": "the table that stores the details of the roles",
+      "columns": [
+        {
+          "name": "role_uuid",
+          "type": "uniqueidentifier",
+          "nullable": false,
+          "default": "(newsequentialid())",
+          "comment": "Unique identifier for the record, a unique nonclustered key for the table. Must be a SQL-sortable UUIDv7. , Data type = uniqueidentifier, Nullable = No"
+        },
+        {
+          "name": "role_rid",
+          "type": "bigint",
+          "nullable": false,
+          "comment": "Unique RowID for the record, part of composite primary key for the table after tenant_uuid, a unique clustered key for the table, Data type = bigint, Nullable = No"
+        },
+        {
+          "name": "tenant_uuid",
+          "type": "uniqueidentifier",
+          "nullable": false,
+          "comment": "the uniqueidentifier for the tenant/customer.  Used as a partitioning key., Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
+        },
+        {
+          "name": "name",
+          "type": "nvarchar(100)",
+          "nullable": false,
+          "comment": "the short description of the record, Data type = nvarchar(200), Nullable = No"
+        },
+        {
+          "name": "description",
+          "type": "nvarchar(100)",
+          "nullable": false,
+          "comment": "the long description of the record, Data type = nvarchar(200), Nullable = No"
+        },
+        {
+          "name": "role_type_code",
+          "type": "varchar(30)",
+          "nullable": false,
+          "comment": "see lookup.code for information about these values, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
+        },
+        {
+          "name": "is_active",
+          "type": "bit",
+          "nullable": false,
+          "default": "((1))",
+          "comment": "the record is active, Data type = bit, Nullable = No"
+        },
+        {
+          "name": "is_standard_role",
+          "type": "bit",
+          "nullable": false,
+          "default": "((1))",
+          "comment": "is the record standard role, Data type = bit, Nullable = No"
+        },
+        {
+          "name": "created_date",
+          "type": "datetime",
+          "nullable": false,
+          "default": "(getdate())",
+          "comment": "the date the record was created, Data type = datetime, Nullable = No"
+        },
+        {
+          "name": "updated_date",
+          "type": "datetime",
+          "nullable": false,
+          "default": "(getdate())",
+          "comment": "the date the record was updated or created, Data type = datetime, Nullable = No"
+        },
+        {
+          "name": "created_by_user_rid",
+          "type": "uniqueidentifier",
+          "nullable": true
+        },
+        {
+          "name": "updated_by_user_rid",
+          "type": "uniqueidentifier",
+          "nullable": true
+        },
+        {
+          "name": "notes",
+          "type": "nvarchar(1000)",
+          "nullable": true,
+          "comment": "optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
+        },
+        {
+          "name": "test_data_group",
+          "type": "int",
+          "nullable": true,
+          "comment": "used for the Dev test data process, Data type = int, Nullable = Yes"
+        },
+        {
+          "name": "created",
+          "type": "datetime",
+          "nullable": false,
+          "default": "(getdate())",
+          "comment": "DEPRECATED - replaced by created_date, Data type = datetime, Nullable = No"
+        },
+        {
+          "name": "active",
+          "type": "bit",
+          "nullable": false,
+          "comment": "DEPRECATED - replaced by is_active, Data type = bit, Nullable = No"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "pk_role_tenant_uuid_role_rid",
+          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, role_rid ]",
+          "table": "role",
+          "columns": [
+            "tenant_uuid",
+            "role_rid"
+          ]
+        },
+        {
+          "name": "uk_role_uuid",
+          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ role_uuid ]",
+          "table": "role",
+          "columns": [
+            "role_uuid"
+          ]
+        },
+        {
+          "name": "uk_role_rid",
+          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ role_rid ]",
+          "table": "role",
+          "columns": [
+            "role_rid"
+          ]
+        },
+        {
+          "name": "ix_fk_role_tenant_uuid",
+          "def": "NONCLUSTERED, [ tenant_uuid ]",
+          "table": "role",
+          "columns": [
+            "tenant_uuid"
+          ]
+        },
+        {
+          "name": "ix_fk_role_role_type_code",
+          "def": "NONCLUSTERED, [ role_type_code ]",
+          "table": "role",
+          "columns": [
+            "role_type_code"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "pk_role_tenant_uuid_role_rid",
+          "type": "PRIMARY KEY",
+          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, role_rid ]",
+          "table": "role",
+          "columns": [
+            "tenant_uuid",
+            "role_rid"
+          ]
+        },
+        {
+          "name": "uk_role_uuid",
+          "type": "UNIQUE",
+          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ role_uuid ]",
+          "table": "role",
+          "columns": [
+            "role_uuid"
+          ]
+        },
+        {
+          "name": "uk_role_rid",
+          "type": "UNIQUE",
+          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ role_rid ]",
+          "table": "role",
+          "columns": [
+            "role_rid"
+          ]
+        },
+        {
+          "name": "fk_role_role_type_code",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY(role_type_code) REFERENCES lookup_code(code) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
+          "table": "role",
+          "referenced_table": "lookup_code",
+          "columns": [
+            "role_type_code"
+          ],
+          "referenced_columns": [
+            "code"
+          ]
+        },
+        {
+          "name": "fk_role_tenant_uuid",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY(tenant_uuid) REFERENCES account_details(tenant_uuid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
+          "table": "role",
+          "referenced_table": "account_details",
+          "columns": [
+            "tenant_uuid"
+          ],
+          "referenced_columns": [
+            "tenant_uuid"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "role_permission_mapping",
+      "type": "BASIC TABLE",
+      "comment": "the table that stores the mappings of roles to permissions",
+      "columns": [
+        {
+          "name": "role_permission_mapping_uuid",
+          "type": "uniqueidentifier",
+          "nullable": false,
+          "default": "(newsequentialid())",
+          "comment": "Unique identifier for the record, a unique nonclustered key for the table. Must be a SQL-sortable UUIDv7. , Data type = uniqueidentifier, Nullable = No"
+        },
+        {
+          "name": "role_permission_mapping_rid",
+          "type": "bigint",
+          "nullable": false,
+          "comment": "Unique RowID for the record, part of composite primary key for the table after tenant_uuid, a unique clustered key for the table, Data type = bigint, Nullable = No"
+        },
+        {
+          "name": "tenant_uuid",
+          "type": "uniqueidentifier",
+          "nullable": false,
+          "comment": "the uniqueidentifier for the tenant/customer.  Used as a partitioning key., Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
+        },
+        {
+          "name": "permission_code",
+          "type": "varchar(100)",
+          "nullable": false,
+          "comment": "the code of the permissions - this is not currently a foreign key, Data type = varchar(100), Nullable = No"
+        },
+        {
+          "name": "role_rid",
+          "type": "bigint",
+          "nullable": false,
+          "comment": "the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = bigint, Nullable = No, References = [dbo].[role].[role_rid]"
+        },
+        {
+          "name": "created_by_user_rid",
+          "type": "bigint",
+          "nullable": true
+        },
+        {
+          "name": "notes",
+          "type": "nvarchar(1000)",
+          "nullable": true,
+          "comment": "optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "pk_role_permission_mapping_tenant_uuid_role_permission_mapping_rid",
+          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, role_permission_mapping_rid ]",
+          "table": "role_permission_mapping",
+          "columns": [
+            "tenant_uuid",
+            "role_permission_mapping_rid"
+          ]
+        },
+        {
+          "name": "uk_role_permission_mapping_uuid",
+          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ role_permission_mapping_uuid ]",
+          "table": "role_permission_mapping",
+          "columns": [
+            "role_permission_mapping_uuid"
+          ]
+        },
+        {
+          "name": "uk_role_permission_mapping_rid",
+          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ role_permission_mapping_rid ]",
+          "table": "role_permission_mapping",
+          "columns": [
+            "role_permission_mapping_rid"
+          ]
+        },
+        {
+          "name": "ix_fk_role_permission_mapping_created_by_user_rid",
+          "def": "NONCLUSTERED, [ created_by_user_rid ]",
+          "table": "role_permission_mapping",
+          "columns": [
+            "created_by_user_rid"
+          ]
+        },
+        {
+          "name": "ix_fk_role_permission_mapping_tenant_uuid",
+          "def": "NONCLUSTERED, [ tenant_uuid ]",
+          "table": "role_permission_mapping",
+          "columns": [
+            "tenant_uuid"
+          ]
+        },
+        {
+          "name": "ix_fk_role_permission_mapping_user_rid",
+          "def": "NONCLUSTERED, [ role_rid ]",
+          "table": "role_permission_mapping",
+          "columns": [
+            "role_rid"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "pk_role_permission_mapping_tenant_uuid_role_permission_mapping_rid",
+          "type": "PRIMARY KEY",
+          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, role_permission_mapping_rid ]",
+          "table": "role_permission_mapping",
+          "columns": [
+            "tenant_uuid",
+            "role_permission_mapping_rid"
+          ]
+        },
+        {
+          "name": "uk_role_permission_mapping_uuid",
+          "type": "UNIQUE",
+          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ role_permission_mapping_uuid ]",
+          "table": "role_permission_mapping",
+          "columns": [
+            "role_permission_mapping_uuid"
+          ]
+        },
+        {
+          "name": "uk_role_permission_mapping_rid",
+          "type": "UNIQUE",
+          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ role_permission_mapping_rid ]",
+          "table": "role_permission_mapping",
+          "columns": [
+            "role_permission_mapping_rid"
+          ]
+        },
+        {
+          "name": "fk_role_permission_mapping_created_by_user_rid",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY(created_by_user_rid) REFERENCES user_accounts(user_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
+          "table": "role_permission_mapping",
+          "referenced_table": "user_accounts",
+          "columns": [
+            "created_by_user_rid"
+          ],
+          "referenced_columns": [
+            "user_rid"
+          ]
+        },
+        {
+          "name": "fk_role_permission_mapping_tenant_uuid",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY(tenant_uuid) REFERENCES account_details(tenant_uuid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
+          "table": "role_permission_mapping",
+          "referenced_table": "account_details",
+          "columns": [
+            "tenant_uuid"
+          ],
+          "referenced_columns": [
+            "tenant_uuid"
+          ]
+        },
+        {
+          "name": "fk_role_permission_mapping_user_rid",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY(role_rid) REFERENCES role(role_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
+          "table": "role_permission_mapping",
+          "referenced_table": "role",
+          "columns": [
+            "role_rid"
+          ],
+          "referenced_columns": [
+            "role_rid"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "service_level_feature_mapping",
+      "type": "BASIC TABLE",
+      "columns": [
+        {
+          "name": "rid",
+          "type": "int",
+          "nullable": false
+        },
+        {
+          "name": "service_level_code",
+          "type": "varchar(30)",
+          "nullable": false,
+          "comment": "a lookup to the main lookup_code table, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
+        },
+        {
+          "name": "created",
+          "type": "datetime",
+          "nullable": false,
+          "default": "(getdate())",
+          "comment": "DEPRECATED - replaced by created_date, Data type = datetime, Nullable = No"
+        },
+        {
+          "name": "feature_code",
+          "type": "varchar(100)",
+          "nullable": false
+        }
+      ],
+      "indexes": [
+        {
+          "name": "PK_service_level_feature_mapping",
+          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ rid ]",
+          "table": "service_level_feature_mapping",
+          "columns": [
+            "rid"
+          ]
+        },
+        {
+          "name": "ix_service_level_feature_mapping_service_level_code",
+          "def": "NONCLUSTERED, [ service_level_code ]",
+          "table": "service_level_feature_mapping",
+          "columns": [
+            "service_level_code"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "PK_service_level_feature_mapping",
+          "type": "PRIMARY KEY",
+          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ rid ]",
+          "table": "service_level_feature_mapping",
+          "columns": [
+            "rid"
+          ]
+        },
+        {
+          "name": "FK_service_level_feature_mapping_service_level",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY(service_level_code) REFERENCES lookup_code(code) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
+          "table": "service_level_feature_mapping",
+          "referenced_table": "lookup_code",
+          "columns": [
+            "service_level_code"
+          ],
+          "referenced_columns": [
+            "code"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "subscription",
+      "type": "BASIC TABLE",
+      "columns": [
+        {
+          "name": "subscription_uuid",
+          "type": "uniqueidentifier",
+          "nullable": false,
+          "default": "(newsequentialid())",
+          "comment": "Unique identifier for the record, a unique nonclustered key for the table. Must be a SQL-sortable UUIDv7. , Data type = uniqueidentifier, Nullable = No"
+        },
+        {
+          "name": "subscription_rid",
+          "type": "bigint",
+          "nullable": false,
+          "comment": "Unique RowID for the record, part of composite primary key for the table after tenant_uuid, a unique clustered key for the table, Data type = bigint, Nullable = No"
+        },
+        {
+          "name": "tenant_uuid",
+          "type": "uniqueidentifier",
+          "nullable": false,
+          "comment": "the customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
+        },
+        {
+          "name": "subscription_type_code",
+          "type": "varchar(30)",
+          "nullable": false
+        },
+        {
+          "name": "pay_up_front_term_code",
+          "type": "varchar(30)",
+          "nullable": true
+        },
+        {
+          "name": "is_active",
+          "type": "bit",
+          "nullable": false,
+          "default": "((1))",
+          "comment": "the record is active, Data type = bit, Nullable = No"
+        },
+        {
+          "name": "pay_up_front_auto_renew_flag",
+          "type": "bit",
+          "nullable": false
+        },
+        {
+          "name": "created_date",
+          "type": "datetime",
+          "nullable": false,
+          "default": "(getdate())"
+        },
+        {
+          "name": "updated_date",
+          "type": "datetime",
+          "nullable": true
+        },
+        {
+          "name": "closed_date",
+          "type": "datetime",
+          "nullable": true
+        },
+        {
+          "name": "created_by_user_rid",
+          "type": "bigint",
+          "nullable": true
+        },
+        {
+          "name": "updated_by_user_rid",
+          "type": "bigint",
+          "nullable": true
+        },
+        {
+          "name": "notes",
+          "type": "nvarchar(1000)",
+          "nullable": true,
+          "comment": "optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "pk_subscription_tenant_uuid_subscription_rid",
+          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, subscription_rid ]",
+          "table": "subscription",
+          "columns": [
+            "tenant_uuid",
+            "subscription_rid"
+          ]
+        },
+        {
+          "name": "uk_subscription_uuid",
+          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ subscription_uuid ]",
+          "table": "subscription",
+          "columns": [
+            "subscription_uuid"
+          ]
+        },
+        {
+          "name": "uk_subscription_rid",
+          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ subscription_rid ]",
+          "table": "subscription",
+          "columns": [
+            "subscription_rid"
+          ]
+        },
+        {
+          "name": "ix_fk_subscription_tenant_uuid",
+          "def": "NONCLUSTERED, [ tenant_uuid ]",
+          "table": "subscription",
+          "columns": [
+            "tenant_uuid"
+          ]
+        },
+        {
+          "name": "ix_fk_subscription_updated_by_user_rid",
+          "def": "NONCLUSTERED, [ updated_by_user_rid ]",
+          "table": "subscription",
+          "columns": [
+            "updated_by_user_rid"
+          ]
+        },
+        {
+          "name": "ix_fk_subscription_created_by_user_rid",
+          "def": "NONCLUSTERED, [ created_by_user_rid ]",
+          "table": "subscription",
+          "columns": [
+            "created_by_user_rid"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "pk_subscription_tenant_uuid_subscription_rid",
+          "type": "PRIMARY KEY",
+          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, subscription_rid ]",
+          "table": "subscription",
+          "columns": [
+            "tenant_uuid",
+            "subscription_rid"
+          ]
+        },
+        {
+          "name": "uk_subscription_uuid",
+          "type": "UNIQUE",
+          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ subscription_uuid ]",
+          "table": "subscription",
+          "columns": [
+            "subscription_uuid"
+          ]
+        },
+        {
+          "name": "uk_subscription_rid",
+          "type": "UNIQUE",
+          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ subscription_rid ]",
+          "table": "subscription",
+          "columns": [
+            "subscription_rid"
+          ]
+        },
+        {
+          "name": "fk_subscription_created_by_user_rid",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY(created_by_user_rid) REFERENCES user_accounts(user_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
+          "table": "subscription",
+          "referenced_table": "user_accounts",
+          "columns": [
+            "created_by_user_rid"
+          ],
+          "referenced_columns": [
+            "user_rid"
+          ]
+        },
+        {
+          "name": "fk_subscription_tenant_uuid",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY(tenant_uuid) REFERENCES account_details(tenant_uuid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
+          "table": "subscription",
+          "referenced_table": "account_details",
+          "columns": [
+            "tenant_uuid"
+          ],
+          "referenced_columns": [
+            "tenant_uuid"
+          ]
+        },
+        {
+          "name": "fk_subscription_updated_by_user_rid",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY(updated_by_user_rid) REFERENCES user_accounts(user_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
+          "table": "subscription",
+          "referenced_table": "user_accounts",
+          "columns": [
+            "updated_by_user_rid"
+          ],
+          "referenced_columns": [
+            "user_rid"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "tenant_service_level_mapping",
+      "type": "BASIC TABLE",
+      "columns": [
+        {
+          "name": "tenant_service_level_mapping_uuid",
+          "type": "uniqueidentifier",
+          "nullable": false,
+          "default": "(newsequentialid())",
+          "comment": "Unique identifier for the record, a unique nonclustered key for the table. Must be a SQL-sortable UUIDv7. , Data type = uniqueidentifier, Nullable = No"
+        },
+        {
+          "name": "tenant_service_level_mapping_rid",
+          "type": "bigint",
+          "nullable": false,
+          "comment": "Unique RowID for the record, part of composite primary key for the table after tenant_uuid, a unique clustered key for the table, Data type = bigint, Nullable = No"
+        },
+        {
+          "name": "tenant_uuid",
+          "type": "uniqueidentifier",
+          "nullable": false,
+          "comment": "the customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
+        },
+        {
+          "name": "service_level_code",
+          "type": "varchar(30)",
+          "nullable": false
+        },
+        {
+          "name": "account_type_code",
+          "type": "varchar(30)",
+          "nullable": true
+        },
+        {
+          "name": "is_active",
+          "type": "bit",
+          "nullable": false,
+          "default": "((1))",
+          "comment": "the record is active, Data type = bit, Nullable = No"
+        },
+        {
+          "name": "created_date",
+          "type": "datetime",
+          "nullable": false,
+          "default": "(getdate())"
+        },
+        {
+          "name": "updated_date",
+          "type": "datetime",
+          "nullable": true
+        },
+        {
+          "name": "created_by_user_rid",
+          "type": "bigint",
+          "nullable": true
+        },
+        {
+          "name": "updated_by_user_rid",
+          "type": "bigint",
+          "nullable": true
+        },
+        {
+          "name": "notes",
+          "type": "nvarchar(1000)",
+          "nullable": true,
+          "comment": "optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "pk_tenant_service_level_mapping_tenant_uuid_tenant_service_level_mapping_rid",
+          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, tenant_service_level_mapping_rid ]",
+          "table": "tenant_service_level_mapping",
+          "columns": [
+            "tenant_uuid",
+            "tenant_service_level_mapping_rid"
+          ]
+        },
+        {
+          "name": "uk_tenant_service_level_mapping_uuid",
+          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ tenant_service_level_mapping_uuid ]",
+          "table": "tenant_service_level_mapping",
+          "columns": [
+            "tenant_service_level_mapping_uuid"
+          ]
+        },
+        {
+          "name": "uk_tenant_service_level_mapping_rid",
+          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ tenant_service_level_mapping_rid ]",
+          "table": "tenant_service_level_mapping",
+          "columns": [
+            "tenant_service_level_mapping_rid"
+          ]
+        },
+        {
+          "name": "ix_fk_tenant_service_level_mapping_tenant_uuid",
+          "def": "NONCLUSTERED, [ tenant_uuid ]",
+          "table": "tenant_service_level_mapping",
+          "columns": [
+            "tenant_uuid"
+          ]
+        },
+        {
+          "name": "ix_fk_tenant_service_level_mapping_updated_by_user_rid",
+          "def": "NONCLUSTERED, [ updated_by_user_rid ]",
+          "table": "tenant_service_level_mapping",
+          "columns": [
+            "updated_by_user_rid"
+          ]
+        },
+        {
+          "name": "ix_fk_tenant_service_level_mapping_created_by_user_rid",
+          "def": "NONCLUSTERED, [ created_by_user_rid ]",
+          "table": "tenant_service_level_mapping",
+          "columns": [
+            "created_by_user_rid"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "pk_tenant_service_level_mapping_tenant_uuid_tenant_service_level_mapping_rid",
+          "type": "PRIMARY KEY",
+          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, tenant_service_level_mapping_rid ]",
+          "table": "tenant_service_level_mapping",
+          "columns": [
+            "tenant_uuid",
+            "tenant_service_level_mapping_rid"
+          ]
+        },
+        {
+          "name": "uk_tenant_service_level_mapping_uuid",
+          "type": "UNIQUE",
+          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ tenant_service_level_mapping_uuid ]",
+          "table": "tenant_service_level_mapping",
+          "columns": [
+            "tenant_service_level_mapping_uuid"
+          ]
+        },
+        {
+          "name": "uk_tenant_service_level_mapping_rid",
+          "type": "UNIQUE",
+          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ tenant_service_level_mapping_rid ]",
+          "table": "tenant_service_level_mapping",
+          "columns": [
+            "tenant_service_level_mapping_rid"
+          ]
+        },
+        {
+          "name": "fk_tenant_service_level_mapping_created_by_user_rid",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY(created_by_user_rid) REFERENCES user_accounts(user_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
+          "table": "tenant_service_level_mapping",
+          "referenced_table": "user_accounts",
+          "columns": [
+            "created_by_user_rid"
+          ],
+          "referenced_columns": [
+            "user_rid"
+          ]
+        },
+        {
+          "name": "fk_tenant_service_level_mapping_tenant_uuid",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY(tenant_uuid) REFERENCES account_details(tenant_uuid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
+          "table": "tenant_service_level_mapping",
+          "referenced_table": "account_details",
+          "columns": [
+            "tenant_uuid"
+          ],
+          "referenced_columns": [
+            "tenant_uuid"
+          ]
+        },
+        {
+          "name": "fk_tenant_service_level_mapping_updated_by_user_rid",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY(updated_by_user_rid) REFERENCES user_accounts(user_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
+          "table": "tenant_service_level_mapping",
+          "referenced_table": "user_accounts",
+          "columns": [
+            "updated_by_user_rid"
+          ],
+          "referenced_columns": [
+            "user_rid"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "user_accounts",
+      "type": "BASIC TABLE",
+      "comment": "the table that stores the details of the users",
+      "columns": [
+        {
+          "name": "user_uuid",
+          "type": "uniqueidentifier",
+          "nullable": false,
+          "default": "(newsequentialid())",
+          "comment": "the uuid of the user, Data type = uniqueidentifier, Nullable = No"
+        },
+        {
+          "name": "user_rid",
+          "type": "bigint",
+          "nullable": false,
+          "comment": "the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = bigint, Nullable = No"
+        },
+        {
+          "name": "tenant_uuid",
+          "type": "uniqueidentifier",
+          "nullable": false,
+          "comment": "the uniqueidentifier for the tenant/customer.  Used as a partitioning key., Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
+        },
+        {
+          "name": "user_name",
+          "type": "nvarchar(200)",
+          "nullable": true,
+          "comment": "the user name of the user, Data type = nvarchar(400), Nullable = Yes"
+        },
+        {
+          "name": "first_name",
+          "type": "nvarchar(50)",
+          "nullable": false,
+          "default": "('Tracking')",
+          "comment": "the first name of the user, Data type = nvarchar(100), Nullable = No"
+        },
+        {
+          "name": "last_name",
+          "type": "nvarchar(50)",
+          "nullable": false,
+          "default": "('User')",
+          "comment": "the last name of the user, Data type = nvarchar(100), Nullable = No"
+        },
+        {
+          "name": "email_address",
+          "type": "nvarchar(300)",
+          "nullable": false,
+          "comment": "the email address, Data type = nvarchar(600), Nullable = No"
+        },
+        {
+          "name": "phone_number",
+          "type": "nvarchar(50)",
+          "nullable": true,
+          "comment": "the phone number, Data type = nvarchar(100), Nullable = Yes"
+        },
+        {
+          "name": "phone_extension",
+          "type": "int",
+          "nullable": true,
+          "comment": "the extension of the phone number, Data type = int, Nullable = Yes"
+        },
+        {
+          "name": "title",
+          "type": "nvarchar(200)",
+          "nullable": true,
+          "comment": "the job title of the user, Data type = nvarchar(400), Nullable = Yes"
+        },
+        {
+          "name": "landing_page",
+          "type": "nvarchar(55)",
+          "nullable": false,
+          "default": "('DEFAULT')",
+          "comment": "the page on the UI where the user should land when signing on to the website, Data type = nvarchar(110), Nullable = No"
+        },
+        {
+          "name": "object_id",
+          "type": "nvarchar(50)",
+          "nullable": true,
+          "comment": "the Microsoft Entra ID for the user, Data type = nvarchar(100), Nullable = Yes"
+        },
+        {
+          "name": "role_rid",
+          "type": "bigint",
+          "nullable": true,
+          "default": "((1))",
+          "comment": "the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = bigint, Nullable = Yes, References = [dbo].[role].[role_rid]"
+        },
+        {
+          "name": "account_type_code",
+          "type": "varchar(30)",
+          "nullable": false,
+          "default": "('ACT_CUSTOMER')",
+          "comment": "see lookup.code for information about these values, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
+        },
+        {
+          "name": "speed_type_code",
+          "type": "varchar(30)",
+          "nullable": false,
+          "default": "('SPT_MPH')",
+          "comment": "see lookup.code for information about these values, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
+        },
+        {
+          "name": "language_code",
+          "type": "varchar(30)",
+          "nullable": false,
+          "default": "('ENUS')",
+          "comment": "see lookup.code for information about these values, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
+        },
+        {
+          "name": "temperature_type_code",
+          "type": "varchar(30)",
+          "nullable": false,
+          "default": "('TMP_FAHRENHEIT')",
+          "comment": "see lookup.code for information about these values, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
+        },
+        {
+          "name": "fuel_type_code",
+          "type": "varchar(30)",
+          "nullable": false,
+          "default": "('FLT_U_S_GALLONS')",
+          "comment": "see lookup.code for information about these values, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
+        },
+        {
+          "name": "timezone_code",
+          "type": "varchar(30)",
+          "nullable": false,
+          "default": "('TMZ_AMERICA_CHICAGO')",
+          "comment": "see lookup.code for information about these values, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
+        },
+        {
+          "name": "theme_code",
+          "type": "varchar(30)",
+          "nullable": false,
+          "default": "('THM_LIGHT')",
+          "comment": "see lookup.code for information about these values, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
+        },
+        {
+          "name": "tour_status_code",
+          "type": "varchar(30)",
+          "nullable": false,
+          "default": "('TOR_0')",
+          "comment": "see lookup.code for information about these values, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
+        },
+        {
+          "name": "phone_type_code",
+          "type": "varchar(30)",
+          "nullable": false,
+          "default": "('PHT_MOBILE')",
+          "comment": "see lookup.code for information about these values, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
+        },
+        {
+          "name": "status_code",
+          "type": "varchar(30)",
+          "nullable": false,
+          "default": "('USR_ACTIVE')",
+          "comment": "see lookup.code for information about these values, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
+        },
+        {
+          "name": "is_active",
+          "type": "bit",
+          "nullable": false,
+          "default": "((1))",
+          "comment": "the record is active, Data type = bit, Nullable = No"
+        },
+        {
+          "name": "is_onboarded",
+          "type": "bit",
+          "nullable": true,
+          "default": "((1))",
+          "comment": "is the record onboarded, Data type = bit, Nullable = Yes"
+        },
+        {
+          "name": "is_migrated_data",
+          "type": "bit",
+          "nullable": false,
+          "default": "((0))",
+          "comment": "is the record migrated data, Data type = bit, Nullable = No"
+        },
+        {
+          "name": "created_date",
+          "type": "datetime",
+          "nullable": false,
+          "default": "(getdate())",
+          "comment": "the date the record was created, Data type = datetime, Nullable = No"
+        },
+        {
+          "name": "updated_date",
+          "type": "datetime",
+          "nullable": false,
+          "default": "(getdate())",
+          "comment": "the date the record was updated or created, Data type = datetime, Nullable = No"
+        },
+        {
+          "name": "activated_date",
+          "type": "datetime",
+          "nullable": true,
+          "comment": "the date the record was activated, Data type = datetime, Nullable = Yes"
+        },
+        {
+          "name": "expiration_date",
+          "type": "datetime",
+          "nullable": true,
+          "comment": "the expiration date, Data type = datetime, Nullable = Yes"
+        },
+        {
+          "name": "created_by_user_rid",
+          "type": "uniqueidentifier",
+          "nullable": true
+        },
+        {
+          "name": "updated_by_user_rid",
+          "type": "uniqueidentifier",
+          "nullable": true
+        },
+        {
+          "name": "notes",
+          "type": "nvarchar(1000)",
+          "nullable": true,
+          "comment": "optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
+        },
+        {
+          "name": "test_data_group",
+          "type": "int",
+          "nullable": true,
+          "comment": "used for the Dev test data process, Data type = int, Nullable = Yes"
+        },
+        {
+          "name": "active",
+          "type": "bit",
+          "nullable": false,
+          "default": "((1))",
+          "comment": "DEPRECATED - replaced by is_active, Data type = bit, Nullable = No"
+        },
+        {
+          "name": "created",
+          "type": "datetime",
+          "nullable": false,
+          "default": "(getdate())",
+          "comment": "DEPRECATED - replaced by created_date, Data type = datetime, Nullable = No"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "pk_user_accounts_tenant_uuid_user_accounts_rid",
+          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, user_rid ]",
+          "table": "user_accounts",
+          "columns": [
+            "tenant_uuid",
+            "user_rid"
+          ]
+        },
+        {
+          "name": "uk_user_accounts_uuid",
+          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ user_uuid ]",
+          "table": "user_accounts",
+          "columns": [
+            "user_uuid"
+          ]
+        },
+        {
+          "name": "uk_user_accounts_rid",
+          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ user_rid ]",
+          "table": "user_accounts",
+          "columns": [
+            "user_rid"
+          ]
+        },
+        {
+          "name": "ix_user_accounts_tenant_uuid_status_code",
+          "def": "NONCLUSTERED, [ tenant_uuid, status_code ]",
+          "table": "user_accounts",
+          "columns": [
+            "tenant_uuid",
+            "status_code"
+          ]
+        },
+        {
+          "name": "ix_fk_user_accounts_account_type_code",
+          "def": "NONCLUSTERED, [ account_type_code ]",
+          "table": "user_accounts",
+          "columns": [
+            "account_type_code"
+          ]
+        },
+        {
+          "name": "ix_fk_user_accounts_fuel_type_code",
+          "def": "NONCLUSTERED, [ fuel_type_code ]",
+          "table": "user_accounts",
+          "columns": [
+            "fuel_type_code"
+          ]
+        },
+        {
+          "name": "ix_fk_user_accounts_phone_type_code",
+          "def": "NONCLUSTERED, [ phone_type_code ]",
+          "table": "user_accounts",
+          "columns": [
+            "phone_type_code"
+          ]
+        },
+        {
+          "name": "ix_fk_user_accounts_timezone_code",
+          "def": "NONCLUSTERED, [ timezone_code ]",
+          "table": "user_accounts",
+          "columns": [
+            "timezone_code"
+          ]
+        },
+        {
+          "name": "ix_fk_user_accounts_language_code",
+          "def": "NONCLUSTERED, [ language_code ]",
+          "table": "user_accounts",
+          "columns": [
+            "language_code"
+          ]
+        },
+        {
+          "name": "ix_fk_user_accounts_tour_status_code",
+          "def": "NONCLUSTERED, [ tour_status_code ]",
+          "table": "user_accounts",
+          "columns": [
+            "tour_status_code"
+          ]
+        },
+        {
+          "name": "ix_fk_user_accounts_speed_type_code",
+          "def": "NONCLUSTERED, [ speed_type_code ]",
+          "table": "user_accounts",
+          "columns": [
+            "speed_type_code"
+          ]
+        },
+        {
+          "name": "ix_fk_user_accounts_tenant_uuid",
+          "def": "NONCLUSTERED, [ tenant_uuid ]",
+          "table": "user_accounts",
+          "columns": [
+            "tenant_uuid"
+          ]
+        },
+        {
+          "name": "ix_fk_user_accounts_status_code",
+          "def": "NONCLUSTERED, [ status_code ]",
+          "table": "user_accounts",
+          "columns": [
+            "status_code"
+          ]
+        },
+        {
+          "name": "ix_fk_user_accounts_temperature_type_code",
+          "def": "NONCLUSTERED, [ temperature_type_code ]",
+          "table": "user_accounts",
+          "columns": [
+            "temperature_type_code"
+          ]
+        },
+        {
+          "name": "ix_fk_user_accounts_role_rid",
+          "def": "NONCLUSTERED, [ role_rid ]",
+          "table": "user_accounts",
+          "columns": [
+            "role_rid"
+          ]
+        },
+        {
+          "name": "ix_fk_user_accounts_theme_code",
+          "def": "NONCLUSTERED, [ theme_code ]",
+          "table": "user_accounts",
+          "columns": [
+            "theme_code"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "pk_user_accounts_tenant_uuid_user_accounts_rid",
+          "type": "PRIMARY KEY",
+          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, user_rid ]",
+          "table": "user_accounts",
+          "columns": [
+            "tenant_uuid",
+            "user_rid"
+          ]
+        },
+        {
+          "name": "uk_user_accounts_uuid",
+          "type": "UNIQUE",
+          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ user_uuid ]",
+          "table": "user_accounts",
+          "columns": [
+            "user_uuid"
+          ]
+        },
+        {
+          "name": "uk_user_accounts_rid",
+          "type": "UNIQUE",
+          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ user_rid ]",
+          "table": "user_accounts",
+          "columns": [
+            "user_rid"
+          ]
+        },
+        {
+          "name": "fk_user_accounts_account_type_code",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY(account_type_code) REFERENCES lookup_code(code) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
+          "table": "user_accounts",
+          "referenced_table": "lookup_code",
+          "columns": [
+            "account_type_code"
+          ],
+          "referenced_columns": [
+            "code"
+          ]
+        },
+        {
+          "name": "fk_user_accounts_fuel_type_code",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY(fuel_type_code) REFERENCES lookup_code(code) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
+          "table": "user_accounts",
+          "referenced_table": "lookup_code",
+          "columns": [
+            "fuel_type_code"
+          ],
+          "referenced_columns": [
+            "code"
+          ]
+        },
+        {
+          "name": "fk_user_accounts_language_code",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY(language_code) REFERENCES lookup_code(code) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
+          "table": "user_accounts",
+          "referenced_table": "lookup_code",
+          "columns": [
+            "language_code"
+          ],
+          "referenced_columns": [
+            "code"
+          ]
+        },
+        {
+          "name": "fk_user_accounts_role_rid",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY(role_rid) REFERENCES role(role_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
+          "table": "user_accounts",
+          "referenced_table": "role",
+          "columns": [
+            "role_rid"
+          ],
+          "referenced_columns": [
+            "role_rid"
+          ]
+        },
+        {
+          "name": "fk_user_accounts_speed_type_code",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY(speed_type_code) REFERENCES lookup_code(code) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
+          "table": "user_accounts",
+          "referenced_table": "lookup_code",
+          "columns": [
+            "speed_type_code"
+          ],
+          "referenced_columns": [
+            "code"
+          ]
+        },
+        {
+          "name": "fk_user_accounts_status_code",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY(status_code) REFERENCES lookup_code(code) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
+          "table": "user_accounts",
+          "referenced_table": "lookup_code",
+          "columns": [
+            "status_code"
+          ],
+          "referenced_columns": [
+            "code"
+          ]
+        },
+        {
+          "name": "fk_user_accounts_temperature_type_code",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY(temperature_type_code) REFERENCES lookup_code(code) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
+          "table": "user_accounts",
+          "referenced_table": "lookup_code",
+          "columns": [
+            "temperature_type_code"
+          ],
+          "referenced_columns": [
+            "code"
+          ]
+        },
+        {
+          "name": "fk_user_accounts_tenant_uuid",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY(tenant_uuid) REFERENCES account_details(tenant_uuid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
+          "table": "user_accounts",
+          "referenced_table": "account_details",
+          "columns": [
+            "tenant_uuid"
+          ],
+          "referenced_columns": [
+            "tenant_uuid"
+          ]
+        },
+        {
+          "name": "fk_user_accounts_theme_code",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY(theme_code) REFERENCES lookup_code(code) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
+          "table": "user_accounts",
+          "referenced_table": "lookup_code",
+          "columns": [
+            "theme_code"
+          ],
+          "referenced_columns": [
+            "code"
+          ]
+        },
+        {
+          "name": "fk_user_accounts_timezone_code",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY(timezone_code) REFERENCES lookup_code(code) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
+          "table": "user_accounts",
+          "referenced_table": "lookup_code",
+          "columns": [
+            "timezone_code"
+          ],
+          "referenced_columns": [
+            "code"
+          ]
+        },
+        {
+          "name": "fk_user_accounts_tour_status_code",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY(tour_status_code) REFERENCES lookup_code(code) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
+          "table": "user_accounts",
+          "referenced_table": "lookup_code",
+          "columns": [
+            "tour_status_code"
+          ],
+          "referenced_columns": [
+            "code"
+          ]
+        },
+        {
+          "name": "fk_user_accountsphone_type_code",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY(phone_type_code) REFERENCES lookup_code(code) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
+          "table": "user_accounts",
+          "referenced_table": "lookup_code",
+          "columns": [
+            "phone_type_code"
+          ],
+          "referenced_columns": [
+            "code"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "user_feedback",
+      "type": "BASIC TABLE",
+      "columns": [
+        {
+          "name": "user_feedback_rid",
+          "type": "int",
+          "nullable": false,
+          "comment": "Unique RowID for the record, part of composite primary key for the table after tenant_uuid, a unique clustered key for the table, Data type = int, Nullable = No"
+        },
+        {
+          "name": "user_rid",
+          "type": "int",
+          "nullable": false
+        },
+        {
+          "name": "user_name",
+          "type": "nvarchar(200)",
+          "nullable": true
+        },
+        {
+          "name": "user_role_rid",
+          "type": "int",
+          "nullable": true
+        },
+        {
+          "name": "organization_name",
+          "type": "nvarchar(200)",
+          "nullable": true
+        },
+        {
+          "name": "tenant_id",
+          "type": "nvarchar(100)",
+          "nullable": true
+        },
+        {
+          "name": "email_id",
+          "type": "nvarchar(100)",
+          "nullable": true
+        },
+        {
+          "name": "session_id",
+          "type": "int",
+          "nullable": true
+        },
+        {
+          "name": "rating",
+          "type": "int",
+          "nullable": true
+        },
+        {
+          "name": "question_rid",
+          "type": "int",
+          "nullable": true
+        },
+        {
+          "name": "answer_text",
+          "type": "nvarchar(MAX)",
+          "nullable": true
+        },
+        {
+          "name": "feedback_type",
+          "type": "nvarchar(100)",
+          "nullable": true
+        },
+        {
+          "name": "created_at",
+          "type": "datetime",
+          "nullable": false,
+          "default": "(getdate())"
+        },
+        {
+          "name": "page_source",
+          "type": "nvarchar(155)",
+          "nullable": true
+        },
+        {
+          "name": "is_submitted",
+          "type": "bit",
+          "nullable": false,
+          "default": "((0))"
+        },
+        {
+          "name": "feedback_dismissed",
+          "type": "bit",
+          "nullable": true
+        }
+      ],
+      "indexes": [
+        {
+          "name": "PK_user_feedback",
+          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ user_feedback_rid ]",
+          "table": "user_feedback",
+          "columns": [
+            "user_feedback_rid"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "PK_user_feedback",
+          "type": "PRIMARY KEY",
+          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ user_feedback_rid ]",
+          "table": "user_feedback",
+          "columns": [
+            "user_feedback_rid"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "user_grid_view_preference",
+      "type": "BASIC TABLE",
+      "comment": "the table that stores the details of the user preferences",
+      "columns": [
+        {
+          "name": "user_grid_view_preference_uuid",
+          "type": "uniqueidentifier",
+          "nullable": false,
+          "default": "(newsequentialid())",
+          "comment": "Unique identifier for the record, a unique nonclustered key for the table. Must be a SQL-sortable UUIDv7. , Data type = uniqueidentifier, Nullable = No"
+        },
+        {
+          "name": "user_grid_view_preference_rid",
+          "type": "bigint",
+          "nullable": false,
+          "comment": "Unique RowID for the record, part of composite primary key for the table after tenant_uuid, a unique clustered key for the table, Data type = bigint, Nullable = No"
+        },
+        {
+          "name": "tenant_uuid",
+          "type": "uniqueidentifier",
+          "nullable": false,
+          "comment": "the uniqueidentifier for the tenant/customer.  Used as a partitioning key., Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
+        },
+        {
+          "name": "grid_name",
+          "type": "nvarchar(200)",
+          "nullable": false,
+          "comment": "the grid name the user has selected for the preference settings, Data type = nvarchar(400), Nullable = No"
+        },
+        {
+          "name": "columns_hidden",
+          "type": "nvarchar(3000)",
+          "nullable": false,
+          "comment": "what columns the user has selected to be hidden, Data type = nvarchar(6000), Nullable = No"
+        },
+        {
+          "name": "created_date",
+          "type": "datetime",
+          "nullable": false,
+          "default": "(getdate())",
+          "comment": "the date the record was created, Data type = datetime, Nullable = No"
+        },
+        {
+          "name": "updated_date",
+          "type": "datetime",
+          "nullable": true,
+          "comment": "the date the record was updated or created, Data type = datetime, Nullable = Yes"
+        },
+        {
+          "name": "created_by_user_rid",
+          "type": "bigint",
+          "nullable": true
+        },
+        {
+          "name": "notes",
+          "type": "nvarchar(1000)",
+          "nullable": true,
+          "comment": "optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
+        },
+        {
+          "name": "created",
+          "type": "datetime",
+          "nullable": false,
+          "default": "(getdate())",
+          "comment": "DEPRECATED - replaced by created_date, Data type = datetime, Nullable = No"
+        },
+        {
+          "name": "user_rid",
+          "type": "bigint",
+          "nullable": true,
+          "comment": "the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = bigint, Nullable = Yes, References = [dbo].[user_accounts].[user_rid]"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "pk_user_grid_view_preference_tenant_uuid_user_grid_view_preference_rid",
+          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, user_grid_view_preference_rid ]",
+          "table": "user_grid_view_preference",
+          "columns": [
+            "tenant_uuid",
+            "user_grid_view_preference_rid"
+          ]
+        },
+        {
+          "name": "uk_user_grid_view_preference_uuid",
+          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ user_grid_view_preference_uuid ]",
+          "table": "user_grid_view_preference",
+          "columns": [
+            "user_grid_view_preference_uuid"
+          ]
+        },
+        {
+          "name": "uk_user_grid_view_preference_rid",
+          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ user_grid_view_preference_rid ]",
+          "table": "user_grid_view_preference",
+          "columns": [
+            "user_grid_view_preference_rid"
+          ]
+        },
+        {
+          "name": "ix_fk_user_grid_view_pref_tenant_uuid",
+          "def": "NONCLUSTERED, [ tenant_uuid ]",
+          "table": "user_grid_view_preference",
+          "columns": [
+            "tenant_uuid"
+          ]
+        },
+        {
+          "name": "ix_fk_user_grid_view_pref_user_id",
+          "def": "NONCLUSTERED, [ user_rid ]",
+          "table": "user_grid_view_preference",
+          "columns": [
+            "user_rid"
+          ]
+        },
+        {
+          "name": "ix_fk_user_grid_view_preference_created_by_user_rid",
+          "def": "NONCLUSTERED, [ created_by_user_rid ]",
+          "table": "user_grid_view_preference",
+          "columns": [
+            "created_by_user_rid"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "pk_user_grid_view_preference_tenant_uuid_user_grid_view_preference_rid",
+          "type": "PRIMARY KEY",
+          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, user_grid_view_preference_rid ]",
+          "table": "user_grid_view_preference",
+          "columns": [
+            "tenant_uuid",
+            "user_grid_view_preference_rid"
+          ]
+        },
+        {
+          "name": "uk_user_grid_view_preference_uuid",
+          "type": "UNIQUE",
+          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ user_grid_view_preference_uuid ]",
+          "table": "user_grid_view_preference",
+          "columns": [
+            "user_grid_view_preference_uuid"
+          ]
+        },
+        {
+          "name": "uk_user_grid_view_preference_rid",
+          "type": "UNIQUE",
+          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ user_grid_view_preference_rid ]",
+          "table": "user_grid_view_preference",
+          "columns": [
+            "user_grid_view_preference_rid"
+          ]
+        },
+        {
+          "name": "fk_user_grid_view_pref_tenant_uuid",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY(tenant_uuid) REFERENCES account_details(tenant_uuid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
+          "table": "user_grid_view_preference",
+          "referenced_table": "account_details",
+          "columns": [
+            "tenant_uuid"
+          ],
+          "referenced_columns": [
+            "tenant_uuid"
+          ]
+        },
+        {
+          "name": "fk_user_grid_view_pref_user_id",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY(user_rid) REFERENCES user_accounts(user_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
+          "table": "user_grid_view_preference",
+          "referenced_table": "user_accounts",
+          "columns": [
+            "user_rid"
+          ],
+          "referenced_columns": [
+            "user_rid"
+          ]
+        },
+        {
+          "name": "fk_user_grid_view_preference_created_by_user_rid",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY(created_by_user_rid) REFERENCES user_accounts(user_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
+          "table": "user_grid_view_preference",
+          "referenced_table": "user_accounts",
+          "columns": [
+            "created_by_user_rid"
+          ],
+          "referenced_columns": [
+            "user_rid"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "user_type_permission_template",
+      "type": "BASIC TABLE",
+      "columns": [
+        {
+          "name": "rid",
+          "type": "int",
+          "nullable": false
+        },
+        {
+          "name": "account_type_code",
+          "type": "varchar(30)",
+          "nullable": true,
+          "comment": "a lookup to the main lookup_code table, Data type = varchar(30), Nullable = Yes, References = [dbo].[lookup_code].[code]"
+        },
+        {
+          "name": "permission_code",
+          "type": "varchar(100)",
+          "nullable": false
+        }
+      ],
+      "indexes": [
+        {
+          "name": "PK_user_type_permission_template",
+          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ rid ]",
+          "table": "user_type_permission_template",
+          "columns": [
+            "rid"
+          ]
+        },
+        {
+          "name": "ix_user_type_permission_template_account_type_code",
+          "def": "NONCLUSTERED, [ account_type_code ]",
+          "table": "user_type_permission_template",
+          "columns": [
+            "account_type_code"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "PK_user_type_permission_template",
+          "type": "PRIMARY KEY",
+          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ rid ]",
+          "table": "user_type_permission_template",
+          "columns": [
+            "rid"
+          ]
+        },
+        {
+          "name": "FK_user_type_permission_template_account_type",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY(account_type_code) REFERENCES lookup_code(code) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
+          "table": "user_type_permission_template",
+          "referenced_table": "lookup_code",
+          "columns": [
+            "account_type_code"
+          ],
+          "referenced_columns": [
+            "code"
+          ]
+        }
+      ]
+    },
+    {
       "name": "lookup_check_base",
       "type": "BASIC TABLE",
       "comment": "used for centralized lookup values and processes",
@@ -502,14 +2672,14 @@
           "name": "active",
           "type": "bit",
           "nullable": false,
-          "comment": "deprecated - replaced by is_active, Data type = bit, Nullable = No"
+          "comment": "DEPRECATED - replaced by is_active, Data type = bit, Nullable = No"
         },
         {
           "name": "created",
           "type": "datetime",
           "nullable": false,
           "default": "(getdate())",
-          "comment": "deprecated - replaced by created_date, Data type = datetime, Nullable = No"
+          "comment": "DEPRECATED - replaced by created_date, Data type = datetime, Nullable = No"
         },
         {
           "name": "migrated_data",
@@ -633,12 +2803,14 @@
           "name": "account_type_uuid",
           "type": "uniqueidentifier",
           "nullable": false,
-          "default": "(newsequentialid())"
+          "default": "(newsequentialid())",
+          "comment": "Unique identifier for the record, a unique nonclustered key for the table. Must be a SQL-sortable UUIDv7. , Data type = uniqueidentifier, Nullable = No"
         },
         {
           "name": "account_type_rid",
           "type": "bigint",
-          "nullable": false
+          "nullable": false,
+          "comment": "Unique RowID for the record, part of composite primary key for the table after tenant_uuid, a unique clustered key for the table, Data type = bigint, Nullable = No"
         },
         {
           "name": "description",
@@ -801,12 +2973,14 @@
           "name": "account_type_permission_mapping_uuid",
           "type": "uniqueidentifier",
           "nullable": false,
-          "default": "(newsequentialid())"
+          "default": "(newsequentialid())",
+          "comment": "Unique identifier for the record, a unique nonclustered key for the table. Must be a SQL-sortable UUIDv7. , Data type = uniqueidentifier, Nullable = No"
         },
         {
           "name": "account_type_permission_mapping_rid",
           "type": "bigint",
-          "nullable": false
+          "nullable": false,
+          "comment": "Unique RowID for the record, part of composite primary key for the table after tenant_uuid, a unique clustered key for the table, Data type = bigint, Nullable = No"
         },
         {
           "name": "account_type_rid",
@@ -1058,13 +3232,13 @@
           "type": "uniqueidentifier",
           "nullable": false,
           "default": "(newsequentialid())",
-          "comment": "the uuid of the contact, Data type = uniqueidentifier, Nullable = No"
+          "comment": "Unique identifier for the record, a unique nonclustered key for the table. Must be a SQL-sortable UUIDv7. , Data type = uniqueidentifier, Nullable = No"
         },
         {
           "name": "contact_rid",
           "type": "bigint",
           "nullable": false,
-          "comment": "the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = bigint, Nullable = No"
+          "comment": "Unique RowID for the record, part of composite primary key for the table after tenant_uuid, a unique clustered key for the table, Data type = bigint, Nullable = No"
         },
         {
           "name": "tenant_uuid",
@@ -1193,14 +3367,14 @@
           "type": "bit",
           "nullable": true,
           "default": "((1))",
-          "comment": "deprecated - replaced by is_active, Data type = bit, Nullable = Yes"
+          "comment": "DEPRECATED - replaced by is_active, Data type = bit, Nullable = Yes"
         },
         {
           "name": "created",
           "type": "datetime",
           "nullable": true,
           "default": "(getdate())",
-          "comment": "deprecated - replaced by created_date, Data type = datetime, Nullable = Yes"
+          "comment": "DEPRECATED - replaced by created_date, Data type = datetime, Nullable = Yes"
         },
         {
           "name": "created_by",
@@ -1443,7 +3617,8 @@
           "name": "id",
           "type": "varchar(255)",
           "nullable": true,
-          "default": "(newid())"
+          "default": "(newid())",
+          "comment": "DEPRECATED, Data type = varchar(255), Nullable = Yes"
         },
         {
           "name": "tenant_id",
@@ -1510,119 +3685,6 @@
           "type": "nvarchar(50)",
           "nullable": true,
           "default": "('0000000000')"
-        }
-      ]
-    },
-    {
-      "name": "custom_data_intergration",
-      "type": "BASIC TABLE",
-      "columns": [
-        {
-          "name": "custom_data_intergration_rid",
-          "type": "int",
-          "nullable": false
-        },
-        {
-          "name": "customer_rid",
-          "type": "int",
-          "nullable": true
-        },
-        {
-          "name": "tenant_id",
-          "type": "nvarchar(100)",
-          "nullable": false
-        },
-        {
-          "name": "custom_data_integrator_company_rid",
-          "type": "tinyint",
-          "nullable": true
-        },
-        {
-          "name": "custom_data_intergration_flag",
-          "type": "bit",
-          "nullable": true
-        },
-        {
-          "name": "ip_address",
-          "type": "varchar(100)",
-          "nullable": true
-        },
-        {
-          "name": "notes_celtrak_it",
-          "type": "nvarchar(2000)",
-          "nullable": true
-        },
-        {
-          "name": "celtrak_it_approve_date",
-          "type": "datetime",
-          "nullable": true
-        },
-        {
-          "name": "celtrak_it_user_rid",
-          "type": "int",
-          "nullable": true
-        },
-        {
-          "name": "celtrak_it_approve_flag",
-          "type": "bit",
-          "nullable": true
-        },
-        {
-          "name": "it_contact_name",
-          "type": "nvarchar(50)",
-          "nullable": true
-        },
-        {
-          "name": "it_contact_email",
-          "type": "nvarchar(50)",
-          "nullable": true
-        },
-        {
-          "name": "it_contact_company",
-          "type": "nvarchar(50)",
-          "nullable": true
-        },
-        {
-          "name": "it_contact_phone",
-          "type": "nvarchar(25)",
-          "nullable": true
-        },
-        {
-          "name": "created",
-          "type": "datetime",
-          "nullable": true,
-          "default": "(getdate())"
-        },
-        {
-          "name": "updated",
-          "type": "datetime",
-          "nullable": true
-        },
-        {
-          "name": "artifact_id",
-          "type": "nvarchar(500)",
-          "nullable": true
-        }
-      ],
-      "indexes": [
-        {
-          "name": "PK_custom_data_intergration",
-          "def": "NONCLUSTERED, unique, part of a PRIMARY KEY constraint, [ custom_data_intergration_rid ]",
-          "table": "custom_data_intergration",
-          "columns": [
-            "custom_data_intergration_rid"
-          ]
-        }
-      ],
-      "constraints": [
-        {
-          "name": "PK_custom_data_intergration",
-          "type": "PRIMARY KEY",
-          "def": "NONCLUSTERED, unique, part of a PRIMARY KEY constraint, [ custom_data_intergration_rid ]",
-          "table": "custom_data_intergration",
-          "columns": [
-            "custom_data_intergration_rid"
-          ]
         }
       ]
     },
@@ -1996,6 +4058,14 @@
           ]
         },
         {
+          "name": "ix_fk_customer_billing_info_created_by_user_rid",
+          "def": "NONCLUSTERED, [ created_by_user_rid ]",
+          "table": "customer_billing_information",
+          "columns": [
+            "created_by_user_rid"
+          ]
+        },
+        {
           "name": "ix_fk_customer_billing_info_tenant_uuid",
           "def": "NONCLUSTERED, [ tenant_uuid ]",
           "table": "customer_billing_information",
@@ -2009,14 +4079,6 @@
           "table": "customer_billing_information",
           "columns": [
             "updated_by_user_rid"
-          ]
-        },
-        {
-          "name": "ix_fk_customer_billing_info_created_by_user_rid",
-          "def": "NONCLUSTERED, [ created_by_user_rid ]",
-          "table": "customer_billing_information",
-          "columns": [
-            "created_by_user_rid"
           ]
         }
       ],
@@ -2098,12 +4160,14 @@
           "name": "customer_internal_view_uuid",
           "type": "uniqueidentifier",
           "nullable": false,
-          "default": "(newsequentialid())"
+          "default": "(newsequentialid())",
+          "comment": "Unique identifier for the record, a unique nonclustered key for the table. Must be a SQL-sortable UUIDv7. , Data type = uniqueidentifier, Nullable = No"
         },
         {
           "name": "customer_internal_view_rid",
           "type": "bigint",
-          "nullable": false
+          "nullable": false,
+          "comment": "Unique RowID for the record, part of composite primary key for the table after tenant_uuid, a unique clustered key for the table, Data type = bigint, Nullable = No"
         },
         {
           "name": "tenant_uuid",
@@ -2198,11 +4262,11 @@
           ]
         },
         {
-          "name": "ix_fk_customer_internal_view_created_by_user_rid",
-          "def": "NONCLUSTERED, [ created_by_user_rid ]",
+          "name": "ix_fk_customer_internal_view_tenant_uuid",
+          "def": "NONCLUSTERED, [ tenant_uuid ]",
           "table": "customer_internal_view",
           "columns": [
-            "created_by_user_rid"
+            "tenant_uuid"
           ]
         },
         {
@@ -2214,11 +4278,11 @@
           ]
         },
         {
-          "name": "ix_fk_customer_internal_view_tenant_uuid",
-          "def": "NONCLUSTERED, [ tenant_uuid ]",
+          "name": "ix_fk_customer_internal_view_created_by_user_rid",
+          "def": "NONCLUSTERED, [ created_by_user_rid ]",
           "table": "customer_internal_view",
           "columns": [
-            "tenant_uuid"
+            "created_by_user_rid"
           ]
         }
       ],
@@ -2300,12 +4364,14 @@
           "name": "customer_rate_information_uuid",
           "type": "uniqueidentifier",
           "nullable": false,
-          "default": "(newsequentialid())"
+          "default": "(newsequentialid())",
+          "comment": "Unique identifier for the record, a unique nonclustered key for the table. Must be a SQL-sortable UUIDv7. , Data type = uniqueidentifier, Nullable = No"
         },
         {
           "name": "customer_rate_information_rid",
           "type": "bigint",
-          "nullable": false
+          "nullable": false,
+          "comment": "Unique RowID for the record, part of composite primary key for the table after tenant_uuid, a unique clustered key for the table, Data type = bigint, Nullable = No"
         },
         {
           "name": "tenant_uuid",
@@ -2405,6 +4471,14 @@
           ]
         },
         {
+          "name": "ix_fk_customer_rate_information_tenant_uuid",
+          "def": "NONCLUSTERED, [ tenant_uuid ]",
+          "table": "customer_rate_information",
+          "columns": [
+            "tenant_uuid"
+          ]
+        },
+        {
           "name": "ix_fk_customer_rate_information_created_by_user_rid",
           "def": "NONCLUSTERED, [ created_by_user_rid ]",
           "table": "customer_rate_information",
@@ -2418,14 +4492,6 @@
           "table": "customer_rate_information",
           "columns": [
             "updated_by_user_rid"
-          ]
-        },
-        {
-          "name": "ix_fk_customer_rate_information_tenant_uuid",
-          "def": "NONCLUSTERED, [ tenant_uuid ]",
-          "table": "customer_rate_information",
-          "columns": [
-            "tenant_uuid"
           ]
         }
       ],
@@ -2509,13 +4575,13 @@
           "type": "uniqueidentifier",
           "nullable": false,
           "default": "(newsequentialid())",
-          "comment": "the uuid of the dealer, Data type = uniqueidentifier, Nullable = No"
+          "comment": "Unique identifier for the record, a unique nonclustered key for the table. Must be a SQL-sortable UUIDv7. , Data type = uniqueidentifier, Nullable = No"
         },
         {
           "name": "dealer_rid",
           "type": "bigint",
           "nullable": false,
-          "comment": "the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = bigint, Nullable = No"
+          "comment": "Unique RowID for the record, part of composite primary key for the table after tenant_uuid, a unique clustered key for the table, Data type = bigint, Nullable = No"
         },
         {
           "name": "dealer_code",
@@ -2664,6 +4730,14 @@
           ]
         },
         {
+          "name": "ix_fk_dealer_updated_by_user_rid",
+          "def": "NONCLUSTERED, [ updated_by_user_rid ]",
+          "table": "dealer",
+          "columns": [
+            "updated_by_user_rid"
+          ]
+        },
+        {
           "name": "ix_fk_dealer_dealer_family_rid",
           "def": "NONCLUSTERED, [ dealer_family_rid ]",
           "table": "dealer",
@@ -2685,14 +4759,6 @@
           "table": "dealer",
           "columns": [
             "created_by_user_rid"
-          ]
-        },
-        {
-          "name": "ix_fk_dealer_updated_by_user_rid",
-          "def": "NONCLUSTERED, [ updated_by_user_rid ]",
-          "table": "dealer",
-          "columns": [
-            "updated_by_user_rid"
           ]
         }
       ],
@@ -2787,12 +4853,14 @@
           "name": "dealer_family_uuid",
           "type": "uniqueidentifier",
           "nullable": false,
-          "default": "(newsequentialid())"
+          "default": "(newsequentialid())",
+          "comment": "Unique identifier for the record, a unique nonclustered key for the table. Must be a SQL-sortable UUIDv7. , Data type = uniqueidentifier, Nullable = No"
         },
         {
           "name": "dealer_family_rid",
           "type": "bigint",
-          "nullable": false
+          "nullable": false,
+          "comment": "Unique RowID for the record, part of composite primary key for the table after tenant_uuid, a unique clustered key for the table, Data type = bigint, Nullable = No"
         },
         {
           "name": "tenant_uuid",
@@ -2867,19 +4935,19 @@
           ]
         },
         {
-          "name": "ix_fk_dealer_family_created_by_user_rid",
-          "def": "NONCLUSTERED, [ created_by_user_rid ]",
-          "table": "dealer_family",
-          "columns": [
-            "created_by_user_rid"
-          ]
-        },
-        {
           "name": "ix_fk_dealer_family_tenant_uuid",
           "def": "NONCLUSTERED, [ tenant_uuid ]",
           "table": "dealer_family",
           "columns": [
             "tenant_uuid"
+          ]
+        },
+        {
+          "name": "ix_fk_dealer_family_created_by_user_rid",
+          "def": "NONCLUSTERED, [ created_by_user_rid ]",
+          "table": "dealer_family",
+          "columns": [
+            "created_by_user_rid"
           ]
         },
         {
@@ -2960,2170 +5028,412 @@
           ]
         }
       ]
-    },
-    {
-      "name": "feedback_question",
-      "type": "BASIC TABLE",
-      "columns": [
-        {
-          "name": "feedback_question_rid",
-          "type": "int",
-          "nullable": false
-        },
-        {
-          "name": "question_name",
-          "type": "nvarchar(450)",
-          "nullable": false
-        },
-        {
-          "name": "type",
-          "type": "nvarchar(155)",
-          "nullable": false
-        },
-        {
-          "name": "is_active",
-          "type": "bit",
-          "nullable": false,
-          "default": "((1))",
-          "comment": "the record is active, Data type = bit, Nullable = No"
-        },
-        {
-          "name": "attributes",
-          "type": "nvarchar(155)",
-          "nullable": true
-        }
-      ],
-      "indexes": [
-        {
-          "name": "PK_feedback_question",
-          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ feedback_question_rid ]",
-          "table": "feedback_question",
-          "columns": [
-            "feedback_question_rid"
-          ]
-        }
-      ],
-      "constraints": [
-        {
-          "name": "PK_feedback_question",
-          "type": "PRIMARY KEY",
-          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ feedback_question_rid ]",
-          "table": "feedback_question",
-          "columns": [
-            "feedback_question_rid"
-          ]
-        }
-      ]
-    },
-    {
-      "name": "file_processing_tracker",
-      "type": "BASIC TABLE",
-      "columns": [
-        {
-          "name": "file_rid",
-          "type": "int",
-          "nullable": false
-        },
-        {
-          "name": "file_name",
-          "type": "varchar(100)",
-          "nullable": false
-        },
-        {
-          "name": "total_record_count",
-          "type": "int",
-          "nullable": true
-        },
-        {
-          "name": "processed_count",
-          "type": "int",
-          "nullable": true
-        },
-        {
-          "name": "status",
-          "type": "varchar(30)",
-          "nullable": true
-        },
-        {
-          "name": "tenant_id",
-          "type": "varchar(50)",
-          "nullable": true
-        },
-        {
-          "name": "created_by",
-          "type": "int",
-          "nullable": true
-        },
-        {
-          "name": "created_at",
-          "type": "datetime",
-          "nullable": true
-        },
-        {
-          "name": "updated_at",
-          "type": "datetime",
-          "nullable": true
-        },
-        {
-          "name": "upload_type",
-          "type": "varchar(30)",
-          "nullable": false
-        }
-      ],
-      "indexes": [
-        {
-          "name": "PK_file_processing_tracker",
-          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ file_rid ]",
-          "table": "file_processing_tracker",
-          "columns": [
-            "file_rid"
-          ]
-        }
-      ],
-      "constraints": [
-        {
-          "name": "PK_file_processing_tracker",
-          "type": "PRIMARY KEY",
-          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ file_rid ]",
-          "table": "file_processing_tracker",
-          "columns": [
-            "file_rid"
-          ]
-        }
-      ]
-    },
-    {
-      "name": "locations_common",
-      "type": "BASIC TABLE",
-      "columns": [
-        {
-          "name": "locations_common_uuid",
-          "type": "uniqueidentifier",
-          "nullable": false,
-          "default": "(newsequentialid())"
-        },
-        {
-          "name": "locations_common_rid",
-          "type": "bigint",
-          "nullable": false
-        },
-        {
-          "name": "tenant_uuid",
-          "type": "uniqueidentifier",
-          "nullable": false,
-          "comment": "the customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
-        },
-        {
-          "name": "address_1",
-          "type": "nvarchar(100)",
-          "nullable": false
-        },
-        {
-          "name": "address_2",
-          "type": "nvarchar(100)",
-          "nullable": true
-        },
-        {
-          "name": "address_3",
-          "type": "nvarchar(1)",
-          "nullable": true
-        },
-        {
-          "name": "city",
-          "type": "nvarchar(50)",
-          "nullable": false
-        },
-        {
-          "name": "zip_code",
-          "type": "nvarchar(50)",
-          "nullable": true
-        },
-        {
-          "name": "country",
-          "type": "nvarchar(50)",
-          "nullable": false
-        },
-        {
-          "name": "longitude",
-          "type": "float",
-          "nullable": false
-        },
-        {
-          "name": "latitude",
-          "type": "float",
-          "nullable": false
-        },
-        {
-          "name": "calculated_longitude_in_radians",
-          "type": "float",
-          "nullable": false
-        },
-        {
-          "name": "calculated_latitude_in_radians",
-          "type": "float",
-          "nullable": false
-        },
-        {
-          "name": "dealer_rid",
-          "type": "bigint",
-          "nullable": true
-        },
-        {
-          "name": "is_active",
-          "type": "bit",
-          "nullable": false,
-          "default": "((1))",
-          "comment": "the record is active, Data type = bit, Nullable = No"
-        },
-        {
-          "name": "created_date",
-          "type": "datetime",
-          "nullable": false,
-          "default": "(getdate())"
-        },
-        {
-          "name": "updated_date",
-          "type": "datetime",
-          "nullable": true
-        },
-        {
-          "name": "created_by_user_rid",
-          "type": "bigint",
-          "nullable": true
-        },
-        {
-          "name": "updated_by_user_rid",
-          "type": "bigint",
-          "nullable": true
-        },
-        {
-          "name": "notes",
-          "type": "nvarchar(1000)",
-          "nullable": true,
-          "comment": "optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
-        },
-        {
-          "name": "phone_number",
-          "type": "float",
-          "nullable": true
-        },
-        {
-          "name": "phone_number_2",
-          "type": "nvarchar(1)",
-          "nullable": true
-        },
-        {
-          "name": "fax_number",
-          "type": "float",
-          "nullable": true
-        },
-        {
-          "name": "opening_hours",
-          "type": "nvarchar(50)",
-          "nullable": true
-        },
-        {
-          "name": "key_name",
-          "type": "nvarchar(100)",
-          "nullable": false
-        },
-        {
-          "name": "image_rid",
-          "type": "int",
-          "nullable": false
-        },
-        {
-          "name": "system_function_rid",
-          "type": "int",
-          "nullable": true
-        },
-        {
-          "name": "name",
-          "type": "nvarchar(100)",
-          "nullable": false
-        }
-      ],
-      "indexes": [
-        {
-          "name": "pk_locations_common_tenant_uuid_locations_common_rid",
-          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, locations_common_rid ]",
-          "table": "locations_common",
-          "columns": [
-            "tenant_uuid",
-            "locations_common_rid"
-          ]
-        },
-        {
-          "name": "uk_locations_common_uuid",
-          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ locations_common_uuid ]",
-          "table": "locations_common",
-          "columns": [
-            "locations_common_uuid"
-          ]
-        },
-        {
-          "name": "uk_locations_common_rid",
-          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ locations_common_rid ]",
-          "table": "locations_common",
-          "columns": [
-            "locations_common_rid"
-          ]
-        },
-        {
-          "name": "ix_fk_locations_common_updated_by_user_rid",
-          "def": "NONCLUSTERED, [ updated_by_user_rid ]",
-          "table": "locations_common",
-          "columns": [
-            "updated_by_user_rid"
-          ]
-        },
-        {
-          "name": "ix_fk_locations_common_tenant_uuid",
-          "def": "NONCLUSTERED, [ tenant_uuid ]",
-          "table": "locations_common",
-          "columns": [
-            "tenant_uuid"
-          ]
-        },
-        {
-          "name": "ix_fk_locations_common_created_by_user_rid",
-          "def": "NONCLUSTERED, [ created_by_user_rid ]",
-          "table": "locations_common",
-          "columns": [
-            "created_by_user_rid"
-          ]
-        }
-      ],
-      "constraints": [
-        {
-          "name": "pk_locations_common_tenant_uuid_locations_common_rid",
-          "type": "PRIMARY KEY",
-          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, locations_common_rid ]",
-          "table": "locations_common",
-          "columns": [
-            "tenant_uuid",
-            "locations_common_rid"
-          ]
-        },
-        {
-          "name": "uk_locations_common_uuid",
-          "type": "UNIQUE",
-          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ locations_common_uuid ]",
-          "table": "locations_common",
-          "columns": [
-            "locations_common_uuid"
-          ]
-        },
-        {
-          "name": "uk_locations_common_rid",
-          "type": "UNIQUE",
-          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ locations_common_rid ]",
-          "table": "locations_common",
-          "columns": [
-            "locations_common_rid"
-          ]
-        },
-        {
-          "name": "fk_locations_common_created_by_user_rid",
-          "type": "FOREIGN KEY",
-          "def": "FOREIGN KEY(created_by_user_rid) REFERENCES user_accounts(user_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
-          "table": "locations_common",
-          "referenced_table": "user_accounts",
-          "columns": [
-            "created_by_user_rid"
-          ],
-          "referenced_columns": [
-            "user_rid"
-          ]
-        },
-        {
-          "name": "fk_locations_common_tenant_uuid",
-          "type": "FOREIGN KEY",
-          "def": "FOREIGN KEY(tenant_uuid) REFERENCES account_details(tenant_uuid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
-          "table": "locations_common",
-          "referenced_table": "account_details",
-          "columns": [
-            "tenant_uuid"
-          ],
-          "referenced_columns": [
-            "tenant_uuid"
-          ]
-        },
-        {
-          "name": "fk_locations_common_updated_by_user_rid",
-          "type": "FOREIGN KEY",
-          "def": "FOREIGN KEY(updated_by_user_rid) REFERENCES user_accounts(user_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
-          "table": "locations_common",
-          "referenced_table": "user_accounts",
-          "columns": [
-            "updated_by_user_rid"
-          ],
-          "referenced_columns": [
-            "user_rid"
-          ]
-        }
-      ]
-    },
-    {
-      "name": "role",
-      "type": "BASIC TABLE",
-      "comment": "the table that stores the details of the roles",
-      "columns": [
-        {
-          "name": "role_uuid",
-          "type": "uniqueidentifier",
-          "nullable": false,
-          "default": "(newsequentialid())",
-          "comment": "the uuid of the role, Data type = uniqueidentifier, Nullable = No"
-        },
-        {
-          "name": "role_rid",
-          "type": "bigint",
-          "nullable": false,
-          "comment": "the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = bigint, Nullable = No"
-        },
-        {
-          "name": "tenant_uuid",
-          "type": "uniqueidentifier",
-          "nullable": false,
-          "comment": "the uniqueidentifier for the tenant/customer.  Used as a partitioning key., Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
-        },
-        {
-          "name": "name",
-          "type": "nvarchar(100)",
-          "nullable": false,
-          "comment": "the short description of the record, Data type = nvarchar(200), Nullable = No"
-        },
-        {
-          "name": "description",
-          "type": "nvarchar(100)",
-          "nullable": false,
-          "comment": "the long description of the record, Data type = nvarchar(200), Nullable = No"
-        },
-        {
-          "name": "role_type_code",
-          "type": "varchar(30)",
-          "nullable": false,
-          "comment": "see lookup.code for information about these values, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
-        },
-        {
-          "name": "is_active",
-          "type": "bit",
-          "nullable": false,
-          "default": "((1))",
-          "comment": "the record is active, Data type = bit, Nullable = No"
-        },
-        {
-          "name": "is_standard_role",
-          "type": "bit",
-          "nullable": false,
-          "default": "((1))",
-          "comment": "is the record standard role, Data type = bit, Nullable = No"
-        },
-        {
-          "name": "created_date",
-          "type": "datetime",
-          "nullable": false,
-          "default": "(getdate())",
-          "comment": "the date the record was created, Data type = datetime, Nullable = No"
-        },
-        {
-          "name": "updated_date",
-          "type": "datetime",
-          "nullable": false,
-          "default": "(getdate())",
-          "comment": "the date the record was updated or created, Data type = datetime, Nullable = No"
-        },
-        {
-          "name": "created_by_user_rid",
-          "type": "uniqueidentifier",
-          "nullable": true
-        },
-        {
-          "name": "updated_by_user_rid",
-          "type": "uniqueidentifier",
-          "nullable": true
-        },
-        {
-          "name": "notes",
-          "type": "nvarchar(1000)",
-          "nullable": true,
-          "comment": "optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
-        },
-        {
-          "name": "test_data_group",
-          "type": "int",
-          "nullable": true,
-          "comment": "used for the Dev test data process, Data type = int, Nullable = Yes"
-        },
-        {
-          "name": "created",
-          "type": "datetime",
-          "nullable": false,
-          "default": "(getdate())",
-          "comment": "deprecated - replaced by created_date, Data type = datetime, Nullable = No"
-        },
-        {
-          "name": "active",
-          "type": "bit",
-          "nullable": false,
-          "comment": "deprecated - replaced by is_active, Data type = bit, Nullable = No"
-        }
-      ],
-      "indexes": [
-        {
-          "name": "pk_role_tenant_uuid_role_rid",
-          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, role_rid ]",
-          "table": "role",
-          "columns": [
-            "tenant_uuid",
-            "role_rid"
-          ]
-        },
-        {
-          "name": "uk_role_uuid",
-          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ role_uuid ]",
-          "table": "role",
-          "columns": [
-            "role_uuid"
-          ]
-        },
-        {
-          "name": "uk_role_rid",
-          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ role_rid ]",
-          "table": "role",
-          "columns": [
-            "role_rid"
-          ]
-        },
-        {
-          "name": "ix_fk_role_role_type_code",
-          "def": "NONCLUSTERED, [ role_type_code ]",
-          "table": "role",
-          "columns": [
-            "role_type_code"
-          ]
-        },
-        {
-          "name": "ix_fk_role_tenant_uuid",
-          "def": "NONCLUSTERED, [ tenant_uuid ]",
-          "table": "role",
-          "columns": [
-            "tenant_uuid"
-          ]
-        }
-      ],
-      "constraints": [
-        {
-          "name": "pk_role_tenant_uuid_role_rid",
-          "type": "PRIMARY KEY",
-          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, role_rid ]",
-          "table": "role",
-          "columns": [
-            "tenant_uuid",
-            "role_rid"
-          ]
-        },
-        {
-          "name": "uk_role_uuid",
-          "type": "UNIQUE",
-          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ role_uuid ]",
-          "table": "role",
-          "columns": [
-            "role_uuid"
-          ]
-        },
-        {
-          "name": "uk_role_rid",
-          "type": "UNIQUE",
-          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ role_rid ]",
-          "table": "role",
-          "columns": [
-            "role_rid"
-          ]
-        },
-        {
-          "name": "fk_role_role_type_code",
-          "type": "FOREIGN KEY",
-          "def": "FOREIGN KEY(role_type_code) REFERENCES lookup_code(code) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
-          "table": "role",
-          "referenced_table": "lookup_code",
-          "columns": [
-            "role_type_code"
-          ],
-          "referenced_columns": [
-            "code"
-          ]
-        },
-        {
-          "name": "fk_role_tenant_uuid",
-          "type": "FOREIGN KEY",
-          "def": "FOREIGN KEY(tenant_uuid) REFERENCES account_details(tenant_uuid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
-          "table": "role",
-          "referenced_table": "account_details",
-          "columns": [
-            "tenant_uuid"
-          ],
-          "referenced_columns": [
-            "tenant_uuid"
-          ]
-        }
-      ]
-    },
-    {
-      "name": "role_permission_mapping",
-      "type": "BASIC TABLE",
-      "comment": "the table that stores the mappings of roles to permissions",
-      "columns": [
-        {
-          "name": "role_permission_mapping_uuid",
-          "type": "uniqueidentifier",
-          "nullable": false,
-          "default": "(newsequentialid())",
-          "comment": "the uuid of the role_permission_mapping, Data type = uniqueidentifier, Nullable = No"
-        },
-        {
-          "name": "role_permission_mapping_rid",
-          "type": "bigint",
-          "nullable": false,
-          "comment": "the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = bigint, Nullable = No"
-        },
-        {
-          "name": "tenant_uuid",
-          "type": "uniqueidentifier",
-          "nullable": false,
-          "comment": "the uniqueidentifier for the tenant/customer.  Used as a partitioning key., Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
-        },
-        {
-          "name": "permission_code",
-          "type": "varchar(100)",
-          "nullable": false,
-          "comment": "the code of the permissions - this is not currently a foreign key, Data type = varchar(100), Nullable = No"
-        },
-        {
-          "name": "role_rid",
-          "type": "bigint",
-          "nullable": false,
-          "comment": "the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = bigint, Nullable = No, References = [dbo].[role].[role_rid]"
-        },
-        {
-          "name": "created_by_user_rid",
-          "type": "bigint",
-          "nullable": true
-        },
-        {
-          "name": "notes",
-          "type": "nvarchar(1000)",
-          "nullable": true,
-          "comment": "optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
-        }
-      ],
-      "indexes": [
-        {
-          "name": "pk_role_permission_mapping_tenant_uuid_role_permission_mapping_rid",
-          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, role_permission_mapping_rid ]",
-          "table": "role_permission_mapping",
-          "columns": [
-            "tenant_uuid",
-            "role_permission_mapping_rid"
-          ]
-        },
-        {
-          "name": "uk_role_permission_mapping_uuid",
-          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ role_permission_mapping_uuid ]",
-          "table": "role_permission_mapping",
-          "columns": [
-            "role_permission_mapping_uuid"
-          ]
-        },
-        {
-          "name": "uk_role_permission_mapping_rid",
-          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ role_permission_mapping_rid ]",
-          "table": "role_permission_mapping",
-          "columns": [
-            "role_permission_mapping_rid"
-          ]
-        },
-        {
-          "name": "ix_fk_role_permission_mapping_user_rid",
-          "def": "NONCLUSTERED, [ role_rid ]",
-          "table": "role_permission_mapping",
-          "columns": [
-            "role_rid"
-          ]
-        },
-        {
-          "name": "ix_fk_role_permission_mapping_created_by_user_rid",
-          "def": "NONCLUSTERED, [ created_by_user_rid ]",
-          "table": "role_permission_mapping",
-          "columns": [
-            "created_by_user_rid"
-          ]
-        },
-        {
-          "name": "ix_fk_role_permission_mapping_tenant_uuid",
-          "def": "NONCLUSTERED, [ tenant_uuid ]",
-          "table": "role_permission_mapping",
-          "columns": [
-            "tenant_uuid"
-          ]
-        }
-      ],
-      "constraints": [
-        {
-          "name": "pk_role_permission_mapping_tenant_uuid_role_permission_mapping_rid",
-          "type": "PRIMARY KEY",
-          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, role_permission_mapping_rid ]",
-          "table": "role_permission_mapping",
-          "columns": [
-            "tenant_uuid",
-            "role_permission_mapping_rid"
-          ]
-        },
-        {
-          "name": "uk_role_permission_mapping_uuid",
-          "type": "UNIQUE",
-          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ role_permission_mapping_uuid ]",
-          "table": "role_permission_mapping",
-          "columns": [
-            "role_permission_mapping_uuid"
-          ]
-        },
-        {
-          "name": "uk_role_permission_mapping_rid",
-          "type": "UNIQUE",
-          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ role_permission_mapping_rid ]",
-          "table": "role_permission_mapping",
-          "columns": [
-            "role_permission_mapping_rid"
-          ]
-        },
-        {
-          "name": "fk_role_permission_mapping_created_by_user_rid",
-          "type": "FOREIGN KEY",
-          "def": "FOREIGN KEY(created_by_user_rid) REFERENCES user_accounts(user_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
-          "table": "role_permission_mapping",
-          "referenced_table": "user_accounts",
-          "columns": [
-            "created_by_user_rid"
-          ],
-          "referenced_columns": [
-            "user_rid"
-          ]
-        },
-        {
-          "name": "fk_role_permission_mapping_tenant_uuid",
-          "type": "FOREIGN KEY",
-          "def": "FOREIGN KEY(tenant_uuid) REFERENCES account_details(tenant_uuid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
-          "table": "role_permission_mapping",
-          "referenced_table": "account_details",
-          "columns": [
-            "tenant_uuid"
-          ],
-          "referenced_columns": [
-            "tenant_uuid"
-          ]
-        },
-        {
-          "name": "fk_role_permission_mapping_user_rid",
-          "type": "FOREIGN KEY",
-          "def": "FOREIGN KEY(role_rid) REFERENCES role(role_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
-          "table": "role_permission_mapping",
-          "referenced_table": "role",
-          "columns": [
-            "role_rid"
-          ],
-          "referenced_columns": [
-            "role_rid"
-          ]
-        }
-      ]
-    },
-    {
-      "name": "service_level_feature_mapping",
-      "type": "BASIC TABLE",
-      "columns": [
-        {
-          "name": "rid",
-          "type": "int",
-          "nullable": false
-        },
-        {
-          "name": "service_level_code",
-          "type": "varchar(30)",
-          "nullable": false,
-          "comment": "a lookup to the main lookup_code table, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
-        },
-        {
-          "name": "created",
-          "type": "datetime",
-          "nullable": false,
-          "default": "(getdate())"
-        },
-        {
-          "name": "feature_code",
-          "type": "varchar(100)",
-          "nullable": false
-        }
-      ],
-      "indexes": [
-        {
-          "name": "PK_service_level_feature_mapping",
-          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ rid ]",
-          "table": "service_level_feature_mapping",
-          "columns": [
-            "rid"
-          ]
-        },
-        {
-          "name": "ix_service_level_feature_mapping_service_level_code",
-          "def": "NONCLUSTERED, [ service_level_code ]",
-          "table": "service_level_feature_mapping",
-          "columns": [
-            "service_level_code"
-          ]
-        }
-      ],
-      "constraints": [
-        {
-          "name": "PK_service_level_feature_mapping",
-          "type": "PRIMARY KEY",
-          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ rid ]",
-          "table": "service_level_feature_mapping",
-          "columns": [
-            "rid"
-          ]
-        },
-        {
-          "name": "FK_service_level_feature_mapping_service_level",
-          "type": "FOREIGN KEY",
-          "def": "FOREIGN KEY(service_level_code) REFERENCES lookup_code(code) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
-          "table": "service_level_feature_mapping",
-          "referenced_table": "lookup_code",
-          "columns": [
-            "service_level_code"
-          ],
-          "referenced_columns": [
-            "code"
-          ]
-        }
-      ]
-    },
-    {
-      "name": "subscription",
-      "type": "BASIC TABLE",
-      "columns": [
-        {
-          "name": "subscription_uuid",
-          "type": "uniqueidentifier",
-          "nullable": false,
-          "default": "(newsequentialid())"
-        },
-        {
-          "name": "subscription_rid",
-          "type": "bigint",
-          "nullable": false
-        },
-        {
-          "name": "tenant_uuid",
-          "type": "uniqueidentifier",
-          "nullable": false,
-          "comment": "the customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
-        },
-        {
-          "name": "subscription_type_code",
-          "type": "varchar(30)",
-          "nullable": false
-        },
-        {
-          "name": "pay_up_front_term_code",
-          "type": "varchar(30)",
-          "nullable": true
-        },
-        {
-          "name": "is_active",
-          "type": "bit",
-          "nullable": false,
-          "default": "((1))",
-          "comment": "the record is active, Data type = bit, Nullable = No"
-        },
-        {
-          "name": "pay_up_front_auto_renew_flag",
-          "type": "bit",
-          "nullable": false
-        },
-        {
-          "name": "created_date",
-          "type": "datetime",
-          "nullable": false,
-          "default": "(getdate())"
-        },
-        {
-          "name": "updated_date",
-          "type": "datetime",
-          "nullable": true
-        },
-        {
-          "name": "closed_date",
-          "type": "datetime",
-          "nullable": true
-        },
-        {
-          "name": "created_by_user_rid",
-          "type": "bigint",
-          "nullable": true
-        },
-        {
-          "name": "updated_by_user_rid",
-          "type": "bigint",
-          "nullable": true
-        },
-        {
-          "name": "notes",
-          "type": "nvarchar(1000)",
-          "nullable": true,
-          "comment": "optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
-        }
-      ],
-      "indexes": [
-        {
-          "name": "pk_subscription_tenant_uuid_subscription_rid",
-          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, subscription_rid ]",
-          "table": "subscription",
-          "columns": [
-            "tenant_uuid",
-            "subscription_rid"
-          ]
-        },
-        {
-          "name": "uk_subscription_uuid",
-          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ subscription_uuid ]",
-          "table": "subscription",
-          "columns": [
-            "subscription_uuid"
-          ]
-        },
-        {
-          "name": "uk_subscription_rid",
-          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ subscription_rid ]",
-          "table": "subscription",
-          "columns": [
-            "subscription_rid"
-          ]
-        },
-        {
-          "name": "ix_fk_subscription_tenant_uuid",
-          "def": "NONCLUSTERED, [ tenant_uuid ]",
-          "table": "subscription",
-          "columns": [
-            "tenant_uuid"
-          ]
-        },
-        {
-          "name": "ix_fk_subscription_updated_by_user_rid",
-          "def": "NONCLUSTERED, [ updated_by_user_rid ]",
-          "table": "subscription",
-          "columns": [
-            "updated_by_user_rid"
-          ]
-        },
-        {
-          "name": "ix_fk_subscription_created_by_user_rid",
-          "def": "NONCLUSTERED, [ created_by_user_rid ]",
-          "table": "subscription",
-          "columns": [
-            "created_by_user_rid"
-          ]
-        }
-      ],
-      "constraints": [
-        {
-          "name": "pk_subscription_tenant_uuid_subscription_rid",
-          "type": "PRIMARY KEY",
-          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, subscription_rid ]",
-          "table": "subscription",
-          "columns": [
-            "tenant_uuid",
-            "subscription_rid"
-          ]
-        },
-        {
-          "name": "uk_subscription_uuid",
-          "type": "UNIQUE",
-          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ subscription_uuid ]",
-          "table": "subscription",
-          "columns": [
-            "subscription_uuid"
-          ]
-        },
-        {
-          "name": "uk_subscription_rid",
-          "type": "UNIQUE",
-          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ subscription_rid ]",
-          "table": "subscription",
-          "columns": [
-            "subscription_rid"
-          ]
-        },
-        {
-          "name": "fk_subscription_created_by_user_rid",
-          "type": "FOREIGN KEY",
-          "def": "FOREIGN KEY(created_by_user_rid) REFERENCES user_accounts(user_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
-          "table": "subscription",
-          "referenced_table": "user_accounts",
-          "columns": [
-            "created_by_user_rid"
-          ],
-          "referenced_columns": [
-            "user_rid"
-          ]
-        },
-        {
-          "name": "fk_subscription_tenant_uuid",
-          "type": "FOREIGN KEY",
-          "def": "FOREIGN KEY(tenant_uuid) REFERENCES account_details(tenant_uuid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
-          "table": "subscription",
-          "referenced_table": "account_details",
-          "columns": [
-            "tenant_uuid"
-          ],
-          "referenced_columns": [
-            "tenant_uuid"
-          ]
-        },
-        {
-          "name": "fk_subscription_updated_by_user_rid",
-          "type": "FOREIGN KEY",
-          "def": "FOREIGN KEY(updated_by_user_rid) REFERENCES user_accounts(user_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
-          "table": "subscription",
-          "referenced_table": "user_accounts",
-          "columns": [
-            "updated_by_user_rid"
-          ],
-          "referenced_columns": [
-            "user_rid"
-          ]
-        }
-      ]
-    },
-    {
-      "name": "tenant_service_level_mapping",
-      "type": "BASIC TABLE",
-      "columns": [
-        {
-          "name": "tenant_service_level_mapping_uuid",
-          "type": "uniqueidentifier",
-          "nullable": false,
-          "default": "(newsequentialid())"
-        },
-        {
-          "name": "tenant_service_level_mapping_rid",
-          "type": "bigint",
-          "nullable": false
-        },
-        {
-          "name": "tenant_uuid",
-          "type": "uniqueidentifier",
-          "nullable": false,
-          "comment": "the customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
-        },
-        {
-          "name": "service_level_code",
-          "type": "varchar(30)",
-          "nullable": false
-        },
-        {
-          "name": "account_type_code",
-          "type": "varchar(30)",
-          "nullable": true
-        },
-        {
-          "name": "is_active",
-          "type": "bit",
-          "nullable": false,
-          "default": "((1))",
-          "comment": "the record is active, Data type = bit, Nullable = No"
-        },
-        {
-          "name": "created_date",
-          "type": "datetime",
-          "nullable": false,
-          "default": "(getdate())"
-        },
-        {
-          "name": "updated_date",
-          "type": "datetime",
-          "nullable": true
-        },
-        {
-          "name": "created_by_user_rid",
-          "type": "bigint",
-          "nullable": true
-        },
-        {
-          "name": "updated_by_user_rid",
-          "type": "bigint",
-          "nullable": true
-        },
-        {
-          "name": "notes",
-          "type": "nvarchar(1000)",
-          "nullable": true,
-          "comment": "optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
-        }
-      ],
-      "indexes": [
-        {
-          "name": "pk_tenant_service_level_mapping_tenant_uuid_tenant_service_level_mapping_rid",
-          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, tenant_service_level_mapping_rid ]",
-          "table": "tenant_service_level_mapping",
-          "columns": [
-            "tenant_uuid",
-            "tenant_service_level_mapping_rid"
-          ]
-        },
-        {
-          "name": "uk_tenant_service_level_mapping_uuid",
-          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ tenant_service_level_mapping_uuid ]",
-          "table": "tenant_service_level_mapping",
-          "columns": [
-            "tenant_service_level_mapping_uuid"
-          ]
-        },
-        {
-          "name": "uk_tenant_service_level_mapping_rid",
-          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ tenant_service_level_mapping_rid ]",
-          "table": "tenant_service_level_mapping",
-          "columns": [
-            "tenant_service_level_mapping_rid"
-          ]
-        },
-        {
-          "name": "ix_fk_tenant_service_level_mapping_created_by_user_rid",
-          "def": "NONCLUSTERED, [ created_by_user_rid ]",
-          "table": "tenant_service_level_mapping",
-          "columns": [
-            "created_by_user_rid"
-          ]
-        },
-        {
-          "name": "ix_fk_tenant_service_level_mapping_tenant_uuid",
-          "def": "NONCLUSTERED, [ tenant_uuid ]",
-          "table": "tenant_service_level_mapping",
-          "columns": [
-            "tenant_uuid"
-          ]
-        },
-        {
-          "name": "ix_fk_tenant_service_level_mapping_updated_by_user_rid",
-          "def": "NONCLUSTERED, [ updated_by_user_rid ]",
-          "table": "tenant_service_level_mapping",
-          "columns": [
-            "updated_by_user_rid"
-          ]
-        }
-      ],
-      "constraints": [
-        {
-          "name": "pk_tenant_service_level_mapping_tenant_uuid_tenant_service_level_mapping_rid",
-          "type": "PRIMARY KEY",
-          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, tenant_service_level_mapping_rid ]",
-          "table": "tenant_service_level_mapping",
-          "columns": [
-            "tenant_uuid",
-            "tenant_service_level_mapping_rid"
-          ]
-        },
-        {
-          "name": "uk_tenant_service_level_mapping_uuid",
-          "type": "UNIQUE",
-          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ tenant_service_level_mapping_uuid ]",
-          "table": "tenant_service_level_mapping",
-          "columns": [
-            "tenant_service_level_mapping_uuid"
-          ]
-        },
-        {
-          "name": "uk_tenant_service_level_mapping_rid",
-          "type": "UNIQUE",
-          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ tenant_service_level_mapping_rid ]",
-          "table": "tenant_service_level_mapping",
-          "columns": [
-            "tenant_service_level_mapping_rid"
-          ]
-        },
-        {
-          "name": "fk_tenant_service_level_mapping_created_by_user_rid",
-          "type": "FOREIGN KEY",
-          "def": "FOREIGN KEY(created_by_user_rid) REFERENCES user_accounts(user_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
-          "table": "tenant_service_level_mapping",
-          "referenced_table": "user_accounts",
-          "columns": [
-            "created_by_user_rid"
-          ],
-          "referenced_columns": [
-            "user_rid"
-          ]
-        },
-        {
-          "name": "fk_tenant_service_level_mapping_tenant_uuid",
-          "type": "FOREIGN KEY",
-          "def": "FOREIGN KEY(tenant_uuid) REFERENCES account_details(tenant_uuid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
-          "table": "tenant_service_level_mapping",
-          "referenced_table": "account_details",
-          "columns": [
-            "tenant_uuid"
-          ],
-          "referenced_columns": [
-            "tenant_uuid"
-          ]
-        },
-        {
-          "name": "fk_tenant_service_level_mapping_updated_by_user_rid",
-          "type": "FOREIGN KEY",
-          "def": "FOREIGN KEY(updated_by_user_rid) REFERENCES user_accounts(user_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
-          "table": "tenant_service_level_mapping",
-          "referenced_table": "user_accounts",
-          "columns": [
-            "updated_by_user_rid"
-          ],
-          "referenced_columns": [
-            "user_rid"
-          ]
-        }
-      ]
-    },
-    {
-      "name": "user_accounts",
-      "type": "BASIC TABLE",
-      "comment": "the table that stores the details of the users",
-      "columns": [
-        {
-          "name": "user_uuid",
-          "type": "uniqueidentifier",
-          "nullable": false,
-          "default": "(newsequentialid())",
-          "comment": "the uuid of the user, Data type = uniqueidentifier, Nullable = No"
-        },
-        {
-          "name": "user_rid",
-          "type": "bigint",
-          "nullable": false,
-          "comment": "the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = bigint, Nullable = No"
-        },
-        {
-          "name": "tenant_uuid",
-          "type": "uniqueidentifier",
-          "nullable": false,
-          "comment": "the uniqueidentifier for the tenant/customer.  Used as a partitioning key., Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
-        },
-        {
-          "name": "user_name",
-          "type": "nvarchar(200)",
-          "nullable": true,
-          "comment": "the user name of the user, Data type = nvarchar(400), Nullable = Yes"
-        },
-        {
-          "name": "first_name",
-          "type": "nvarchar(50)",
-          "nullable": false,
-          "default": "('Tracking')",
-          "comment": "the first name of the user, Data type = nvarchar(100), Nullable = No"
-        },
-        {
-          "name": "last_name",
-          "type": "nvarchar(50)",
-          "nullable": false,
-          "default": "('User')",
-          "comment": "the last name of the user, Data type = nvarchar(100), Nullable = No"
-        },
-        {
-          "name": "email_address",
-          "type": "nvarchar(300)",
-          "nullable": false,
-          "comment": "the email address, Data type = nvarchar(600), Nullable = No"
-        },
-        {
-          "name": "phone_number",
-          "type": "nvarchar(50)",
-          "nullable": true,
-          "comment": "the phone number, Data type = nvarchar(100), Nullable = Yes"
-        },
-        {
-          "name": "phone_extension",
-          "type": "int",
-          "nullable": true,
-          "comment": "the extension of the phone number, Data type = int, Nullable = Yes"
-        },
-        {
-          "name": "title",
-          "type": "nvarchar(200)",
-          "nullable": true,
-          "comment": "the job title of the user, Data type = nvarchar(400), Nullable = Yes"
-        },
-        {
-          "name": "landing_page",
-          "type": "nvarchar(55)",
-          "nullable": false,
-          "default": "('DEFAULT')",
-          "comment": "the page on the UI where the user should land when signing on to the website, Data type = nvarchar(110), Nullable = No"
-        },
-        {
-          "name": "object_id",
-          "type": "nvarchar(50)",
-          "nullable": true,
-          "comment": "the Microsoft Entra ID for the user, Data type = nvarchar(100), Nullable = Yes"
-        },
-        {
-          "name": "role_rid",
-          "type": "bigint",
-          "nullable": true,
-          "default": "((1))",
-          "comment": "the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = bigint, Nullable = Yes, References = [dbo].[role].[role_rid]"
-        },
-        {
-          "name": "account_type_code",
-          "type": "varchar(30)",
-          "nullable": false,
-          "default": "('ACT_CUSTOMER')",
-          "comment": "see lookup.code for information about these values, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
-        },
-        {
-          "name": "speed_type_code",
-          "type": "varchar(30)",
-          "nullable": false,
-          "default": "('SPT_MPH')",
-          "comment": "see lookup.code for information about these values, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
-        },
-        {
-          "name": "language_code",
-          "type": "varchar(30)",
-          "nullable": false,
-          "default": "('ENUS')",
-          "comment": "see lookup.code for information about these values, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
-        },
-        {
-          "name": "temperature_type_code",
-          "type": "varchar(30)",
-          "nullable": false,
-          "default": "('TMP_FAHRENHEIT')",
-          "comment": "see lookup.code for information about these values, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
-        },
-        {
-          "name": "fuel_type_code",
-          "type": "varchar(30)",
-          "nullable": false,
-          "default": "('FLT_U_S_GALLONS')",
-          "comment": "see lookup.code for information about these values, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
-        },
-        {
-          "name": "timezone_code",
-          "type": "varchar(30)",
-          "nullable": false,
-          "default": "('TMZ_AMERICA_CHICAGO')",
-          "comment": "see lookup.code for information about these values, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
-        },
-        {
-          "name": "theme_code",
-          "type": "varchar(30)",
-          "nullable": false,
-          "default": "('THM_LIGHT')",
-          "comment": "see lookup.code for information about these values, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
-        },
-        {
-          "name": "tour_status_code",
-          "type": "varchar(30)",
-          "nullable": false,
-          "default": "('TOR_0')",
-          "comment": "see lookup.code for information about these values, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
-        },
-        {
-          "name": "phone_type_code",
-          "type": "varchar(30)",
-          "nullable": false,
-          "default": "('PHT_MOBILE')",
-          "comment": "see lookup.code for information about these values, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
-        },
-        {
-          "name": "status_code",
-          "type": "varchar(30)",
-          "nullable": false,
-          "default": "('USR_ACTIVE')",
-          "comment": "see lookup.code for information about these values, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
-        },
-        {
-          "name": "is_active",
-          "type": "bit",
-          "nullable": false,
-          "default": "((1))",
-          "comment": "the record is active, Data type = bit, Nullable = No"
-        },
-        {
-          "name": "is_onboarded",
-          "type": "bit",
-          "nullable": true,
-          "default": "((1))",
-          "comment": "is the record onboarded, Data type = bit, Nullable = Yes"
-        },
-        {
-          "name": "is_migrated_data",
-          "type": "bit",
-          "nullable": false,
-          "default": "((0))",
-          "comment": "is the record migrated data, Data type = bit, Nullable = No"
-        },
-        {
-          "name": "created_date",
-          "type": "datetime",
-          "nullable": false,
-          "default": "(getdate())",
-          "comment": "the date the record was created, Data type = datetime, Nullable = No"
-        },
-        {
-          "name": "updated_date",
-          "type": "datetime",
-          "nullable": false,
-          "default": "(getdate())",
-          "comment": "the date the record was updated or created, Data type = datetime, Nullable = No"
-        },
-        {
-          "name": "activated_date",
-          "type": "datetime",
-          "nullable": true,
-          "comment": "the date the record was activated, Data type = datetime, Nullable = Yes"
-        },
-        {
-          "name": "expiration_date",
-          "type": "datetime",
-          "nullable": true,
-          "comment": "the expiration date, Data type = datetime, Nullable = Yes"
-        },
-        {
-          "name": "created_by_user_rid",
-          "type": "uniqueidentifier",
-          "nullable": true
-        },
-        {
-          "name": "updated_by_user_rid",
-          "type": "uniqueidentifier",
-          "nullable": true
-        },
-        {
-          "name": "notes",
-          "type": "nvarchar(1000)",
-          "nullable": true,
-          "comment": "optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
-        },
-        {
-          "name": "test_data_group",
-          "type": "int",
-          "nullable": true,
-          "comment": "used for the Dev test data process, Data type = int, Nullable = Yes"
-        },
-        {
-          "name": "active",
-          "type": "bit",
-          "nullable": false,
-          "default": "((1))",
-          "comment": "deprecated - replaced by is_active, Data type = bit, Nullable = No"
-        },
-        {
-          "name": "created",
-          "type": "datetime",
-          "nullable": false,
-          "default": "(getdate())",
-          "comment": "deprecated - replaced by created_date, Data type = datetime, Nullable = No"
-        }
-      ],
-      "indexes": [
-        {
-          "name": "pk_user_accounts_tenant_uuid_user_accounts_rid",
-          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, user_rid ]",
-          "table": "user_accounts",
-          "columns": [
-            "tenant_uuid",
-            "user_rid"
-          ]
-        },
-        {
-          "name": "uk_user_accounts_uuid",
-          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ user_uuid ]",
-          "table": "user_accounts",
-          "columns": [
-            "user_uuid"
-          ]
-        },
-        {
-          "name": "uk_user_accounts_rid",
-          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ user_rid ]",
-          "table": "user_accounts",
-          "columns": [
-            "user_rid"
-          ]
-        },
-        {
-          "name": "ix_fk_user_accounts_speed_type_code",
-          "def": "NONCLUSTERED, [ speed_type_code ]",
-          "table": "user_accounts",
-          "columns": [
-            "speed_type_code"
-          ]
-        },
-        {
-          "name": "ix_fk_user_accounts_fuel_type_code",
-          "def": "NONCLUSTERED, [ fuel_type_code ]",
-          "table": "user_accounts",
-          "columns": [
-            "fuel_type_code"
-          ]
-        },
-        {
-          "name": "ix_fk_user_accounts_tenant_uuid",
-          "def": "NONCLUSTERED, [ tenant_uuid ]",
-          "table": "user_accounts",
-          "columns": [
-            "tenant_uuid"
-          ]
-        },
-        {
-          "name": "ix_user_accounts_tenant_uuid_status_code",
-          "def": "NONCLUSTERED, [ tenant_uuid, status_code ]",
-          "table": "user_accounts",
-          "columns": [
-            "tenant_uuid",
-            "status_code"
-          ]
-        },
-        {
-          "name": "ix_fk_user_accounts_tour_status_code",
-          "def": "NONCLUSTERED, [ tour_status_code ]",
-          "table": "user_accounts",
-          "columns": [
-            "tour_status_code"
-          ]
-        },
-        {
-          "name": "ix_fk_user_accounts_account_type_code",
-          "def": "NONCLUSTERED, [ account_type_code ]",
-          "table": "user_accounts",
-          "columns": [
-            "account_type_code"
-          ]
-        },
-        {
-          "name": "ix_fk_user_accounts_role_rid",
-          "def": "NONCLUSTERED, [ role_rid ]",
-          "table": "user_accounts",
-          "columns": [
-            "role_rid"
-          ]
-        },
-        {
-          "name": "ix_fk_user_accounts_temperature_type_code",
-          "def": "NONCLUSTERED, [ temperature_type_code ]",
-          "table": "user_accounts",
-          "columns": [
-            "temperature_type_code"
-          ]
-        },
-        {
-          "name": "ix_fk_user_accounts_timezone_code",
-          "def": "NONCLUSTERED, [ timezone_code ]",
-          "table": "user_accounts",
-          "columns": [
-            "timezone_code"
-          ]
-        },
-        {
-          "name": "ix_fk_user_accounts_phone_type_code",
-          "def": "NONCLUSTERED, [ phone_type_code ]",
-          "table": "user_accounts",
-          "columns": [
-            "phone_type_code"
-          ]
-        },
-        {
-          "name": "ix_fk_user_accounts_status_code",
-          "def": "NONCLUSTERED, [ status_code ]",
-          "table": "user_accounts",
-          "columns": [
-            "status_code"
-          ]
-        },
-        {
-          "name": "ix_fk_user_accounts_theme_code",
-          "def": "NONCLUSTERED, [ theme_code ]",
-          "table": "user_accounts",
-          "columns": [
-            "theme_code"
-          ]
-        },
-        {
-          "name": "ix_fk_user_accounts_language_code",
-          "def": "NONCLUSTERED, [ language_code ]",
-          "table": "user_accounts",
-          "columns": [
-            "language_code"
-          ]
-        }
-      ],
-      "constraints": [
-        {
-          "name": "pk_user_accounts_tenant_uuid_user_accounts_rid",
-          "type": "PRIMARY KEY",
-          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, user_rid ]",
-          "table": "user_accounts",
-          "columns": [
-            "tenant_uuid",
-            "user_rid"
-          ]
-        },
-        {
-          "name": "uk_user_accounts_uuid",
-          "type": "UNIQUE",
-          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ user_uuid ]",
-          "table": "user_accounts",
-          "columns": [
-            "user_uuid"
-          ]
-        },
-        {
-          "name": "uk_user_accounts_rid",
-          "type": "UNIQUE",
-          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ user_rid ]",
-          "table": "user_accounts",
-          "columns": [
-            "user_rid"
-          ]
-        },
-        {
-          "name": "fk_user_accounts_account_type_code",
-          "type": "FOREIGN KEY",
-          "def": "FOREIGN KEY(account_type_code) REFERENCES lookup_code(code) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
-          "table": "user_accounts",
-          "referenced_table": "lookup_code",
-          "columns": [
-            "account_type_code"
-          ],
-          "referenced_columns": [
-            "code"
-          ]
-        },
-        {
-          "name": "fk_user_accounts_fuel_type_code",
-          "type": "FOREIGN KEY",
-          "def": "FOREIGN KEY(fuel_type_code) REFERENCES lookup_code(code) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
-          "table": "user_accounts",
-          "referenced_table": "lookup_code",
-          "columns": [
-            "fuel_type_code"
-          ],
-          "referenced_columns": [
-            "code"
-          ]
-        },
-        {
-          "name": "fk_user_accounts_language_code",
-          "type": "FOREIGN KEY",
-          "def": "FOREIGN KEY(language_code) REFERENCES lookup_code(code) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
-          "table": "user_accounts",
-          "referenced_table": "lookup_code",
-          "columns": [
-            "language_code"
-          ],
-          "referenced_columns": [
-            "code"
-          ]
-        },
-        {
-          "name": "fk_user_accounts_role_rid",
-          "type": "FOREIGN KEY",
-          "def": "FOREIGN KEY(role_rid) REFERENCES role(role_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
-          "table": "user_accounts",
-          "referenced_table": "role",
-          "columns": [
-            "role_rid"
-          ],
-          "referenced_columns": [
-            "role_rid"
-          ]
-        },
-        {
-          "name": "fk_user_accounts_speed_type_code",
-          "type": "FOREIGN KEY",
-          "def": "FOREIGN KEY(speed_type_code) REFERENCES lookup_code(code) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
-          "table": "user_accounts",
-          "referenced_table": "lookup_code",
-          "columns": [
-            "speed_type_code"
-          ],
-          "referenced_columns": [
-            "code"
-          ]
-        },
-        {
-          "name": "fk_user_accounts_status_code",
-          "type": "FOREIGN KEY",
-          "def": "FOREIGN KEY(status_code) REFERENCES lookup_code(code) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
-          "table": "user_accounts",
-          "referenced_table": "lookup_code",
-          "columns": [
-            "status_code"
-          ],
-          "referenced_columns": [
-            "code"
-          ]
-        },
-        {
-          "name": "fk_user_accounts_temperature_type_code",
-          "type": "FOREIGN KEY",
-          "def": "FOREIGN KEY(temperature_type_code) REFERENCES lookup_code(code) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
-          "table": "user_accounts",
-          "referenced_table": "lookup_code",
-          "columns": [
-            "temperature_type_code"
-          ],
-          "referenced_columns": [
-            "code"
-          ]
-        },
-        {
-          "name": "fk_user_accounts_tenant_uuid",
-          "type": "FOREIGN KEY",
-          "def": "FOREIGN KEY(tenant_uuid) REFERENCES account_details(tenant_uuid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
-          "table": "user_accounts",
-          "referenced_table": "account_details",
-          "columns": [
-            "tenant_uuid"
-          ],
-          "referenced_columns": [
-            "tenant_uuid"
-          ]
-        },
-        {
-          "name": "fk_user_accounts_theme_code",
-          "type": "FOREIGN KEY",
-          "def": "FOREIGN KEY(theme_code) REFERENCES lookup_code(code) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
-          "table": "user_accounts",
-          "referenced_table": "lookup_code",
-          "columns": [
-            "theme_code"
-          ],
-          "referenced_columns": [
-            "code"
-          ]
-        },
-        {
-          "name": "fk_user_accounts_timezone_code",
-          "type": "FOREIGN KEY",
-          "def": "FOREIGN KEY(timezone_code) REFERENCES lookup_code(code) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
-          "table": "user_accounts",
-          "referenced_table": "lookup_code",
-          "columns": [
-            "timezone_code"
-          ],
-          "referenced_columns": [
-            "code"
-          ]
-        },
-        {
-          "name": "fk_user_accounts_tour_status_code",
-          "type": "FOREIGN KEY",
-          "def": "FOREIGN KEY(tour_status_code) REFERENCES lookup_code(code) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
-          "table": "user_accounts",
-          "referenced_table": "lookup_code",
-          "columns": [
-            "tour_status_code"
-          ],
-          "referenced_columns": [
-            "code"
-          ]
-        },
-        {
-          "name": "fk_user_accountsphone_type_code",
-          "type": "FOREIGN KEY",
-          "def": "FOREIGN KEY(phone_type_code) REFERENCES lookup_code(code) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
-          "table": "user_accounts",
-          "referenced_table": "lookup_code",
-          "columns": [
-            "phone_type_code"
-          ],
-          "referenced_columns": [
-            "code"
-          ]
-        }
-      ]
-    },
-    {
-      "name": "user_feedback",
-      "type": "BASIC TABLE",
-      "columns": [
-        {
-          "name": "user_feedback_rid",
-          "type": "int",
-          "nullable": false
-        },
-        {
-          "name": "user_rid",
-          "type": "int",
-          "nullable": false
-        },
-        {
-          "name": "user_name",
-          "type": "nvarchar(200)",
-          "nullable": true
-        },
-        {
-          "name": "user_role_rid",
-          "type": "int",
-          "nullable": true
-        },
-        {
-          "name": "organization_name",
-          "type": "nvarchar(200)",
-          "nullable": true
-        },
-        {
-          "name": "tenant_id",
-          "type": "nvarchar(100)",
-          "nullable": true
-        },
-        {
-          "name": "email_id",
-          "type": "nvarchar(100)",
-          "nullable": true
-        },
-        {
-          "name": "session_id",
-          "type": "int",
-          "nullable": true
-        },
-        {
-          "name": "rating",
-          "type": "int",
-          "nullable": true
-        },
-        {
-          "name": "question_rid",
-          "type": "int",
-          "nullable": true
-        },
-        {
-          "name": "answer_text",
-          "type": "nvarchar(MAX)",
-          "nullable": true
-        },
-        {
-          "name": "feedback_type",
-          "type": "nvarchar(100)",
-          "nullable": true
-        },
-        {
-          "name": "created_at",
-          "type": "datetime",
-          "nullable": false,
-          "default": "(getdate())"
-        },
-        {
-          "name": "page_source",
-          "type": "nvarchar(155)",
-          "nullable": true
-        },
-        {
-          "name": "is_submitted",
-          "type": "bit",
-          "nullable": false,
-          "default": "((0))"
-        },
-        {
-          "name": "feedback_dismissed",
-          "type": "bit",
-          "nullable": true
-        }
-      ],
-      "indexes": [
-        {
-          "name": "PK_user_feedback",
-          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ user_feedback_rid ]",
-          "table": "user_feedback",
-          "columns": [
-            "user_feedback_rid"
-          ]
-        }
-      ],
-      "constraints": [
-        {
-          "name": "PK_user_feedback",
-          "type": "PRIMARY KEY",
-          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ user_feedback_rid ]",
-          "table": "user_feedback",
-          "columns": [
-            "user_feedback_rid"
-          ]
-        }
-      ]
-    },
-    {
-      "name": "user_grid_view_preference",
-      "type": "BASIC TABLE",
-      "comment": "the table that stores the details of the user preferences",
-      "columns": [
-        {
-          "name": "user_grid_view_preference_uuid",
-          "type": "uniqueidentifier",
-          "nullable": false,
-          "default": "(newsequentialid())",
-          "comment": "the uuid of the user, Data type = uniqueidentifier, Nullable = No"
-        },
-        {
-          "name": "user_grid_view_preference_rid",
-          "type": "bigint",
-          "nullable": false,
-          "comment": "the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = bigint, Nullable = No"
-        },
-        {
-          "name": "tenant_uuid",
-          "type": "uniqueidentifier",
-          "nullable": false,
-          "comment": "the uniqueidentifier for the tenant/customer.  Used as a partitioning key., Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
-        },
-        {
-          "name": "grid_name",
-          "type": "nvarchar(200)",
-          "nullable": false,
-          "comment": "the grid name the user has selected for the preference settings, Data type = nvarchar(400), Nullable = No"
-        },
-        {
-          "name": "columns_hidden",
-          "type": "nvarchar(3000)",
-          "nullable": false,
-          "comment": "what columns the user has selected to be hidden, Data type = nvarchar(6000), Nullable = No"
-        },
-        {
-          "name": "created_date",
-          "type": "datetime",
-          "nullable": false,
-          "default": "(getdate())",
-          "comment": "the date the record was created, Data type = datetime, Nullable = No"
-        },
-        {
-          "name": "updated_date",
-          "type": "datetime",
-          "nullable": true,
-          "comment": "the date the record was updated or created, Data type = datetime, Nullable = Yes"
-        },
-        {
-          "name": "created_by_user_rid",
-          "type": "bigint",
-          "nullable": true
-        },
-        {
-          "name": "notes",
-          "type": "nvarchar(1000)",
-          "nullable": true,
-          "comment": "optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
-        },
-        {
-          "name": "created",
-          "type": "datetime",
-          "nullable": false,
-          "default": "(getdate())",
-          "comment": "deprecated - replaced by created_date, Data type = datetime, Nullable = No"
-        },
-        {
-          "name": "user_rid",
-          "type": "bigint",
-          "nullable": true,
-          "comment": "the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = bigint, Nullable = Yes, References = [dbo].[user_accounts].[user_rid]"
-        }
-      ],
-      "indexes": [
-        {
-          "name": "pk_user_grid_view_preference_tenant_uuid_user_grid_view_preference_rid",
-          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, user_grid_view_preference_rid ]",
-          "table": "user_grid_view_preference",
-          "columns": [
-            "tenant_uuid",
-            "user_grid_view_preference_rid"
-          ]
-        },
-        {
-          "name": "uk_user_grid_view_preference_uuid",
-          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ user_grid_view_preference_uuid ]",
-          "table": "user_grid_view_preference",
-          "columns": [
-            "user_grid_view_preference_uuid"
-          ]
-        },
-        {
-          "name": "uk_user_grid_view_preference_rid",
-          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ user_grid_view_preference_rid ]",
-          "table": "user_grid_view_preference",
-          "columns": [
-            "user_grid_view_preference_rid"
-          ]
-        },
-        {
-          "name": "ix_fk_user_grid_view_pref_tenant_uuid",
-          "def": "NONCLUSTERED, [ tenant_uuid ]",
-          "table": "user_grid_view_preference",
-          "columns": [
-            "tenant_uuid"
-          ]
-        },
-        {
-          "name": "ix_fk_user_grid_view_pref_user_id",
-          "def": "NONCLUSTERED, [ user_rid ]",
-          "table": "user_grid_view_preference",
-          "columns": [
-            "user_rid"
-          ]
-        },
-        {
-          "name": "ix_fk_user_grid_view_preference_created_by_user_rid",
-          "def": "NONCLUSTERED, [ created_by_user_rid ]",
-          "table": "user_grid_view_preference",
-          "columns": [
-            "created_by_user_rid"
-          ]
-        }
-      ],
-      "constraints": [
-        {
-          "name": "pk_user_grid_view_preference_tenant_uuid_user_grid_view_preference_rid",
-          "type": "PRIMARY KEY",
-          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, user_grid_view_preference_rid ]",
-          "table": "user_grid_view_preference",
-          "columns": [
-            "tenant_uuid",
-            "user_grid_view_preference_rid"
-          ]
-        },
-        {
-          "name": "uk_user_grid_view_preference_uuid",
-          "type": "UNIQUE",
-          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ user_grid_view_preference_uuid ]",
-          "table": "user_grid_view_preference",
-          "columns": [
-            "user_grid_view_preference_uuid"
-          ]
-        },
-        {
-          "name": "uk_user_grid_view_preference_rid",
-          "type": "UNIQUE",
-          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ user_grid_view_preference_rid ]",
-          "table": "user_grid_view_preference",
-          "columns": [
-            "user_grid_view_preference_rid"
-          ]
-        },
-        {
-          "name": "fk_user_grid_view_pref_tenant_uuid",
-          "type": "FOREIGN KEY",
-          "def": "FOREIGN KEY(tenant_uuid) REFERENCES account_details(tenant_uuid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
-          "table": "user_grid_view_preference",
-          "referenced_table": "account_details",
-          "columns": [
-            "tenant_uuid"
-          ],
-          "referenced_columns": [
-            "tenant_uuid"
-          ]
-        },
-        {
-          "name": "fk_user_grid_view_pref_user_id",
-          "type": "FOREIGN KEY",
-          "def": "FOREIGN KEY(user_rid) REFERENCES user_accounts(user_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
-          "table": "user_grid_view_preference",
-          "referenced_table": "user_accounts",
-          "columns": [
-            "user_rid"
-          ],
-          "referenced_columns": [
-            "user_rid"
-          ]
-        },
-        {
-          "name": "fk_user_grid_view_preference_created_by_user_rid",
-          "type": "FOREIGN KEY",
-          "def": "FOREIGN KEY(created_by_user_rid) REFERENCES user_accounts(user_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
-          "table": "user_grid_view_preference",
-          "referenced_table": "user_accounts",
-          "columns": [
-            "created_by_user_rid"
-          ],
-          "referenced_columns": [
-            "user_rid"
-          ]
-        }
-      ]
-    },
-    {
-      "name": "user_type_permission_template",
-      "type": "BASIC TABLE",
-      "columns": [
-        {
-          "name": "rid",
-          "type": "int",
-          "nullable": false
-        },
-        {
-          "name": "account_type_code",
-          "type": "varchar(30)",
-          "nullable": true,
-          "comment": "a lookup to the main lookup_code table, Data type = varchar(30), Nullable = Yes, References = [dbo].[lookup_code].[code]"
-        },
-        {
-          "name": "permission_code",
-          "type": "varchar(100)",
-          "nullable": false
-        }
-      ],
-      "indexes": [
-        {
-          "name": "PK_user_type_permission_template",
-          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ rid ]",
-          "table": "user_type_permission_template",
-          "columns": [
-            "rid"
-          ]
-        },
-        {
-          "name": "ix_user_type_permission_template_account_type_code",
-          "def": "NONCLUSTERED, [ account_type_code ]",
-          "table": "user_type_permission_template",
-          "columns": [
-            "account_type_code"
-          ]
-        }
-      ],
-      "constraints": [
-        {
-          "name": "PK_user_type_permission_template",
-          "type": "PRIMARY KEY",
-          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ rid ]",
-          "table": "user_type_permission_template",
-          "columns": [
-            "rid"
-          ]
-        },
-        {
-          "name": "FK_user_type_permission_template_account_type",
-          "type": "FOREIGN KEY",
-          "def": "FOREIGN KEY(account_type_code) REFERENCES lookup_code(code) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
-          "table": "user_type_permission_template",
-          "referenced_table": "lookup_code",
-          "columns": [
-            "account_type_code"
-          ],
-          "referenced_columns": [
-            "code"
-          ]
-        }
-      ]
     }
   ],
   "relations": [
+    {
+      "table": "locations_common",
+      "columns": [
+        "created_by_user_rid"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "user_accounts",
+      "parent_columns": [
+        "user_rid"
+      ],
+      "parent_cardinality": "zero_or_one",
+      "def": ""
+    },
+    {
+      "table": "locations_common",
+      "columns": [
+        "tenant_uuid"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "account_details",
+      "parent_columns": [
+        "tenant_uuid"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": ""
+    },
+    {
+      "table": "locations_common",
+      "columns": [
+        "updated_by_user_rid"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "user_accounts",
+      "parent_columns": [
+        "user_rid"
+      ],
+      "parent_cardinality": "zero_or_one",
+      "def": ""
+    },
+    {
+      "table": "role",
+      "columns": [
+        "role_type_code"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "lookup_code",
+      "parent_columns": [
+        "code"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": ""
+    },
+    {
+      "table": "role",
+      "columns": [
+        "tenant_uuid"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "account_details",
+      "parent_columns": [
+        "tenant_uuid"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": ""
+    },
+    {
+      "table": "role_permission_mapping",
+      "columns": [
+        "created_by_user_rid"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "user_accounts",
+      "parent_columns": [
+        "user_rid"
+      ],
+      "parent_cardinality": "zero_or_one",
+      "def": ""
+    },
+    {
+      "table": "role_permission_mapping",
+      "columns": [
+        "tenant_uuid"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "account_details",
+      "parent_columns": [
+        "tenant_uuid"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": ""
+    },
+    {
+      "table": "role_permission_mapping",
+      "columns": [
+        "role_rid"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "role",
+      "parent_columns": [
+        "role_rid"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": ""
+    },
+    {
+      "table": "service_level_feature_mapping",
+      "columns": [
+        "service_level_code"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "lookup_code",
+      "parent_columns": [
+        "code"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": ""
+    },
+    {
+      "table": "subscription",
+      "columns": [
+        "created_by_user_rid"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "user_accounts",
+      "parent_columns": [
+        "user_rid"
+      ],
+      "parent_cardinality": "zero_or_one",
+      "def": ""
+    },
+    {
+      "table": "subscription",
+      "columns": [
+        "tenant_uuid"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "account_details",
+      "parent_columns": [
+        "tenant_uuid"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": ""
+    },
+    {
+      "table": "subscription",
+      "columns": [
+        "updated_by_user_rid"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "user_accounts",
+      "parent_columns": [
+        "user_rid"
+      ],
+      "parent_cardinality": "zero_or_one",
+      "def": ""
+    },
+    {
+      "table": "tenant_service_level_mapping",
+      "columns": [
+        "created_by_user_rid"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "user_accounts",
+      "parent_columns": [
+        "user_rid"
+      ],
+      "parent_cardinality": "zero_or_one",
+      "def": ""
+    },
+    {
+      "table": "tenant_service_level_mapping",
+      "columns": [
+        "tenant_uuid"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "account_details",
+      "parent_columns": [
+        "tenant_uuid"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": ""
+    },
+    {
+      "table": "tenant_service_level_mapping",
+      "columns": [
+        "updated_by_user_rid"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "user_accounts",
+      "parent_columns": [
+        "user_rid"
+      ],
+      "parent_cardinality": "zero_or_one",
+      "def": ""
+    },
+    {
+      "table": "user_accounts",
+      "columns": [
+        "account_type_code"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "lookup_code",
+      "parent_columns": [
+        "code"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": ""
+    },
+    {
+      "table": "user_accounts",
+      "columns": [
+        "fuel_type_code"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "lookup_code",
+      "parent_columns": [
+        "code"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": ""
+    },
+    {
+      "table": "user_accounts",
+      "columns": [
+        "language_code"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "lookup_code",
+      "parent_columns": [
+        "code"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": ""
+    },
+    {
+      "table": "user_accounts",
+      "columns": [
+        "role_rid"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "role",
+      "parent_columns": [
+        "role_rid"
+      ],
+      "parent_cardinality": "zero_or_one",
+      "def": ""
+    },
+    {
+      "table": "user_accounts",
+      "columns": [
+        "speed_type_code"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "lookup_code",
+      "parent_columns": [
+        "code"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": ""
+    },
+    {
+      "table": "user_accounts",
+      "columns": [
+        "status_code"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "lookup_code",
+      "parent_columns": [
+        "code"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": ""
+    },
+    {
+      "table": "user_accounts",
+      "columns": [
+        "temperature_type_code"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "lookup_code",
+      "parent_columns": [
+        "code"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": ""
+    },
+    {
+      "table": "user_accounts",
+      "columns": [
+        "tenant_uuid"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "account_details",
+      "parent_columns": [
+        "tenant_uuid"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": ""
+    },
+    {
+      "table": "user_accounts",
+      "columns": [
+        "theme_code"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "lookup_code",
+      "parent_columns": [
+        "code"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": ""
+    },
+    {
+      "table": "user_accounts",
+      "columns": [
+        "timezone_code"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "lookup_code",
+      "parent_columns": [
+        "code"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": ""
+    },
+    {
+      "table": "user_accounts",
+      "columns": [
+        "tour_status_code"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "lookup_code",
+      "parent_columns": [
+        "code"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": ""
+    },
+    {
+      "table": "user_accounts",
+      "columns": [
+        "phone_type_code"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "lookup_code",
+      "parent_columns": [
+        "code"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": ""
+    },
+    {
+      "table": "user_grid_view_preference",
+      "columns": [
+        "tenant_uuid"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "account_details",
+      "parent_columns": [
+        "tenant_uuid"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": ""
+    },
+    {
+      "table": "user_grid_view_preference",
+      "columns": [
+        "user_rid"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "user_accounts",
+      "parent_columns": [
+        "user_rid"
+      ],
+      "parent_cardinality": "zero_or_one",
+      "def": ""
+    },
+    {
+      "table": "user_grid_view_preference",
+      "columns": [
+        "created_by_user_rid"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "user_accounts",
+      "parent_columns": [
+        "user_rid"
+      ],
+      "parent_cardinality": "zero_or_one",
+      "def": ""
+    },
+    {
+      "table": "user_type_permission_template",
+      "columns": [
+        "account_type_code"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "lookup_code",
+      "parent_columns": [
+        "code"
+      ],
+      "parent_cardinality": "zero_or_one",
+      "def": ""
+    },
     {
       "table": "lookup_code",
       "columns": [
@@ -5601,409 +5911,6 @@
       "parent_table": "user_accounts",
       "parent_columns": [
         "user_rid"
-      ],
-      "parent_cardinality": "zero_or_one",
-      "def": ""
-    },
-    {
-      "table": "locations_common",
-      "columns": [
-        "created_by_user_rid"
-      ],
-      "cardinality": "zero_or_more",
-      "parent_table": "user_accounts",
-      "parent_columns": [
-        "user_rid"
-      ],
-      "parent_cardinality": "zero_or_one",
-      "def": ""
-    },
-    {
-      "table": "locations_common",
-      "columns": [
-        "tenant_uuid"
-      ],
-      "cardinality": "zero_or_more",
-      "parent_table": "account_details",
-      "parent_columns": [
-        "tenant_uuid"
-      ],
-      "parent_cardinality": "exactly_one",
-      "def": ""
-    },
-    {
-      "table": "locations_common",
-      "columns": [
-        "updated_by_user_rid"
-      ],
-      "cardinality": "zero_or_more",
-      "parent_table": "user_accounts",
-      "parent_columns": [
-        "user_rid"
-      ],
-      "parent_cardinality": "zero_or_one",
-      "def": ""
-    },
-    {
-      "table": "role",
-      "columns": [
-        "role_type_code"
-      ],
-      "cardinality": "zero_or_more",
-      "parent_table": "lookup_code",
-      "parent_columns": [
-        "code"
-      ],
-      "parent_cardinality": "exactly_one",
-      "def": ""
-    },
-    {
-      "table": "role",
-      "columns": [
-        "tenant_uuid"
-      ],
-      "cardinality": "zero_or_more",
-      "parent_table": "account_details",
-      "parent_columns": [
-        "tenant_uuid"
-      ],
-      "parent_cardinality": "exactly_one",
-      "def": ""
-    },
-    {
-      "table": "role_permission_mapping",
-      "columns": [
-        "created_by_user_rid"
-      ],
-      "cardinality": "zero_or_more",
-      "parent_table": "user_accounts",
-      "parent_columns": [
-        "user_rid"
-      ],
-      "parent_cardinality": "zero_or_one",
-      "def": ""
-    },
-    {
-      "table": "role_permission_mapping",
-      "columns": [
-        "tenant_uuid"
-      ],
-      "cardinality": "zero_or_more",
-      "parent_table": "account_details",
-      "parent_columns": [
-        "tenant_uuid"
-      ],
-      "parent_cardinality": "exactly_one",
-      "def": ""
-    },
-    {
-      "table": "role_permission_mapping",
-      "columns": [
-        "role_rid"
-      ],
-      "cardinality": "zero_or_more",
-      "parent_table": "role",
-      "parent_columns": [
-        "role_rid"
-      ],
-      "parent_cardinality": "exactly_one",
-      "def": ""
-    },
-    {
-      "table": "service_level_feature_mapping",
-      "columns": [
-        "service_level_code"
-      ],
-      "cardinality": "zero_or_more",
-      "parent_table": "lookup_code",
-      "parent_columns": [
-        "code"
-      ],
-      "parent_cardinality": "exactly_one",
-      "def": ""
-    },
-    {
-      "table": "subscription",
-      "columns": [
-        "created_by_user_rid"
-      ],
-      "cardinality": "zero_or_more",
-      "parent_table": "user_accounts",
-      "parent_columns": [
-        "user_rid"
-      ],
-      "parent_cardinality": "zero_or_one",
-      "def": ""
-    },
-    {
-      "table": "subscription",
-      "columns": [
-        "tenant_uuid"
-      ],
-      "cardinality": "zero_or_more",
-      "parent_table": "account_details",
-      "parent_columns": [
-        "tenant_uuid"
-      ],
-      "parent_cardinality": "exactly_one",
-      "def": ""
-    },
-    {
-      "table": "subscription",
-      "columns": [
-        "updated_by_user_rid"
-      ],
-      "cardinality": "zero_or_more",
-      "parent_table": "user_accounts",
-      "parent_columns": [
-        "user_rid"
-      ],
-      "parent_cardinality": "zero_or_one",
-      "def": ""
-    },
-    {
-      "table": "tenant_service_level_mapping",
-      "columns": [
-        "created_by_user_rid"
-      ],
-      "cardinality": "zero_or_more",
-      "parent_table": "user_accounts",
-      "parent_columns": [
-        "user_rid"
-      ],
-      "parent_cardinality": "zero_or_one",
-      "def": ""
-    },
-    {
-      "table": "tenant_service_level_mapping",
-      "columns": [
-        "tenant_uuid"
-      ],
-      "cardinality": "zero_or_more",
-      "parent_table": "account_details",
-      "parent_columns": [
-        "tenant_uuid"
-      ],
-      "parent_cardinality": "exactly_one",
-      "def": ""
-    },
-    {
-      "table": "tenant_service_level_mapping",
-      "columns": [
-        "updated_by_user_rid"
-      ],
-      "cardinality": "zero_or_more",
-      "parent_table": "user_accounts",
-      "parent_columns": [
-        "user_rid"
-      ],
-      "parent_cardinality": "zero_or_one",
-      "def": ""
-    },
-    {
-      "table": "user_accounts",
-      "columns": [
-        "account_type_code"
-      ],
-      "cardinality": "zero_or_more",
-      "parent_table": "lookup_code",
-      "parent_columns": [
-        "code"
-      ],
-      "parent_cardinality": "exactly_one",
-      "def": ""
-    },
-    {
-      "table": "user_accounts",
-      "columns": [
-        "fuel_type_code"
-      ],
-      "cardinality": "zero_or_more",
-      "parent_table": "lookup_code",
-      "parent_columns": [
-        "code"
-      ],
-      "parent_cardinality": "exactly_one",
-      "def": ""
-    },
-    {
-      "table": "user_accounts",
-      "columns": [
-        "language_code"
-      ],
-      "cardinality": "zero_or_more",
-      "parent_table": "lookup_code",
-      "parent_columns": [
-        "code"
-      ],
-      "parent_cardinality": "exactly_one",
-      "def": ""
-    },
-    {
-      "table": "user_accounts",
-      "columns": [
-        "role_rid"
-      ],
-      "cardinality": "zero_or_more",
-      "parent_table": "role",
-      "parent_columns": [
-        "role_rid"
-      ],
-      "parent_cardinality": "zero_or_one",
-      "def": ""
-    },
-    {
-      "table": "user_accounts",
-      "columns": [
-        "speed_type_code"
-      ],
-      "cardinality": "zero_or_more",
-      "parent_table": "lookup_code",
-      "parent_columns": [
-        "code"
-      ],
-      "parent_cardinality": "exactly_one",
-      "def": ""
-    },
-    {
-      "table": "user_accounts",
-      "columns": [
-        "status_code"
-      ],
-      "cardinality": "zero_or_more",
-      "parent_table": "lookup_code",
-      "parent_columns": [
-        "code"
-      ],
-      "parent_cardinality": "exactly_one",
-      "def": ""
-    },
-    {
-      "table": "user_accounts",
-      "columns": [
-        "temperature_type_code"
-      ],
-      "cardinality": "zero_or_more",
-      "parent_table": "lookup_code",
-      "parent_columns": [
-        "code"
-      ],
-      "parent_cardinality": "exactly_one",
-      "def": ""
-    },
-    {
-      "table": "user_accounts",
-      "columns": [
-        "tenant_uuid"
-      ],
-      "cardinality": "zero_or_more",
-      "parent_table": "account_details",
-      "parent_columns": [
-        "tenant_uuid"
-      ],
-      "parent_cardinality": "exactly_one",
-      "def": ""
-    },
-    {
-      "table": "user_accounts",
-      "columns": [
-        "theme_code"
-      ],
-      "cardinality": "zero_or_more",
-      "parent_table": "lookup_code",
-      "parent_columns": [
-        "code"
-      ],
-      "parent_cardinality": "exactly_one",
-      "def": ""
-    },
-    {
-      "table": "user_accounts",
-      "columns": [
-        "timezone_code"
-      ],
-      "cardinality": "zero_or_more",
-      "parent_table": "lookup_code",
-      "parent_columns": [
-        "code"
-      ],
-      "parent_cardinality": "exactly_one",
-      "def": ""
-    },
-    {
-      "table": "user_accounts",
-      "columns": [
-        "tour_status_code"
-      ],
-      "cardinality": "zero_or_more",
-      "parent_table": "lookup_code",
-      "parent_columns": [
-        "code"
-      ],
-      "parent_cardinality": "exactly_one",
-      "def": ""
-    },
-    {
-      "table": "user_accounts",
-      "columns": [
-        "phone_type_code"
-      ],
-      "cardinality": "zero_or_more",
-      "parent_table": "lookup_code",
-      "parent_columns": [
-        "code"
-      ],
-      "parent_cardinality": "exactly_one",
-      "def": ""
-    },
-    {
-      "table": "user_grid_view_preference",
-      "columns": [
-        "tenant_uuid"
-      ],
-      "cardinality": "zero_or_more",
-      "parent_table": "account_details",
-      "parent_columns": [
-        "tenant_uuid"
-      ],
-      "parent_cardinality": "exactly_one",
-      "def": ""
-    },
-    {
-      "table": "user_grid_view_preference",
-      "columns": [
-        "user_rid"
-      ],
-      "cardinality": "zero_or_more",
-      "parent_table": "user_accounts",
-      "parent_columns": [
-        "user_rid"
-      ],
-      "parent_cardinality": "zero_or_one",
-      "def": ""
-    },
-    {
-      "table": "user_grid_view_preference",
-      "columns": [
-        "created_by_user_rid"
-      ],
-      "cardinality": "zero_or_more",
-      "parent_table": "user_accounts",
-      "parent_columns": [
-        "user_rid"
-      ],
-      "parent_cardinality": "zero_or_one",
-      "def": ""
-    },
-    {
-      "table": "user_type_permission_template",
-      "columns": [
-        "account_type_code"
-      ],
-      "cardinality": "zero_or_more",
-      "parent_table": "lookup_code",
-      "parent_columns": [
-        "code"
       ],
       "parent_cardinality": "zero_or_one",
       "def": ""

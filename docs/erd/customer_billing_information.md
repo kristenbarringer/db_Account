@@ -50,9 +50,9 @@
 | pk_customer_billing_info_tenant_uuid_customer_billing_info_rid | CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, customer_billing_info_rid ] |
 | uk_customer_billing_info_uuid | NONCLUSTERED, unique, part of a UNIQUE constraint, [ customer_billing_info_uuid ] |
 | uk_customer_billing_info_rid | NONCLUSTERED, unique, part of a UNIQUE constraint, [ customer_billing_info_rid ] |
+| ix_fk_customer_billing_info_created_by_user_rid | NONCLUSTERED, [ created_by_user_rid ] |
 | ix_fk_customer_billing_info_tenant_uuid | NONCLUSTERED, [ tenant_uuid ] |
 | ix_fk_customer_billing_info_updated_by_user_rid | NONCLUSTERED, [ updated_by_user_rid ] |
-| ix_fk_customer_billing_info_created_by_user_rid | NONCLUSTERED, [ created_by_user_rid ] |
 
 ## Relations
 

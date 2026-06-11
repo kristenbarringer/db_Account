@@ -4,8 +4,8 @@
 
 | Name | Type | Default | Nullable | Children | Parents | Comment |
 | ---- | ---- | ------- | -------- | -------- | ------- | ------- |
-| tenant_service_level_mapping_uuid | uniqueidentifier | (newsequentialid()) | false |  |  |  |
-| tenant_service_level_mapping_rid | bigint |  | false |  |  |  |
+| tenant_service_level_mapping_uuid | uniqueidentifier | (newsequentialid()) | false |  |  | Unique identifier for the record, a unique nonclustered key for the table. Must be a SQL-sortable UUIDv7. , Data type = uniqueidentifier, Nullable = No |
+| tenant_service_level_mapping_rid | bigint |  | false |  |  | Unique RowID for the record, part of composite primary key for the table after tenant_uuid, a unique clustered key for the table, Data type = bigint, Nullable = No |
 | tenant_uuid | uniqueidentifier |  | false |  | [account_details](account_details.md) | the customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid] |
 | service_level_code | varchar(30) |  | false |  |  |  |
 | account_type_code | varchar(30) |  | true |  |  |  |
@@ -34,9 +34,9 @@
 | pk_tenant_service_level_mapping_tenant_uuid_tenant_service_level_mapping_rid | CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, tenant_service_level_mapping_rid ] |
 | uk_tenant_service_level_mapping_uuid | NONCLUSTERED, unique, part of a UNIQUE constraint, [ tenant_service_level_mapping_uuid ] |
 | uk_tenant_service_level_mapping_rid | NONCLUSTERED, unique, part of a UNIQUE constraint, [ tenant_service_level_mapping_rid ] |
-| ix_fk_tenant_service_level_mapping_created_by_user_rid | NONCLUSTERED, [ created_by_user_rid ] |
 | ix_fk_tenant_service_level_mapping_tenant_uuid | NONCLUSTERED, [ tenant_uuid ] |
 | ix_fk_tenant_service_level_mapping_updated_by_user_rid | NONCLUSTERED, [ updated_by_user_rid ] |
+| ix_fk_tenant_service_level_mapping_created_by_user_rid | NONCLUSTERED, [ created_by_user_rid ] |
 
 ## Relations
 

@@ -4,8 +4,8 @@
 
 | Name | Type | Default | Nullable | Children | Parents | Comment |
 | ---- | ---- | ------- | -------- | -------- | ------- | ------- |
-| locations_common_uuid | uniqueidentifier | (newsequentialid()) | false |  |  |  |
-| locations_common_rid | bigint |  | false |  |  |  |
+| locations_common_uuid | uniqueidentifier | (newsequentialid()) | false |  |  | Unique identifier for the record, a unique nonclustered key for the table. Must be a SQL-sortable UUIDv7. , Data type = uniqueidentifier, Nullable = No |
+| locations_common_rid | bigint |  | false |  |  | Unique RowID for the record, part of composite primary key for the table after tenant_uuid, a unique clustered key for the table, Data type = bigint, Nullable = No |
 | tenant_uuid | uniqueidentifier |  | false |  | [account_details](account_details.md) | the customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid] |
 | address_1 | nvarchar(100) |  | false |  |  |  |
 | address_2 | nvarchar(100) |  | true |  |  |  |
@@ -51,9 +51,9 @@
 | pk_locations_common_tenant_uuid_locations_common_rid | CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, locations_common_rid ] |
 | uk_locations_common_uuid | NONCLUSTERED, unique, part of a UNIQUE constraint, [ locations_common_uuid ] |
 | uk_locations_common_rid | NONCLUSTERED, unique, part of a UNIQUE constraint, [ locations_common_rid ] |
+| ix_fk_locations_common_created_by_user_rid | NONCLUSTERED, [ created_by_user_rid ] |
 | ix_fk_locations_common_updated_by_user_rid | NONCLUSTERED, [ updated_by_user_rid ] |
 | ix_fk_locations_common_tenant_uuid | NONCLUSTERED, [ tenant_uuid ] |
-| ix_fk_locations_common_created_by_user_rid | NONCLUSTERED, [ created_by_user_rid ] |
 
 ## Relations
 

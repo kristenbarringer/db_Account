@@ -8,7 +8,7 @@ used for centralized lookup values and processes
 
 | Name | Type | Default | Nullable | Children | Parents | Comment |
 | ---- | ---- | ------- | -------- | -------- | ------- | ------- |
-| code | varchar(30) |  | false | [account_details](account_details.md) [contact](contact.md) [role](role.md) [service_level_feature_mapping](service_level_feature_mapping.md) [user_accounts](user_accounts.md) [user_type_permission_template](user_type_permission_template.md) |  |  |
+| code | varchar(30) |  | false | [role](role.md) [service_level_feature_mapping](service_level_feature_mapping.md) [user_accounts](user_accounts.md) [user_type_permission_template](user_type_permission_template.md) [account_details](account_details.md) [contact](contact.md) |  |  |
 | lookup_list_code | varchar(50) |  | false |  | [lookup_code_list](lookup_code_list.md) |  |
 | code_without_prefix_all_caps | varchar(30) |  | false |  |  |  |
 | code_without_prefix_camel_case | varchar(30) |  | false |  |  |  |

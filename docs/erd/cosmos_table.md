@@ -4,7 +4,7 @@
 
 | Name | Type | Default | Nullable | Children | Parents | Comment |
 | ---- | ---- | ------- | -------- | -------- | ------- | ------- |
-| id | varchar(255) | (newid()) | true |  |  |  |
+| id | varchar(255) | (newid()) | true |  |  | DEPRECATED, Data type = varchar(255), Nullable = Yes |
 | tenant_id | varchar(255) |  | true |  |  |  |
 | adminName | nvarchar(100) |  | true |  |  |  |
 | organization | nvarchar(200) |  | true |  |  |  |

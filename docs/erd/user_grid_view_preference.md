@@ -8,8 +8,8 @@ the table that stores the details of the user preferences
 
 | Name | Type | Default | Nullable | Children | Parents | Comment |
 | ---- | ---- | ------- | -------- | -------- | ------- | ------- |
-| user_grid_view_preference_uuid | uniqueidentifier | (newsequentialid()) | false |  |  | the uuid of the user, Data type = uniqueidentifier, Nullable = No |
-| user_grid_view_preference_rid | bigint |  | false |  |  | the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = bigint, Nullable = No |
+| user_grid_view_preference_uuid | uniqueidentifier | (newsequentialid()) | false |  |  | Unique identifier for the record, a unique nonclustered key for the table. Must be a SQL-sortable UUIDv7. , Data type = uniqueidentifier, Nullable = No |
+| user_grid_view_preference_rid | bigint |  | false |  |  | Unique RowID for the record, part of composite primary key for the table after tenant_uuid, a unique clustered key for the table, Data type = bigint, Nullable = No |
 | tenant_uuid | uniqueidentifier |  | false |  | [account_details](account_details.md) | the uniqueidentifier for the tenant/customer.  Used as a partitioning key., Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid] |
 | grid_name | nvarchar(200) |  | false |  |  | the grid name the user has selected for the preference settings, Data type = nvarchar(400), Nullable = No |
 | columns_hidden | nvarchar(3000) |  | false |  |  | what columns the user has selected to be hidden, Data type = nvarchar(6000), Nullable = No |
@@ -17,7 +17,7 @@ the table that stores the details of the user preferences
 | updated_date | datetime |  | true |  |  | the date the record was updated or created, Data type = datetime, Nullable = Yes |
 | created_by_user_rid | bigint |  | true |  | [user_accounts](user_accounts.md) |  |
 | notes | nvarchar(1000) |  | true |  |  | optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes |
-| created | datetime | (getdate()) | false |  |  | deprecated - replaced by created_date, Data type = datetime, Nullable = No |
+| created | datetime | (getdate()) | false |  |  | DEPRECATED - replaced by created_date, Data type = datetime, Nullable = No |
 | user_rid | bigint |  | true |  | [user_accounts](user_accounts.md) | the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = bigint, Nullable = Yes, References = [dbo].[user_accounts].[user_rid] |
 
 ## Constraints

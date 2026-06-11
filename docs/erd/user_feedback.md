@@ -4,7 +4,7 @@
 
 | Name | Type | Default | Nullable | Children | Parents | Comment |
 | ---- | ---- | ------- | -------- | -------- | ------- | ------- |
-| user_feedback_rid | int |  | false |  |  |  |
+| user_feedback_rid | int |  | false |  |  | Unique RowID for the record, part of composite primary key for the table after tenant_uuid, a unique clustered key for the table, Data type = int, Nullable = No |
 | user_rid | int |  | false |  |  |  |
 | user_name | nvarchar(200) |  | true |  |  |  |
 | user_role_rid | int |  | true |  |  |  |

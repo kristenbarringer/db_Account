@@ -4,8 +4,8 @@
 
 | Name | Type | Default | Nullable | Children | Parents | Comment |
 | ---- | ---- | ------- | -------- | -------- | ------- | ------- |
-| account_type_uuid | uniqueidentifier | (newsequentialid()) | false |  |  |  |
-| account_type_rid | bigint |  | false | [account_details](account_details.md) |  |  |
+| account_type_uuid | uniqueidentifier | (newsequentialid()) | false |  |  | Unique identifier for the record, a unique nonclustered key for the table. Must be a SQL-sortable UUIDv7. , Data type = uniqueidentifier, Nullable = No |
+| account_type_rid | bigint |  | false | [account_details](account_details.md) |  | Unique RowID for the record, part of composite primary key for the table after tenant_uuid, a unique clustered key for the table, Data type = bigint, Nullable = No |
 | description | nvarchar(50) |  | false |  |  |  |
 | service_level_filter | bit |  | true |  |  |  |
 | service_level_code | varchar(30) |  | true |  |  |  |
