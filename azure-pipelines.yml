@@ -19,6 +19,9 @@ variables:
     dropObjects: 'false'
 
 steps:
+  - checkout: self
+    persistCredentials: true
+    
   - task: UseDotNet@2
     displayName: 'Use .NET SDK'
     inputs:
