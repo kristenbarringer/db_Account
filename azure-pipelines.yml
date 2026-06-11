@@ -91,7 +91,28 @@ steps:
           /TargetPassword:"$(sqlPassword)"    
       additionalArguments: '/p:BlockOnPossibleDataLoss=$(blockDataLoss) /p:DropObjectsNotInSource=$(dropObjects)'    
   
-  
+  - task: PowerShell@2
+    displayName: 'Generate ERD with tbls'
+    inputs:
+      targetType: 'inline'
+      script: |
+        $ErrorActionPreference = 'Stop'
+        $tblsVersion = 'v1.94.5'
+        $zip  = Join-Path $env:AGENT_TEMPDIRECTORY 'tbls.zip'
+        $dest = Join-Path $env:AGENT_TEMPDIRECTORY 'tbls'
+        Invoke-WebRequest -Uri "https://github.com/k1LoW/tbls/releases/download/$tblsVersion/tbls_${tblsVersion}_windows_amd64.zip" -OutFile $zip
+        Expand-Archive -Path $zip -DestinationPath $dest -Force
+ 
+        # run from repo root so tbls finds .tbls.yml (your exclude list)
+        Set-Location "$(Build.SourcesDirectory)"
+        & "$dest/tbls.exe" doc --force "mssql://$(sqlUser):$(sqlPassword)@$(sqlServerName):1433/$(databaseName)?encrypt=true" "$(Build.SourcesDirectory)/docs/erd"
+ 
+  - task: PublishPipelineArtifact@1
+    displayName: 'Publish ERD artifact'
+    inputs:
+      targetPath: '$(Build.SourcesDirectory)/docs/erd'
+      artifact: 'erd'
+      
   - task: PowerShell@2
     displayName: 'Update extended properties'
     continueOnError: true
