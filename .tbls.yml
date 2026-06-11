@@ -1,0 +1,8 @@
+exclude:
+    - "dq_*"
+    - "test_seed_*"
+    - "db_m_*"
+    - "zzz_*"
+    - "sys.*"
+    - "shedlock"
+    
