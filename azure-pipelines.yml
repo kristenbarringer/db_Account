@@ -76,7 +76,7 @@ steps:
           /TargetDatabaseName:"$(databaseName)" `
           /TargetUser:"$(sqlUser)" `
           /TargetPassword:"$(sqlPassword)"
-      additionalArguments: '/p:BlockOnPossibleDataLoss=$(blockDataLoss) /p:DropObjectsNotInSource=$(dropObjects)'
+      additionalArguments: '/p:BlockOnPossibleDataLoss=$(blockDataLoss) /p:DropObjectsNotInSource=$(dropObjects) /p:DropExtendedPropertiesNotInSource=false'
 
   - task: PowerShell@2
     displayName: 'Deploy Account dacpac to Azure SQL Dev'
@@ -92,7 +92,7 @@ steps:
           /TargetDatabaseName:"$(databaseName)" `
           /TargetUser:"$(sqlUser)" `
           /TargetPassword:"$(sqlPassword)"    
-      additionalArguments: '/p:BlockOnPossibleDataLoss=$(blockDataLoss) /p:DropObjectsNotInSource=$(dropObjects)'    
+      additionalArguments: '/p:BlockOnPossibleDataLoss=$(blockDataLoss) /p:DropObjectsNotInSource=$(dropObjects) /p:DropExtendedPropertiesNotInSource=false'    
        
   - task: PowerShell@2
     displayName: 'Update extended properties'
