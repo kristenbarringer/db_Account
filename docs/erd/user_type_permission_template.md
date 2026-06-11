@@ -5,7 +5,7 @@
 | Name | Type | Default | Nullable | Children | Parents | Comment |
 | ---- | ---- | ------- | -------- | -------- | ------- | ------- |
 | rid | int |  | false |  |  |  |
-| account_type_code | varchar(30) |  | true |  | [lookup_code](lookup_code.md) |  |
+| account_type_code | varchar(30) |  | true |  | [lookup_code](lookup_code.md) | a lookup to the main lookup_code table, Data type = varchar(30), Nullable = Yes, References = [dbo].[lookup_code].[code] |
 | permission_code | varchar(100) |  | false |  |  |  |
 
 ## Constraints

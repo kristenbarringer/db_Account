@@ -1,5 +1,9 @@
 # lookup_code_list
 
+## Description
+
+used for centralized lookup values and processes
+
 ## Columns
 
 | Name | Type | Default | Nullable | Children | Parents | Comment |
@@ -8,7 +12,7 @@
 | lookup_list_short_desc | varchar(50) |  | false |  |  |  |
 | lookup_list_long_desc | varchar(50) |  | false |  |  |  |
 | lookup_list_abbrev | varchar(3) |  | false |  |  |  |
-| notes | nvarchar(500) |  | true |  |  |  |
+| notes | nvarchar(500) |  | true |  |  | optional notes and comments about this record, Data type = nvarchar(1000), Nullable = Yes |
 | former_table_db | varchar(50) |  | true |  |  |  |
 | former_table_schema | varchar(50) |  | true |  |  |  |
 | former_table_name | varchar(50) |  | true |  |  |  |

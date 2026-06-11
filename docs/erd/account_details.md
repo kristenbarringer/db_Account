@@ -1,43 +1,47 @@
 # account_details
 
+## Description
+
+the table that stores the details of the accounts
+
 ## Columns
 
 | Name | Type | Default | Nullable | Children | Parents | Comment |
 | ---- | ---- | ------- | -------- | -------- | ------- | ------- |
-| tenant_uuid | uniqueidentifier | (newsequentialid()) | false | [contact](contact.md) [customer_account_information](customer_account_information.md) [customer_billing_information](customer_billing_information.md) [customer_internal_view](customer_internal_view.md) [customer_rate_information](customer_rate_information.md) [dealer](dealer.md) [dealer_family](dealer_family.md) [locations_common](locations_common.md) [role](role.md) [role_permission_mapping](role_permission_mapping.md) [subscription](subscription.md) [tenant_service_level_mapping](tenant_service_level_mapping.md) [user_accounts](user_accounts.md) [user_grid_view_preference](user_grid_view_preference.md) |  |  |
-| organization | nvarchar(100) |  | false |  |  |  |
-| company_address | nvarchar(200) |  | true |  |  |  |
-| additional_address | nvarchar(200) |  | true |  |  |  |
-| zip_code | nvarchar(50) |  | true |  |  |  |
-| phone_number | nvarchar(50) |  | true |  |  |  |
-| fax_number | nvarchar(50) |  | true |  |  |  |
-| email | nvarchar(50) |  | true |  |  |  |
-| company_website | nvarchar(200) |  | true |  |  |  |
-| support_contact_number | nvarchar(50) |  | true |  |  |  |
-| city | nvarchar(50) |  | true |  |  |  |
-| state | nvarchar(50) |  | true |  |  |  |
-| phone_extension | int |  | true |  |  |  |
-| country | nvarchar(50) |  | true |  |  |  |
-| dealer_rid | bigint |  | true |  | [dealer](dealer.md) |  |
-| csm_rid | bigint |  | true |  |  |  |
+| tenant_uuid | uniqueidentifier | (newsequentialid()) | false | [contact](contact.md) [customer_account_information](customer_account_information.md) [customer_billing_information](customer_billing_information.md) [customer_internal_view](customer_internal_view.md) [customer_rate_information](customer_rate_information.md) [dealer](dealer.md) [dealer_family](dealer_family.md) [locations_common](locations_common.md) [role](role.md) [role_permission_mapping](role_permission_mapping.md) [subscription](subscription.md) [tenant_service_level_mapping](tenant_service_level_mapping.md) [user_accounts](user_accounts.md) [user_grid_view_preference](user_grid_view_preference.md) |  | the uniqueidentifier for the tenant/customer.  Used as a partitioning key., Data type = uniqueidentifier, Nullable = No |
+| organization | nvarchar(100) |  | false |  |  | the company name, Data type = nvarchar(200), Nullable = No |
+| company_address | nvarchar(200) |  | true |  |  | the address for the company, Data type = nvarchar(400), Nullable = Yes |
+| additional_address | nvarchar(200) |  | true |  |  | the second line of the address, Data type = nvarchar(400), Nullable = Yes |
+| zip_code | nvarchar(50) |  | true |  |  | the zip_code of the address, Data type = nvarchar(100), Nullable = Yes |
+| phone_number | nvarchar(50) |  | true |  |  | the phone number, Data type = nvarchar(100), Nullable = Yes |
+| fax_number | nvarchar(50) |  | true |  |  | the fax number, Data type = nvarchar(100), Nullable = Yes |
+| email | nvarchar(50) |  | true |  |  | the email address, Data type = nvarchar(100), Nullable = Yes |
+| company_website | nvarchar(200) |  | true |  |  | the website of the company, Data type = nvarchar(400), Nullable = Yes |
+| support_contact_number | nvarchar(50) |  | true |  |  | the phone number for support for this account, Data type = nvarchar(100), Nullable = Yes |
+| city | nvarchar(50) |  | true |  |  | the city of the address, Data type = nvarchar(100), Nullable = Yes |
+| state | nvarchar(50) |  | true |  |  | the state/province of the address, Data type = nvarchar(100), Nullable = Yes |
+| phone_extension | int |  | true |  |  | the extension of the phone number, Data type = int, Nullable = Yes |
+| country | nvarchar(50) |  | true |  |  | the country of the address, Data type = nvarchar(100), Nullable = Yes |
+| dealer_rid | bigint |  | true |  | [dealer](dealer.md) | the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = bigint, Nullable = Yes, References = [dbo].[dealer].[dealer_rid] |
+| csm_rid | bigint |  | true |  |  | UNDER CONSTRUCTION - might be used for celtrak_service_manager (a.k.a. CSM), Data type = bigint, Nullable = Yes |
 | account_type_rid | bigint | ((1)) | false |  | [account_type](account_type.md) |  |
-| phone_type_code | varchar(30) |  | true |  | [lookup_code](lookup_code.md) |  |
-| default_role_code | varchar(30) | ('ROL_BASIC') | false |  | [lookup_code](lookup_code.md) |  |
-| is_active | bit | ((1)) | false |  |  |  |
-| is_door_sensor_1 | bit |  | true |  |  |  |
-| is_door_sensor_2 | bit |  | true |  |  |  |
-| is_door_sensor_3 | bit |  | true |  |  |  |
-| created_date | datetime | (getdate()) | false |  |  |  |
-| updated_date | datetime |  | true |  |  |  |
-| activated_date | datetime |  | true |  |  |  |
-| admin_user_rid | uniqueidentifier |  | false |  |  |  |
+| phone_type_code | varchar(30) |  | true |  | [lookup_code](lookup_code.md) | see lookup.code for information about these values, Data type = varchar(30), Nullable = Yes, References = [dbo].[lookup_code].[code] |
+| default_role_code | varchar(30) | ('ROL_BASIC') | false |  | [lookup_code](lookup_code.md) | a lookup to the main lookup_code table, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code] |
+| is_active | bit | ((1)) | false |  |  | the record is active, Data type = bit, Nullable = No |
+| is_door_sensor_1 | bit |  | true |  |  | the door sensor is on/off, Data type = bit, Nullable = Yes |
+| is_door_sensor_2 | bit |  | true |  |  | the door sensor is on/off, Data type = bit, Nullable = Yes |
+| is_door_sensor_3 | bit |  | true |  |  | the door sensor is on/off, Data type = bit, Nullable = Yes |
+| created_date | datetime | (getdate()) | false |  |  | the date the record was created, Data type = datetime, Nullable = No |
+| updated_date | datetime |  | true |  |  | the date the record was updated or created, Data type = datetime, Nullable = Yes |
+| activated_date | datetime |  | true |  |  | the date the record was activated, Data type = datetime, Nullable = Yes |
+| admin_user_rid | uniqueidentifier |  | false |  |  | the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = uniqueidentifier, Nullable = No |
 | created_by_user_rid | bigint |  | true |  |  |  |
 | updated_by_user_rid | bigint |  | true |  |  |  |
-| notes | nvarchar(1000) |  | true |  |  |  |
-| test_data_group | int |  | true |  |  |  |
-| active | bit |  | false |  |  |  |
-| created | datetime | (getdate()) | false |  |  |  |
-| migrated_data | bit | ((0)) | false |  |  |  |
+| notes | nvarchar(1000) |  | true |  |  | optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes |
+| test_data_group | int |  | true |  |  | used for the Dev test data process, Data type = int, Nullable = Yes |
+| active | bit |  | false |  |  | deprecated - replaced by is_active, Data type = bit, Nullable = No |
+| created | datetime | (getdate()) | false |  |  | deprecated - replaced by created_date, Data type = datetime, Nullable = No |
+| migrated_data | bit | ((0)) | false |  |  | is the data from the data migration process from v1 to v2, Data type = bit, Nullable = No |
 
 ## Constraints
 

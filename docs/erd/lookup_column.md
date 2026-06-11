@@ -1,5 +1,9 @@
 # lookup_column
 
+## Description
+
+used for centralized lookup values and processes
+
 ## Columns
 
 | Name | Type | Default | Nullable | Children | Parents | Comment |

@@ -1,31 +1,35 @@
 # dealer
 
+## Description
+
+this table stores dealer information
+
 ## Columns
 
 | Name | Type | Default | Nullable | Children | Parents | Comment |
 | ---- | ---- | ------- | -------- | -------- | ------- | ------- |
-| dealer_uuid | uniqueidentifier | (newsequentialid()) | false |  |  |  |
-| dealer_rid | bigint |  | false | [account_details](account_details.md) |  |  |
-| dealer_code | varchar(50) |  | true |  |  |  |
-| tenant_uuid | uniqueidentifier |  | false |  | [account_details](account_details.md) |  |
-| name | varchar(50) |  | true |  |  |  |
-| address | varchar(300) |  | true |  |  |  |
-| phone_number | varchar(50) |  | true |  |  |  |
-| email_address | varchar(50) |  | true |  |  |  |
-| zip_code | varchar(10) |  | true |  |  |  |
-| oracle_id | int |  | true |  |  |  |
-| party_site_id_code | int |  | true |  |  |  |
-| atlas_terr_id_code | varchar(50) |  | true |  |  |  |
-| atlas_terr_name | varchar(50) |  | true |  |  |  |
-| atlas_terr_id | int |  | true |  |  |  |
+| dealer_uuid | uniqueidentifier | (newsequentialid()) | false |  |  | the uuid of the dealer, Data type = uniqueidentifier, Nullable = No |
+| dealer_rid | bigint |  | false | [account_details](account_details.md) |  | the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = bigint, Nullable = No |
+| dealer_code | varchar(50) |  | true |  |  | Key used to distinguish actual dealer: ex T2835001. hz_cust_site_uses_all.attribute15. Also same as loc_id in Atlas, how we would bridge tables to get info from atlas, Data type = varchar(50), Nullable = Yes |
+| tenant_uuid | uniqueidentifier |  | false |  | [account_details](account_details.md) | the customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid] |
+| name | varchar(50) |  | true |  |  | Name that will display to customers in TracKing. Want a clean version of the name which would be found in Atlas: geo.dealer_locations.loc_name, Data type = varchar(50), Nullable = Yes |
+| address | varchar(300) |  | true |  |  | Atlas, address field from geo.dealer_locations.address, Data type = varchar(300), Nullable = Yes |
+| phone_number | varchar(50) |  | true |  |  | phone number for individual dealer, not central phone number. Would come from the LOC_USER_CONTACT_POINTS table in dealer portal.  , Data type = varchar(50), Nullable = Yes |
+| email_address | varchar(50) |  | true |  |  | email address for individual dealer, not central email address. Would come from the LOC_USER_CONTACT_POINTS table in dealer portal.  , Data type = varchar(50), Nullable = Yes |
+| zip_code | varchar(10) |  | true |  |  | ar.hz_locations.postal_code, Data type = varchar(10), Nullable = Yes |
+| oracle_id | int |  | true |  |  | Oracle (R12) Account Number : apps.hz_cust_acct_sites_all.cust_acct_side_id, Data type = int, Nullable = Yes |
+| party_site_id_code | int |  | true |  |  | key used to connect to Salesforce. ar.hz_cust_acct_sites_all.party_site_id, Data type = int, Nullable = Yes |
+| atlas_terr_id_code | varchar(50) |  | true |  |  | geo.dealer_territories.terr_id, Data type = varchar(50), Nullable = Yes |
+| atlas_terr_name | varchar(50) |  | true |  |  | geo.dealer_territories.terr_name, Data type = varchar(50), Nullable = Yes |
+| atlas_terr_id | int |  | true |  |  | Atlas, Data type = int, Nullable = Yes |
 | dealer_family_rid | bigint |  | true |  | [dealer_family](dealer_family.md) |  |
-| is_active | bit | ((1)) | false |  |  |  |
-| is_blue_track_dealer | bit |  | true |  |  |  |
-| created_date | datetime | (getdate()) | false |  |  |  |
-| updated_date | datetime |  | true |  |  |  |
+| is_active | bit | ((1)) | false |  |  | is the dealer active yes or no, Data type = bit, Nullable = No |
+| is_blue_track_dealer | bit |  | true |  |  | geo.dealer_locations.blue_track, Data type = bit, Nullable = Yes |
+| created_date | datetime | (getdate()) | false |  |  | when the record was created, Data type = datetime, Nullable = No |
+| updated_date | datetime |  | true |  |  | when the record was updated, Data type = datetime, Nullable = Yes |
 | created_by_user_rid | bigint |  | true |  | [user_accounts](user_accounts.md) |  |
 | updated_by_user_rid | bigint |  | true |  | [user_accounts](user_accounts.md) |  |
-| notes | nvarchar(1000) |  | true |  |  |  |
+| notes | nvarchar(1000) |  | true |  |  | optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes |
 
 ## Constraints
 

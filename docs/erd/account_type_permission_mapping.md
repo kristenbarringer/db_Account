@@ -9,7 +9,7 @@
 | account_type_rid | bigint |  | true |  |  |  |
 | role_rid | int |  | false |  |  |  |
 | permission_code | varchar(100) |  | true |  |  |  |
-| is_active | bit | ((1)) | false |  |  |  |
+| is_active | bit | ((1)) | false |  |  | the record is active, Data type = bit, Nullable = No |
 | created_date | datetime | (getdate()) | false |  |  |  |
 | updated_date | datetime |  | true |  |  |  |
 | created_by_user_rid | bigint |  | true |  | [user_accounts](user_accounts.md) |  |

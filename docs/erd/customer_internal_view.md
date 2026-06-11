@@ -6,8 +6,8 @@
 | ---- | ---- | ------- | -------- | -------- | ------- | ------- |
 | customer_internal_view_uuid | uniqueidentifier | (newsequentialid()) | false |  |  |  |
 | customer_internal_view_rid | bigint |  | false |  |  |  |
-| tenant_uuid | uniqueidentifier |  | false |  | [account_details](account_details.md) |  |
-| is_active | bit | ((1)) | false |  |  |  |
+| tenant_uuid | uniqueidentifier |  | false |  | [account_details](account_details.md) | the customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid] |
+| is_active | bit | ((1)) | false |  |  | the record is active, Data type = bit, Nullable = No |
 | created_date | datetime | (getdate()) | false |  |  |  |
 | updated_date | datetime |  | true |  |  |  |
 | admin_approve_date | datetime |  | true |  |  |  |
@@ -16,7 +16,7 @@
 | updated_by_user_rid | bigint |  | true |  | [user_accounts](user_accounts.md) |  |
 | admin_user_rid | int |  | true |  |  |  |
 | celtrak_support_approver_user_rid | int |  | true |  |  |  |
-| notes | nvarchar(1000) |  | true |  |  |  |
+| notes | nvarchar(1000) |  | true |  |  | optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes |
 | admin_notes | nvarchar(2000) |  | true |  |  |  |
 
 ## Constraints

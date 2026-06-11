@@ -6,7 +6,7 @@
 | ---- | ---- | ------- | -------- | -------- | ------- | ------- |
 | customer_billing_info_uuid | uniqueidentifier | (newsequentialid()) | false |  |  |  |
 | customer_billing_info_rid | bigint |  | false |  |  |  |
-| tenant_uuid | uniqueidentifier |  | false |  | [account_details](account_details.md) |  |
+| tenant_uuid | uniqueidentifier |  | false |  | [account_details](account_details.md) | the customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid] |
 | approval_status | nvarchar(50) |  | true |  |  |  |
 | artifact_id | nvarchar(500) |  | true |  |  |  |
 | Tracking_admin_email | nvarchar(60) |  | true |  |  |  |
@@ -21,7 +21,7 @@
 | contract_unit | int |  | true |  |  |  |
 | logging_interval_code_on | varchar(30) |  | true |  |  |  |
 | logging_interval_code_off | varchar(30) |  | true |  |  |  |
-| is_active | bit | ((1)) | false |  |  |  |
+| is_active | bit | ((1)) | false |  |  | the record is active, Data type = bit, Nullable = No |
 | restrict_logging_service_level_flag | bit |  | false |  |  |  |
 | service_assist_subscription_flag | bit |  | false |  |  |  |
 | pay_up_front_auto_renew_flag | bit |  | false |  |  |  |
@@ -29,7 +29,7 @@
 | updated_date | datetime |  | true |  |  |  |
 | created_by_user_rid | bigint |  | true |  | [user_accounts](user_accounts.md) |  |
 | updated_by_user_rid | bigint |  | true |  | [user_accounts](user_accounts.md) |  |
-| notes | nvarchar(1000) |  | true |  |  |  |
+| notes | nvarchar(1000) |  | true |  |  | optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes |
 | notes_dealer | nvarchar(2000) |  | true |  |  |  |
 
 ## Constraints

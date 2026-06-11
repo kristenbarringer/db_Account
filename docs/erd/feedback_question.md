@@ -7,7 +7,7 @@
 | feedback_question_rid | int |  | false |  |  |  |
 | question_name | nvarchar(450) |  | false |  |  |  |
 | type | nvarchar(155) |  | false |  |  |  |
-| is_active | bit | ((1)) | false |  |  |  |
+| is_active | bit | ((1)) | false |  |  | the record is active, Data type = bit, Nullable = No |
 | attributes | nvarchar(155) |  | true |  |  |  |
 
 ## Constraints

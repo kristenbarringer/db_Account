@@ -6,17 +6,17 @@
 | ---- | ---- | ------- | -------- | -------- | ------- | ------- |
 | customer_account_info_uuid | uniqueidentifier | (newsequentialid()) | false |  |  |  |
 | customer_account_info_rid | bigint |  | false |  |  |  |
-| tenant_uuid | uniqueidentifier |  | false |  | [account_details](account_details.md) |  |
+| tenant_uuid | uniqueidentifier |  | false |  | [account_details](account_details.md) | the customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid] |
 | customer_billing_information_rid | int |  | true |  |  |  |
 | customer_rate_information_rid | int |  | true |  |  |  |
 | customer_internal_view_rid | int |  | true |  |  |  |
 | custom_data_intergration_rid | int |  | true |  |  |  |
-| is_active | bit | ((1)) | false |  |  |  |
+| is_active | bit | ((1)) | false |  |  | the record is active, Data type = bit, Nullable = No |
 | created_date | datetime | (getdate()) | false |  |  |  |
 | updated_date | datetime |  | true |  |  |  |
 | created_by_user_rid | bigint |  | true |  | [user_accounts](user_accounts.md) |  |
 | updated_by_user_rid | bigint |  | true |  | [user_accounts](user_accounts.md) |  |
-| notes | nvarchar(1000) |  | true |  |  |  |
+| notes | nvarchar(1000) |  | true |  |  | optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes |
 
 ## Constraints
 

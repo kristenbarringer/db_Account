@@ -5,7 +5,7 @@
 | Name | Type | Default | Nullable | Children | Parents | Comment |
 | ---- | ---- | ------- | -------- | -------- | ------- | ------- |
 | rid | int |  | false |  |  |  |
-| service_level_code | varchar(30) |  | false |  | [lookup_code](lookup_code.md) |  |
+| service_level_code | varchar(30) |  | false |  | [lookup_code](lookup_code.md) | a lookup to the main lookup_code table, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code] |
 | created | datetime | (getdate()) | false |  |  |  |
 | feature_code | varchar(100) |  | false |  |  |  |
 

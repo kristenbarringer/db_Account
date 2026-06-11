@@ -6,7 +6,7 @@
 | ---- | ---- | ------- | -------- | -------- | ------- | ------- |
 | locations_common_uuid | uniqueidentifier | (newsequentialid()) | false |  |  |  |
 | locations_common_rid | bigint |  | false |  |  |  |
-| tenant_uuid | uniqueidentifier |  | false |  | [account_details](account_details.md) |  |
+| tenant_uuid | uniqueidentifier |  | false |  | [account_details](account_details.md) | the customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid] |
 | address_1 | nvarchar(100) |  | false |  |  |  |
 | address_2 | nvarchar(100) |  | true |  |  |  |
 | address_3 | nvarchar(1) |  | true |  |  |  |
@@ -18,12 +18,12 @@
 | calculated_longitude_in_radians | float |  | false |  |  |  |
 | calculated_latitude_in_radians | float |  | false |  |  |  |
 | dealer_rid | bigint |  | true |  |  |  |
-| is_active | bit | ((1)) | false |  |  |  |
+| is_active | bit | ((1)) | false |  |  | the record is active, Data type = bit, Nullable = No |
 | created_date | datetime | (getdate()) | false |  |  |  |
 | updated_date | datetime |  | true |  |  |  |
 | created_by_user_rid | bigint |  | true |  | [user_accounts](user_accounts.md) |  |
 | updated_by_user_rid | bigint |  | true |  | [user_accounts](user_accounts.md) |  |
-| notes | nvarchar(1000) |  | true |  |  |  |
+| notes | nvarchar(1000) |  | true |  |  | optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes |
 | phone_number | float |  | true |  |  |  |
 | phone_number_2 | nvarchar(1) |  | true |  |  |  |
 | fax_number | float |  | true |  |  |  |

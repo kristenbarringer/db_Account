@@ -6,10 +6,10 @@
 | ---- | ---- | ------- | -------- | -------- | ------- | ------- |
 | customer_rate_information_uuid | uniqueidentifier | (newsequentialid()) | false |  |  |  |
 | customer_rate_information_rid | bigint |  | false |  |  |  |
-| tenant_uuid | uniqueidentifier |  | false |  | [account_details](account_details.md) |  |
+| tenant_uuid | uniqueidentifier |  | false |  | [account_details](account_details.md) | the customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid] |
 | rate_deviation_pct | decimal |  | true |  |  |  |
 | standard_rate | decimal |  | true |  |  |  |
-| is_active | bit | ((1)) | false |  |  |  |
+| is_active | bit | ((1)) | false |  |  | the record is active, Data type = bit, Nullable = No |
 | rate_approve_flag | bit |  | true |  |  |  |
 | created_date | datetime | (getdate()) | false |  |  |  |
 | updated_date | datetime |  | true |  |  |  |
@@ -17,7 +17,7 @@
 | created_by_user_rid | bigint |  | true |  | [user_accounts](user_accounts.md) |  |
 | updated_by_user_rid | bigint |  | true |  | [user_accounts](user_accounts.md) |  |
 | rate_deviation_approver_user_rid | int |  | true |  |  |  |
-| notes | nvarchar(1000) |  | true |  |  |  |
+| notes | nvarchar(1000) |  | true |  |  | optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes |
 | rate_approver_notes | nvarchar(2000) |  | true |  |  |  |
 
 ## Constraints

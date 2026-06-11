@@ -4,6 +4,7 @@
     {
       "name": "lookup_check_base",
       "type": "BASIC TABLE",
+      "comment": "used for centralized lookup values and processes",
       "columns": [
         {
           "name": "table_name",
@@ -30,6 +31,7 @@
     {
       "name": "lookup_code",
       "type": "BASIC TABLE",
+      "comment": "used for centralized lookup values and processes",
       "columns": [
         {
           "name": "code",
@@ -64,7 +66,8 @@
         {
           "name": "notes",
           "type": "nvarchar(500)",
-          "nullable": true
+          "nullable": true,
+          "comment": "optional notes and comments about this record, Data type = nvarchar(1000), Nullable = Yes"
         },
         {
           "name": "custom_col1_desc",
@@ -119,7 +122,8 @@
         {
           "name": "is_active",
           "type": "bit",
-          "nullable": false
+          "nullable": false,
+          "comment": "the record is active, Data type = bit, Nullable = No"
         },
         {
           "name": "created_date",
@@ -184,6 +188,7 @@
     {
       "name": "lookup_code_list",
       "type": "BASIC TABLE",
+      "comment": "used for centralized lookup values and processes",
       "columns": [
         {
           "name": "lookup_list_code",
@@ -208,7 +213,8 @@
         {
           "name": "notes",
           "type": "nvarchar(500)",
-          "nullable": true
+          "nullable": true,
+          "comment": "optional notes and comments about this record, Data type = nvarchar(1000), Nullable = Yes"
         },
         {
           "name": "former_table_db",
@@ -275,6 +281,7 @@
     {
       "name": "lookup_column",
       "type": "BASIC TABLE",
+      "comment": "used for centralized lookup values and processes",
       "columns": [
         {
           "name": "db_name",
@@ -301,87 +308,104 @@
     {
       "name": "account_details",
       "type": "BASIC TABLE",
+      "comment": "the table that stores the details of the accounts",
       "columns": [
         {
           "name": "tenant_uuid",
           "type": "uniqueidentifier",
           "nullable": false,
-          "default": "(newsequentialid())"
+          "default": "(newsequentialid())",
+          "comment": "the uniqueidentifier for the tenant/customer.  Used as a partitioning key., Data type = uniqueidentifier, Nullable = No"
         },
         {
           "name": "organization",
           "type": "nvarchar(100)",
-          "nullable": false
+          "nullable": false,
+          "comment": "the company name, Data type = nvarchar(200), Nullable = No"
         },
         {
           "name": "company_address",
           "type": "nvarchar(200)",
-          "nullable": true
+          "nullable": true,
+          "comment": "the address for the company, Data type = nvarchar(400), Nullable = Yes"
         },
         {
           "name": "additional_address",
           "type": "nvarchar(200)",
-          "nullable": true
+          "nullable": true,
+          "comment": "the second line of the address, Data type = nvarchar(400), Nullable = Yes"
         },
         {
           "name": "zip_code",
           "type": "nvarchar(50)",
-          "nullable": true
+          "nullable": true,
+          "comment": "the zip_code of the address, Data type = nvarchar(100), Nullable = Yes"
         },
         {
           "name": "phone_number",
           "type": "nvarchar(50)",
-          "nullable": true
+          "nullable": true,
+          "comment": "the phone number, Data type = nvarchar(100), Nullable = Yes"
         },
         {
           "name": "fax_number",
           "type": "nvarchar(50)",
-          "nullable": true
+          "nullable": true,
+          "comment": "the fax number, Data type = nvarchar(100), Nullable = Yes"
         },
         {
           "name": "email",
           "type": "nvarchar(50)",
-          "nullable": true
+          "nullable": true,
+          "comment": "the email address, Data type = nvarchar(100), Nullable = Yes"
         },
         {
           "name": "company_website",
           "type": "nvarchar(200)",
-          "nullable": true
+          "nullable": true,
+          "comment": "the website of the company, Data type = nvarchar(400), Nullable = Yes"
         },
         {
           "name": "support_contact_number",
           "type": "nvarchar(50)",
-          "nullable": true
+          "nullable": true,
+          "comment": "the phone number for support for this account, Data type = nvarchar(100), Nullable = Yes"
         },
         {
           "name": "city",
           "type": "nvarchar(50)",
-          "nullable": true
+          "nullable": true,
+          "comment": "the city of the address, Data type = nvarchar(100), Nullable = Yes"
         },
         {
           "name": "state",
           "type": "nvarchar(50)",
-          "nullable": true
+          "nullable": true,
+          "comment": "the state/province of the address, Data type = nvarchar(100), Nullable = Yes"
         },
         {
           "name": "phone_extension",
           "type": "int",
-          "nullable": true
+          "nullable": true,
+          "comment": "the extension of the phone number, Data type = int, Nullable = Yes"
         },
         {
           "name": "country",
           "type": "nvarchar(50)",
-          "nullable": true
+          "nullable": true,
+          "comment": "the country of the address, Data type = nvarchar(100), Nullable = Yes"
         },
         {
           "name": "dealer_rid",
           "type": "bigint",
-          "nullable": true
+          "nullable": true,
+          "comment": "the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = bigint, Nullable = Yes, References = [dbo].[dealer].[dealer_rid]"
         },
         {
           "name": "csm_rid",
           "type": "bigint",
-          "nullable": true
+          "nullable": true,
+          "comment": "UNDER CONSTRUCTION - might be used for celtrak_service_manager (a.k.a. CSM), Data type = bigint, Nullable = Yes"
         },
         {
           "name": "account_type_rid",
@@ -392,55 +416,65 @@
         {
           "name": "phone_type_code",
           "type": "varchar(30)",
-          "nullable": true
+          "nullable": true,
+          "comment": "see lookup.code for information about these values, Data type = varchar(30), Nullable = Yes, References = [dbo].[lookup_code].[code]"
         },
         {
           "name": "default_role_code",
           "type": "varchar(30)",
           "nullable": false,
-          "default": "('ROL_BASIC')"
+          "default": "('ROL_BASIC')",
+          "comment": "a lookup to the main lookup_code table, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
         },
         {
           "name": "is_active",
           "type": "bit",
           "nullable": false,
-          "default": "((1))"
+          "default": "((1))",
+          "comment": "the record is active, Data type = bit, Nullable = No"
         },
         {
           "name": "is_door_sensor_1",
           "type": "bit",
-          "nullable": true
+          "nullable": true,
+          "comment": "the door sensor is on/off, Data type = bit, Nullable = Yes"
         },
         {
           "name": "is_door_sensor_2",
           "type": "bit",
-          "nullable": true
+          "nullable": true,
+          "comment": "the door sensor is on/off, Data type = bit, Nullable = Yes"
         },
         {
           "name": "is_door_sensor_3",
           "type": "bit",
-          "nullable": true
+          "nullable": true,
+          "comment": "the door sensor is on/off, Data type = bit, Nullable = Yes"
         },
         {
           "name": "created_date",
           "type": "datetime",
           "nullable": false,
-          "default": "(getdate())"
+          "default": "(getdate())",
+          "comment": "the date the record was created, Data type = datetime, Nullable = No"
         },
         {
           "name": "updated_date",
           "type": "datetime",
-          "nullable": true
+          "nullable": true,
+          "comment": "the date the record was updated or created, Data type = datetime, Nullable = Yes"
         },
         {
           "name": "activated_date",
           "type": "datetime",
-          "nullable": true
+          "nullable": true,
+          "comment": "the date the record was activated, Data type = datetime, Nullable = Yes"
         },
         {
           "name": "admin_user_rid",
           "type": "uniqueidentifier",
-          "nullable": false
+          "nullable": false,
+          "comment": "the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = uniqueidentifier, Nullable = No"
         },
         {
           "name": "created_by_user_rid",
@@ -455,29 +489,34 @@
         {
           "name": "notes",
           "type": "nvarchar(1000)",
-          "nullable": true
+          "nullable": true,
+          "comment": "optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
         },
         {
           "name": "test_data_group",
           "type": "int",
-          "nullable": true
+          "nullable": true,
+          "comment": "used for the Dev test data process, Data type = int, Nullable = Yes"
         },
         {
           "name": "active",
           "type": "bit",
-          "nullable": false
+          "nullable": false,
+          "comment": "deprecated - replaced by is_active, Data type = bit, Nullable = No"
         },
         {
           "name": "created",
           "type": "datetime",
           "nullable": false,
-          "default": "(getdate())"
+          "default": "(getdate())",
+          "comment": "deprecated - replaced by created_date, Data type = datetime, Nullable = No"
         },
         {
           "name": "migrated_data",
           "type": "bit",
           "nullable": false,
-          "default": "((0))"
+          "default": "((0))",
+          "comment": "is the data from the data migration process from v1 to v2, Data type = bit, Nullable = No"
         }
       ],
       "indexes": [
@@ -620,7 +659,8 @@
           "name": "is_active",
           "type": "bit",
           "nullable": false,
-          "default": "((1))"
+          "default": "((1))",
+          "comment": "the record is active, Data type = bit, Nullable = No"
         },
         {
           "name": "created_date",
@@ -646,7 +686,8 @@
         {
           "name": "notes",
           "type": "nvarchar(1000)",
-          "nullable": true
+          "nullable": true,
+          "comment": "optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
         },
         {
           "name": "status",
@@ -786,7 +827,8 @@
           "name": "is_active",
           "type": "bit",
           "nullable": false,
-          "default": "((1))"
+          "default": "((1))",
+          "comment": "the record is active, Data type = bit, Nullable = No"
         },
         {
           "name": "created_date",
@@ -1009,107 +1051,126 @@
     {
       "name": "contact",
       "type": "BASIC TABLE",
+      "comment": "the table that stores the details of the contacts",
       "columns": [
         {
           "name": "contact_uuid",
           "type": "uniqueidentifier",
           "nullable": false,
-          "default": "(newsequentialid())"
+          "default": "(newsequentialid())",
+          "comment": "the uuid of the contact, Data type = uniqueidentifier, Nullable = No"
         },
         {
           "name": "contact_rid",
           "type": "bigint",
-          "nullable": false
+          "nullable": false,
+          "comment": "the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = bigint, Nullable = No"
         },
         {
           "name": "tenant_uuid",
           "type": "uniqueidentifier",
-          "nullable": false
+          "nullable": false,
+          "comment": "the uniqueidentifier for the tenant/customer.  Used as a partitioning key., Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
         },
         {
           "name": "first_name",
           "type": "nvarchar(100)",
-          "nullable": true
+          "nullable": true,
+          "comment": "the first name of the contact, Data type = nvarchar(200), Nullable = Yes"
         },
         {
           "name": "last_name",
           "type": "nvarchar(100)",
-          "nullable": true
+          "nullable": true,
+          "comment": "the last name of the contact, Data type = nvarchar(200), Nullable = Yes"
         },
         {
           "name": "email_id",
           "type": "nvarchar(60)",
-          "nullable": true
+          "nullable": true,
+          "comment": "the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = nvarchar(120), Nullable = Yes"
         },
         {
           "name": "mobile_number",
           "type": "nvarchar(20)",
-          "nullable": true
+          "nullable": true,
+          "comment": "the mobile phone number, Data type = nvarchar(40), Nullable = Yes"
         },
         {
           "name": "language_code",
           "type": "varchar(30)",
           "nullable": false,
-          "default": "('LNG_ENUS')"
+          "default": "('LNG_ENUS')",
+          "comment": "see lookup.code for information about these values, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
         },
         {
           "name": "timezone_code",
           "type": "varchar(30)",
           "nullable": false,
-          "default": "('TMZ_AMERICA_DETROIT')"
+          "default": "('TMZ_AMERICA_DETROIT')",
+          "comment": "see lookup.code for information about these values, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
         },
         {
           "name": "speed_type_code",
           "type": "varchar(30)",
           "nullable": false,
-          "default": "('SPT_MPH')"
+          "default": "('SPT_MPH')",
+          "comment": "see lookup.code for information about these values, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
         },
         {
           "name": "temperature_type_code",
           "type": "varchar(30)",
           "nullable": false,
-          "default": "('TMP_FAHRENHEIT')"
+          "default": "('TMP_FAHRENHEIT')",
+          "comment": "see lookup.code for information about these values, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
         },
         {
           "name": "fuel_type_code",
           "type": "varchar(30)",
           "nullable": false,
-          "default": "('FLT_U_S_GALLONS')"
+          "default": "('FLT_U_S_GALLONS')",
+          "comment": "see lookup.code for information about these values, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
         },
         {
           "name": "is_active",
           "type": "bit",
           "nullable": false,
-          "default": "((1))"
+          "default": "((1))",
+          "comment": "the record is active, Data type = bit, Nullable = No"
         },
         {
           "name": "is_email",
           "type": "bit",
           "nullable": false,
-          "default": "((0))"
+          "default": "((0))",
+          "comment": "is the record email, Data type = bit, Nullable = No"
         },
         {
           "name": "is_SMS",
           "type": "bit",
           "nullable": false,
-          "default": "((0))"
+          "default": "((0))",
+          "comment": "is the record SMS, Data type = bit, Nullable = No"
         },
         {
           "name": "is_inapp",
           "type": "bit",
           "nullable": false,
-          "default": "((0))"
+          "default": "((0))",
+          "comment": "is the record inapp, Data type = bit, Nullable = No"
         },
         {
           "name": "created_date",
           "type": "datetime",
           "nullable": false,
-          "default": "(getdate())"
+          "default": "(getdate())",
+          "comment": "the date the record was created, Data type = datetime, Nullable = No"
         },
         {
           "name": "updated_date",
           "type": "datetime",
-          "nullable": true
+          "nullable": true,
+          "comment": "the date the record was updated or created, Data type = datetime, Nullable = Yes"
         },
         {
           "name": "created_by_user_rid",
@@ -1124,24 +1185,28 @@
         {
           "name": "notes",
           "type": "nvarchar(1000)",
-          "nullable": true
+          "nullable": true,
+          "comment": "optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
         },
         {
           "name": "active",
           "type": "bit",
           "nullable": true,
-          "default": "((1))"
+          "default": "((1))",
+          "comment": "deprecated - replaced by is_active, Data type = bit, Nullable = Yes"
         },
         {
           "name": "created",
           "type": "datetime",
           "nullable": true,
-          "default": "(getdate())"
+          "default": "(getdate())",
+          "comment": "deprecated - replaced by created_date, Data type = datetime, Nullable = Yes"
         },
         {
           "name": "created_by",
           "type": "uniqueidentifier",
-          "nullable": true
+          "nullable": true,
+          "comment": "who created the contact, Data type = uniqueidentifier, Nullable = Yes"
         }
       ],
       "indexes": [
@@ -1579,7 +1644,8 @@
         {
           "name": "tenant_uuid",
           "type": "uniqueidentifier",
-          "nullable": false
+          "nullable": false,
+          "comment": "the customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
         },
         {
           "name": "customer_billing_information_rid",
@@ -1605,7 +1671,8 @@
           "name": "is_active",
           "type": "bit",
           "nullable": false,
-          "default": "((1))"
+          "default": "((1))",
+          "comment": "the record is active, Data type = bit, Nullable = No"
         },
         {
           "name": "created_date",
@@ -1631,7 +1698,8 @@
         {
           "name": "notes",
           "type": "nvarchar(1000)",
-          "nullable": true
+          "nullable": true,
+          "comment": "optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
         }
       ],
       "indexes": [
@@ -1773,7 +1841,8 @@
         {
           "name": "tenant_uuid",
           "type": "uniqueidentifier",
-          "nullable": false
+          "nullable": false,
+          "comment": "the customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
         },
         {
           "name": "approval_status",
@@ -1849,7 +1918,8 @@
           "name": "is_active",
           "type": "bit",
           "nullable": false,
-          "default": "((1))"
+          "default": "((1))",
+          "comment": "the record is active, Data type = bit, Nullable = No"
         },
         {
           "name": "restrict_logging_service_level_flag",
@@ -1890,7 +1960,8 @@
         {
           "name": "notes",
           "type": "nvarchar(1000)",
-          "nullable": true
+          "nullable": true,
+          "comment": "optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
         },
         {
           "name": "notes_dealer",
@@ -2037,13 +2108,15 @@
         {
           "name": "tenant_uuid",
           "type": "uniqueidentifier",
-          "nullable": false
+          "nullable": false,
+          "comment": "the customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
         },
         {
           "name": "is_active",
           "type": "bit",
           "nullable": false,
-          "default": "((1))"
+          "default": "((1))",
+          "comment": "the record is active, Data type = bit, Nullable = No"
         },
         {
           "name": "created_date",
@@ -2089,7 +2162,8 @@
         {
           "name": "notes",
           "type": "nvarchar(1000)",
-          "nullable": true
+          "nullable": true,
+          "comment": "optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
         },
         {
           "name": "admin_notes",
@@ -2236,7 +2310,8 @@
         {
           "name": "tenant_uuid",
           "type": "uniqueidentifier",
-          "nullable": false
+          "nullable": false,
+          "comment": "the customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
         },
         {
           "name": "rate_deviation_pct",
@@ -2252,7 +2327,8 @@
           "name": "is_active",
           "type": "bit",
           "nullable": false,
-          "default": "((1))"
+          "default": "((1))",
+          "comment": "the record is active, Data type = bit, Nullable = No"
         },
         {
           "name": "rate_approve_flag",
@@ -2293,7 +2369,8 @@
         {
           "name": "notes",
           "type": "nvarchar(1000)",
-          "nullable": true
+          "nullable": true,
+          "comment": "optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
         },
         {
           "name": "rate_approver_notes",
@@ -2425,77 +2502,92 @@
     {
       "name": "dealer",
       "type": "BASIC TABLE",
+      "comment": "this table stores dealer information",
       "columns": [
         {
           "name": "dealer_uuid",
           "type": "uniqueidentifier",
           "nullable": false,
-          "default": "(newsequentialid())"
+          "default": "(newsequentialid())",
+          "comment": "the uuid of the dealer, Data type = uniqueidentifier, Nullable = No"
         },
         {
           "name": "dealer_rid",
           "type": "bigint",
-          "nullable": false
+          "nullable": false,
+          "comment": "the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = bigint, Nullable = No"
         },
         {
           "name": "dealer_code",
           "type": "varchar(50)",
-          "nullable": true
+          "nullable": true,
+          "comment": "Key used to distinguish actual dealer: ex T2835001. hz_cust_site_uses_all.attribute15. Also same as loc_id in Atlas, how we would bridge tables to get info from atlas, Data type = varchar(50), Nullable = Yes"
         },
         {
           "name": "tenant_uuid",
           "type": "uniqueidentifier",
-          "nullable": false
+          "nullable": false,
+          "comment": "the customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
         },
         {
           "name": "name",
           "type": "varchar(50)",
-          "nullable": true
+          "nullable": true,
+          "comment": "Name that will display to customers in TracKing. Want a clean version of the name which would be found in Atlas: geo.dealer_locations.loc_name, Data type = varchar(50), Nullable = Yes"
         },
         {
           "name": "address",
           "type": "varchar(300)",
-          "nullable": true
+          "nullable": true,
+          "comment": "Atlas, address field from geo.dealer_locations.address, Data type = varchar(300), Nullable = Yes"
         },
         {
           "name": "phone_number",
           "type": "varchar(50)",
-          "nullable": true
+          "nullable": true,
+          "comment": "phone number for individual dealer, not central phone number. Would come from the LOC_USER_CONTACT_POINTS table in dealer portal.  , Data type = varchar(50), Nullable = Yes"
         },
         {
           "name": "email_address",
           "type": "varchar(50)",
-          "nullable": true
+          "nullable": true,
+          "comment": "email address for individual dealer, not central email address. Would come from the LOC_USER_CONTACT_POINTS table in dealer portal.  , Data type = varchar(50), Nullable = Yes"
         },
         {
           "name": "zip_code",
           "type": "varchar(10)",
-          "nullable": true
+          "nullable": true,
+          "comment": "ar.hz_locations.postal_code, Data type = varchar(10), Nullable = Yes"
         },
         {
           "name": "oracle_id",
           "type": "int",
-          "nullable": true
+          "nullable": true,
+          "comment": "Oracle (R12) Account Number : apps.hz_cust_acct_sites_all.cust_acct_side_id, Data type = int, Nullable = Yes"
         },
         {
           "name": "party_site_id_code",
           "type": "int",
-          "nullable": true
+          "nullable": true,
+          "comment": "key used to connect to Salesforce. ar.hz_cust_acct_sites_all.party_site_id, Data type = int, Nullable = Yes"
         },
         {
           "name": "atlas_terr_id_code",
           "type": "varchar(50)",
-          "nullable": true
+          "nullable": true,
+          "comment": "geo.dealer_territories.terr_id, Data type = varchar(50), Nullable = Yes"
         },
         {
           "name": "atlas_terr_name",
           "type": "varchar(50)",
-          "nullable": true
+          "nullable": true,
+          "comment": "geo.dealer_territories.terr_name, Data type = varchar(50), Nullable = Yes"
         },
         {
           "name": "atlas_terr_id",
           "type": "int",
-          "nullable": true
+          "nullable": true,
+          "comment": "Atlas, Data type = int, Nullable = Yes"
         },
         {
           "name": "dealer_family_rid",
@@ -2506,23 +2598,27 @@
           "name": "is_active",
           "type": "bit",
           "nullable": false,
-          "default": "((1))"
+          "default": "((1))",
+          "comment": "is the dealer active yes or no, Data type = bit, Nullable = No"
         },
         {
           "name": "is_blue_track_dealer",
           "type": "bit",
-          "nullable": true
+          "nullable": true,
+          "comment": "geo.dealer_locations.blue_track, Data type = bit, Nullable = Yes"
         },
         {
           "name": "created_date",
           "type": "datetime",
           "nullable": false,
-          "default": "(getdate())"
+          "default": "(getdate())",
+          "comment": "when the record was created, Data type = datetime, Nullable = No"
         },
         {
           "name": "updated_date",
           "type": "datetime",
-          "nullable": true
+          "nullable": true,
+          "comment": "when the record was updated, Data type = datetime, Nullable = Yes"
         },
         {
           "name": "created_by_user_rid",
@@ -2537,7 +2633,8 @@
         {
           "name": "notes",
           "type": "nvarchar(1000)",
-          "nullable": true
+          "nullable": true,
+          "comment": "optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
         }
       ],
       "indexes": [
@@ -2700,7 +2797,8 @@
         {
           "name": "tenant_uuid",
           "type": "uniqueidentifier",
-          "nullable": false
+          "nullable": false,
+          "comment": "the customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
         },
         {
           "name": "name",
@@ -2711,7 +2809,8 @@
           "name": "is_active",
           "type": "bit",
           "nullable": false,
-          "default": "((1))"
+          "default": "((1))",
+          "comment": "the record is active, Data type = bit, Nullable = No"
         },
         {
           "name": "created_date",
@@ -2737,7 +2836,8 @@
         {
           "name": "notes",
           "type": "nvarchar(1000)",
-          "nullable": true
+          "nullable": true,
+          "comment": "optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
         }
       ],
       "indexes": [
@@ -2884,7 +2984,8 @@
           "name": "is_active",
           "type": "bit",
           "nullable": false,
-          "default": "((1))"
+          "default": "((1))",
+          "comment": "the record is active, Data type = bit, Nullable = No"
         },
         {
           "name": "attributes",
@@ -3009,7 +3110,8 @@
         {
           "name": "tenant_uuid",
           "type": "uniqueidentifier",
-          "nullable": false
+          "nullable": false,
+          "comment": "the customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
         },
         {
           "name": "address_1",
@@ -3070,7 +3172,8 @@
           "name": "is_active",
           "type": "bit",
           "nullable": false,
-          "default": "((1))"
+          "default": "((1))",
+          "comment": "the record is active, Data type = bit, Nullable = No"
         },
         {
           "name": "created_date",
@@ -3096,7 +3199,8 @@
         {
           "name": "notes",
           "type": "nvarchar(1000)",
-          "nullable": true
+          "nullable": true,
+          "comment": "optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
         },
         {
           "name": "phone_number",
@@ -3263,61 +3367,72 @@
     {
       "name": "role",
       "type": "BASIC TABLE",
+      "comment": "the table that stores the details of the roles",
       "columns": [
         {
           "name": "role_uuid",
           "type": "uniqueidentifier",
           "nullable": false,
-          "default": "(newsequentialid())"
+          "default": "(newsequentialid())",
+          "comment": "the uuid of the role, Data type = uniqueidentifier, Nullable = No"
         },
         {
           "name": "role_rid",
           "type": "bigint",
-          "nullable": false
+          "nullable": false,
+          "comment": "the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = bigint, Nullable = No"
         },
         {
           "name": "tenant_uuid",
           "type": "uniqueidentifier",
-          "nullable": false
+          "nullable": false,
+          "comment": "the uniqueidentifier for the tenant/customer.  Used as a partitioning key., Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
         },
         {
           "name": "name",
           "type": "nvarchar(100)",
-          "nullable": false
+          "nullable": false,
+          "comment": "the short description of the record, Data type = nvarchar(200), Nullable = No"
         },
         {
           "name": "description",
           "type": "nvarchar(100)",
-          "nullable": false
+          "nullable": false,
+          "comment": "the long description of the record, Data type = nvarchar(200), Nullable = No"
         },
         {
           "name": "role_type_code",
           "type": "varchar(30)",
-          "nullable": false
+          "nullable": false,
+          "comment": "see lookup.code for information about these values, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
         },
         {
           "name": "is_active",
           "type": "bit",
           "nullable": false,
-          "default": "((1))"
+          "default": "((1))",
+          "comment": "the record is active, Data type = bit, Nullable = No"
         },
         {
           "name": "is_standard_role",
           "type": "bit",
           "nullable": false,
-          "default": "((1))"
+          "default": "((1))",
+          "comment": "is the record standard role, Data type = bit, Nullable = No"
         },
         {
           "name": "created_date",
           "type": "datetime",
           "nullable": false,
-          "default": "(getdate())"
+          "default": "(getdate())",
+          "comment": "the date the record was created, Data type = datetime, Nullable = No"
         },
         {
           "name": "updated_date",
           "type": "datetime",
           "nullable": false,
-          "default": "(getdate())"
+          "default": "(getdate())",
+          "comment": "the date the record was updated or created, Data type = datetime, Nullable = No"
         },
         {
           "name": "created_by_user_rid",
@@ -3332,23 +3447,27 @@
         {
           "name": "notes",
           "type": "nvarchar(1000)",
-          "nullable": true
+          "nullable": true,
+          "comment": "optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
         },
         {
           "name": "test_data_group",
           "type": "int",
-          "nullable": true
+          "nullable": true,
+          "comment": "used for the Dev test data process, Data type = int, Nullable = Yes"
         },
         {
           "name": "created",
           "type": "datetime",
           "nullable": false,
-          "default": "(getdate())"
+          "default": "(getdate())",
+          "comment": "deprecated - replaced by created_date, Data type = datetime, Nullable = No"
         },
         {
           "name": "active",
           "type": "bit",
-          "nullable": false
+          "nullable": false,
+          "comment": "deprecated - replaced by is_active, Data type = bit, Nullable = No"
         }
       ],
       "indexes": [
@@ -3454,32 +3573,38 @@
     {
       "name": "role_permission_mapping",
       "type": "BASIC TABLE",
+      "comment": "the table that stores the mappings of roles to permissions",
       "columns": [
         {
           "name": "role_permission_mapping_uuid",
           "type": "uniqueidentifier",
           "nullable": false,
-          "default": "(newsequentialid())"
+          "default": "(newsequentialid())",
+          "comment": "the uuid of the role_permission_mapping, Data type = uniqueidentifier, Nullable = No"
         },
         {
           "name": "role_permission_mapping_rid",
           "type": "bigint",
-          "nullable": false
+          "nullable": false,
+          "comment": "the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = bigint, Nullable = No"
         },
         {
           "name": "tenant_uuid",
           "type": "uniqueidentifier",
-          "nullable": false
+          "nullable": false,
+          "comment": "the uniqueidentifier for the tenant/customer.  Used as a partitioning key., Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
         },
         {
           "name": "permission_code",
           "type": "varchar(100)",
-          "nullable": false
+          "nullable": false,
+          "comment": "the code of the permissions - this is not currently a foreign key, Data type = varchar(100), Nullable = No"
         },
         {
           "name": "role_rid",
           "type": "bigint",
-          "nullable": false
+          "nullable": false,
+          "comment": "the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = bigint, Nullable = No, References = [dbo].[role].[role_rid]"
         },
         {
           "name": "created_by_user_rid",
@@ -3489,7 +3614,8 @@
         {
           "name": "notes",
           "type": "nvarchar(1000)",
-          "nullable": true
+          "nullable": true,
+          "comment": "optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
         }
       ],
       "indexes": [
@@ -3625,7 +3751,8 @@
         {
           "name": "service_level_code",
           "type": "varchar(30)",
-          "nullable": false
+          "nullable": false,
+          "comment": "a lookup to the main lookup_code table, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
         },
         {
           "name": "created",
@@ -3700,7 +3827,8 @@
         {
           "name": "tenant_uuid",
           "type": "uniqueidentifier",
-          "nullable": false
+          "nullable": false,
+          "comment": "the customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
         },
         {
           "name": "subscription_type_code",
@@ -3716,7 +3844,8 @@
           "name": "is_active",
           "type": "bit",
           "nullable": false,
-          "default": "((1))"
+          "default": "((1))",
+          "comment": "the record is active, Data type = bit, Nullable = No"
         },
         {
           "name": "pay_up_front_auto_renew_flag",
@@ -3752,7 +3881,8 @@
         {
           "name": "notes",
           "type": "nvarchar(1000)",
-          "nullable": true
+          "nullable": true,
+          "comment": "optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
         }
       ],
       "indexes": [
@@ -3894,7 +4024,8 @@
         {
           "name": "tenant_uuid",
           "type": "uniqueidentifier",
-          "nullable": false
+          "nullable": false,
+          "comment": "the customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
         },
         {
           "name": "service_level_code",
@@ -3910,7 +4041,8 @@
           "name": "is_active",
           "type": "bit",
           "nullable": false,
-          "default": "((1))"
+          "default": "((1))",
+          "comment": "the record is active, Data type = bit, Nullable = No"
         },
         {
           "name": "created_date",
@@ -3936,7 +4068,8 @@
         {
           "name": "notes",
           "type": "nvarchar(1000)",
-          "nullable": true
+          "nullable": true,
+          "comment": "optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
         }
       ],
       "indexes": [
@@ -4063,176 +4196,207 @@
     {
       "name": "user_accounts",
       "type": "BASIC TABLE",
+      "comment": "the table that stores the details of the users",
       "columns": [
         {
           "name": "user_uuid",
           "type": "uniqueidentifier",
           "nullable": false,
-          "default": "(newsequentialid())"
+          "default": "(newsequentialid())",
+          "comment": "the uuid of the user, Data type = uniqueidentifier, Nullable = No"
         },
         {
           "name": "user_rid",
           "type": "bigint",
-          "nullable": false
+          "nullable": false,
+          "comment": "the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = bigint, Nullable = No"
         },
         {
           "name": "tenant_uuid",
           "type": "uniqueidentifier",
-          "nullable": false
+          "nullable": false,
+          "comment": "the uniqueidentifier for the tenant/customer.  Used as a partitioning key., Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
         },
         {
           "name": "user_name",
           "type": "nvarchar(200)",
-          "nullable": true
+          "nullable": true,
+          "comment": "the user name of the user, Data type = nvarchar(400), Nullable = Yes"
         },
         {
           "name": "first_name",
           "type": "nvarchar(50)",
           "nullable": false,
-          "default": "('Tracking')"
+          "default": "('Tracking')",
+          "comment": "the first name of the user, Data type = nvarchar(100), Nullable = No"
         },
         {
           "name": "last_name",
           "type": "nvarchar(50)",
           "nullable": false,
-          "default": "('User')"
+          "default": "('User')",
+          "comment": "the last name of the user, Data type = nvarchar(100), Nullable = No"
         },
         {
           "name": "email_address",
           "type": "nvarchar(300)",
-          "nullable": false
+          "nullable": false,
+          "comment": "the email address, Data type = nvarchar(600), Nullable = No"
         },
         {
           "name": "phone_number",
           "type": "nvarchar(50)",
-          "nullable": true
+          "nullable": true,
+          "comment": "the phone number, Data type = nvarchar(100), Nullable = Yes"
         },
         {
           "name": "phone_extension",
           "type": "int",
-          "nullable": true
+          "nullable": true,
+          "comment": "the extension of the phone number, Data type = int, Nullable = Yes"
         },
         {
           "name": "title",
           "type": "nvarchar(200)",
-          "nullable": true
+          "nullable": true,
+          "comment": "the job title of the user, Data type = nvarchar(400), Nullable = Yes"
         },
         {
           "name": "landing_page",
           "type": "nvarchar(55)",
           "nullable": false,
-          "default": "('DEFAULT')"
+          "default": "('DEFAULT')",
+          "comment": "the page on the UI where the user should land when signing on to the website, Data type = nvarchar(110), Nullable = No"
         },
         {
           "name": "object_id",
           "type": "nvarchar(50)",
-          "nullable": true
+          "nullable": true,
+          "comment": "the Microsoft Entra ID for the user, Data type = nvarchar(100), Nullable = Yes"
         },
         {
           "name": "role_rid",
           "type": "bigint",
           "nullable": true,
-          "default": "((1))"
+          "default": "((1))",
+          "comment": "the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = bigint, Nullable = Yes, References = [dbo].[role].[role_rid]"
         },
         {
           "name": "account_type_code",
           "type": "varchar(30)",
           "nullable": false,
-          "default": "('ACT_CUSTOMER')"
+          "default": "('ACT_CUSTOMER')",
+          "comment": "see lookup.code for information about these values, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
         },
         {
           "name": "speed_type_code",
           "type": "varchar(30)",
           "nullable": false,
-          "default": "('SPT_MPH')"
+          "default": "('SPT_MPH')",
+          "comment": "see lookup.code for information about these values, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
         },
         {
           "name": "language_code",
           "type": "varchar(30)",
           "nullable": false,
-          "default": "('ENUS')"
+          "default": "('ENUS')",
+          "comment": "see lookup.code for information about these values, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
         },
         {
           "name": "temperature_type_code",
           "type": "varchar(30)",
           "nullable": false,
-          "default": "('TMP_FAHRENHEIT')"
+          "default": "('TMP_FAHRENHEIT')",
+          "comment": "see lookup.code for information about these values, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
         },
         {
           "name": "fuel_type_code",
           "type": "varchar(30)",
           "nullable": false,
-          "default": "('FLT_U_S_GALLONS')"
+          "default": "('FLT_U_S_GALLONS')",
+          "comment": "see lookup.code for information about these values, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
         },
         {
           "name": "timezone_code",
           "type": "varchar(30)",
           "nullable": false,
-          "default": "('TMZ_AMERICA_CHICAGO')"
+          "default": "('TMZ_AMERICA_CHICAGO')",
+          "comment": "see lookup.code for information about these values, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
         },
         {
           "name": "theme_code",
           "type": "varchar(30)",
           "nullable": false,
-          "default": "('THM_LIGHT')"
+          "default": "('THM_LIGHT')",
+          "comment": "see lookup.code for information about these values, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
         },
         {
           "name": "tour_status_code",
           "type": "varchar(30)",
           "nullable": false,
-          "default": "('TOR_0')"
+          "default": "('TOR_0')",
+          "comment": "see lookup.code for information about these values, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
         },
         {
           "name": "phone_type_code",
           "type": "varchar(30)",
           "nullable": false,
-          "default": "('PHT_MOBILE')"
+          "default": "('PHT_MOBILE')",
+          "comment": "see lookup.code for information about these values, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
         },
         {
           "name": "status_code",
           "type": "varchar(30)",
           "nullable": false,
-          "default": "('USR_ACTIVE')"
+          "default": "('USR_ACTIVE')",
+          "comment": "see lookup.code for information about these values, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
         },
         {
           "name": "is_active",
           "type": "bit",
           "nullable": false,
-          "default": "((1))"
+          "default": "((1))",
+          "comment": "the record is active, Data type = bit, Nullable = No"
         },
         {
           "name": "is_onboarded",
           "type": "bit",
           "nullable": true,
-          "default": "((1))"
+          "default": "((1))",
+          "comment": "is the record onboarded, Data type = bit, Nullable = Yes"
         },
         {
           "name": "is_migrated_data",
           "type": "bit",
           "nullable": false,
-          "default": "((0))"
+          "default": "((0))",
+          "comment": "is the record migrated data, Data type = bit, Nullable = No"
         },
         {
           "name": "created_date",
           "type": "datetime",
           "nullable": false,
-          "default": "(getdate())"
+          "default": "(getdate())",
+          "comment": "the date the record was created, Data type = datetime, Nullable = No"
         },
         {
           "name": "updated_date",
           "type": "datetime",
           "nullable": false,
-          "default": "(getdate())"
+          "default": "(getdate())",
+          "comment": "the date the record was updated or created, Data type = datetime, Nullable = No"
         },
         {
           "name": "activated_date",
           "type": "datetime",
-          "nullable": true
+          "nullable": true,
+          "comment": "the date the record was activated, Data type = datetime, Nullable = Yes"
         },
         {
           "name": "expiration_date",
           "type": "datetime",
-          "nullable": true
+          "nullable": true,
+          "comment": "the expiration date, Data type = datetime, Nullable = Yes"
         },
         {
           "name": "created_by_user_rid",
@@ -4247,24 +4411,28 @@
         {
           "name": "notes",
           "type": "nvarchar(1000)",
-          "nullable": true
+          "nullable": true,
+          "comment": "optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
         },
         {
           "name": "test_data_group",
           "type": "int",
-          "nullable": true
+          "nullable": true,
+          "comment": "used for the Dev test data process, Data type = int, Nullable = Yes"
         },
         {
           "name": "active",
           "type": "bit",
           "nullable": false,
-          "default": "((1))"
+          "default": "((1))",
+          "comment": "deprecated - replaced by is_active, Data type = bit, Nullable = No"
         },
         {
           "name": "created",
           "type": "datetime",
           "nullable": false,
-          "default": "(getdate())"
+          "default": "(getdate())",
+          "comment": "deprecated - replaced by created_date, Data type = datetime, Nullable = No"
         }
       ],
       "indexes": [
@@ -4698,43 +4866,51 @@
     {
       "name": "user_grid_view_preference",
       "type": "BASIC TABLE",
+      "comment": "the table that stores the details of the user preferences",
       "columns": [
         {
           "name": "user_grid_view_preference_uuid",
           "type": "uniqueidentifier",
           "nullable": false,
-          "default": "(newsequentialid())"
+          "default": "(newsequentialid())",
+          "comment": "the uuid of the user, Data type = uniqueidentifier, Nullable = No"
         },
         {
           "name": "user_grid_view_preference_rid",
           "type": "bigint",
-          "nullable": false
+          "nullable": false,
+          "comment": "the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = bigint, Nullable = No"
         },
         {
           "name": "tenant_uuid",
           "type": "uniqueidentifier",
-          "nullable": false
+          "nullable": false,
+          "comment": "the uniqueidentifier for the tenant/customer.  Used as a partitioning key., Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
         },
         {
           "name": "grid_name",
           "type": "nvarchar(200)",
-          "nullable": false
+          "nullable": false,
+          "comment": "the grid name the user has selected for the preference settings, Data type = nvarchar(400), Nullable = No"
         },
         {
           "name": "columns_hidden",
           "type": "nvarchar(3000)",
-          "nullable": false
+          "nullable": false,
+          "comment": "what columns the user has selected to be hidden, Data type = nvarchar(6000), Nullable = No"
         },
         {
           "name": "created_date",
           "type": "datetime",
           "nullable": false,
-          "default": "(getdate())"
+          "default": "(getdate())",
+          "comment": "the date the record was created, Data type = datetime, Nullable = No"
         },
         {
           "name": "updated_date",
           "type": "datetime",
-          "nullable": true
+          "nullable": true,
+          "comment": "the date the record was updated or created, Data type = datetime, Nullable = Yes"
         },
         {
           "name": "created_by_user_rid",
@@ -4744,18 +4920,21 @@
         {
           "name": "notes",
           "type": "nvarchar(1000)",
-          "nullable": true
+          "nullable": true,
+          "comment": "optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
         },
         {
           "name": "created",
           "type": "datetime",
           "nullable": false,
-          "default": "(getdate())"
+          "default": "(getdate())",
+          "comment": "deprecated - replaced by created_date, Data type = datetime, Nullable = No"
         },
         {
           "name": "user_rid",
           "type": "bigint",
-          "nullable": true
+          "nullable": true,
+          "comment": "the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = bigint, Nullable = Yes, References = [dbo].[user_accounts].[user_rid]"
         }
       ],
       "indexes": [
@@ -4891,7 +5070,8 @@
         {
           "name": "account_type_code",
           "type": "varchar(30)",
-          "nullable": true
+          "nullable": true,
+          "comment": "a lookup to the main lookup_code table, Data type = varchar(30), Nullable = Yes, References = [dbo].[lookup_code].[code]"
         },
         {
           "name": "permission_code",
