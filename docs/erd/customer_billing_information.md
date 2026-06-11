@@ -4,13 +4,13 @@
 
 | Name | Type | Default | Nullable | Children | Parents | Comment |
 | ---- | ---- | ------- | -------- | -------- | ------- | ------- |
-| customer_billing_info_uuid | uniqueidentifier | (newsequentialid()) | false |  |  |  |
-| customer_billing_info_rid | bigint |  | false |  |  |  |
-| tenant_uuid | uniqueidentifier |  | false |  | [account_details](account_details.md) | the customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid] |
+| customer_billing_information_uuid | uniqueidentifier | (newsequentialid()) | false |  |  | Unique identifier for the record, a unique nonclustered key for the table. Must be a SQL-sortable UUIDv7. , Data type = uniqueidentifier, Nullable = No |
+| customer_billing_information_rid | bigint |  | false |  |  | Unique RowID for the record, part of composite primary key for the table after tenant_uuid, a unique clustered key for the table, Data type = bigint, Nullable = No |
+| tenant_uuid | uniqueidentifier |  | false |  | [account_details](account_details.md) | The customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid] |
 | approval_status | nvarchar(50) |  | true |  |  |  |
 | artifact_id | nvarchar(500) |  | true |  |  |  |
 | Tracking_admin_email | nvarchar(60) |  | true |  |  |  |
-| dealer_rid | int |  | true |  |  |  |
+| dealer_rid | int |  | true |  |  | References column dealer_rid on table dealer, Data type = int, Nullable = Yes |
 | customer_type_rid | int |  | true |  |  |  |
 | master_customer_rid | int |  | true |  |  |  |
 | billing_service_type_code | varchar(30) |  | true |  |  |  |
@@ -21,7 +21,7 @@
 | contract_unit | int |  | true |  |  |  |
 | logging_interval_code_on | varchar(30) |  | true |  |  |  |
 | logging_interval_code_off | varchar(30) |  | true |  |  |  |
-| is_active | bit | ((1)) | false |  |  | the record is active, Data type = bit, Nullable = No |
+| is_active | bit | ((1)) | false |  |  | The record is active, Data type = bit, Nullable = No |
 | restrict_logging_service_level_flag | bit |  | false |  |  |  |
 | service_assist_subscription_flag | bit |  | false |  |  |  |
 | pay_up_front_auto_renew_flag | bit |  | false |  |  |  |
@@ -29,30 +29,30 @@
 | updated_date | datetime |  | true |  |  |  |
 | created_by_user_rid | bigint |  | true |  | [user_accounts](user_accounts.md) |  |
 | updated_by_user_rid | bigint |  | true |  | [user_accounts](user_accounts.md) |  |
-| notes | nvarchar(1000) |  | true |  |  | optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes |
+| notes | nvarchar(1000) |  | true |  |  | Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes |
 | notes_dealer | nvarchar(2000) |  | true |  |  |  |
 
 ## Constraints
 
 | Name | Type | Definition |
 | ---- | ---- | ---------- |
-| pk_customer_billing_info_tenant_uuid_customer_billing_info_rid | PRIMARY KEY | CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, customer_billing_info_rid ] |
-| uk_customer_billing_info_uuid | UNIQUE | NONCLUSTERED, unique, part of a UNIQUE constraint, [ customer_billing_info_uuid ] |
-| uk_customer_billing_info_rid | UNIQUE | NONCLUSTERED, unique, part of a UNIQUE constraint, [ customer_billing_info_rid ] |
-| fk_customer_billing_info_created_by_user_rid | FOREIGN KEY | FOREIGN KEY(created_by_user_rid) REFERENCES user_accounts(user_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION |
-| fk_customer_billing_info_tenant_uuid | FOREIGN KEY | FOREIGN KEY(tenant_uuid) REFERENCES account_details(tenant_uuid) ON UPDATE NO_ACTION ON DELETE NO_ACTION |
-| fk_customer_billing_info_updated_by_user_rid | FOREIGN KEY | FOREIGN KEY(updated_by_user_rid) REFERENCES user_accounts(user_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION |
+| pk_customer_billing_information_tenant_uuid_customer_billing_information_rid | PRIMARY KEY | CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, customer_billing_information_rid ] |
+| uk_customer_billing_information_uuid | UNIQUE | NONCLUSTERED, unique, part of a UNIQUE constraint, [ customer_billing_information_uuid ] |
+| uk_customer_billing_information_rid | UNIQUE | NONCLUSTERED, unique, part of a UNIQUE constraint, [ customer_billing_information_rid ] |
+| fk_customer_billing_information_created_by_user_rid | FOREIGN KEY | FOREIGN KEY(created_by_user_rid) REFERENCES user_accounts(user_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION |
+| fk_customer_billing_information_tenant_uuid | FOREIGN KEY | FOREIGN KEY(tenant_uuid) REFERENCES account_details(tenant_uuid) ON UPDATE NO_ACTION ON DELETE NO_ACTION |
+| fk_customer_billing_information_updated_by_user_rid | FOREIGN KEY | FOREIGN KEY(updated_by_user_rid) REFERENCES user_accounts(user_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION |
 
 ## Indexes
 
 | Name | Definition |
 | ---- | ---------- |
-| pk_customer_billing_info_tenant_uuid_customer_billing_info_rid | CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, customer_billing_info_rid ] |
-| uk_customer_billing_info_uuid | NONCLUSTERED, unique, part of a UNIQUE constraint, [ customer_billing_info_uuid ] |
-| uk_customer_billing_info_rid | NONCLUSTERED, unique, part of a UNIQUE constraint, [ customer_billing_info_rid ] |
-| ix_fk_customer_billing_info_created_by_user_rid | NONCLUSTERED, [ created_by_user_rid ] |
-| ix_fk_customer_billing_info_tenant_uuid | NONCLUSTERED, [ tenant_uuid ] |
-| ix_fk_customer_billing_info_updated_by_user_rid | NONCLUSTERED, [ updated_by_user_rid ] |
+| pk_customer_billing_information_tenant_uuid_customer_billing_information_rid | CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, customer_billing_information_rid ] |
+| uk_customer_billing_information_uuid | NONCLUSTERED, unique, part of a UNIQUE constraint, [ customer_billing_information_uuid ] |
+| uk_customer_billing_information_rid | NONCLUSTERED, unique, part of a UNIQUE constraint, [ customer_billing_information_rid ] |
+| ix_fk_customer_billing_information_created_by_user_rid | NONCLUSTERED, [ created_by_user_rid ] |
+| ix_fk_customer_billing_information_tenant_uuid | NONCLUSTERED, [ tenant_uuid ] |
+| ix_fk_customer_billing_information_updated_by_user_rid | NONCLUSTERED, [ updated_by_user_rid ] |
 
 ## Relations
 

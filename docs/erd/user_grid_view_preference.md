@@ -16,7 +16,7 @@ the table that stores the details of the user preferences
 | created_date | datetime | (getdate()) | false |  |  | the date the record was created, Data type = datetime, Nullable = No |
 | updated_date | datetime |  | true |  |  | the date the record was updated or created, Data type = datetime, Nullable = Yes |
 | created_by_user_rid | bigint |  | true |  | [user_accounts](user_accounts.md) |  |
-| notes | nvarchar(1000) |  | true |  |  | optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes |
+| notes | nvarchar(1000) |  | true |  |  | Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes |
 | created | datetime | (getdate()) | false |  |  | DEPRECATED - replaced by created_date, Data type = datetime, Nullable = No |
 | user_rid | bigint |  | true |  | [user_accounts](user_accounts.md) | the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = bigint, Nullable = Yes, References = [dbo].[user_accounts].[user_rid] |
 

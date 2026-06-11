@@ -28,7 +28,7 @@ the table that stores the details of the contacts
 | updated_date | datetime |  | true |  |  | the date the record was updated or created, Data type = datetime, Nullable = Yes |
 | created_by_user_rid | bigint |  | true |  | [user_accounts](user_accounts.md) |  |
 | updated_by_user_rid | bigint |  | true |  | [user_accounts](user_accounts.md) |  |
-| notes | nvarchar(1000) |  | true |  |  | optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes |
+| notes | nvarchar(1000) |  | true |  |  | Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes |
 | active | bit | ((1)) | true |  |  | DEPRECATED - replaced by is_active, Data type = bit, Nullable = Yes |
 | created | datetime | (getdate()) | true |  |  | DEPRECATED - replaced by created_date, Data type = datetime, Nullable = Yes |
 | created_by | uniqueidentifier |  | true |  |  | who created the contact, Data type = uniqueidentifier, Nullable = Yes |

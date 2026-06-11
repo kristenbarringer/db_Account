@@ -6,17 +6,17 @@
 | ---- | ---- | ------- | -------- | -------- | ------- | ------- |
 | subscription_uuid | uniqueidentifier | (newsequentialid()) | false |  |  | Unique identifier for the record, a unique nonclustered key for the table. Must be a SQL-sortable UUIDv7. , Data type = uniqueidentifier, Nullable = No |
 | subscription_rid | bigint |  | false |  |  | Unique RowID for the record, part of composite primary key for the table after tenant_uuid, a unique clustered key for the table, Data type = bigint, Nullable = No |
-| tenant_uuid | uniqueidentifier |  | false |  | [account_details](account_details.md) | the customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid] |
+| tenant_uuid | uniqueidentifier |  | false |  | [account_details](account_details.md) | The customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid] |
 | subscription_type_code | varchar(30) |  | false |  |  |  |
 | pay_up_front_term_code | varchar(30) |  | true |  |  |  |
-| is_active | bit | ((1)) | false |  |  | the record is active, Data type = bit, Nullable = No |
+| is_active | bit | ((1)) | false |  |  | The record is active, Data type = bit, Nullable = No |
 | pay_up_front_auto_renew_flag | bit |  | false |  |  |  |
 | created_date | datetime | (getdate()) | false |  |  |  |
 | updated_date | datetime |  | true |  |  |  |
 | closed_date | datetime |  | true |  |  |  |
 | created_by_user_rid | bigint |  | true |  | [user_accounts](user_accounts.md) |  |
 | updated_by_user_rid | bigint |  | true |  | [user_accounts](user_accounts.md) |  |
-| notes | nvarchar(1000) |  | true |  |  | optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes |
+| notes | nvarchar(1000) |  | true |  |  | Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes |
 
 ## Constraints
 

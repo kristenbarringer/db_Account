@@ -2,7 +2,7 @@
 
 ## Description
 
-used for centralized lookup values and processes
+Used for centralized lookup values and processes
 
 ## Columns
 
@@ -14,7 +14,7 @@ used for centralized lookup values and processes
 | code_without_prefix_camel_case | varchar(30) |  | false |  |  |  |
 | short_desc | varchar(200) |  | false |  |  |  |
 | long_desc | varchar(1200) |  | false |  |  |  |
-| notes | nvarchar(500) |  | true |  |  | optional notes and comments about this record, Data type = nvarchar(1000), Nullable = Yes |
+| notes | nvarchar(500) |  | true |  |  | Optional notes and comments about this record, Data type = nvarchar(1000), Nullable = Yes |
 | custom_col1_desc | varchar(50) |  | false |  |  |  |
 | custom_col1 | varchar(50) |  | false |  |  |  |
 | custom_col2_desc | varchar(50) |  | false |  |  |  |
@@ -25,7 +25,7 @@ used for centralized lookup values and processes
 | custom_col4 | varchar(50) |  | false |  |  |  |
 | former_code | varchar(50) |  | false |  |  |  |
 | former_code_2 | varchar(50) |  | false |  |  |  |
-| is_active | bit |  | false |  |  | the record is active, Data type = bit, Nullable = No |
+| is_active | bit |  | false |  |  | The record is active, Data type = bit, Nullable = No |
 | created_date | datetime | (getutcdate()) | false |  |  |  |
 | created_by | varchar(50) | (suser_sname()) | false |  |  |  |
 | updated_date | datetime | (getutcdate()) | true |  |  |  |

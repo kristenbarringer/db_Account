@@ -20,7 +20,7 @@ the table that stores the details of the roles
 | updated_date | datetime | (getdate()) | false |  |  | the date the record was updated or created, Data type = datetime, Nullable = No |
 | created_by_user_rid | uniqueidentifier |  | true |  |  |  |
 | updated_by_user_rid | uniqueidentifier |  | true |  |  |  |
-| notes | nvarchar(1000) |  | true |  |  | optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes |
+| notes | nvarchar(1000) |  | true |  |  | Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes |
 | test_data_group | int |  | true |  |  | used for the Dev test data process, Data type = int, Nullable = Yes |
 | created | datetime | (getdate()) | false |  |  | DEPRECATED - replaced by created_date, Data type = datetime, Nullable = No |
 | active | bit |  | false |  |  | DEPRECATED - replaced by is_active, Data type = bit, Nullable = No |

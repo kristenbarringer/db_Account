@@ -12,9 +12,9 @@ the table that stores the mappings of roles to permissions
 | role_permission_mapping_rid | bigint |  | false |  |  | Unique RowID for the record, part of composite primary key for the table after tenant_uuid, a unique clustered key for the table, Data type = bigint, Nullable = No |
 | tenant_uuid | uniqueidentifier |  | false |  | [account_details](account_details.md) | the uniqueidentifier for the tenant/customer.  Used as a partitioning key., Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid] |
 | permission_code | varchar(100) |  | false |  |  | the code of the permissions - this is not currently a foreign key, Data type = varchar(100), Nullable = No |
-| role_rid | bigint |  | false |  | [role](role.md) | the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = bigint, Nullable = No, References = [dbo].[role].[role_rid] |
+| role_rid | bigint |  | false |  | [role](role.md) | References column role_rid on table role, Data type = bigint, Nullable = No, References = [dbo].[role].[role_rid] |
 | created_by_user_rid | bigint |  | true |  | [user_accounts](user_accounts.md) |  |
-| notes | nvarchar(1000) |  | true |  |  | optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes |
+| notes | nvarchar(1000) |  | true |  |  | Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes |
 
 ## Constraints
 

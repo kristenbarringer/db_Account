@@ -9,12 +9,12 @@
 | description | nvarchar(50) |  | false |  |  |  |
 | service_level_filter | bit |  | true |  |  |  |
 | service_level_code | varchar(30) |  | true |  |  |  |
-| is_active | bit | ((1)) | false |  |  | the record is active, Data type = bit, Nullable = No |
+| is_active | bit | ((1)) | false |  |  | The record is active, Data type = bit, Nullable = No |
 | created_date | datetime | (getdate()) | false |  |  |  |
 | updated_date | datetime |  | true |  |  |  |
 | created_by_user_rid | bigint |  | true |  | [user_accounts](user_accounts.md) |  |
 | updated_by_user_rid | bigint |  | true |  | [user_accounts](user_accounts.md) |  |
-| notes | nvarchar(1000) |  | true |  |  | optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes |
+| notes | nvarchar(1000) |  | true |  |  | Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes |
 | status | bit |  | false |  |  |  |
 
 ## Constraints

@@ -4,8 +4,6 @@
 
 | Name | Columns | Comment | Type |
 | ---- | ------- | ------- | ---- |
-| [feedback_question](feedback_question.md) | 5 |  | BASIC TABLE |
-| [file_processing_tracker](file_processing_tracker.md) | 10 |  | BASIC TABLE |
 | [locations_common](locations_common.md) | 28 |  | BASIC TABLE |
 | [role](role.md) | 16 | the table that stores the details of the roles | BASIC TABLE |
 | [role_permission_mapping](role_permission_mapping.md) | 7 | the table that stores the mappings of roles to permissions | BASIC TABLE |
@@ -16,18 +14,14 @@
 | [user_feedback](user_feedback.md) | 16 |  | BASIC TABLE |
 | [user_grid_view_preference](user_grid_view_preference.md) | 11 | the table that stores the details of the user preferences | BASIC TABLE |
 | [user_type_permission_template](user_type_permission_template.md) | 3 |  | BASIC TABLE |
-| [lookup_check_base](lookup_check_base.md) | 4 | used for centralized lookup values and processes | BASIC TABLE |
-| [lookup_code](lookup_code.md) | 22 | used for centralized lookup values and processes | BASIC TABLE |
-| [lookup_code_list](lookup_code_list.md) | 12 | used for centralized lookup values and processes | BASIC TABLE |
-| [lookup_column](lookup_column.md) | 4 | used for centralized lookup values and processes | BASIC TABLE |
+| [lookup_code](lookup_code.md) | 22 | Used for centralized lookup values and processes | BASIC TABLE |
+| [lookup_code_list](lookup_code_list.md) | 12 | Used for centralized lookup values and processes | BASIC TABLE |
+| [customer_account_information](customer_account_information.md) | 13 |  | BASIC TABLE |
+| [customer_billing_information](customer_billing_information.md) | 27 |  | BASIC TABLE |
 | [account_details](account_details.md) | 34 | the table that stores the details of the accounts | BASIC TABLE |
 | [account_type](account_type.md) | 12 |  | BASIC TABLE |
 | [account_type_permission_mapping](account_type_permission_mapping.md) | 10 |  | BASIC TABLE |
-| [bulk_user_details](bulk_user_details.md) | 10 |  | BASIC TABLE |
 | [contact](contact.md) | 24 | the table that stores the details of the contacts | BASIC TABLE |
-| [cosmos_table](cosmos_table.md) | 13 |  | BASIC TABLE |
-| [customer_account_information](customer_account_information.md) | 13 |  | BASIC TABLE |
-| [customer_billing_information](customer_billing_information.md) | 27 |  | BASIC TABLE |
 | [customer_internal_view](customer_internal_view.md) | 14 |  | BASIC TABLE |
 | [customer_rate_information](customer_rate_information.md) | 15 |  | BASIC TABLE |
 | [dealer](dealer.md) | 22 | this table stores dealer information | BASIC TABLE |

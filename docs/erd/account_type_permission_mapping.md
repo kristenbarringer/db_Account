@@ -6,10 +6,10 @@
 | ---- | ---- | ------- | -------- | -------- | ------- | ------- |
 | account_type_permission_mapping_uuid | uniqueidentifier | (newsequentialid()) | false |  |  | Unique identifier for the record, a unique nonclustered key for the table. Must be a SQL-sortable UUIDv7. , Data type = uniqueidentifier, Nullable = No |
 | account_type_permission_mapping_rid | bigint |  | false |  |  | Unique RowID for the record, part of composite primary key for the table after tenant_uuid, a unique clustered key for the table, Data type = bigint, Nullable = No |
-| account_type_rid | bigint |  | true |  |  |  |
-| role_rid | int |  | false |  |  |  |
+| account_type_rid | bigint |  | true |  |  | References column account_type_rid on table account_type, Data type = bigint, Nullable = Yes |
+| role_rid | int |  | false |  |  | References column role_rid on table role, Data type = int, Nullable = No |
 | permission_code | varchar(100) |  | true |  |  |  |
-| is_active | bit | ((1)) | false |  |  | the record is active, Data type = bit, Nullable = No |
+| is_active | bit | ((1)) | false |  |  | The record is active, Data type = bit, Nullable = No |
 | created_date | datetime | (getdate()) | false |  |  |  |
 | updated_date | datetime |  | true |  |  |  |
 | created_by_user_rid | bigint |  | true |  | [user_accounts](user_accounts.md) |  |

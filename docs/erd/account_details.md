@@ -8,7 +8,7 @@ the table that stores the details of the accounts
 
 | Name | Type | Default | Nullable | Children | Parents | Comment |
 | ---- | ---- | ------- | -------- | -------- | ------- | ------- |
-| tenant_uuid | uniqueidentifier | (newsequentialid()) | false | [locations_common](locations_common.md) [role](role.md) [role_permission_mapping](role_permission_mapping.md) [subscription](subscription.md) [tenant_service_level_mapping](tenant_service_level_mapping.md) [user_accounts](user_accounts.md) [user_grid_view_preference](user_grid_view_preference.md) [contact](contact.md) [customer_account_information](customer_account_information.md) [customer_billing_information](customer_billing_information.md) [customer_internal_view](customer_internal_view.md) [customer_rate_information](customer_rate_information.md) [dealer](dealer.md) [dealer_family](dealer_family.md) |  | the uniqueidentifier for the tenant/customer.  Used as a partitioning key., Data type = uniqueidentifier, Nullable = No |
+| tenant_uuid | uniqueidentifier | (newsequentialid()) | false | [locations_common](locations_common.md) [role](role.md) [role_permission_mapping](role_permission_mapping.md) [subscription](subscription.md) [tenant_service_level_mapping](tenant_service_level_mapping.md) [user_accounts](user_accounts.md) [user_grid_view_preference](user_grid_view_preference.md) [customer_account_information](customer_account_information.md) [customer_billing_information](customer_billing_information.md) [contact](contact.md) [customer_internal_view](customer_internal_view.md) [customer_rate_information](customer_rate_information.md) [dealer](dealer.md) [dealer_family](dealer_family.md) |  | the uniqueidentifier for the tenant/customer.  Used as a partitioning key., Data type = uniqueidentifier, Nullable = No |
 | organization | nvarchar(100) |  | false |  |  | the company name, Data type = nvarchar(200), Nullable = No |
 | company_address | nvarchar(200) |  | true |  |  | the address for the company, Data type = nvarchar(400), Nullable = Yes |
 | additional_address | nvarchar(200) |  | true |  |  | the second line of the address, Data type = nvarchar(400), Nullable = Yes |
@@ -22,11 +22,11 @@ the table that stores the details of the accounts
 | state | nvarchar(50) |  | true |  |  | the state/province of the address, Data type = nvarchar(100), Nullable = Yes |
 | phone_extension | int |  | true |  |  | the extension of the phone number, Data type = int, Nullable = Yes |
 | country | nvarchar(50) |  | true |  |  | the country of the address, Data type = nvarchar(100), Nullable = Yes |
-| dealer_rid | bigint |  | true |  | [dealer](dealer.md) | the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = bigint, Nullable = Yes, References = [dbo].[dealer].[dealer_rid] |
+| dealer_rid | bigint |  | true |  | [dealer](dealer.md) | References column dealer_rid on table dealer, Data type = bigint, Nullable = Yes, References = [dbo].[dealer].[dealer_rid] |
 | csm_rid | bigint |  | true |  |  | UNDER CONSTRUCTION - might be used for celtrak_service_manager (a.k.a. CSM), Data type = bigint, Nullable = Yes |
-| account_type_rid | bigint | ((1)) | false |  | [account_type](account_type.md) |  |
+| account_type_rid | bigint | ((1)) | false |  | [account_type](account_type.md) | References column account_type_rid on table account_type, Data type = bigint, Nullable = No, References = [dbo].[account_type].[account_type_rid] |
 | phone_type_code | varchar(30) |  | true |  | [lookup_code](lookup_code.md) | see lookup.code for information about these values, Data type = varchar(30), Nullable = Yes, References = [dbo].[lookup_code].[code] |
-| default_role_code | varchar(30) | ('ROL_BASIC') | false |  | [lookup_code](lookup_code.md) | a lookup to the main lookup_code table, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code] |
+| default_role_code | varchar(30) | ('ROL_BASIC') | false |  | [lookup_code](lookup_code.md) | A lookup to the main lookup_code table, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code] |
 | is_active | bit | ((1)) | false |  |  | the record is active, Data type = bit, Nullable = No |
 | is_door_sensor_1 | bit |  | true |  |  | the door sensor is on/off, Data type = bit, Nullable = Yes |
 | is_door_sensor_2 | bit |  | true |  |  | the door sensor is on/off, Data type = bit, Nullable = Yes |
@@ -37,7 +37,7 @@ the table that stores the details of the accounts
 | admin_user_rid | uniqueidentifier |  | false |  |  | the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = uniqueidentifier, Nullable = No |
 | created_by_user_rid | bigint |  | true |  |  |  |
 | updated_by_user_rid | bigint |  | true |  |  |  |
-| notes | nvarchar(1000) |  | true |  |  | optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes |
+| notes | nvarchar(1000) |  | true |  |  | Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes |
 | test_data_group | int |  | true |  |  | used for the Dev test data process, Data type = int, Nullable = Yes |
 | active | bit |  | false |  |  | DEPRECATED - replaced by is_active, Data type = bit, Nullable = No |
 | created | datetime | (getdate()) | false |  |  | DEPRECATED - replaced by created_date, Data type = datetime, Nullable = No |

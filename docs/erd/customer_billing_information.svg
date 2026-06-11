@@ -18,11 +18,11 @@
 <text text-anchor="start" x="576.56" y="-2158" font-family="Arial" font-size="14.00">    </text>
 <text text-anchor="start" x="607.68" y="-2158" font-family="Arial" font-size="14.00" fill="#666666">[BASIC TABLE]</text>
 <polygon fill="none" stroke="black" points="353.6,-2113.8 353.6,-2144.6 712.71,-2144.6 712.71,-2113.8 353.6,-2113.8"/>
-<text text-anchor="start" x="360.6" y="-2126" font-family="Arial" font-size="14.00">customer_billing_info_uuid </text>
-<text text-anchor="start" x="530.26" y="-2126" font-family="Arial" font-size="14.00" fill="#666666">[uniqueidentifier]</text>
+<text text-anchor="start" x="360.6" y="-2126" font-family="Arial" font-size="14.00">customer_billing_information_uuid </text>
+<text text-anchor="start" x="576.94" y="-2126" font-family="Arial" font-size="14.00" fill="#666666">[uniqueidentifier]</text>
 <polygon fill="none" stroke="black" points="353.6,-2083 353.6,-2113.8 712.71,-2113.8 712.71,-2083 353.6,-2083"/>
-<text text-anchor="start" x="360.6" y="-2095.2" font-family="Arial" font-size="14.00">customer_billing_info_rid </text>
-<text text-anchor="start" x="519.35" y="-2095.2" font-family="Arial" font-size="14.00" fill="#666666">[bigint]</text>
+<text text-anchor="start" x="360.6" y="-2095.2" font-family="Arial" font-size="14.00">customer_billing_information_rid </text>
+<text text-anchor="start" x="566.03" y="-2095.2" font-family="Arial" font-size="14.00" fill="#666666">[bigint]</text>
 <polygon fill="none" stroke="black" points="353.6,-2052.2 353.6,-2083 712.71,-2083 712.71,-2052.2 353.6,-2052.2"/>
 <text text-anchor="start" x="360.6" y="-2064.4" font-family="Arial" font-size="14.00">tenant_uuid </text>
 <text text-anchor="start" x="437.66" y="-2064.4" font-family="Arial" font-size="14.00" fill="#666666">[uniqueidentifier]</text>

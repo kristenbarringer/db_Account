@@ -9,7 +9,7 @@ the table that stores the details of the users
 | Name | Type | Default | Nullable | Children | Parents | Comment |
 | ---- | ---- | ------- | -------- | -------- | ------- | ------- |
 | user_uuid | uniqueidentifier | (newsequentialid()) | false |  |  | the uuid of the user, Data type = uniqueidentifier, Nullable = No |
-| user_rid | bigint |  | false | [locations_common](locations_common.md) [role_permission_mapping](role_permission_mapping.md) [subscription](subscription.md) [tenant_service_level_mapping](tenant_service_level_mapping.md) [user_grid_view_preference](user_grid_view_preference.md) [account_type](account_type.md) [account_type_permission_mapping](account_type_permission_mapping.md) [contact](contact.md) [customer_account_information](customer_account_information.md) [customer_billing_information](customer_billing_information.md) [customer_internal_view](customer_internal_view.md) [customer_rate_information](customer_rate_information.md) [dealer](dealer.md) [dealer_family](dealer_family.md) |  | the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = bigint, Nullable = No |
+| user_rid | bigint |  | false | [locations_common](locations_common.md) [role_permission_mapping](role_permission_mapping.md) [subscription](subscription.md) [tenant_service_level_mapping](tenant_service_level_mapping.md) [user_grid_view_preference](user_grid_view_preference.md) [customer_account_information](customer_account_information.md) [customer_billing_information](customer_billing_information.md) [account_type](account_type.md) [account_type_permission_mapping](account_type_permission_mapping.md) [contact](contact.md) [customer_internal_view](customer_internal_view.md) [customer_rate_information](customer_rate_information.md) [dealer](dealer.md) [dealer_family](dealer_family.md) |  | the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = bigint, Nullable = No |
 | tenant_uuid | uniqueidentifier |  | false |  | [account_details](account_details.md) | the uniqueidentifier for the tenant/customer.  Used as a partitioning key., Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid] |
 | user_name | nvarchar(200) |  | true |  |  | the user name of the user, Data type = nvarchar(400), Nullable = Yes |
 | first_name | nvarchar(50) | ('Tracking') | false |  |  | the first name of the user, Data type = nvarchar(100), Nullable = No |
@@ -20,7 +20,7 @@ the table that stores the details of the users
 | title | nvarchar(200) |  | true |  |  | the job title of the user, Data type = nvarchar(400), Nullable = Yes |
 | landing_page | nvarchar(55) | ('DEFAULT') | false |  |  | the page on the UI where the user should land when signing on to the website, Data type = nvarchar(110), Nullable = No |
 | object_id | nvarchar(50) |  | true |  |  | the Microsoft Entra ID for the user, Data type = nvarchar(100), Nullable = Yes |
-| role_rid | bigint | ((1)) | true |  | [role](role.md) | the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = bigint, Nullable = Yes, References = [dbo].[role].[role_rid] |
+| role_rid | bigint | ((1)) | true |  | [role](role.md) | References column role_rid on table role, Data type = bigint, Nullable = Yes, References = [dbo].[role].[role_rid] |
 | account_type_code | varchar(30) | ('ACT_CUSTOMER') | false |  | [lookup_code](lookup_code.md) | see lookup.code for information about these values, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code] |
 | speed_type_code | varchar(30) | ('SPT_MPH') | false |  | [lookup_code](lookup_code.md) | see lookup.code for information about these values, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code] |
 | language_code | varchar(30) | ('ENUS') | false |  | [lookup_code](lookup_code.md) | see lookup.code for information about these values, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code] |
@@ -40,7 +40,7 @@ the table that stores the details of the users
 | expiration_date | datetime |  | true |  |  | the expiration date, Data type = datetime, Nullable = Yes |
 | created_by_user_rid | uniqueidentifier |  | true |  |  |  |
 | updated_by_user_rid | uniqueidentifier |  | true |  |  |  |
-| notes | nvarchar(1000) |  | true |  |  | optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes |
+| notes | nvarchar(1000) |  | true |  |  | Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes |
 | test_data_group | int |  | true |  |  | used for the Dev test data process, Data type = int, Nullable = Yes |
 | active | bit | ((1)) | false |  |  | DEPRECATED - replaced by is_active, Data type = bit, Nullable = No |
 | created | datetime | (getdate()) | false |  |  | DEPRECATED - replaced by created_date, Data type = datetime, Nullable = No |

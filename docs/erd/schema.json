@@ -2,138 +2,6 @@
   "name": "Account",
   "tables": [
     {
-      "name": "feedback_question",
-      "type": "BASIC TABLE",
-      "columns": [
-        {
-          "name": "feedback_question_rid",
-          "type": "int",
-          "nullable": false,
-          "comment": "Unique RowID for the record, part of composite primary key for the table after tenant_uuid, a unique clustered key for the table, Data type = int, Nullable = No"
-        },
-        {
-          "name": "question_name",
-          "type": "nvarchar(450)",
-          "nullable": false
-        },
-        {
-          "name": "type",
-          "type": "nvarchar(155)",
-          "nullable": false
-        },
-        {
-          "name": "is_active",
-          "type": "bit",
-          "nullable": false,
-          "default": "((1))",
-          "comment": "the record is active, Data type = bit, Nullable = No"
-        },
-        {
-          "name": "attributes",
-          "type": "nvarchar(155)",
-          "nullable": true
-        }
-      ],
-      "indexes": [
-        {
-          "name": "PK_feedback_question",
-          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ feedback_question_rid ]",
-          "table": "feedback_question",
-          "columns": [
-            "feedback_question_rid"
-          ]
-        }
-      ],
-      "constraints": [
-        {
-          "name": "PK_feedback_question",
-          "type": "PRIMARY KEY",
-          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ feedback_question_rid ]",
-          "table": "feedback_question",
-          "columns": [
-            "feedback_question_rid"
-          ]
-        }
-      ]
-    },
-    {
-      "name": "file_processing_tracker",
-      "type": "BASIC TABLE",
-      "columns": [
-        {
-          "name": "file_rid",
-          "type": "int",
-          "nullable": false
-        },
-        {
-          "name": "file_name",
-          "type": "varchar(100)",
-          "nullable": false
-        },
-        {
-          "name": "total_record_count",
-          "type": "int",
-          "nullable": true
-        },
-        {
-          "name": "processed_count",
-          "type": "int",
-          "nullable": true
-        },
-        {
-          "name": "status",
-          "type": "varchar(30)",
-          "nullable": true
-        },
-        {
-          "name": "tenant_id",
-          "type": "varchar(50)",
-          "nullable": true
-        },
-        {
-          "name": "created_by",
-          "type": "int",
-          "nullable": true
-        },
-        {
-          "name": "created_at",
-          "type": "datetime",
-          "nullable": true
-        },
-        {
-          "name": "updated_at",
-          "type": "datetime",
-          "nullable": true
-        },
-        {
-          "name": "upload_type",
-          "type": "varchar(30)",
-          "nullable": false
-        }
-      ],
-      "indexes": [
-        {
-          "name": "PK_file_processing_tracker",
-          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ file_rid ]",
-          "table": "file_processing_tracker",
-          "columns": [
-            "file_rid"
-          ]
-        }
-      ],
-      "constraints": [
-        {
-          "name": "PK_file_processing_tracker",
-          "type": "PRIMARY KEY",
-          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ file_rid ]",
-          "table": "file_processing_tracker",
-          "columns": [
-            "file_rid"
-          ]
-        }
-      ]
-    },
-    {
       "name": "locations_common",
       "type": "BASIC TABLE",
       "columns": [
@@ -154,7 +22,7 @@
           "name": "tenant_uuid",
           "type": "uniqueidentifier",
           "nullable": false,
-          "comment": "the customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
+          "comment": "The customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
         },
         {
           "name": "address_1",
@@ -209,14 +77,15 @@
         {
           "name": "dealer_rid",
           "type": "bigint",
-          "nullable": true
+          "nullable": true,
+          "comment": "References column dealer_rid on table dealer, Data type = bigint, Nullable = Yes"
         },
         {
           "name": "is_active",
           "type": "bit",
           "nullable": false,
           "default": "((1))",
-          "comment": "the record is active, Data type = bit, Nullable = No"
+          "comment": "The record is active, Data type = bit, Nullable = No"
         },
         {
           "name": "created_date",
@@ -243,7 +112,7 @@
           "name": "notes",
           "type": "nvarchar(1000)",
           "nullable": true,
-          "comment": "optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
+          "comment": "Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
         },
         {
           "name": "phone_number",
@@ -491,7 +360,7 @@
           "name": "notes",
           "type": "nvarchar(1000)",
           "nullable": true,
-          "comment": "optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
+          "comment": "Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
         },
         {
           "name": "test_data_group",
@@ -647,7 +516,7 @@
           "name": "role_rid",
           "type": "bigint",
           "nullable": false,
-          "comment": "the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = bigint, Nullable = No, References = [dbo].[role].[role_rid]"
+          "comment": "References column role_rid on table role, Data type = bigint, Nullable = No, References = [dbo].[role].[role_rid]"
         },
         {
           "name": "created_by_user_rid",
@@ -658,7 +527,7 @@
           "name": "notes",
           "type": "nvarchar(1000)",
           "nullable": true,
-          "comment": "optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
+          "comment": "Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
         }
       ],
       "indexes": [
@@ -795,7 +664,7 @@
           "name": "service_level_code",
           "type": "varchar(30)",
           "nullable": false,
-          "comment": "a lookup to the main lookup_code table, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
+          "comment": "A lookup to the main lookup_code table, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
         },
         {
           "name": "created",
@@ -874,7 +743,7 @@
           "name": "tenant_uuid",
           "type": "uniqueidentifier",
           "nullable": false,
-          "comment": "the customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
+          "comment": "The customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
         },
         {
           "name": "subscription_type_code",
@@ -891,7 +760,7 @@
           "type": "bit",
           "nullable": false,
           "default": "((1))",
-          "comment": "the record is active, Data type = bit, Nullable = No"
+          "comment": "The record is active, Data type = bit, Nullable = No"
         },
         {
           "name": "pay_up_front_auto_renew_flag",
@@ -928,7 +797,7 @@
           "name": "notes",
           "type": "nvarchar(1000)",
           "nullable": true,
-          "comment": "optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
+          "comment": "Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
         }
       ],
       "indexes": [
@@ -1073,7 +942,7 @@
           "name": "tenant_uuid",
           "type": "uniqueidentifier",
           "nullable": false,
-          "comment": "the customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
+          "comment": "The customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
         },
         {
           "name": "service_level_code",
@@ -1090,7 +959,7 @@
           "type": "bit",
           "nullable": false,
           "default": "((1))",
-          "comment": "the record is active, Data type = bit, Nullable = No"
+          "comment": "The record is active, Data type = bit, Nullable = No"
         },
         {
           "name": "created_date",
@@ -1117,7 +986,7 @@
           "name": "notes",
           "type": "nvarchar(1000)",
           "nullable": true,
-          "comment": "optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
+          "comment": "Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
         }
       ],
       "indexes": [
@@ -1327,7 +1196,7 @@
           "type": "bigint",
           "nullable": true,
           "default": "((1))",
-          "comment": "the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = bigint, Nullable = Yes, References = [dbo].[role].[role_rid]"
+          "comment": "References column role_rid on table role, Data type = bigint, Nullable = Yes, References = [dbo].[role].[role_rid]"
         },
         {
           "name": "account_type_code",
@@ -1460,7 +1329,7 @@
           "name": "notes",
           "type": "nvarchar(1000)",
           "nullable": true,
-          "comment": "optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
+          "comment": "Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
         },
         {
           "name": "test_data_group",
@@ -1970,7 +1839,7 @@
           "name": "notes",
           "type": "nvarchar(1000)",
           "nullable": true,
-          "comment": "optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
+          "comment": "Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
         },
         {
           "name": "created",
@@ -2120,7 +1989,7 @@
           "name": "account_type_code",
           "type": "varchar(30)",
           "nullable": true,
-          "comment": "a lookup to the main lookup_code table, Data type = varchar(30), Nullable = Yes, References = [dbo].[lookup_code].[code]"
+          "comment": "A lookup to the main lookup_code table, Data type = varchar(30), Nullable = Yes, References = [dbo].[lookup_code].[code]"
         },
         {
           "name": "permission_code",
@@ -2172,36 +2041,9 @@
       ]
     },
     {
-      "name": "lookup_check_base",
-      "type": "BASIC TABLE",
-      "comment": "used for centralized lookup values and processes",
-      "columns": [
-        {
-          "name": "table_name",
-          "type": "varchar(100)",
-          "nullable": false
-        },
-        {
-          "name": "column_name",
-          "type": "varchar(100)",
-          "nullable": false
-        },
-        {
-          "name": "lookup_list_code",
-          "type": "varchar(100)",
-          "nullable": false
-        },
-        {
-          "name": "code",
-          "type": "varchar(30)",
-          "nullable": false
-        }
-      ]
-    },
-    {
       "name": "lookup_code",
       "type": "BASIC TABLE",
-      "comment": "used for centralized lookup values and processes",
+      "comment": "Used for centralized lookup values and processes",
       "columns": [
         {
           "name": "code",
@@ -2237,7 +2079,7 @@
           "name": "notes",
           "type": "nvarchar(500)",
           "nullable": true,
-          "comment": "optional notes and comments about this record, Data type = nvarchar(1000), Nullable = Yes"
+          "comment": "Optional notes and comments about this record, Data type = nvarchar(1000), Nullable = Yes"
         },
         {
           "name": "custom_col1_desc",
@@ -2293,7 +2135,7 @@
           "name": "is_active",
           "type": "bit",
           "nullable": false,
-          "comment": "the record is active, Data type = bit, Nullable = No"
+          "comment": "The record is active, Data type = bit, Nullable = No"
         },
         {
           "name": "created_date",
@@ -2358,7 +2200,7 @@
     {
       "name": "lookup_code_list",
       "type": "BASIC TABLE",
-      "comment": "used for centralized lookup values and processes",
+      "comment": "Used for centralized lookup values and processes",
       "columns": [
         {
           "name": "lookup_list_code",
@@ -2384,7 +2226,7 @@
           "name": "notes",
           "type": "nvarchar(500)",
           "nullable": true,
-          "comment": "optional notes and comments about this record, Data type = nvarchar(1000), Nullable = Yes"
+          "comment": "Optional notes and comments about this record, Data type = nvarchar(1000), Nullable = Yes"
         },
         {
           "name": "former_table_db",
@@ -2449,29 +2291,473 @@
       ]
     },
     {
-      "name": "lookup_column",
+      "name": "customer_account_information",
       "type": "BASIC TABLE",
-      "comment": "used for centralized lookup values and processes",
       "columns": [
         {
-          "name": "db_name",
-          "type": "varchar(100)",
+          "name": "customer_account_information_uuid",
+          "type": "uniqueidentifier",
+          "nullable": false,
+          "default": "(newsequentialid())",
+          "comment": "Unique identifier for the record, a unique nonclustered key for the table. Must be a SQL-sortable UUIDv7. , Data type = uniqueidentifier, Nullable = No"
+        },
+        {
+          "name": "customer_account_information_rid",
+          "type": "bigint",
+          "nullable": false,
+          "comment": "Unique RowID for the record, part of composite primary key for the table after tenant_uuid, a unique clustered key for the table, Data type = bigint, Nullable = No"
+        },
+        {
+          "name": "tenant_uuid",
+          "type": "uniqueidentifier",
+          "nullable": false,
+          "comment": "The customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
+        },
+        {
+          "name": "customer_billing_information_rid",
+          "type": "int",
+          "nullable": true
+        },
+        {
+          "name": "customer_rate_information_rid",
+          "type": "int",
+          "nullable": true,
+          "comment": "References column customer_rate_information_rid on table customer_rate_information, Data type = int, Nullable = Yes"
+        },
+        {
+          "name": "customer_internal_view_rid",
+          "type": "int",
+          "nullable": true,
+          "comment": "References column customer_internal_view_rid on table customer_internal_view, Data type = int, Nullable = Yes"
+        },
+        {
+          "name": "custom_data_intergration_rid",
+          "type": "int",
+          "nullable": true
+        },
+        {
+          "name": "is_active",
+          "type": "bit",
+          "nullable": false,
+          "default": "((1))",
+          "comment": "The record is active, Data type = bit, Nullable = No"
+        },
+        {
+          "name": "created_date",
+          "type": "datetime",
+          "nullable": false,
+          "default": "(getdate())"
+        },
+        {
+          "name": "updated_date",
+          "type": "datetime",
+          "nullable": true
+        },
+        {
+          "name": "created_by_user_rid",
+          "type": "bigint",
+          "nullable": true
+        },
+        {
+          "name": "updated_by_user_rid",
+          "type": "bigint",
+          "nullable": true
+        },
+        {
+          "name": "notes",
+          "type": "nvarchar(1000)",
+          "nullable": true,
+          "comment": "Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "pk_customer_account_information_tenant_uuid_customer_account_information_rid",
+          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, customer_account_information_rid ]",
+          "table": "customer_account_information",
+          "columns": [
+            "tenant_uuid",
+            "customer_account_information_rid"
+          ]
+        },
+        {
+          "name": "uk_customer_account_information_uuid",
+          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ customer_account_information_uuid ]",
+          "table": "customer_account_information",
+          "columns": [
+            "customer_account_information_uuid"
+          ]
+        },
+        {
+          "name": "uk_customer_account_information_rid",
+          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ customer_account_information_rid ]",
+          "table": "customer_account_information",
+          "columns": [
+            "customer_account_information_rid"
+          ]
+        },
+        {
+          "name": "ix_fk_customer_account_information_tenant_uuid",
+          "def": "NONCLUSTERED, [ tenant_uuid ]",
+          "table": "customer_account_information",
+          "columns": [
+            "tenant_uuid"
+          ]
+        },
+        {
+          "name": "ix_fk_customer_account_information_created_by_user_rid",
+          "def": "NONCLUSTERED, [ created_by_user_rid ]",
+          "table": "customer_account_information",
+          "columns": [
+            "created_by_user_rid"
+          ]
+        },
+        {
+          "name": "ix_fk_customer_account_information_updated_by_user_rid",
+          "def": "NONCLUSTERED, [ updated_by_user_rid ]",
+          "table": "customer_account_information",
+          "columns": [
+            "updated_by_user_rid"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "pk_customer_account_information_tenant_uuid_customer_account_information_rid",
+          "type": "PRIMARY KEY",
+          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, customer_account_information_rid ]",
+          "table": "customer_account_information",
+          "columns": [
+            "tenant_uuid",
+            "customer_account_information_rid"
+          ]
+        },
+        {
+          "name": "uk_customer_account_information_uuid",
+          "type": "UNIQUE",
+          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ customer_account_information_uuid ]",
+          "table": "customer_account_information",
+          "columns": [
+            "customer_account_information_uuid"
+          ]
+        },
+        {
+          "name": "uk_customer_account_information_rid",
+          "type": "UNIQUE",
+          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ customer_account_information_rid ]",
+          "table": "customer_account_information",
+          "columns": [
+            "customer_account_information_rid"
+          ]
+        },
+        {
+          "name": "fk_customer_account_information_created_by_user_rid",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY(created_by_user_rid) REFERENCES user_accounts(user_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
+          "table": "customer_account_information",
+          "referenced_table": "user_accounts",
+          "columns": [
+            "created_by_user_rid"
+          ],
+          "referenced_columns": [
+            "user_rid"
+          ]
+        },
+        {
+          "name": "fk_customer_account_information_tenant_uuid",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY(tenant_uuid) REFERENCES account_details(tenant_uuid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
+          "table": "customer_account_information",
+          "referenced_table": "account_details",
+          "columns": [
+            "tenant_uuid"
+          ],
+          "referenced_columns": [
+            "tenant_uuid"
+          ]
+        },
+        {
+          "name": "fk_customer_account_information_updated_by_user_rid",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY(updated_by_user_rid) REFERENCES user_accounts(user_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
+          "table": "customer_account_information",
+          "referenced_table": "user_accounts",
+          "columns": [
+            "updated_by_user_rid"
+          ],
+          "referenced_columns": [
+            "user_rid"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "customer_billing_information",
+      "type": "BASIC TABLE",
+      "columns": [
+        {
+          "name": "customer_billing_information_uuid",
+          "type": "uniqueidentifier",
+          "nullable": false,
+          "default": "(newsequentialid())",
+          "comment": "Unique identifier for the record, a unique nonclustered key for the table. Must be a SQL-sortable UUIDv7. , Data type = uniqueidentifier, Nullable = No"
+        },
+        {
+          "name": "customer_billing_information_rid",
+          "type": "bigint",
+          "nullable": false,
+          "comment": "Unique RowID for the record, part of composite primary key for the table after tenant_uuid, a unique clustered key for the table, Data type = bigint, Nullable = No"
+        },
+        {
+          "name": "tenant_uuid",
+          "type": "uniqueidentifier",
+          "nullable": false,
+          "comment": "The customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
+        },
+        {
+          "name": "approval_status",
+          "type": "nvarchar(50)",
+          "nullable": true
+        },
+        {
+          "name": "artifact_id",
+          "type": "nvarchar(500)",
+          "nullable": true
+        },
+        {
+          "name": "Tracking_admin_email",
+          "type": "nvarchar(60)",
+          "nullable": true
+        },
+        {
+          "name": "dealer_rid",
+          "type": "int",
+          "nullable": true,
+          "comment": "References column dealer_rid on table dealer, Data type = int, Nullable = Yes"
+        },
+        {
+          "name": "customer_type_rid",
+          "type": "int",
+          "nullable": true
+        },
+        {
+          "name": "master_customer_rid",
+          "type": "int",
+          "nullable": true
+        },
+        {
+          "name": "billing_service_type_code",
+          "type": "varchar(30)",
+          "nullable": true
+        },
+        {
+          "name": "billing_option_type_code",
+          "type": "varchar(30)",
           "nullable": false
         },
         {
-          "name": "table_name",
-          "type": "varchar(100)",
+          "name": "pay_up_front_term_code",
+          "type": "varchar(30)",
+          "nullable": true
+        },
+        {
+          "name": "billing_service_level_rid",
+          "type": "int",
+          "nullable": true
+        },
+        {
+          "name": "contract_term_code",
+          "type": "varchar(30)",
+          "nullable": true
+        },
+        {
+          "name": "contract_unit",
+          "type": "int",
+          "nullable": true
+        },
+        {
+          "name": "logging_interval_code_on",
+          "type": "varchar(30)",
+          "nullable": true
+        },
+        {
+          "name": "logging_interval_code_off",
+          "type": "varchar(30)",
+          "nullable": true
+        },
+        {
+          "name": "is_active",
+          "type": "bit",
+          "nullable": false,
+          "default": "((1))",
+          "comment": "The record is active, Data type = bit, Nullable = No"
+        },
+        {
+          "name": "restrict_logging_service_level_flag",
+          "type": "bit",
           "nullable": false
         },
         {
-          "name": "column_name",
-          "type": "varchar(100)",
+          "name": "service_assist_subscription_flag",
+          "type": "bit",
           "nullable": false
         },
         {
-          "name": "lookup_list_name",
-          "type": "varchar(100)",
+          "name": "pay_up_front_auto_renew_flag",
+          "type": "bit",
           "nullable": false
+        },
+        {
+          "name": "created_date",
+          "type": "datetime",
+          "nullable": false,
+          "default": "(getdate())"
+        },
+        {
+          "name": "updated_date",
+          "type": "datetime",
+          "nullable": true
+        },
+        {
+          "name": "created_by_user_rid",
+          "type": "bigint",
+          "nullable": true
+        },
+        {
+          "name": "updated_by_user_rid",
+          "type": "bigint",
+          "nullable": true
+        },
+        {
+          "name": "notes",
+          "type": "nvarchar(1000)",
+          "nullable": true,
+          "comment": "Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
+        },
+        {
+          "name": "notes_dealer",
+          "type": "nvarchar(2000)",
+          "nullable": true
+        }
+      ],
+      "indexes": [
+        {
+          "name": "pk_customer_billing_information_tenant_uuid_customer_billing_information_rid",
+          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, customer_billing_information_rid ]",
+          "table": "customer_billing_information",
+          "columns": [
+            "tenant_uuid",
+            "customer_billing_information_rid"
+          ]
+        },
+        {
+          "name": "uk_customer_billing_information_uuid",
+          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ customer_billing_information_uuid ]",
+          "table": "customer_billing_information",
+          "columns": [
+            "customer_billing_information_uuid"
+          ]
+        },
+        {
+          "name": "uk_customer_billing_information_rid",
+          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ customer_billing_information_rid ]",
+          "table": "customer_billing_information",
+          "columns": [
+            "customer_billing_information_rid"
+          ]
+        },
+        {
+          "name": "ix_fk_customer_billing_information_created_by_user_rid",
+          "def": "NONCLUSTERED, [ created_by_user_rid ]",
+          "table": "customer_billing_information",
+          "columns": [
+            "created_by_user_rid"
+          ]
+        },
+        {
+          "name": "ix_fk_customer_billing_information_tenant_uuid",
+          "def": "NONCLUSTERED, [ tenant_uuid ]",
+          "table": "customer_billing_information",
+          "columns": [
+            "tenant_uuid"
+          ]
+        },
+        {
+          "name": "ix_fk_customer_billing_information_updated_by_user_rid",
+          "def": "NONCLUSTERED, [ updated_by_user_rid ]",
+          "table": "customer_billing_information",
+          "columns": [
+            "updated_by_user_rid"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "pk_customer_billing_information_tenant_uuid_customer_billing_information_rid",
+          "type": "PRIMARY KEY",
+          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, customer_billing_information_rid ]",
+          "table": "customer_billing_information",
+          "columns": [
+            "tenant_uuid",
+            "customer_billing_information_rid"
+          ]
+        },
+        {
+          "name": "uk_customer_billing_information_uuid",
+          "type": "UNIQUE",
+          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ customer_billing_information_uuid ]",
+          "table": "customer_billing_information",
+          "columns": [
+            "customer_billing_information_uuid"
+          ]
+        },
+        {
+          "name": "uk_customer_billing_information_rid",
+          "type": "UNIQUE",
+          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ customer_billing_information_rid ]",
+          "table": "customer_billing_information",
+          "columns": [
+            "customer_billing_information_rid"
+          ]
+        },
+        {
+          "name": "fk_customer_billing_information_created_by_user_rid",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY(created_by_user_rid) REFERENCES user_accounts(user_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
+          "table": "customer_billing_information",
+          "referenced_table": "user_accounts",
+          "columns": [
+            "created_by_user_rid"
+          ],
+          "referenced_columns": [
+            "user_rid"
+          ]
+        },
+        {
+          "name": "fk_customer_billing_information_tenant_uuid",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY(tenant_uuid) REFERENCES account_details(tenant_uuid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
+          "table": "customer_billing_information",
+          "referenced_table": "account_details",
+          "columns": [
+            "tenant_uuid"
+          ],
+          "referenced_columns": [
+            "tenant_uuid"
+          ]
+        },
+        {
+          "name": "fk_customer_billing_information_updated_by_user_rid",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY(updated_by_user_rid) REFERENCES user_accounts(user_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
+          "table": "customer_billing_information",
+          "referenced_table": "user_accounts",
+          "columns": [
+            "updated_by_user_rid"
+          ],
+          "referenced_columns": [
+            "user_rid"
+          ]
         }
       ]
     },
@@ -2569,7 +2855,7 @@
           "name": "dealer_rid",
           "type": "bigint",
           "nullable": true,
-          "comment": "the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = bigint, Nullable = Yes, References = [dbo].[dealer].[dealer_rid]"
+          "comment": "References column dealer_rid on table dealer, Data type = bigint, Nullable = Yes, References = [dbo].[dealer].[dealer_rid]"
         },
         {
           "name": "csm_rid",
@@ -2581,7 +2867,8 @@
           "name": "account_type_rid",
           "type": "bigint",
           "nullable": false,
-          "default": "((1))"
+          "default": "((1))",
+          "comment": "References column account_type_rid on table account_type, Data type = bigint, Nullable = No, References = [dbo].[account_type].[account_type_rid]"
         },
         {
           "name": "phone_type_code",
@@ -2594,7 +2881,7 @@
           "type": "varchar(30)",
           "nullable": false,
           "default": "('ROL_BASIC')",
-          "comment": "a lookup to the main lookup_code table, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
+          "comment": "A lookup to the main lookup_code table, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
         },
         {
           "name": "is_active",
@@ -2660,7 +2947,7 @@
           "name": "notes",
           "type": "nvarchar(1000)",
           "nullable": true,
-          "comment": "optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
+          "comment": "Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
         },
         {
           "name": "test_data_group",
@@ -2832,7 +3119,7 @@
           "type": "bit",
           "nullable": false,
           "default": "((1))",
-          "comment": "the record is active, Data type = bit, Nullable = No"
+          "comment": "The record is active, Data type = bit, Nullable = No"
         },
         {
           "name": "created_date",
@@ -2859,7 +3146,7 @@
           "name": "notes",
           "type": "nvarchar(1000)",
           "nullable": true,
-          "comment": "optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
+          "comment": "Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
         },
         {
           "name": "status",
@@ -2985,12 +3272,14 @@
         {
           "name": "account_type_rid",
           "type": "bigint",
-          "nullable": true
+          "nullable": true,
+          "comment": "References column account_type_rid on table account_type, Data type = bigint, Nullable = Yes"
         },
         {
           "name": "role_rid",
           "type": "int",
-          "nullable": false
+          "nullable": false,
+          "comment": "References column role_rid on table role, Data type = int, Nullable = No"
         },
         {
           "name": "permission_code",
@@ -3002,7 +3291,7 @@
           "type": "bit",
           "nullable": false,
           "default": "((1))",
-          "comment": "the record is active, Data type = bit, Nullable = No"
+          "comment": "The record is active, Data type = bit, Nullable = No"
         },
         {
           "name": "created_date",
@@ -3120,104 +3409,6 @@
           ],
           "referenced_columns": [
             "user_rid"
-          ]
-        }
-      ]
-    },
-    {
-      "name": "bulk_user_details",
-      "type": "BASIC TABLE",
-      "columns": [
-        {
-          "name": "rid",
-          "type": "int",
-          "nullable": false
-        },
-        {
-          "name": "first_name",
-          "type": "varchar(50)",
-          "nullable": true
-        },
-        {
-          "name": "last_name",
-          "type": "varchar(50)",
-          "nullable": true
-        },
-        {
-          "name": "email_id",
-          "type": "varchar(50)",
-          "nullable": true
-        },
-        {
-          "name": "is_valid",
-          "type": "bit",
-          "nullable": true
-        },
-        {
-          "name": "err_msg",
-          "type": "nvarchar(200)",
-          "nullable": true
-        },
-        {
-          "name": "tenant_id",
-          "type": "nvarchar(50)",
-          "nullable": true
-        },
-        {
-          "name": "created_at",
-          "type": "datetime",
-          "nullable": true
-        },
-        {
-          "name": "updated_at",
-          "type": "datetime",
-          "nullable": true
-        },
-        {
-          "name": "file_rid",
-          "type": "int",
-          "nullable": false
-        }
-      ],
-      "indexes": [
-        {
-          "name": "PK_bulk_user_details",
-          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ rid ]",
-          "table": "bulk_user_details",
-          "columns": [
-            "rid"
-          ]
-        },
-        {
-          "name": "IDX_bulk_user_details_file_rid",
-          "def": "NONCLUSTERED, [ file_rid ]",
-          "table": "bulk_user_details",
-          "columns": [
-            "file_rid"
-          ]
-        }
-      ],
-      "constraints": [
-        {
-          "name": "PK_bulk_user_details",
-          "type": "PRIMARY KEY",
-          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ rid ]",
-          "table": "bulk_user_details",
-          "columns": [
-            "rid"
-          ]
-        },
-        {
-          "name": "FK_bulk_user_details_file_processing_tracker",
-          "type": "FOREIGN KEY",
-          "def": "FOREIGN KEY(file_rid) REFERENCES file_processing_tracker(file_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
-          "table": "bulk_user_details",
-          "referenced_table": "file_processing_tracker",
-          "columns": [
-            "file_rid"
-          ],
-          "referenced_columns": [
-            "file_rid"
           ]
         }
       ]
@@ -3360,7 +3551,7 @@
           "name": "notes",
           "type": "nvarchar(1000)",
           "nullable": true,
-          "comment": "optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
+          "comment": "Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
         },
         {
           "name": "active",
@@ -3610,549 +3801,6 @@
       ]
     },
     {
-      "name": "cosmos_table",
-      "type": "BASIC TABLE",
-      "columns": [
-        {
-          "name": "id",
-          "type": "varchar(255)",
-          "nullable": true,
-          "default": "(newid())",
-          "comment": "DEPRECATED, Data type = varchar(255), Nullable = Yes"
-        },
-        {
-          "name": "tenant_id",
-          "type": "varchar(255)",
-          "nullable": true
-        },
-        {
-          "name": "adminName",
-          "type": "nvarchar(100)",
-          "nullable": true
-        },
-        {
-          "name": "organization",
-          "type": "nvarchar(200)",
-          "nullable": true
-        },
-        {
-          "name": "state",
-          "type": "nvarchar(100)",
-          "nullable": true
-        },
-        {
-          "name": "activationToken",
-          "type": "varchar(50)",
-          "nullable": true,
-          "default": "('NULL')"
-        },
-        {
-          "name": "createdReason",
-          "type": "varchar(50)",
-          "nullable": true,
-          "default": "('V1_migrated_data')"
-        },
-        {
-          "name": "comments",
-          "type": "varchar(50)",
-          "nullable": true,
-          "default": "('V1_migrated_data')"
-        },
-        {
-          "name": "adminEmail",
-          "type": "nvarchar(100)",
-          "nullable": true
-        },
-        {
-          "name": "createdAt",
-          "type": "datetime",
-          "nullable": true,
-          "default": "(getdate())"
-        },
-        {
-          "name": "updatedAt",
-          "type": "datetime",
-          "nullable": true,
-          "default": "(getdate())"
-        },
-        {
-          "name": "accountType",
-          "type": "varchar(50)",
-          "nullable": true
-        },
-        {
-          "name": "phone_number",
-          "type": "nvarchar(50)",
-          "nullable": true,
-          "default": "('0000000000')"
-        }
-      ]
-    },
-    {
-      "name": "customer_account_information",
-      "type": "BASIC TABLE",
-      "columns": [
-        {
-          "name": "customer_account_info_uuid",
-          "type": "uniqueidentifier",
-          "nullable": false,
-          "default": "(newsequentialid())"
-        },
-        {
-          "name": "customer_account_info_rid",
-          "type": "bigint",
-          "nullable": false
-        },
-        {
-          "name": "tenant_uuid",
-          "type": "uniqueidentifier",
-          "nullable": false,
-          "comment": "the customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
-        },
-        {
-          "name": "customer_billing_information_rid",
-          "type": "int",
-          "nullable": true
-        },
-        {
-          "name": "customer_rate_information_rid",
-          "type": "int",
-          "nullable": true
-        },
-        {
-          "name": "customer_internal_view_rid",
-          "type": "int",
-          "nullable": true
-        },
-        {
-          "name": "custom_data_intergration_rid",
-          "type": "int",
-          "nullable": true
-        },
-        {
-          "name": "is_active",
-          "type": "bit",
-          "nullable": false,
-          "default": "((1))",
-          "comment": "the record is active, Data type = bit, Nullable = No"
-        },
-        {
-          "name": "created_date",
-          "type": "datetime",
-          "nullable": false,
-          "default": "(getdate())"
-        },
-        {
-          "name": "updated_date",
-          "type": "datetime",
-          "nullable": true
-        },
-        {
-          "name": "created_by_user_rid",
-          "type": "bigint",
-          "nullable": true
-        },
-        {
-          "name": "updated_by_user_rid",
-          "type": "bigint",
-          "nullable": true
-        },
-        {
-          "name": "notes",
-          "type": "nvarchar(1000)",
-          "nullable": true,
-          "comment": "optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
-        }
-      ],
-      "indexes": [
-        {
-          "name": "pk_customer_account_info_tenant_uuid_customer_account_info_rid",
-          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, customer_account_info_rid ]",
-          "table": "customer_account_information",
-          "columns": [
-            "tenant_uuid",
-            "customer_account_info_rid"
-          ]
-        },
-        {
-          "name": "uk_customer_account_info_uuid",
-          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ customer_account_info_uuid ]",
-          "table": "customer_account_information",
-          "columns": [
-            "customer_account_info_uuid"
-          ]
-        },
-        {
-          "name": "uk_customer_account_info_rid",
-          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ customer_account_info_rid ]",
-          "table": "customer_account_information",
-          "columns": [
-            "customer_account_info_rid"
-          ]
-        },
-        {
-          "name": "ix_fk_customer_account_info_tenant_uuid",
-          "def": "NONCLUSTERED, [ tenant_uuid ]",
-          "table": "customer_account_information",
-          "columns": [
-            "tenant_uuid"
-          ]
-        },
-        {
-          "name": "ix_fk_customer_account_info_created_by_user_rid",
-          "def": "NONCLUSTERED, [ created_by_user_rid ]",
-          "table": "customer_account_information",
-          "columns": [
-            "created_by_user_rid"
-          ]
-        },
-        {
-          "name": "ix_fk_customer_account_info_updated_by_user_rid",
-          "def": "NONCLUSTERED, [ updated_by_user_rid ]",
-          "table": "customer_account_information",
-          "columns": [
-            "updated_by_user_rid"
-          ]
-        }
-      ],
-      "constraints": [
-        {
-          "name": "pk_customer_account_info_tenant_uuid_customer_account_info_rid",
-          "type": "PRIMARY KEY",
-          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, customer_account_info_rid ]",
-          "table": "customer_account_information",
-          "columns": [
-            "tenant_uuid",
-            "customer_account_info_rid"
-          ]
-        },
-        {
-          "name": "uk_customer_account_info_uuid",
-          "type": "UNIQUE",
-          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ customer_account_info_uuid ]",
-          "table": "customer_account_information",
-          "columns": [
-            "customer_account_info_uuid"
-          ]
-        },
-        {
-          "name": "uk_customer_account_info_rid",
-          "type": "UNIQUE",
-          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ customer_account_info_rid ]",
-          "table": "customer_account_information",
-          "columns": [
-            "customer_account_info_rid"
-          ]
-        },
-        {
-          "name": "fk_customer_account_info_created_by_user_rid",
-          "type": "FOREIGN KEY",
-          "def": "FOREIGN KEY(created_by_user_rid) REFERENCES user_accounts(user_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
-          "table": "customer_account_information",
-          "referenced_table": "user_accounts",
-          "columns": [
-            "created_by_user_rid"
-          ],
-          "referenced_columns": [
-            "user_rid"
-          ]
-        },
-        {
-          "name": "fk_customer_account_info_tenant_uuid",
-          "type": "FOREIGN KEY",
-          "def": "FOREIGN KEY(tenant_uuid) REFERENCES account_details(tenant_uuid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
-          "table": "customer_account_information",
-          "referenced_table": "account_details",
-          "columns": [
-            "tenant_uuid"
-          ],
-          "referenced_columns": [
-            "tenant_uuid"
-          ]
-        },
-        {
-          "name": "fk_customer_account_info_updated_by_user_rid",
-          "type": "FOREIGN KEY",
-          "def": "FOREIGN KEY(updated_by_user_rid) REFERENCES user_accounts(user_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
-          "table": "customer_account_information",
-          "referenced_table": "user_accounts",
-          "columns": [
-            "updated_by_user_rid"
-          ],
-          "referenced_columns": [
-            "user_rid"
-          ]
-        }
-      ]
-    },
-    {
-      "name": "customer_billing_information",
-      "type": "BASIC TABLE",
-      "columns": [
-        {
-          "name": "customer_billing_info_uuid",
-          "type": "uniqueidentifier",
-          "nullable": false,
-          "default": "(newsequentialid())"
-        },
-        {
-          "name": "customer_billing_info_rid",
-          "type": "bigint",
-          "nullable": false
-        },
-        {
-          "name": "tenant_uuid",
-          "type": "uniqueidentifier",
-          "nullable": false,
-          "comment": "the customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
-        },
-        {
-          "name": "approval_status",
-          "type": "nvarchar(50)",
-          "nullable": true
-        },
-        {
-          "name": "artifact_id",
-          "type": "nvarchar(500)",
-          "nullable": true
-        },
-        {
-          "name": "Tracking_admin_email",
-          "type": "nvarchar(60)",
-          "nullable": true
-        },
-        {
-          "name": "dealer_rid",
-          "type": "int",
-          "nullable": true
-        },
-        {
-          "name": "customer_type_rid",
-          "type": "int",
-          "nullable": true
-        },
-        {
-          "name": "master_customer_rid",
-          "type": "int",
-          "nullable": true
-        },
-        {
-          "name": "billing_service_type_code",
-          "type": "varchar(30)",
-          "nullable": true
-        },
-        {
-          "name": "billing_option_type_code",
-          "type": "varchar(30)",
-          "nullable": false
-        },
-        {
-          "name": "pay_up_front_term_code",
-          "type": "varchar(30)",
-          "nullable": true
-        },
-        {
-          "name": "billing_service_level_rid",
-          "type": "int",
-          "nullable": true
-        },
-        {
-          "name": "contract_term_code",
-          "type": "varchar(30)",
-          "nullable": true
-        },
-        {
-          "name": "contract_unit",
-          "type": "int",
-          "nullable": true
-        },
-        {
-          "name": "logging_interval_code_on",
-          "type": "varchar(30)",
-          "nullable": true
-        },
-        {
-          "name": "logging_interval_code_off",
-          "type": "varchar(30)",
-          "nullable": true
-        },
-        {
-          "name": "is_active",
-          "type": "bit",
-          "nullable": false,
-          "default": "((1))",
-          "comment": "the record is active, Data type = bit, Nullable = No"
-        },
-        {
-          "name": "restrict_logging_service_level_flag",
-          "type": "bit",
-          "nullable": false
-        },
-        {
-          "name": "service_assist_subscription_flag",
-          "type": "bit",
-          "nullable": false
-        },
-        {
-          "name": "pay_up_front_auto_renew_flag",
-          "type": "bit",
-          "nullable": false
-        },
-        {
-          "name": "created_date",
-          "type": "datetime",
-          "nullable": false,
-          "default": "(getdate())"
-        },
-        {
-          "name": "updated_date",
-          "type": "datetime",
-          "nullable": true
-        },
-        {
-          "name": "created_by_user_rid",
-          "type": "bigint",
-          "nullable": true
-        },
-        {
-          "name": "updated_by_user_rid",
-          "type": "bigint",
-          "nullable": true
-        },
-        {
-          "name": "notes",
-          "type": "nvarchar(1000)",
-          "nullable": true,
-          "comment": "optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
-        },
-        {
-          "name": "notes_dealer",
-          "type": "nvarchar(2000)",
-          "nullable": true
-        }
-      ],
-      "indexes": [
-        {
-          "name": "pk_customer_billing_info_tenant_uuid_customer_billing_info_rid",
-          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, customer_billing_info_rid ]",
-          "table": "customer_billing_information",
-          "columns": [
-            "tenant_uuid",
-            "customer_billing_info_rid"
-          ]
-        },
-        {
-          "name": "uk_customer_billing_info_uuid",
-          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ customer_billing_info_uuid ]",
-          "table": "customer_billing_information",
-          "columns": [
-            "customer_billing_info_uuid"
-          ]
-        },
-        {
-          "name": "uk_customer_billing_info_rid",
-          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ customer_billing_info_rid ]",
-          "table": "customer_billing_information",
-          "columns": [
-            "customer_billing_info_rid"
-          ]
-        },
-        {
-          "name": "ix_fk_customer_billing_info_created_by_user_rid",
-          "def": "NONCLUSTERED, [ created_by_user_rid ]",
-          "table": "customer_billing_information",
-          "columns": [
-            "created_by_user_rid"
-          ]
-        },
-        {
-          "name": "ix_fk_customer_billing_info_tenant_uuid",
-          "def": "NONCLUSTERED, [ tenant_uuid ]",
-          "table": "customer_billing_information",
-          "columns": [
-            "tenant_uuid"
-          ]
-        },
-        {
-          "name": "ix_fk_customer_billing_info_updated_by_user_rid",
-          "def": "NONCLUSTERED, [ updated_by_user_rid ]",
-          "table": "customer_billing_information",
-          "columns": [
-            "updated_by_user_rid"
-          ]
-        }
-      ],
-      "constraints": [
-        {
-          "name": "pk_customer_billing_info_tenant_uuid_customer_billing_info_rid",
-          "type": "PRIMARY KEY",
-          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, customer_billing_info_rid ]",
-          "table": "customer_billing_information",
-          "columns": [
-            "tenant_uuid",
-            "customer_billing_info_rid"
-          ]
-        },
-        {
-          "name": "uk_customer_billing_info_uuid",
-          "type": "UNIQUE",
-          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ customer_billing_info_uuid ]",
-          "table": "customer_billing_information",
-          "columns": [
-            "customer_billing_info_uuid"
-          ]
-        },
-        {
-          "name": "uk_customer_billing_info_rid",
-          "type": "UNIQUE",
-          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ customer_billing_info_rid ]",
-          "table": "customer_billing_information",
-          "columns": [
-            "customer_billing_info_rid"
-          ]
-        },
-        {
-          "name": "fk_customer_billing_info_created_by_user_rid",
-          "type": "FOREIGN KEY",
-          "def": "FOREIGN KEY(created_by_user_rid) REFERENCES user_accounts(user_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
-          "table": "customer_billing_information",
-          "referenced_table": "user_accounts",
-          "columns": [
-            "created_by_user_rid"
-          ],
-          "referenced_columns": [
-            "user_rid"
-          ]
-        },
-        {
-          "name": "fk_customer_billing_info_tenant_uuid",
-          "type": "FOREIGN KEY",
-          "def": "FOREIGN KEY(tenant_uuid) REFERENCES account_details(tenant_uuid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
-          "table": "customer_billing_information",
-          "referenced_table": "account_details",
-          "columns": [
-            "tenant_uuid"
-          ],
-          "referenced_columns": [
-            "tenant_uuid"
-          ]
-        },
-        {
-          "name": "fk_customer_billing_info_updated_by_user_rid",
-          "type": "FOREIGN KEY",
-          "def": "FOREIGN KEY(updated_by_user_rid) REFERENCES user_accounts(user_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
-          "table": "customer_billing_information",
-          "referenced_table": "user_accounts",
-          "columns": [
-            "updated_by_user_rid"
-          ],
-          "referenced_columns": [
-            "user_rid"
-          ]
-        }
-      ]
-    },
-    {
       "name": "customer_internal_view",
       "type": "BASIC TABLE",
       "columns": [
@@ -4173,14 +3821,14 @@
           "name": "tenant_uuid",
           "type": "uniqueidentifier",
           "nullable": false,
-          "comment": "the customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
+          "comment": "The customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
         },
         {
           "name": "is_active",
           "type": "bit",
           "nullable": false,
           "default": "((1))",
-          "comment": "the record is active, Data type = bit, Nullable = No"
+          "comment": "The record is active, Data type = bit, Nullable = No"
         },
         {
           "name": "created_date",
@@ -4227,7 +3875,7 @@
           "name": "notes",
           "type": "nvarchar(1000)",
           "nullable": true,
-          "comment": "optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
+          "comment": "Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
         },
         {
           "name": "admin_notes",
@@ -4377,7 +4025,7 @@
           "name": "tenant_uuid",
           "type": "uniqueidentifier",
           "nullable": false,
-          "comment": "the customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
+          "comment": "The customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
         },
         {
           "name": "rate_deviation_pct",
@@ -4394,7 +4042,7 @@
           "type": "bit",
           "nullable": false,
           "default": "((1))",
-          "comment": "the record is active, Data type = bit, Nullable = No"
+          "comment": "The record is active, Data type = bit, Nullable = No"
         },
         {
           "name": "rate_approve_flag",
@@ -4436,7 +4084,7 @@
           "name": "notes",
           "type": "nvarchar(1000)",
           "nullable": true,
-          "comment": "optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
+          "comment": "Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
         },
         {
           "name": "rate_approver_notes",
@@ -4593,7 +4241,7 @@
           "name": "tenant_uuid",
           "type": "uniqueidentifier",
           "nullable": false,
-          "comment": "the customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
+          "comment": "The customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
         },
         {
           "name": "name",
@@ -4658,7 +4306,8 @@
         {
           "name": "dealer_family_rid",
           "type": "bigint",
-          "nullable": true
+          "nullable": true,
+          "comment": "References column dealer_family_rid on table dealer_family, Data type = bigint, Nullable = Yes, References = [dbo].[dealer_family].[dealer_family_rid]"
         },
         {
           "name": "is_active",
@@ -4700,7 +4349,7 @@
           "name": "notes",
           "type": "nvarchar(1000)",
           "nullable": true,
-          "comment": "optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
+          "comment": "Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
         }
       ],
       "indexes": [
@@ -4866,7 +4515,7 @@
           "name": "tenant_uuid",
           "type": "uniqueidentifier",
           "nullable": false,
-          "comment": "the customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
+          "comment": "The customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
         },
         {
           "name": "name",
@@ -4878,7 +4527,7 @@
           "type": "bit",
           "nullable": false,
           "default": "((1))",
-          "comment": "the record is active, Data type = bit, Nullable = No"
+          "comment": "The record is active, Data type = bit, Nullable = No"
         },
         {
           "name": "created_date",
@@ -4905,7 +4554,7 @@
           "name": "notes",
           "type": "nvarchar(1000)",
           "nullable": true,
-          "comment": "optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
+          "comment": "Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
         }
       ],
       "indexes": [
@@ -5448,6 +5097,84 @@
       "def": ""
     },
     {
+      "table": "customer_account_information",
+      "columns": [
+        "created_by_user_rid"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "user_accounts",
+      "parent_columns": [
+        "user_rid"
+      ],
+      "parent_cardinality": "zero_or_one",
+      "def": ""
+    },
+    {
+      "table": "customer_account_information",
+      "columns": [
+        "tenant_uuid"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "account_details",
+      "parent_columns": [
+        "tenant_uuid"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": ""
+    },
+    {
+      "table": "customer_account_information",
+      "columns": [
+        "updated_by_user_rid"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "user_accounts",
+      "parent_columns": [
+        "user_rid"
+      ],
+      "parent_cardinality": "zero_or_one",
+      "def": ""
+    },
+    {
+      "table": "customer_billing_information",
+      "columns": [
+        "created_by_user_rid"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "user_accounts",
+      "parent_columns": [
+        "user_rid"
+      ],
+      "parent_cardinality": "zero_or_one",
+      "def": ""
+    },
+    {
+      "table": "customer_billing_information",
+      "columns": [
+        "tenant_uuid"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "account_details",
+      "parent_columns": [
+        "tenant_uuid"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": ""
+    },
+    {
+      "table": "customer_billing_information",
+      "columns": [
+        "updated_by_user_rid"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "user_accounts",
+      "parent_columns": [
+        "user_rid"
+      ],
+      "parent_cardinality": "zero_or_one",
+      "def": ""
+    },
+    {
       "table": "account_details",
       "columns": [
         "account_type_rid"
@@ -5552,19 +5279,6 @@
       "def": ""
     },
     {
-      "table": "bulk_user_details",
-      "columns": [
-        "file_rid"
-      ],
-      "cardinality": "zero_or_more",
-      "parent_table": "file_processing_tracker",
-      "parent_columns": [
-        "file_rid"
-      ],
-      "parent_cardinality": "exactly_one",
-      "def": ""
-    },
-    {
       "table": "contact",
       "columns": [
         "created_by_user_rid"
@@ -5657,84 +5371,6 @@
     },
     {
       "table": "contact",
-      "columns": [
-        "updated_by_user_rid"
-      ],
-      "cardinality": "zero_or_more",
-      "parent_table": "user_accounts",
-      "parent_columns": [
-        "user_rid"
-      ],
-      "parent_cardinality": "zero_or_one",
-      "def": ""
-    },
-    {
-      "table": "customer_account_information",
-      "columns": [
-        "created_by_user_rid"
-      ],
-      "cardinality": "zero_or_more",
-      "parent_table": "user_accounts",
-      "parent_columns": [
-        "user_rid"
-      ],
-      "parent_cardinality": "zero_or_one",
-      "def": ""
-    },
-    {
-      "table": "customer_account_information",
-      "columns": [
-        "tenant_uuid"
-      ],
-      "cardinality": "zero_or_more",
-      "parent_table": "account_details",
-      "parent_columns": [
-        "tenant_uuid"
-      ],
-      "parent_cardinality": "exactly_one",
-      "def": ""
-    },
-    {
-      "table": "customer_account_information",
-      "columns": [
-        "updated_by_user_rid"
-      ],
-      "cardinality": "zero_or_more",
-      "parent_table": "user_accounts",
-      "parent_columns": [
-        "user_rid"
-      ],
-      "parent_cardinality": "zero_or_one",
-      "def": ""
-    },
-    {
-      "table": "customer_billing_information",
-      "columns": [
-        "created_by_user_rid"
-      ],
-      "cardinality": "zero_or_more",
-      "parent_table": "user_accounts",
-      "parent_columns": [
-        "user_rid"
-      ],
-      "parent_cardinality": "zero_or_one",
-      "def": ""
-    },
-    {
-      "table": "customer_billing_information",
-      "columns": [
-        "tenant_uuid"
-      ],
-      "cardinality": "zero_or_more",
-      "parent_table": "account_details",
-      "parent_columns": [
-        "tenant_uuid"
-      ],
-      "parent_cardinality": "exactly_one",
-      "def": ""
-    },
-    {
-      "table": "customer_billing_information",
       "columns": [
         "updated_by_user_rid"
       ],

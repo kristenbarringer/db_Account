@@ -4,41 +4,41 @@
 
 | Name | Type | Default | Nullable | Children | Parents | Comment |
 | ---- | ---- | ------- | -------- | -------- | ------- | ------- |
-| customer_account_info_uuid | uniqueidentifier | (newsequentialid()) | false |  |  |  |
-| customer_account_info_rid | bigint |  | false |  |  |  |
-| tenant_uuid | uniqueidentifier |  | false |  | [account_details](account_details.md) | the customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid] |
+| customer_account_information_uuid | uniqueidentifier | (newsequentialid()) | false |  |  | Unique identifier for the record, a unique nonclustered key for the table. Must be a SQL-sortable UUIDv7. , Data type = uniqueidentifier, Nullable = No |
+| customer_account_information_rid | bigint |  | false |  |  | Unique RowID for the record, part of composite primary key for the table after tenant_uuid, a unique clustered key for the table, Data type = bigint, Nullable = No |
+| tenant_uuid | uniqueidentifier |  | false |  | [account_details](account_details.md) | The customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid] |
 | customer_billing_information_rid | int |  | true |  |  |  |
-| customer_rate_information_rid | int |  | true |  |  |  |
-| customer_internal_view_rid | int |  | true |  |  |  |
+| customer_rate_information_rid | int |  | true |  |  | References column customer_rate_information_rid on table customer_rate_information, Data type = int, Nullable = Yes |
+| customer_internal_view_rid | int |  | true |  |  | References column customer_internal_view_rid on table customer_internal_view, Data type = int, Nullable = Yes |
 | custom_data_intergration_rid | int |  | true |  |  |  |
-| is_active | bit | ((1)) | false |  |  | the record is active, Data type = bit, Nullable = No |
+| is_active | bit | ((1)) | false |  |  | The record is active, Data type = bit, Nullable = No |
 | created_date | datetime | (getdate()) | false |  |  |  |
 | updated_date | datetime |  | true |  |  |  |
 | created_by_user_rid | bigint |  | true |  | [user_accounts](user_accounts.md) |  |
 | updated_by_user_rid | bigint |  | true |  | [user_accounts](user_accounts.md) |  |
-| notes | nvarchar(1000) |  | true |  |  | optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes |
+| notes | nvarchar(1000) |  | true |  |  | Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes |
 
 ## Constraints
 
 | Name | Type | Definition |
 | ---- | ---- | ---------- |
-| pk_customer_account_info_tenant_uuid_customer_account_info_rid | PRIMARY KEY | CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, customer_account_info_rid ] |
-| uk_customer_account_info_uuid | UNIQUE | NONCLUSTERED, unique, part of a UNIQUE constraint, [ customer_account_info_uuid ] |
-| uk_customer_account_info_rid | UNIQUE | NONCLUSTERED, unique, part of a UNIQUE constraint, [ customer_account_info_rid ] |
-| fk_customer_account_info_created_by_user_rid | FOREIGN KEY | FOREIGN KEY(created_by_user_rid) REFERENCES user_accounts(user_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION |
-| fk_customer_account_info_tenant_uuid | FOREIGN KEY | FOREIGN KEY(tenant_uuid) REFERENCES account_details(tenant_uuid) ON UPDATE NO_ACTION ON DELETE NO_ACTION |
-| fk_customer_account_info_updated_by_user_rid | FOREIGN KEY | FOREIGN KEY(updated_by_user_rid) REFERENCES user_accounts(user_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION |
+| pk_customer_account_information_tenant_uuid_customer_account_information_rid | PRIMARY KEY | CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, customer_account_information_rid ] |
+| uk_customer_account_information_uuid | UNIQUE | NONCLUSTERED, unique, part of a UNIQUE constraint, [ customer_account_information_uuid ] |
+| uk_customer_account_information_rid | UNIQUE | NONCLUSTERED, unique, part of a UNIQUE constraint, [ customer_account_information_rid ] |
+| fk_customer_account_information_created_by_user_rid | FOREIGN KEY | FOREIGN KEY(created_by_user_rid) REFERENCES user_accounts(user_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION |
+| fk_customer_account_information_tenant_uuid | FOREIGN KEY | FOREIGN KEY(tenant_uuid) REFERENCES account_details(tenant_uuid) ON UPDATE NO_ACTION ON DELETE NO_ACTION |
+| fk_customer_account_information_updated_by_user_rid | FOREIGN KEY | FOREIGN KEY(updated_by_user_rid) REFERENCES user_accounts(user_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION |
 
 ## Indexes
 
 | Name | Definition |
 | ---- | ---------- |
-| pk_customer_account_info_tenant_uuid_customer_account_info_rid | CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, customer_account_info_rid ] |
-| uk_customer_account_info_uuid | NONCLUSTERED, unique, part of a UNIQUE constraint, [ customer_account_info_uuid ] |
-| uk_customer_account_info_rid | NONCLUSTERED, unique, part of a UNIQUE constraint, [ customer_account_info_rid ] |
-| ix_fk_customer_account_info_tenant_uuid | NONCLUSTERED, [ tenant_uuid ] |
-| ix_fk_customer_account_info_created_by_user_rid | NONCLUSTERED, [ created_by_user_rid ] |
-| ix_fk_customer_account_info_updated_by_user_rid | NONCLUSTERED, [ updated_by_user_rid ] |
+| pk_customer_account_information_tenant_uuid_customer_account_information_rid | CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, customer_account_information_rid ] |
+| uk_customer_account_information_uuid | NONCLUSTERED, unique, part of a UNIQUE constraint, [ customer_account_information_uuid ] |
+| uk_customer_account_information_rid | NONCLUSTERED, unique, part of a UNIQUE constraint, [ customer_account_information_rid ] |
+| ix_fk_customer_account_information_tenant_uuid | NONCLUSTERED, [ tenant_uuid ] |
+| ix_fk_customer_account_information_created_by_user_rid | NONCLUSTERED, [ created_by_user_rid ] |
+| ix_fk_customer_account_information_updated_by_user_rid | NONCLUSTERED, [ updated_by_user_rid ] |
 
 ## Relations
 
