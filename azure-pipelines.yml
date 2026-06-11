@@ -93,7 +93,27 @@ steps:
           /TargetUser:"$(sqlUser)" `
           /TargetPassword:"$(sqlPassword)"    
       additionalArguments: '/p:BlockOnPossibleDataLoss=$(blockDataLoss) /p:DropObjectsNotInSource=$(dropObjects)'    
-  
+       
+  - task: PowerShell@2
+    displayName: 'Update extended properties'
+    continueOnError: true
+    inputs:
+      targetType: 'inline'
+      script: |
+        $connString = "Server=tcp:$(sqlServerName),1433;Database=$(databaseName);User ID=$(sqlUser);Password=$(sqlPassword);Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+
+        $conn = New-Object System.Data.SqlClient.SqlConnection($connString)
+        $conn.Open()
+
+        # Run the integrity check proc
+        $cmd = $conn.CreateCommand()
+        $cmd.CommandText = "EXEC dbo.usp_update_extended_properties"
+        $cmd.CommandTimeout = 600
+        $cmd.ExecuteNonQuery() | Out-Null
+        Write-Host "Integrity check proc completed."
+
+        $conn.Close()        
+ 
   - task: PowerShell@2
     displayName: 'Generate ERD with tbls'
     continueOnError: true
@@ -147,26 +167,6 @@ steps:
         }
         git commit -m "Auto-update ERD [skip ci]"
         git push origin "HEAD:$(Build.SourceBranch)"
-      
-  - task: PowerShell@2
-    displayName: 'Update extended properties'
-    continueOnError: true
-    inputs:
-      targetType: 'inline'
-      script: |
-        $connString = "Server=tcp:$(sqlServerName),1433;Database=$(databaseName);User ID=$(sqlUser);Password=$(sqlPassword);Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
-
-        $conn = New-Object System.Data.SqlClient.SqlConnection($connString)
-        $conn.Open()
-
-        # Run the integrity check proc
-        $cmd = $conn.CreateCommand()
-        $cmd.CommandText = "EXEC dbo.usp_update_extended_properties"
-        $cmd.CommandTimeout = 600
-        $cmd.ExecuteNonQuery() | Out-Null
-        Write-Host "Integrity check proc completed."
-
-        $conn.Close()        
 
   - task: PowerShell@2
     displayName: 'Populate test data on DEV'
