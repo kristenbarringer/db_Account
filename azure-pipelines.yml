@@ -98,17 +98,27 @@ steps:
     inputs:
       targetType: 'inline'
       script: |
-        $ErrorActionPreference = 'Stop'
         $tblsVersion = 'v1.94.5'
         $zip  = Join-Path $env:AGENT_TEMPDIRECTORY 'tbls.zip'
         $dest = Join-Path $env:AGENT_TEMPDIRECTORY 'tbls'
         Invoke-WebRequest -Uri "https://github.com/k1LoW/tbls/releases/download/$tblsVersion/tbls_${tblsVersion}_windows_amd64.zip" -OutFile $zip
         Expand-Archive -Path $zip -DestinationPath $dest -Force
  
+        Write-Host "Target server: '$(sqlServerName)'  database: '$(databaseName)'  user: '$(sqlUser)'"
+ 
         $pass = [uri]::EscapeDataString($env:SQLPASS)
         $dsn  = "mssql://$(sqlUser):$pass@$(sqlServerName):1433/$(databaseName)?encrypt=true"
         Set-Location "$(Build.SourcesDirectory)"
-        & "$dest/tbls.exe" doc --force $dsn "$(Build.SourcesDirectory)/docs/erd"
+ 
+        $ErrorActionPreference = 'Continue'
+        for ($i = 1; $i -le 6; $i++) {
+          Write-Host "tbls attempt $i..."
+          & "$dest/tbls.exe" doc --force $dsn "$(Build.SourcesDirectory)/docs/erd"
+          if ($LASTEXITCODE -eq 0) { Write-Host "ERD generated."; break }
+          if ($i -eq 6) { throw "tbls failed after 6 attempts (exit $LASTEXITCODE)." }
+          Write-Host "Not ready (exit $LASTEXITCODE). Waiting 20s..."
+          Start-Sleep -Seconds 20
+        }
  
   - task: PublishPipelineArtifact@1
     displayName: 'Publish ERD artifact'
