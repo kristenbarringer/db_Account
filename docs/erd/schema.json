@@ -2994,13 +2994,13 @@
     {
       "name": "role_permission_mapping",
       "type": "BASIC TABLE",
-      "comment": "the table that stores the mappings of roles to permissions",
+      "comment": "MANY-TO-MANY relationship mapping between Role and Permission",
       "columns": [
         {
           "name": "permission_code",
           "type": "varchar(100)",
           "nullable": false,
-          "comment": "the code of the permissions - this is not currently a foreign key, Data type = varchar(100), Nullable = No"
+          "comment": "MANY-TO-MANY composite primary key field for Role and Permission, Data type = varchar(100), Nullable = No"
         },
         {
           "name": "role_rid",
@@ -3089,12 +3089,13 @@
     {
       "name": "service_level_feature_mapping",
       "type": "BASIC TABLE",
+      "comment": "MANY-TO-MANY relationship mapping between Service Level and Feature",
       "columns": [
         {
           "name": "service_level_code",
           "type": "varchar(30)",
           "nullable": false,
-          "comment": "A lookup to the main lookup_code table, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
+          "comment": "MANY-TO-MANY composite primary key field for Service Level and Feature, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
         },
         {
           "name": "created",
@@ -3106,7 +3107,8 @@
         {
           "name": "feature_code",
           "type": "varchar(100)",
-          "nullable": false
+          "nullable": false,
+          "comment": "MANY-TO-MANY composite primary key field for Service Level and Feature, Data type = varchar(100), Nullable = No"
         }
       ],
       "indexes": [
@@ -3544,17 +3546,19 @@
     {
       "name": "tenant_service_level_mapping",
       "type": "BASIC TABLE",
+      "comment": "MANY-TO-MANY relationship mapping between Tenant and Service Level",
       "columns": [
         {
           "name": "tenant_uuid",
           "type": "uniqueidentifier",
           "nullable": false,
-          "comment": "The customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
+          "comment": "MANY-TO-MANY composite primary key field for Tenant and Service Level, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
         },
         {
           "name": "service_level_code",
           "type": "varchar(30)",
-          "nullable": false
+          "nullable": false,
+          "comment": "MANY-TO-MANY composite primary key field for Tenant and Service Level, Data type = varchar(30), Nullable = No"
         },
         {
           "name": "is_active",

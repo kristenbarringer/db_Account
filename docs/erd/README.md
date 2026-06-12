@@ -18,10 +18,10 @@
 | [account_details](account_details.md) | 34 | the table that stores the details of the accounts | BASIC TABLE |
 | [account_type](account_type.md) | 13 |  | BASIC TABLE |
 | [account_type_permission_mapping](account_type_permission_mapping.md) | 10 |  | BASIC TABLE |
-| [role_permission_mapping](role_permission_mapping.md) | 4 | the table that stores the mappings of roles to permissions | BASIC TABLE |
-| [service_level_feature_mapping](service_level_feature_mapping.md) | 3 |  | BASIC TABLE |
+| [role_permission_mapping](role_permission_mapping.md) | 4 | MANY-TO-MANY relationship mapping between Role and Permission | BASIC TABLE |
+| [service_level_feature_mapping](service_level_feature_mapping.md) | 3 | MANY-TO-MANY relationship mapping between Service Level and Feature | BASIC TABLE |
 | [contact](contact.md) | 24 | the table that stores the details of the contacts | BASIC TABLE |
-| [tenant_service_level_mapping](tenant_service_level_mapping.md) | 8 |  | BASIC TABLE |
+| [tenant_service_level_mapping](tenant_service_level_mapping.md) | 8 | MANY-TO-MANY relationship mapping between Tenant and Service Level | BASIC TABLE |
 | [customer_internal_view](customer_internal_view.md) | 14 |  | BASIC TABLE |
 | [customer_rate_information](customer_rate_information.md) | 15 |  | BASIC TABLE |
 | [dealer](dealer.md) | 22 | this table stores dealer information | BASIC TABLE |

@@ -1,12 +1,16 @@
 # service_level_feature_mapping
 
+## Description
+
+MANY-TO-MANY relationship mapping between Service Level and Feature
+
 ## Columns
 
 | Name | Type | Default | Nullable | Children | Parents | Comment |
 | ---- | ---- | ------- | -------- | -------- | ------- | ------- |
-| service_level_code | varchar(30) |  | false |  | [lookup_code](lookup_code.md) | A lookup to the main lookup_code table, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code] |
+| service_level_code | varchar(30) |  | false |  | [lookup_code](lookup_code.md) | MANY-TO-MANY composite primary key field for Service Level and Feature, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code] |
 | created | datetime | (getdate()) | false |  |  | DEPRECATED - replaced by created_date, Data type = datetime, Nullable = No |
-| feature_code | varchar(100) |  | false |  |  |  |
+| feature_code | varchar(100) |  | false |  |  | MANY-TO-MANY composite primary key field for Service Level and Feature, Data type = varchar(100), Nullable = No |
 
 ## Constraints
 

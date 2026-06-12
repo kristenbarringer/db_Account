@@ -1,11 +1,15 @@
 # tenant_service_level_mapping
 
+## Description
+
+MANY-TO-MANY relationship mapping between Tenant and Service Level
+
 ## Columns
 
 | Name | Type | Default | Nullable | Children | Parents | Comment |
 | ---- | ---- | ------- | -------- | -------- | ------- | ------- |
-| tenant_uuid | uniqueidentifier |  | false |  | [account_details](account_details.md) | The customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid] |
-| service_level_code | varchar(30) |  | false |  |  |  |
+| tenant_uuid | uniqueidentifier |  | false |  | [account_details](account_details.md) | MANY-TO-MANY composite primary key field for Tenant and Service Level, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid] |
+| service_level_code | varchar(30) |  | false |  |  | MANY-TO-MANY composite primary key field for Tenant and Service Level, Data type = varchar(30), Nullable = No |
 | is_active | bit | ((1)) | false |  |  | The record is active, Data type = bit, Nullable = No |
 | created_date | datetime | (getdate()) | false |  |  |  |
 | updated_date | datetime |  | true |  |  |  |
