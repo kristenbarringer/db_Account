@@ -137,7 +137,7 @@ steps:
         $ErrorActionPreference = 'Continue'
         for ($i = 1; $i -le 6; $i++) {
           Write-Host "tbls attempt $i..."
-          & "$dest/tbls.exe" doc --force $dsn "$(Build.SourcesDirectory)/docs/erd"
+          & "$dest/tbls.exe" doc --force --rm-dist $dsn "$(Build.SourcesDirectory)/docs/erd"
           if ($LASTEXITCODE -eq 0) { Write-Host "ERD generated."; break }
           if ($i -eq 6) { throw "tbls failed after 6 attempts (exit $LASTEXITCODE)." }
           Write-Host "Not ready (exit $LASTEXITCODE). Waiting 20s..."
@@ -159,7 +159,7 @@ steps:
       script: |
         git config user.email "$(Build.RequestedForEmail)"
         git config user.name "$(Build.RequestedFor)"
-        git add docs/erd
+        git add -A docs/erd
         $changes = git status --porcelain docs/erd
         if ([string]::IsNullOrWhiteSpace($changes)) {
           Write-Host "No ERD changes to commit."
