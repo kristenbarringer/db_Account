@@ -1,6 +1,7 @@
 exclude:
     - "dq_*"
     - "test_seed_*"
+    - "lookup_check_base"
     - "db_m_*"
     - "zzz_*"
     - "sys.*"
