@@ -9,6 +9,7 @@
 | description | nvarchar(50) |  | false |  |  |  |
 | service_level_filter | bit |  | true |  |  |  |
 | service_level_code | varchar(30) |  | true |  |  |  |
+| default_role_rid | varchar(30) |  | true |  |  |  |
 | is_active | bit | ((1)) | false |  |  | The record is active, Data type = bit, Nullable = No |
 | created_date | datetime | (getdate()) | false |  |  |  |
 | updated_date | datetime |  | true |  |  |  |
@@ -34,8 +35,8 @@
 | pk_account_type_tenant_uuid_account_type_rid | CLUSTERED, unique, part of a PRIMARY KEY constraint, [ account_type_rid ] |
 | uk_account_type_uuid | NONCLUSTERED, unique, part of a UNIQUE constraint, [ account_type_uuid ] |
 | uk_account_type_rid | NONCLUSTERED, unique, part of a UNIQUE constraint, [ account_type_rid ] |
-| ix_fk_account_type_created_by_user_rid | NONCLUSTERED, [ created_by_user_rid ] |
 | ix_fk_account_type_updated_by_user_rid | NONCLUSTERED, [ updated_by_user_rid ] |
+| ix_fk_account_type_created_by_user_rid | NONCLUSTERED, [ created_by_user_rid ] |
 
 ## Relations
 

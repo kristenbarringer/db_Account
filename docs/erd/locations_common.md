@@ -1,5 +1,9 @@
 # locations_common
 
+## Description
+
+Used for Location-Related and Map Processes
+
 ## Columns
 
 | Name | Type | Default | Nullable | Children | Parents | Comment |

@@ -2,7 +2,7 @@
 
 ## Description
 
-Used for centralized lookup values and processes
+Used for Lookup Values (formerly called Master Tables)
 
 ## Columns
 

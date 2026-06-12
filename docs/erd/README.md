@@ -4,24 +4,24 @@
 
 | Name | Columns | Comment | Type |
 | ---- | ------- | ------- | ---- |
-| [locations_common](locations_common.md) | 28 |  | BASIC TABLE |
+| [locations_common](locations_common.md) | 28 | Used for Location-Related and Map Processes | BASIC TABLE |
 | [role](role.md) | 16 | the table that stores the details of the roles | BASIC TABLE |
-| [role_permission_mapping](role_permission_mapping.md) | 7 | the table that stores the mappings of roles to permissions | BASIC TABLE |
-| [service_level_feature_mapping](service_level_feature_mapping.md) | 4 |  | BASIC TABLE |
 | [subscription](subscription.md) | 13 |  | BASIC TABLE |
-| [tenant_service_level_mapping](tenant_service_level_mapping.md) | 11 |  | BASIC TABLE |
 | [user_accounts](user_accounts.md) | 36 | the table that stores the details of the users | BASIC TABLE |
-| [user_feedback](user_feedback.md) | 16 |  | BASIC TABLE |
+| [user_feedback](user_feedback.md) | 16 | UNKNOWN Usage - Ignore for now | BASIC TABLE |
 | [user_grid_view_preference](user_grid_view_preference.md) | 11 | the table that stores the details of the user preferences | BASIC TABLE |
 | [user_type_permission_template](user_type_permission_template.md) | 3 |  | BASIC TABLE |
-| [lookup_code](lookup_code.md) | 22 | Used for centralized lookup values and processes | BASIC TABLE |
-| [lookup_code_list](lookup_code_list.md) | 12 | Used for centralized lookup values and processes | BASIC TABLE |
+| [lookup_code](lookup_code.md) | 22 | Used for Lookup Values (formerly called Master Tables) | BASIC TABLE |
+| [lookup_code_list](lookup_code_list.md) | 12 | Used for Lookup Values (formerly called Master Tables) | BASIC TABLE |
 | [customer_account_information](customer_account_information.md) | 13 |  | BASIC TABLE |
 | [customer_billing_information](customer_billing_information.md) | 27 |  | BASIC TABLE |
 | [account_details](account_details.md) | 34 | the table that stores the details of the accounts | BASIC TABLE |
-| [account_type](account_type.md) | 12 |  | BASIC TABLE |
+| [account_type](account_type.md) | 13 |  | BASIC TABLE |
 | [account_type_permission_mapping](account_type_permission_mapping.md) | 10 |  | BASIC TABLE |
+| [role_permission_mapping](role_permission_mapping.md) | 4 | the table that stores the mappings of roles to permissions | BASIC TABLE |
+| [service_level_feature_mapping](service_level_feature_mapping.md) | 3 |  | BASIC TABLE |
 | [contact](contact.md) | 24 | the table that stores the details of the contacts | BASIC TABLE |
+| [tenant_service_level_mapping](tenant_service_level_mapping.md) | 8 |  | BASIC TABLE |
 | [customer_internal_view](customer_internal_view.md) | 14 |  | BASIC TABLE |
 | [customer_rate_information](customer_rate_information.md) | 15 |  | BASIC TABLE |
 | [dealer](dealer.md) | 22 | this table stores dealer information | BASIC TABLE |

@@ -4,6 +4,7 @@
     {
       "name": "locations_common",
       "type": "BASIC TABLE",
+      "comment": "Used for Location-Related and Map Processes",
       "columns": [
         {
           "name": "locations_common_uuid",
@@ -483,246 +484,6 @@
       ]
     },
     {
-      "name": "role_permission_mapping",
-      "type": "BASIC TABLE",
-      "comment": "the table that stores the mappings of roles to permissions",
-      "columns": [
-        {
-          "name": "role_permission_mapping_uuid",
-          "type": "uniqueidentifier",
-          "nullable": false,
-          "default": "(newsequentialid())",
-          "comment": "Unique identifier for the record, a unique nonclustered key for the table. Must be a SQL-sortable UUIDv7. , Data type = uniqueidentifier, Nullable = No"
-        },
-        {
-          "name": "role_permission_mapping_rid",
-          "type": "bigint",
-          "nullable": false,
-          "comment": "Unique RowID for the record, part of composite primary key for the table after tenant_uuid, a unique clustered key for the table, Data type = bigint, Nullable = No"
-        },
-        {
-          "name": "tenant_uuid",
-          "type": "uniqueidentifier",
-          "nullable": false,
-          "comment": "the uniqueidentifier for the tenant/customer.  Used as a partitioning key., Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
-        },
-        {
-          "name": "permission_code",
-          "type": "varchar(100)",
-          "nullable": false,
-          "comment": "the code of the permissions - this is not currently a foreign key, Data type = varchar(100), Nullable = No"
-        },
-        {
-          "name": "role_rid",
-          "type": "bigint",
-          "nullable": false,
-          "comment": "References column role_rid on table role, Data type = bigint, Nullable = No, References = [dbo].[role].[role_rid]"
-        },
-        {
-          "name": "created_by_user_rid",
-          "type": "bigint",
-          "nullable": true
-        },
-        {
-          "name": "notes",
-          "type": "nvarchar(1000)",
-          "nullable": true,
-          "comment": "Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
-        }
-      ],
-      "indexes": [
-        {
-          "name": "pk_role_permission_mapping_tenant_uuid_role_permission_mapping_rid",
-          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, role_permission_mapping_rid ]",
-          "table": "role_permission_mapping",
-          "columns": [
-            "tenant_uuid",
-            "role_permission_mapping_rid"
-          ]
-        },
-        {
-          "name": "uk_role_permission_mapping_uuid",
-          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ role_permission_mapping_uuid ]",
-          "table": "role_permission_mapping",
-          "columns": [
-            "role_permission_mapping_uuid"
-          ]
-        },
-        {
-          "name": "uk_role_permission_mapping_rid",
-          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ role_permission_mapping_rid ]",
-          "table": "role_permission_mapping",
-          "columns": [
-            "role_permission_mapping_rid"
-          ]
-        },
-        {
-          "name": "ix_fk_role_permission_mapping_created_by_user_rid",
-          "def": "NONCLUSTERED, [ created_by_user_rid ]",
-          "table": "role_permission_mapping",
-          "columns": [
-            "created_by_user_rid"
-          ]
-        },
-        {
-          "name": "ix_fk_role_permission_mapping_tenant_uuid",
-          "def": "NONCLUSTERED, [ tenant_uuid ]",
-          "table": "role_permission_mapping",
-          "columns": [
-            "tenant_uuid"
-          ]
-        },
-        {
-          "name": "ix_fk_role_permission_mapping_user_rid",
-          "def": "NONCLUSTERED, [ role_rid ]",
-          "table": "role_permission_mapping",
-          "columns": [
-            "role_rid"
-          ]
-        }
-      ],
-      "constraints": [
-        {
-          "name": "pk_role_permission_mapping_tenant_uuid_role_permission_mapping_rid",
-          "type": "PRIMARY KEY",
-          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, role_permission_mapping_rid ]",
-          "table": "role_permission_mapping",
-          "columns": [
-            "tenant_uuid",
-            "role_permission_mapping_rid"
-          ]
-        },
-        {
-          "name": "uk_role_permission_mapping_uuid",
-          "type": "UNIQUE",
-          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ role_permission_mapping_uuid ]",
-          "table": "role_permission_mapping",
-          "columns": [
-            "role_permission_mapping_uuid"
-          ]
-        },
-        {
-          "name": "uk_role_permission_mapping_rid",
-          "type": "UNIQUE",
-          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ role_permission_mapping_rid ]",
-          "table": "role_permission_mapping",
-          "columns": [
-            "role_permission_mapping_rid"
-          ]
-        },
-        {
-          "name": "fk_role_permission_mapping_created_by_user_rid",
-          "type": "FOREIGN KEY",
-          "def": "FOREIGN KEY(created_by_user_rid) REFERENCES user_accounts(user_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
-          "table": "role_permission_mapping",
-          "referenced_table": "user_accounts",
-          "columns": [
-            "created_by_user_rid"
-          ],
-          "referenced_columns": [
-            "user_rid"
-          ]
-        },
-        {
-          "name": "fk_role_permission_mapping_tenant_uuid",
-          "type": "FOREIGN KEY",
-          "def": "FOREIGN KEY(tenant_uuid) REFERENCES account_details(tenant_uuid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
-          "table": "role_permission_mapping",
-          "referenced_table": "account_details",
-          "columns": [
-            "tenant_uuid"
-          ],
-          "referenced_columns": [
-            "tenant_uuid"
-          ]
-        },
-        {
-          "name": "fk_role_permission_mapping_user_rid",
-          "type": "FOREIGN KEY",
-          "def": "FOREIGN KEY(role_rid) REFERENCES role(role_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
-          "table": "role_permission_mapping",
-          "referenced_table": "role",
-          "columns": [
-            "role_rid"
-          ],
-          "referenced_columns": [
-            "role_rid"
-          ]
-        }
-      ]
-    },
-    {
-      "name": "service_level_feature_mapping",
-      "type": "BASIC TABLE",
-      "columns": [
-        {
-          "name": "rid",
-          "type": "int",
-          "nullable": false
-        },
-        {
-          "name": "service_level_code",
-          "type": "varchar(30)",
-          "nullable": false,
-          "comment": "A lookup to the main lookup_code table, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
-        },
-        {
-          "name": "created",
-          "type": "datetime",
-          "nullable": false,
-          "default": "(getdate())",
-          "comment": "DEPRECATED - replaced by created_date, Data type = datetime, Nullable = No"
-        },
-        {
-          "name": "feature_code",
-          "type": "varchar(100)",
-          "nullable": false
-        }
-      ],
-      "indexes": [
-        {
-          "name": "PK_service_level_feature_mapping",
-          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ rid ]",
-          "table": "service_level_feature_mapping",
-          "columns": [
-            "rid"
-          ]
-        },
-        {
-          "name": "ix_service_level_feature_mapping_service_level_code",
-          "def": "NONCLUSTERED, [ service_level_code ]",
-          "table": "service_level_feature_mapping",
-          "columns": [
-            "service_level_code"
-          ]
-        }
-      ],
-      "constraints": [
-        {
-          "name": "PK_service_level_feature_mapping",
-          "type": "PRIMARY KEY",
-          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ rid ]",
-          "table": "service_level_feature_mapping",
-          "columns": [
-            "rid"
-          ]
-        },
-        {
-          "name": "FK_service_level_feature_mapping_service_level",
-          "type": "FOREIGN KEY",
-          "def": "FOREIGN KEY(service_level_code) REFERENCES lookup_code(code) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
-          "table": "service_level_feature_mapping",
-          "referenced_table": "lookup_code",
-          "columns": [
-            "service_level_code"
-          ],
-          "referenced_columns": [
-            "code"
-          ]
-        }
-      ]
-    },
-    {
       "name": "subscription",
       "type": "BASIC TABLE",
       "columns": [
@@ -911,195 +672,6 @@
           "type": "FOREIGN KEY",
           "def": "FOREIGN KEY(updated_by_user_rid) REFERENCES user_accounts(user_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
           "table": "subscription",
-          "referenced_table": "user_accounts",
-          "columns": [
-            "updated_by_user_rid"
-          ],
-          "referenced_columns": [
-            "user_rid"
-          ]
-        }
-      ]
-    },
-    {
-      "name": "tenant_service_level_mapping",
-      "type": "BASIC TABLE",
-      "columns": [
-        {
-          "name": "tenant_service_level_mapping_uuid",
-          "type": "uniqueidentifier",
-          "nullable": false,
-          "default": "(newsequentialid())",
-          "comment": "Unique identifier for the record, a unique nonclustered key for the table. Must be a SQL-sortable UUIDv7. , Data type = uniqueidentifier, Nullable = No"
-        },
-        {
-          "name": "tenant_service_level_mapping_rid",
-          "type": "bigint",
-          "nullable": false,
-          "comment": "Unique RowID for the record, part of composite primary key for the table after tenant_uuid, a unique clustered key for the table, Data type = bigint, Nullable = No"
-        },
-        {
-          "name": "tenant_uuid",
-          "type": "uniqueidentifier",
-          "nullable": false,
-          "comment": "The customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
-        },
-        {
-          "name": "service_level_code",
-          "type": "varchar(30)",
-          "nullable": false
-        },
-        {
-          "name": "account_type_code",
-          "type": "varchar(30)",
-          "nullable": true
-        },
-        {
-          "name": "is_active",
-          "type": "bit",
-          "nullable": false,
-          "default": "((1))",
-          "comment": "The record is active, Data type = bit, Nullable = No"
-        },
-        {
-          "name": "created_date",
-          "type": "datetime",
-          "nullable": false,
-          "default": "(getdate())"
-        },
-        {
-          "name": "updated_date",
-          "type": "datetime",
-          "nullable": true
-        },
-        {
-          "name": "created_by_user_rid",
-          "type": "bigint",
-          "nullable": true
-        },
-        {
-          "name": "updated_by_user_rid",
-          "type": "bigint",
-          "nullable": true
-        },
-        {
-          "name": "notes",
-          "type": "nvarchar(1000)",
-          "nullable": true,
-          "comment": "Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
-        }
-      ],
-      "indexes": [
-        {
-          "name": "pk_tenant_service_level_mapping_tenant_uuid_tenant_service_level_mapping_rid",
-          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, tenant_service_level_mapping_rid ]",
-          "table": "tenant_service_level_mapping",
-          "columns": [
-            "tenant_uuid",
-            "tenant_service_level_mapping_rid"
-          ]
-        },
-        {
-          "name": "uk_tenant_service_level_mapping_uuid",
-          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ tenant_service_level_mapping_uuid ]",
-          "table": "tenant_service_level_mapping",
-          "columns": [
-            "tenant_service_level_mapping_uuid"
-          ]
-        },
-        {
-          "name": "uk_tenant_service_level_mapping_rid",
-          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ tenant_service_level_mapping_rid ]",
-          "table": "tenant_service_level_mapping",
-          "columns": [
-            "tenant_service_level_mapping_rid"
-          ]
-        },
-        {
-          "name": "ix_fk_tenant_service_level_mapping_tenant_uuid",
-          "def": "NONCLUSTERED, [ tenant_uuid ]",
-          "table": "tenant_service_level_mapping",
-          "columns": [
-            "tenant_uuid"
-          ]
-        },
-        {
-          "name": "ix_fk_tenant_service_level_mapping_updated_by_user_rid",
-          "def": "NONCLUSTERED, [ updated_by_user_rid ]",
-          "table": "tenant_service_level_mapping",
-          "columns": [
-            "updated_by_user_rid"
-          ]
-        },
-        {
-          "name": "ix_fk_tenant_service_level_mapping_created_by_user_rid",
-          "def": "NONCLUSTERED, [ created_by_user_rid ]",
-          "table": "tenant_service_level_mapping",
-          "columns": [
-            "created_by_user_rid"
-          ]
-        }
-      ],
-      "constraints": [
-        {
-          "name": "pk_tenant_service_level_mapping_tenant_uuid_tenant_service_level_mapping_rid",
-          "type": "PRIMARY KEY",
-          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, tenant_service_level_mapping_rid ]",
-          "table": "tenant_service_level_mapping",
-          "columns": [
-            "tenant_uuid",
-            "tenant_service_level_mapping_rid"
-          ]
-        },
-        {
-          "name": "uk_tenant_service_level_mapping_uuid",
-          "type": "UNIQUE",
-          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ tenant_service_level_mapping_uuid ]",
-          "table": "tenant_service_level_mapping",
-          "columns": [
-            "tenant_service_level_mapping_uuid"
-          ]
-        },
-        {
-          "name": "uk_tenant_service_level_mapping_rid",
-          "type": "UNIQUE",
-          "def": "NONCLUSTERED, unique, part of a UNIQUE constraint, [ tenant_service_level_mapping_rid ]",
-          "table": "tenant_service_level_mapping",
-          "columns": [
-            "tenant_service_level_mapping_rid"
-          ]
-        },
-        {
-          "name": "fk_tenant_service_level_mapping_created_by_user_rid",
-          "type": "FOREIGN KEY",
-          "def": "FOREIGN KEY(created_by_user_rid) REFERENCES user_accounts(user_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
-          "table": "tenant_service_level_mapping",
-          "referenced_table": "user_accounts",
-          "columns": [
-            "created_by_user_rid"
-          ],
-          "referenced_columns": [
-            "user_rid"
-          ]
-        },
-        {
-          "name": "fk_tenant_service_level_mapping_tenant_uuid",
-          "type": "FOREIGN KEY",
-          "def": "FOREIGN KEY(tenant_uuid) REFERENCES account_details(tenant_uuid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
-          "table": "tenant_service_level_mapping",
-          "referenced_table": "account_details",
-          "columns": [
-            "tenant_uuid"
-          ],
-          "referenced_columns": [
-            "tenant_uuid"
-          ]
-        },
-        {
-          "name": "fk_tenant_service_level_mapping_updated_by_user_rid",
-          "type": "FOREIGN KEY",
-          "def": "FOREIGN KEY(updated_by_user_rid) REFERENCES user_accounts(user_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
-          "table": "tenant_service_level_mapping",
           "referenced_table": "user_accounts",
           "columns": [
             "updated_by_user_rid"
@@ -1674,6 +1246,7 @@
     {
       "name": "user_feedback",
       "type": "BASIC TABLE",
+      "comment": "UNKNOWN Usage - Ignore for now",
       "columns": [
         {
           "name": "user_feedback_rid",
@@ -2043,7 +1616,7 @@
     {
       "name": "lookup_code",
       "type": "BASIC TABLE",
-      "comment": "Used for centralized lookup values and processes",
+      "comment": "Used for Lookup Values (formerly called Master Tables)",
       "columns": [
         {
           "name": "code",
@@ -2200,7 +1773,7 @@
     {
       "name": "lookup_code_list",
       "type": "BASIC TABLE",
-      "comment": "Used for centralized lookup values and processes",
+      "comment": "Used for Lookup Values (formerly called Master Tables)",
       "columns": [
         {
           "name": "lookup_list_code",
@@ -3115,6 +2688,11 @@
           "nullable": true
         },
         {
+          "name": "default_role_rid",
+          "type": "varchar(30)",
+          "nullable": true
+        },
+        {
           "name": "is_active",
           "type": "bit",
           "nullable": false,
@@ -3180,19 +2758,19 @@
           ]
         },
         {
-          "name": "ix_fk_account_type_created_by_user_rid",
-          "def": "NONCLUSTERED, [ created_by_user_rid ]",
-          "table": "account_type",
-          "columns": [
-            "created_by_user_rid"
-          ]
-        },
-        {
           "name": "ix_fk_account_type_updated_by_user_rid",
           "def": "NONCLUSTERED, [ updated_by_user_rid ]",
           "table": "account_type",
           "columns": [
             "updated_by_user_rid"
+          ]
+        },
+        {
+          "name": "ix_fk_account_type_created_by_user_rid",
+          "def": "NONCLUSTERED, [ created_by_user_rid ]",
+          "table": "account_type",
+          "columns": [
+            "created_by_user_rid"
           ]
         }
       ],
@@ -3409,6 +2987,169 @@
           ],
           "referenced_columns": [
             "user_rid"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "role_permission_mapping",
+      "type": "BASIC TABLE",
+      "comment": "the table that stores the mappings of roles to permissions",
+      "columns": [
+        {
+          "name": "permission_code",
+          "type": "varchar(100)",
+          "nullable": false,
+          "comment": "the code of the permissions - this is not currently a foreign key, Data type = varchar(100), Nullable = No"
+        },
+        {
+          "name": "role_rid",
+          "type": "bigint",
+          "nullable": false,
+          "comment": "References column role_rid on table role, Data type = bigint, Nullable = No, References = [dbo].[role].[role_rid]"
+        },
+        {
+          "name": "created_by_user_rid",
+          "type": "bigint",
+          "nullable": true
+        },
+        {
+          "name": "notes",
+          "type": "nvarchar(1000)",
+          "nullable": true,
+          "comment": "Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "pk_role_permission_mapping_permission_code_role_rid",
+          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ permission_code, role_rid ]",
+          "table": "role_permission_mapping",
+          "columns": [
+            "permission_code",
+            "role_rid"
+          ]
+        },
+        {
+          "name": "ix_fk_role_permission_mapping_created_by_user_rid",
+          "def": "NONCLUSTERED, [ created_by_user_rid ]",
+          "table": "role_permission_mapping",
+          "columns": [
+            "created_by_user_rid"
+          ]
+        },
+        {
+          "name": "ix_fk_role_permission_mapping_user_rid",
+          "def": "NONCLUSTERED, [ role_rid ]",
+          "table": "role_permission_mapping",
+          "columns": [
+            "role_rid"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "pk_role_permission_mapping_permission_code_role_rid",
+          "type": "PRIMARY KEY",
+          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ permission_code, role_rid ]",
+          "table": "role_permission_mapping",
+          "columns": [
+            "permission_code",
+            "role_rid"
+          ]
+        },
+        {
+          "name": "fk_role_permission_mapping_created_by_user_rid",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY(created_by_user_rid) REFERENCES user_accounts(user_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
+          "table": "role_permission_mapping",
+          "referenced_table": "user_accounts",
+          "columns": [
+            "created_by_user_rid"
+          ],
+          "referenced_columns": [
+            "user_rid"
+          ]
+        },
+        {
+          "name": "fk_role_permission_mapping_user_rid",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY(role_rid) REFERENCES role(role_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
+          "table": "role_permission_mapping",
+          "referenced_table": "role",
+          "columns": [
+            "role_rid"
+          ],
+          "referenced_columns": [
+            "role_rid"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "service_level_feature_mapping",
+      "type": "BASIC TABLE",
+      "columns": [
+        {
+          "name": "service_level_code",
+          "type": "varchar(30)",
+          "nullable": false,
+          "comment": "A lookup to the main lookup_code table, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code]"
+        },
+        {
+          "name": "created",
+          "type": "datetime",
+          "nullable": false,
+          "default": "(getdate())",
+          "comment": "DEPRECATED - replaced by created_date, Data type = datetime, Nullable = No"
+        },
+        {
+          "name": "feature_code",
+          "type": "varchar(100)",
+          "nullable": false
+        }
+      ],
+      "indexes": [
+        {
+          "name": "pk_service_level_feature_mapping_service_level_code_feature_code",
+          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ service_level_code, feature_code ]",
+          "table": "service_level_feature_mapping",
+          "columns": [
+            "service_level_code",
+            "feature_code"
+          ]
+        },
+        {
+          "name": "ix_service_level_feature_mapping_service_level_code",
+          "def": "NONCLUSTERED, [ service_level_code ]",
+          "table": "service_level_feature_mapping",
+          "columns": [
+            "service_level_code"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "pk_service_level_feature_mapping_service_level_code_feature_code",
+          "type": "PRIMARY KEY",
+          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ service_level_code, feature_code ]",
+          "table": "service_level_feature_mapping",
+          "columns": [
+            "service_level_code",
+            "feature_code"
+          ]
+        },
+        {
+          "name": "FK_service_level_feature_mapping_service_level",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY(service_level_code) REFERENCES lookup_code(code) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
+          "table": "service_level_feature_mapping",
+          "referenced_table": "lookup_code",
+          "columns": [
+            "service_level_code"
+          ],
+          "referenced_columns": [
+            "code"
           ]
         }
       ]
@@ -3790,6 +3531,143 @@
           "type": "FOREIGN KEY",
           "def": "FOREIGN KEY(updated_by_user_rid) REFERENCES user_accounts(user_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
           "table": "contact",
+          "referenced_table": "user_accounts",
+          "columns": [
+            "updated_by_user_rid"
+          ],
+          "referenced_columns": [
+            "user_rid"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "tenant_service_level_mapping",
+      "type": "BASIC TABLE",
+      "columns": [
+        {
+          "name": "tenant_uuid",
+          "type": "uniqueidentifier",
+          "nullable": false,
+          "comment": "The customer/tenant also used as the partition key, Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid]"
+        },
+        {
+          "name": "service_level_code",
+          "type": "varchar(30)",
+          "nullable": false
+        },
+        {
+          "name": "is_active",
+          "type": "bit",
+          "nullable": false,
+          "default": "((1))",
+          "comment": "The record is active, Data type = bit, Nullable = No"
+        },
+        {
+          "name": "created_date",
+          "type": "datetime",
+          "nullable": false,
+          "default": "(getdate())"
+        },
+        {
+          "name": "updated_date",
+          "type": "datetime",
+          "nullable": true
+        },
+        {
+          "name": "created_by_user_rid",
+          "type": "bigint",
+          "nullable": true
+        },
+        {
+          "name": "updated_by_user_rid",
+          "type": "bigint",
+          "nullable": true
+        },
+        {
+          "name": "notes",
+          "type": "nvarchar(1000)",
+          "nullable": true,
+          "comment": "Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "pk_tenant_service_level_mapping_tenant_uuid_service_level_code",
+          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, service_level_code ]",
+          "table": "tenant_service_level_mapping",
+          "columns": [
+            "tenant_uuid",
+            "service_level_code"
+          ]
+        },
+        {
+          "name": "ix_fk_tenant_service_level_mapping_updated_by_user_rid",
+          "def": "NONCLUSTERED, [ updated_by_user_rid ]",
+          "table": "tenant_service_level_mapping",
+          "columns": [
+            "updated_by_user_rid"
+          ]
+        },
+        {
+          "name": "ix_fk_tenant_service_level_mapping_tenant_uuid",
+          "def": "NONCLUSTERED, [ tenant_uuid ]",
+          "table": "tenant_service_level_mapping",
+          "columns": [
+            "tenant_uuid"
+          ]
+        },
+        {
+          "name": "ix_fk_tenant_service_level_mapping_created_by_user_rid",
+          "def": "NONCLUSTERED, [ created_by_user_rid ]",
+          "table": "tenant_service_level_mapping",
+          "columns": [
+            "created_by_user_rid"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "pk_tenant_service_level_mapping_tenant_uuid_service_level_code",
+          "type": "PRIMARY KEY",
+          "def": "CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, service_level_code ]",
+          "table": "tenant_service_level_mapping",
+          "columns": [
+            "tenant_uuid",
+            "service_level_code"
+          ]
+        },
+        {
+          "name": "fk_tenant_service_level_mapping_created_by_user_rid",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY(created_by_user_rid) REFERENCES user_accounts(user_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
+          "table": "tenant_service_level_mapping",
+          "referenced_table": "user_accounts",
+          "columns": [
+            "created_by_user_rid"
+          ],
+          "referenced_columns": [
+            "user_rid"
+          ]
+        },
+        {
+          "name": "fk_tenant_service_level_mapping_tenant_uuid",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY(tenant_uuid) REFERENCES account_details(tenant_uuid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
+          "table": "tenant_service_level_mapping",
+          "referenced_table": "account_details",
+          "columns": [
+            "tenant_uuid"
+          ],
+          "referenced_columns": [
+            "tenant_uuid"
+          ]
+        },
+        {
+          "name": "fk_tenant_service_level_mapping_updated_by_user_rid",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY(updated_by_user_rid) REFERENCES user_accounts(user_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION",
+          "table": "tenant_service_level_mapping",
           "referenced_table": "user_accounts",
           "columns": [
             "updated_by_user_rid"
@@ -4746,58 +4624,6 @@
       "def": ""
     },
     {
-      "table": "role_permission_mapping",
-      "columns": [
-        "created_by_user_rid"
-      ],
-      "cardinality": "zero_or_more",
-      "parent_table": "user_accounts",
-      "parent_columns": [
-        "user_rid"
-      ],
-      "parent_cardinality": "zero_or_one",
-      "def": ""
-    },
-    {
-      "table": "role_permission_mapping",
-      "columns": [
-        "tenant_uuid"
-      ],
-      "cardinality": "zero_or_more",
-      "parent_table": "account_details",
-      "parent_columns": [
-        "tenant_uuid"
-      ],
-      "parent_cardinality": "exactly_one",
-      "def": ""
-    },
-    {
-      "table": "role_permission_mapping",
-      "columns": [
-        "role_rid"
-      ],
-      "cardinality": "zero_or_more",
-      "parent_table": "role",
-      "parent_columns": [
-        "role_rid"
-      ],
-      "parent_cardinality": "exactly_one",
-      "def": ""
-    },
-    {
-      "table": "service_level_feature_mapping",
-      "columns": [
-        "service_level_code"
-      ],
-      "cardinality": "zero_or_more",
-      "parent_table": "lookup_code",
-      "parent_columns": [
-        "code"
-      ],
-      "parent_cardinality": "exactly_one",
-      "def": ""
-    },
-    {
       "table": "subscription",
       "columns": [
         "created_by_user_rid"
@@ -4825,45 +4651,6 @@
     },
     {
       "table": "subscription",
-      "columns": [
-        "updated_by_user_rid"
-      ],
-      "cardinality": "zero_or_more",
-      "parent_table": "user_accounts",
-      "parent_columns": [
-        "user_rid"
-      ],
-      "parent_cardinality": "zero_or_one",
-      "def": ""
-    },
-    {
-      "table": "tenant_service_level_mapping",
-      "columns": [
-        "created_by_user_rid"
-      ],
-      "cardinality": "zero_or_more",
-      "parent_table": "user_accounts",
-      "parent_columns": [
-        "user_rid"
-      ],
-      "parent_cardinality": "zero_or_one",
-      "def": ""
-    },
-    {
-      "table": "tenant_service_level_mapping",
-      "columns": [
-        "tenant_uuid"
-      ],
-      "cardinality": "zero_or_more",
-      "parent_table": "account_details",
-      "parent_columns": [
-        "tenant_uuid"
-      ],
-      "parent_cardinality": "exactly_one",
-      "def": ""
-    },
-    {
-      "table": "tenant_service_level_mapping",
       "columns": [
         "updated_by_user_rid"
       ],
@@ -5279,6 +5066,45 @@
       "def": ""
     },
     {
+      "table": "role_permission_mapping",
+      "columns": [
+        "created_by_user_rid"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "user_accounts",
+      "parent_columns": [
+        "user_rid"
+      ],
+      "parent_cardinality": "zero_or_one",
+      "def": ""
+    },
+    {
+      "table": "role_permission_mapping",
+      "columns": [
+        "role_rid"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "role",
+      "parent_columns": [
+        "role_rid"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": ""
+    },
+    {
+      "table": "service_level_feature_mapping",
+      "columns": [
+        "service_level_code"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "lookup_code",
+      "parent_columns": [
+        "code"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": ""
+    },
+    {
       "table": "contact",
       "columns": [
         "created_by_user_rid"
@@ -5371,6 +5197,45 @@
     },
     {
       "table": "contact",
+      "columns": [
+        "updated_by_user_rid"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "user_accounts",
+      "parent_columns": [
+        "user_rid"
+      ],
+      "parent_cardinality": "zero_or_one",
+      "def": ""
+    },
+    {
+      "table": "tenant_service_level_mapping",
+      "columns": [
+        "created_by_user_rid"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "user_accounts",
+      "parent_columns": [
+        "user_rid"
+      ],
+      "parent_cardinality": "zero_or_one",
+      "def": ""
+    },
+    {
+      "table": "tenant_service_level_mapping",
+      "columns": [
+        "tenant_uuid"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "account_details",
+      "parent_columns": [
+        "tenant_uuid"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": ""
+    },
+    {
+      "table": "tenant_service_level_mapping",
       "columns": [
         "updated_by_user_rid"
       ],

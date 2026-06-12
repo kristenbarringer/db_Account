@@ -9,7 +9,7 @@ the table that stores the details of the roles
 | Name | Type | Default | Nullable | Children | Parents | Comment |
 | ---- | ---- | ------- | -------- | -------- | ------- | ------- |
 | role_uuid | uniqueidentifier | (newsequentialid()) | false |  |  | Unique identifier for the record, a unique nonclustered key for the table. Must be a SQL-sortable UUIDv7. , Data type = uniqueidentifier, Nullable = No |
-| role_rid | bigint |  | false | [role_permission_mapping](role_permission_mapping.md) [user_accounts](user_accounts.md) |  | Unique RowID for the record, part of composite primary key for the table after tenant_uuid, a unique clustered key for the table, Data type = bigint, Nullable = No |
+| role_rid | bigint |  | false | [user_accounts](user_accounts.md) [role_permission_mapping](role_permission_mapping.md) |  | Unique RowID for the record, part of composite primary key for the table after tenant_uuid, a unique clustered key for the table, Data type = bigint, Nullable = No |
 | tenant_uuid | uniqueidentifier |  | false |  | [account_details](account_details.md) | the uniqueidentifier for the tenant/customer.  Used as a partitioning key., Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid] |
 | name | nvarchar(100) |  | false |  |  | the short description of the record, Data type = nvarchar(200), Nullable = No |
 | description | nvarchar(100) |  | false |  |  | the long description of the record, Data type = nvarchar(200), Nullable = No |

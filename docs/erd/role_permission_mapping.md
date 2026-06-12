@@ -8,9 +8,6 @@ the table that stores the mappings of roles to permissions
 
 | Name | Type | Default | Nullable | Children | Parents | Comment |
 | ---- | ---- | ------- | -------- | -------- | ------- | ------- |
-| role_permission_mapping_uuid | uniqueidentifier | (newsequentialid()) | false |  |  | Unique identifier for the record, a unique nonclustered key for the table. Must be a SQL-sortable UUIDv7. , Data type = uniqueidentifier, Nullable = No |
-| role_permission_mapping_rid | bigint |  | false |  |  | Unique RowID for the record, part of composite primary key for the table after tenant_uuid, a unique clustered key for the table, Data type = bigint, Nullable = No |
-| tenant_uuid | uniqueidentifier |  | false |  | [account_details](account_details.md) | the uniqueidentifier for the tenant/customer.  Used as a partitioning key., Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid] |
 | permission_code | varchar(100) |  | false |  |  | the code of the permissions - this is not currently a foreign key, Data type = varchar(100), Nullable = No |
 | role_rid | bigint |  | false |  | [role](role.md) | References column role_rid on table role, Data type = bigint, Nullable = No, References = [dbo].[role].[role_rid] |
 | created_by_user_rid | bigint |  | true |  | [user_accounts](user_accounts.md) |  |
@@ -20,22 +17,16 @@ the table that stores the mappings of roles to permissions
 
 | Name | Type | Definition |
 | ---- | ---- | ---------- |
-| pk_role_permission_mapping_tenant_uuid_role_permission_mapping_rid | PRIMARY KEY | CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, role_permission_mapping_rid ] |
-| uk_role_permission_mapping_uuid | UNIQUE | NONCLUSTERED, unique, part of a UNIQUE constraint, [ role_permission_mapping_uuid ] |
-| uk_role_permission_mapping_rid | UNIQUE | NONCLUSTERED, unique, part of a UNIQUE constraint, [ role_permission_mapping_rid ] |
+| pk_role_permission_mapping_permission_code_role_rid | PRIMARY KEY | CLUSTERED, unique, part of a PRIMARY KEY constraint, [ permission_code, role_rid ] |
 | fk_role_permission_mapping_created_by_user_rid | FOREIGN KEY | FOREIGN KEY(created_by_user_rid) REFERENCES user_accounts(user_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION |
-| fk_role_permission_mapping_tenant_uuid | FOREIGN KEY | FOREIGN KEY(tenant_uuid) REFERENCES account_details(tenant_uuid) ON UPDATE NO_ACTION ON DELETE NO_ACTION |
 | fk_role_permission_mapping_user_rid | FOREIGN KEY | FOREIGN KEY(role_rid) REFERENCES role(role_rid) ON UPDATE NO_ACTION ON DELETE NO_ACTION |
 
 ## Indexes
 
 | Name | Definition |
 | ---- | ---------- |
-| pk_role_permission_mapping_tenant_uuid_role_permission_mapping_rid | CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, role_permission_mapping_rid ] |
-| uk_role_permission_mapping_uuid | NONCLUSTERED, unique, part of a UNIQUE constraint, [ role_permission_mapping_uuid ] |
-| uk_role_permission_mapping_rid | NONCLUSTERED, unique, part of a UNIQUE constraint, [ role_permission_mapping_rid ] |
+| pk_role_permission_mapping_permission_code_role_rid | CLUSTERED, unique, part of a PRIMARY KEY constraint, [ permission_code, role_rid ] |
 | ix_fk_role_permission_mapping_created_by_user_rid | NONCLUSTERED, [ created_by_user_rid ] |
-| ix_fk_role_permission_mapping_tenant_uuid | NONCLUSTERED, [ tenant_uuid ] |
 | ix_fk_role_permission_mapping_user_rid | NONCLUSTERED, [ role_rid ] |
 
 ## Relations

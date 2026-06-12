@@ -4,7 +4,6 @@
 
 | Name | Type | Default | Nullable | Children | Parents | Comment |
 | ---- | ---- | ------- | -------- | -------- | ------- | ------- |
-| rid | int |  | false |  |  |  |
 | service_level_code | varchar(30) |  | false |  | [lookup_code](lookup_code.md) | A lookup to the main lookup_code table, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code] |
 | created | datetime | (getdate()) | false |  |  | DEPRECATED - replaced by created_date, Data type = datetime, Nullable = No |
 | feature_code | varchar(100) |  | false |  |  |  |
@@ -13,14 +12,14 @@
 
 | Name | Type | Definition |
 | ---- | ---- | ---------- |
-| PK_service_level_feature_mapping | PRIMARY KEY | CLUSTERED, unique, part of a PRIMARY KEY constraint, [ rid ] |
+| pk_service_level_feature_mapping_service_level_code_feature_code | PRIMARY KEY | CLUSTERED, unique, part of a PRIMARY KEY constraint, [ service_level_code, feature_code ] |
 | FK_service_level_feature_mapping_service_level | FOREIGN KEY | FOREIGN KEY(service_level_code) REFERENCES lookup_code(code) ON UPDATE NO_ACTION ON DELETE NO_ACTION |
 
 ## Indexes
 
 | Name | Definition |
 | ---- | ---------- |
-| PK_service_level_feature_mapping | CLUSTERED, unique, part of a PRIMARY KEY constraint, [ rid ] |
+| pk_service_level_feature_mapping_service_level_code_feature_code | CLUSTERED, unique, part of a PRIMARY KEY constraint, [ service_level_code, feature_code ] |
 | ix_service_level_feature_mapping_service_level_code | NONCLUSTERED, [ service_level_code ] |
 
 ## Relations
