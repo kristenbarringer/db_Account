@@ -13,6 +13,7 @@ CREATE TABLE [dbo].[account_type]
   [service_level_filter] [bit] NULL,
   [service_level_code] VARCHAR(30) NULL,
     -- fk columns - other main fks (todo check legacy DB for all existing fks)
+  [default_role_rid] VARCHAR(30) NULL, -- todo make fk to role
     -- fk columns - to lookup code (suffixed with "_code")
        -- bit flag columns (prefixed with "is_")        
     [is_active] BIT CONSTRAINT [df_account_type_is_active] DEFAULT (1) NOT NULL,

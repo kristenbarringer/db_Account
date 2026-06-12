@@ -1,12 +1,7 @@
 
 CREATE TABLE [dbo].[role_permission_mapping]
-( -- REFACTOR DONE as of 6/7/2026
+(  -- TRULY a MANY-TO-MANY Table - 6/12
     -- ------------------------------------
-    -- pks and main uq columns
-    [role_permission_mapping_uuid] UNIQUEIDENTIFIER CONSTRAINT [df_role_permission_mapping_role_permission_mapping_uuid] DEFAULT (NEWSEQUENTIALID()) NOT NULL,   
-    [role_permission_mapping_rid]  BIGINT IDENTITY (1, 1) NOT NULL,
-    -- fk columns - to tenant
-    [tenant_uuid] UNIQUEIDENTIFIER  NOT NULL,
     -- main attribute columns of this entity 
     [permission_code] VARCHAR (100) NOT NULL ,
     -- fk columns - other main fks    
@@ -26,20 +21,13 @@ CREATE TABLE [dbo].[role_permission_mapping]
 );
 GO
 -- ------------------------------------
--- pks and main uq indexes
-ALTER TABLE [dbo].[role_permission_mapping] ADD CONSTRAINT [pk_role_permission_mapping_tenant_uuid_role_permission_mapping_rid] PRIMARY KEY CLUSTERED ([tenant_uuid] ASC, [role_permission_mapping_rid] ASC) WITH (FILLFACTOR = 100, DATA_COMPRESSION = PAGE);
-GO
-ALTER TABLE [dbo].[role_permission_mapping] ADD CONSTRAINT [uk_role_permission_mapping_uuid] UNIQUE NONCLUSTERED ([role_permission_mapping_uuid] ASC) WITH (FILLFACTOR = 100, DATA_COMPRESSION = PAGE);
-GO
-ALTER TABLE [dbo].[role_permission_mapping] ADD CONSTRAINT [uk_role_permission_mapping_rid] UNIQUE ([role_permission_mapping_rid]);
+-- pks and main uq indexes - MANY-TO-MANY tables should have a PK of the 2 tables that are joined
+ALTER TABLE [dbo].[role_permission_mapping] ADD CONSTRAINT [pk_role_permission_mapping_permission_code_role_rid] 
+PRIMARY KEY CLUSTERED ([permission_code] ASC, [role_rid] ASC) WITH (FILLFACTOR = 100, DATA_COMPRESSION = PAGE);
 GO
 
--- fks - to tenant
-ALTER TABLE [dbo].[role_permission_mapping] ADD CONSTRAINT [fk_role_permission_mapping_tenant_uuid] FOREIGN KEY ([tenant_uuid]) REFERENCES [dbo].[account_details] ([tenant_uuid]); 
- GO
-CREATE NONCLUSTERED INDEX [ix_fk_role_permission_mapping_tenant_uuid] 
-  ON [dbo].[role_permission_mapping]([tenant_uuid] ASC); 
-  GO
+
+
 -- fks - to user
 ALTER TABLE [dbo].[role_permission_mapping]
     ADD CONSTRAINT [fk_role_permission_mapping_created_by_user_rid] FOREIGN KEY ([created_by_user_rid]) REFERENCES [dbo].[user_accounts] ([user_rid]);
@@ -48,6 +36,7 @@ CREATE NONCLUSTERED INDEX [ix_fk_role_permission_mapping_created_by_user_rid] --
     ON [dbo].[role_permission_mapping]([created_by_user_rid] ASC);
 GO
 -- fks - other main fks
+-- todo do we need a permissions table?
 ALTER TABLE [dbo].[role_permission_mapping] ADD CONSTRAINT [fk_role_permission_mapping_user_rid] FOREIGN KEY ([role_rid]) REFERENCES [dbo].role ([role_rid]); 
  GO
 CREATE NONCLUSTERED INDEX [ix_fk_role_permission_mapping_user_rid] 

@@ -1,19 +1,17 @@
 -- drop table if exists [dbo].[tenant_service_level_mapping];
 --drop table if exists [dbo].[tenant_service_level_mapping];
 CREATE TABLE [dbo].[tenant_service_level_mapping]
-(  
+(  -- TRULY a MANY-TO-MANY Table - 6/12
     -- ------------------------------------
     -- pks and main uq columns
-    [tenant_service_level_mapping_uuid] UNIQUEIDENTIFIER CONSTRAINT [df_tenant_service_level_mapping_tenant_service_level_mapping_uuid] DEFAULT (NEWSEQUENTIALID()) NOT NULL,   
-    [tenant_service_level_mapping_rid]  BIGINT IDENTITY (1, 1) NOT NULL,
     -- fk columns - to tenant
     [tenant_uuid] UNIQUEIDENTIFIER  NOT NULL,
     -- main attribute columns of this entity 
     -- fk columns - other main fks (todo check legacy DB for all existing fks)
     -- fk columns - to lookup code (suffixed with "_code")
     --[lookup_code] VARCHAR (30) CONSTRAINT [df_tenant_service_level_mapping_language_code] DEFAULT ('LNG_ENUS') NOT NULL,
-    [service_level_code] VARCHAR(30) NOT NULL,
-    [account_type_code] VARCHAR(30) NULL,
+    [service_level_code] VARCHAR(30) NOT NULL, -- todo possibly make it an RID
+   -- [account_type_code] VARCHAR(30) NULL,
     -- bit flag columns (prefixed with "is_")        
     [is_active] BIT CONSTRAINT [df_tenant_service_level_mapping_is_active] DEFAULT (1) NOT NULL,
     -- date columns (suffixed with "_date")
@@ -32,12 +30,9 @@ CREATE TABLE [dbo].[tenant_service_level_mapping]
 );
 GO
 -- ------------------------------------
--- pks and main uq indexes
-ALTER TABLE [dbo].[tenant_service_level_mapping] ADD CONSTRAINT [pk_tenant_service_level_mapping_tenant_uuid_tenant_service_level_mapping_rid] PRIMARY KEY CLUSTERED ([tenant_uuid] ASC, [tenant_service_level_mapping_rid] ASC) WITH (FILLFACTOR = 100, DATA_COMPRESSION = PAGE);
-GO
-ALTER TABLE [dbo].[tenant_service_level_mapping] ADD CONSTRAINT [uk_tenant_service_level_mapping_uuid] UNIQUE NONCLUSTERED ([tenant_service_level_mapping_uuid] ASC) WITH (FILLFACTOR = 100, DATA_COMPRESSION = PAGE);
-GO
-ALTER TABLE [dbo].[tenant_service_level_mapping] ADD CONSTRAINT [uk_tenant_service_level_mapping_rid] UNIQUE ([tenant_service_level_mapping_rid]);
+-- pks and main uq indexes - MANY-TO-MANY tables should have a PK of the 2 tables that are joined
+ALTER TABLE [dbo].[tenant_service_level_mapping] ADD CONSTRAINT [pk_tenant_service_level_mapping_tenant_uuid_service_level_code] 
+PRIMARY KEY CLUSTERED ([tenant_uuid] ASC, [service_level_code] ASC) WITH (FILLFACTOR = 100, DATA_COMPRESSION = PAGE);
 GO
 
 
