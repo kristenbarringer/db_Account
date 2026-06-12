@@ -14,17 +14,44 @@ BEGIN
        declare @user_uuid BIGINT
     declare @tenant_uuid uniqueidentifier
     select @user_uuid = max(user_rid) from dbo.user_accounts
-    select @tenant_uuid = max(tenant_uuid) from dbo.account_details where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV'
-    declare @role_id bigint
-    select @role_id = max(role_rid) from dbo.role
- 
+
+
+
+    declare @role_rid1 bigint
+    declare @role_rid2 bigint
+    declare @role_rid3 bigint
+    declare @role_rid4 bigint
+    declare @role_rid5 bigint
+     
+select @role_rid1 = max(role_rid) from dbo.role where tenant_uuid = '3E2070B4-5B0E-499B-BFC0-2001D796581A'
+select @role_rid2 = max(role_rid) from dbo.role where tenant_uuid = '391AFAAD-4A35-4ACE-8770-3F9D5C2D005D'
+select @role_rid3 = max(role_rid) from dbo.role where tenant_uuid = '51EE8B72-0B78-450A-ABEA-61022393CD99'
+select @role_rid4 = max(role_rid) from dbo.role where tenant_uuid = '0655A47A-D24B-43AB-A691-B4FFBB0D9677'
+select @role_rid5 = max(role_rid) from dbo.role where tenant_uuid = '30B4F849-7138-4817-8F3B-DAB8AE5C9A54'
+
+-- delete from dbo.role_permission_mapping
 
     insert into dbo.role_permission_mapping ( permission_code, role_rid,  created_by_user_rid, notes)
-    values (    '', @role_id,  @user_uuid, 'TEST DATA PROCESS ON DEV')
-    , (  '', @role_id,  @user_uuid, 'TEST DATA PROCESS ON DEV')
-    , (  '', @role_id,  @user_uuid, 'TEST DATA PROCESS ON DEV')
-    , (  '', @role_id,  @user_uuid, 'TEST DATA PROCESS ON DEV')
-    , (  '', @role_id,  @user_uuid, 'TEST DATA PROCESS ON DEV')
+    values   (    'account.user.view',    @role_rid1,  @user_uuid, 'TEST DATA PROCESS ON DEV')
+           , (  'asset.asset.activate',   @role_rid1,  @user_uuid, 'TEST DATA PROCESS ON DEV')
+           , (  'asset.asset.track',      @role_rid1,  @user_uuid, 'TEST DATA PROCESS ON DEV')
+           , (  'report.report.standard', @role_rid1,  @user_uuid, 'TEST DATA PROCESS ON DEV')
+
+           , (    'account.user.view',    @role_rid2,  @user_uuid, 'TEST DATA PROCESS ON DEV')
+           , (  'asset.asset.activate',   @role_rid2,  @user_uuid, 'TEST DATA PROCESS ON DEV')
+           , (  'asset.asset.track',      @role_rid2,  @user_uuid, 'TEST DATA PROCESS ON DEV')
+           , (  'report.report.standard', @role_rid2,  @user_uuid, 'TEST DATA PROCESS ON DEV')
+
+           , (    'account.user.view',    @role_rid3,  @user_uuid, 'TEST DATA PROCESS ON DEV')
+           , (  'asset.asset.activate',   @role_rid3,  @user_uuid, 'TEST DATA PROCESS ON DEV')
+           , (  'asset.asset.track',      @role_rid3,  @user_uuid, 'TEST DATA PROCESS ON DEV')
+           , (  'report.report.standard', @role_rid3,  @user_uuid, 'TEST DATA PROCESS ON DEV')
+
+           , (    'account.user.view',    @role_rid4,  @user_uuid, 'TEST DATA PROCESS ON DEV')
+           , (  'asset.asset.activate',   @role_rid4,  @user_uuid, 'TEST DATA PROCESS ON DEV')
+           , (  'asset.asset.track',      @role_rid4,  @user_uuid, 'TEST DATA PROCESS ON DEV')
+           , (  'report.report.standard', @role_rid4,  @user_uuid, 'TEST DATA PROCESS ON DEV')
+ 
 
     
     DECLARE @rows INT = @@ROWCOUNT;
