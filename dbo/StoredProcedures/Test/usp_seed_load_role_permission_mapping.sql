@@ -23,11 +23,11 @@ BEGIN
     declare @role_rid4 bigint
     declare @role_rid5 bigint
      
-select @role_rid1 = max(role_rid) from dbo.role where tenant_uuid = '3E2070B4-5B0E-499B-BFC0-2001D796581A'
-select @role_rid2 = max(role_rid) from dbo.role where tenant_uuid = '391AFAAD-4A35-4ACE-8770-3F9D5C2D005D'
-select @role_rid3 = max(role_rid) from dbo.role where tenant_uuid = '51EE8B72-0B78-450A-ABEA-61022393CD99'
-select @role_rid4 = max(role_rid) from dbo.role where tenant_uuid = '0655A47A-D24B-43AB-A691-B4FFBB0D9677'
-select @role_rid5 = max(role_rid) from dbo.role where tenant_uuid = '30B4F849-7138-4817-8F3B-DAB8AE5C9A54'
+select @role_rid1 = max(role_rid) from dbo.role where tenant_uuid = '3e2070b4-5b0e-499b-bfc0-2001d796581a'
+select @role_rid2 = max(role_rid) from dbo.role where tenant_uuid = '391afaad-4a35-4ace-8770-3f9d5c2d005d'
+select @role_rid3 = max(role_rid) from dbo.role where tenant_uuid = '51ee8b72-0b78-450a-abea-61022393cd99'
+select @role_rid4 = max(role_rid) from dbo.role where tenant_uuid = '0655a47a-d24b-43ab-a691-b4ffbb0d9677'
+select @role_rid5 = max(role_rid) from dbo.role where tenant_uuid = '30b4f849-7138-4817-8f3b-dab8ae5c9a54'
 
 -- delete from dbo.role_permission_mapping
 

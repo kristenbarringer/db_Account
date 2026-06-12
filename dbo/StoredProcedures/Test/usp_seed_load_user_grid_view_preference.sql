@@ -25,15 +25,11 @@ BEGIN
     insert into user_grid_view_preference
         (user_grid_view_preference_uuid, tenant_uuid, user_rid, grid_name, columns_hidden, created_by_user_rid, notes)
     values
-        (NEWID(), '3E2070B4-5B0E-499B-BFC0-2001D796581A', @user_uuid, '', '', @user_uuid, 'TEST DATA PROCESS ON DEV')
-        ,
-        (NEWID(), '391AFAAD-4A35-4ACE-8770-3F9D5C2D005D', @user_uuid, '', '', @user_uuid, 'TEST DATA PROCESS ON DEV')
-        ,
-        (NEWID(), '51EE8B72-0B78-450A-ABEA-61022393CD99', @user_uuid, '', '', @user_uuid, 'TEST DATA PROCESS ON DEV')
-        ,
-        (NEWID(), '0655A47A-D24B-43AB-A691-B4FFBB0D9677', @user_uuid, '', '', @user_uuid, 'TEST DATA PROCESS ON DEV')
-        ,
-        (NEWID(), '30B4F849-7138-4817-8F3B-DAB8AE5C9A54', @user_uuid, '', '', @user_uuid, 'TEST DATA PROCESS ON DEV')
+        (NEWID(), '3e2070b4-5b0e-499b-bfc0-2001d796581a', @user_uuid, '', '', @user_uuid, 'TEST DATA PROCESS ON DEV')        ,
+        (NEWID(), '391afaad-4a35-4ace-8770-3f9d5c2d005d', @user_uuid, '', '', @user_uuid, 'TEST DATA PROCESS ON DEV')        ,
+        (NEWID(), '51ee8b72-0b78-450a-abea-61022393cd99', @user_uuid, '', '', @user_uuid, 'TEST DATA PROCESS ON DEV')        ,
+        (NEWID(), '0655a47a-d24b-43ab-a691-b4ffbb0d9677', @user_uuid, '', '', @user_uuid, 'TEST DATA PROCESS ON DEV')        ,
+        (NEWID(), '30b4f849-7138-4817-8f3b-dab8ae5c9a54', @user_uuid, '', '', @user_uuid, 'TEST DATA PROCESS ON DEV')
 
     DECLARE @rows INT = @@ROWCOUNT;
     PRINT CONCAT('usp_seed_load_user_grid_pref: inserted ', @rows, ' row(s) into dbo.user_grid_pref.');

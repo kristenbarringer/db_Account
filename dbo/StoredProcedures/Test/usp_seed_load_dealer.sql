@@ -25,28 +25,28 @@ BEGIN
         ,is_blue_track_dealer
         ,notes,created_by_user_rid, updated_by_user_rid, updated_date)
     values
-        (NEWID(), 'C0960001', '3E2070B4-5B0E-499B-BFC0-2001D796581A', 'Mid Missouri Thermo King', '11085 OO Hwy, Boonville, MO 65233', '660-882-6030', 'dianah@midmissouritk.com', '65233', 123456, '19568426'
+        (NEWID(), 'C0960001', '3e2070b4-5b0e-499b-bfc0-2001d796581a', 'Mid Missouri Thermo King', '11085 OO Hwy, Boonville, MO 65233', '660-882-6030', 'dianah@midmissouritk.com', '65233', 123456, '19568426'
    , 'T0697', 'Fleetsource TK', 456789
 , 0, 'TEST DATA PROCESS ON DEV', @user_rid, @user_rid, getdate())
 
 ,
-        (NEWID(), 'C2645004', '391AFAAD-4A35-4ACE-8770-3F9D5C2D005D', 'Thermo King Mid Canada - Saskatoon', 'Saskatoon Freeway, Martensville, Saskatchewan S0K 0A2, Canada', '306-933-0572',
+        (NEWID(), 'C2645004', '391afaad-4a35-4ace-8770-3f9d5c2d005d', 'Thermo King Mid Canada - Saskatoon', 'Saskatoon Freeway, Martensville, Saskatchewan S0K 0A2, Canada', '306-933-0572',
             'swowryk@tkwinnipeg.com', 'S0K 2T0', 123456, '36278676'
 , 'C2645', 'Thermo King of Mid Canada', 456789
 , 1, 'TEST DATA PROCESS ON DEV', @user_rid, @user_rid, getdate())
 
 ,
-        (NEWID(), 'C0966', '51EE8B72-0B78-450A-ABEA-61022393CD99', 'Central States Thermo King of St. Louis, LLC', '420 Carrie Ave', '555-444-3333', 'beiese@cstk.com', '63147', 123456, '27138254'
+        (NEWID(), 'C0966', '51ee8b72-0b78-450a-abea-61022393cd99', 'Central States Thermo King of St. Louis, LLC', '420 Carrie Ave', '555-444-3333', 'beiese@cstk.com', '63147', 123456, '27138254'
 , 'T2820', 'Thermo King Midwest', 456789
 , 1, 'TEST DATA PROCESS ON DEV', @user_rid, @user_rid, getdate())
 
 ,
-        (NEWID(), 'K1003', '0655A47A-D24B-43AB-A691-B4FFBB0D9677', 'Thermo King of Dallas - Commerce City', '5170 E58th Place', '111-222-3333', 'dvalentine@convoyservicing.com', '80022', 123456, '46625466'
+        (NEWID(), 'K1003', '0655a47a-d24b-43ab-a691-b4ffbb0d9677', 'Thermo King of Dallas - Commerce City', '5170 E58th Place', '111-222-3333', 'dvalentine@convoyservicing.com', '80022', 123456, '46625466'
 , 'ABC123', 'Test Terr Name', 456789
 , 0, 'TEST DATA PROCESS ON DEV', @user_rid, @user_rid, getdate())
 
 ,
-        (NEWID(), 'ABC123', '30B4F849-7138-4817-8F3B-DAB8AE5C9A54', 'Test Dealer', '123 Main St, Anytown, MN 55555', '555-555-1212', 'test@example.com', '01234', 123, 1523
+        (NEWID(), 'ABC123', '30b4f849-7138-4817-8f3b-dab8ae5c9a54', 'Test Dealer', '123 Main St, Anytown, MN 55555', '555-555-1212', 'test@example.com', '01234', 123, 1523
 , 'DEF456', 'Test Terr Name', 456789
 , 0, 'TEST DATA PROCESS ON DEV', @user_rid, @user_rid, getdate())
 
