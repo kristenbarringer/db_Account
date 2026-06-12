@@ -1,5 +1,9 @@
 # account_type
 
+## Description
+
+An Account Type is a “group” of customers, It represents a “profile”. Profiles can be used across different tenants/customers. Tk_Admin and tk_Master (formerly called “celtrak service manager”) can add Account Types.
+
 ## Columns
 
 | Name | Type | Default | Nullable | Children | Parents | Comment |

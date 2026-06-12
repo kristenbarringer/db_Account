@@ -16,7 +16,7 @@
 | [customer_account_information](customer_account_information.md) | 13 |  | BASIC TABLE |
 | [customer_billing_information](customer_billing_information.md) | 27 |  | BASIC TABLE |
 | [account_details](account_details.md) | 34 | the table that stores the details of the accounts | BASIC TABLE |
-| [account_type](account_type.md) | 13 |  | BASIC TABLE |
+| [account_type](account_type.md) | 13 | An Account Type is a “group” of customers, It represents a “profile”. Profiles can be used across different tenants/customers. Tk_Admin and tk_Master (formerly called “celtrak service manager”) can add Account Types. | BASIC TABLE |
 | [account_type_permission_mapping](account_type_permission_mapping.md) | 10 |  | BASIC TABLE |
 | [role_permission_mapping](role_permission_mapping.md) | 4 | MANY-TO-MANY relationship mapping between Role and Permission | BASIC TABLE |
 | [service_level_feature_mapping](service_level_feature_mapping.md) | 3 | MANY-TO-MANY relationship mapping between Service Level and Feature | BASIC TABLE |
