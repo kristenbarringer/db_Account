@@ -17,7 +17,7 @@
 | created_by_user_rid | bigint |  | true |  | [user_accounts](user_accounts.md) |  |
 | updated_by_user_rid | bigint |  | true |  | [user_accounts](user_accounts.md) |  |
 | rate_deviation_approver_user_rid | int |  | true |  |  |  |
-| notes | nvarchar(1000) |  | true |  |  | Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes |
+| notes | nvarchar(1000) |  | true |  |  | Optional notes and comments about this record, Data type = nvarchar(1000), Nullable = Yes |
 | rate_approver_notes | nvarchar(2000) |  | true |  |  |  |
 
 ## Constraints

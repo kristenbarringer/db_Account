@@ -9,9 +9,9 @@ MANY-TO-MANY relationship mapping between Role and Permission
 | Name | Type | Default | Nullable | Children | Parents | Comment |
 | ---- | ---- | ------- | -------- | -------- | ------- | ------- |
 | permission_code | varchar(100) |  | false |  |  | MANY-TO-MANY composite primary key field for Role and Permission, Data type = varchar(100), Nullable = No |
-| role_rid | bigint |  | false |  | [role](role.md) | References column role_rid on table role, Data type = bigint, Nullable = No, References = [dbo].[role].[role_rid] |
+| role_rid | bigint |  | false |  | [role](role.md) | MANY-TO-MANY composite primary key field for Role and Permission, Data type = bigint, Nullable = No, References = [dbo].[role].[role_rid] |
 | created_by_user_rid | bigint |  | true |  | [user_accounts](user_accounts.md) |  |
-| notes | nvarchar(1000) |  | true |  |  | Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes |
+| notes | nvarchar(1000) |  | true |  |  | Optional notes and comments about this record, Data type = nvarchar(1000), Nullable = Yes |
 
 ## Constraints
 

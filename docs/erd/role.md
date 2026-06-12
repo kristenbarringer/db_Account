@@ -11,8 +11,8 @@ the table that stores the details of the roles
 | role_uuid | uniqueidentifier | (newsequentialid()) | false |  |  | Unique identifier for the record, a unique nonclustered key for the table. Must be a SQL-sortable UUIDv7. , Data type = uniqueidentifier, Nullable = No |
 | role_rid | bigint |  | false | [user_accounts](user_accounts.md) [role_permission_mapping](role_permission_mapping.md) |  | Unique RowID for the record, part of composite primary key for the table after tenant_uuid, a unique clustered key for the table, Data type = bigint, Nullable = No |
 | tenant_uuid | uniqueidentifier |  | false |  | [account_details](account_details.md) | the uniqueidentifier for the tenant/customer.  Used as a partitioning key., Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid] |
-| name | nvarchar(100) |  | false |  |  | the short description of the record, Data type = nvarchar(200), Nullable = No |
-| description | nvarchar(100) |  | false |  |  | the long description of the record, Data type = nvarchar(200), Nullable = No |
+| name | nvarchar(100) |  | false |  |  | the short description of the record, Data type = nvarchar(100), Nullable = No |
+| description | nvarchar(100) |  | false |  |  | the long description of the record, Data type = nvarchar(100), Nullable = No |
 | role_type_code | varchar(30) |  | false |  | [lookup_code](lookup_code.md) | see lookup.code for information about these values, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code] |
 | is_active | bit | ((1)) | false |  |  | the record is active, Data type = bit, Nullable = No |
 | is_standard_role | bit | ((1)) | false |  |  | is the record standard role, Data type = bit, Nullable = No |
@@ -20,7 +20,7 @@ the table that stores the details of the roles
 | updated_date | datetime | (getdate()) | false |  |  | the date the record was updated or created, Data type = datetime, Nullable = No |
 | created_by_user_rid | uniqueidentifier |  | true |  |  |  |
 | updated_by_user_rid | uniqueidentifier |  | true |  |  |  |
-| notes | nvarchar(1000) |  | true |  |  | Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes |
+| notes | nvarchar(1000) |  | true |  |  | Optional notes and comments about this record, Data type = nvarchar(1000), Nullable = Yes |
 | test_data_group | int |  | true |  |  | used for the Dev test data process, Data type = int, Nullable = Yes |
 | created | datetime | (getdate()) | false |  |  | DEPRECATED - replaced by created_date, Data type = datetime, Nullable = No |
 | active | bit |  | false |  |  | DEPRECATED - replaced by is_active, Data type = bit, Nullable = No |

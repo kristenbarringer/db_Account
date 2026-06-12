@@ -9,19 +9,19 @@ the table that stores the details of the accounts
 | Name | Type | Default | Nullable | Children | Parents | Comment |
 | ---- | ---- | ------- | -------- | -------- | ------- | ------- |
 | tenant_uuid | uniqueidentifier | (newsequentialid()) | false | [locations_common](locations_common.md) [role](role.md) [subscription](subscription.md) [user_accounts](user_accounts.md) [user_grid_view_preference](user_grid_view_preference.md) [customer_account_information](customer_account_information.md) [customer_billing_information](customer_billing_information.md) [contact](contact.md) [tenant_service_level_mapping](tenant_service_level_mapping.md) [customer_internal_view](customer_internal_view.md) [customer_rate_information](customer_rate_information.md) [dealer](dealer.md) [dealer_family](dealer_family.md) |  | the uniqueidentifier for the tenant/customer.  Used as a partitioning key., Data type = uniqueidentifier, Nullable = No |
-| organization | nvarchar(100) |  | false |  |  | the company name, Data type = nvarchar(200), Nullable = No |
-| company_address | nvarchar(200) |  | true |  |  | the address for the company, Data type = nvarchar(400), Nullable = Yes |
-| additional_address | nvarchar(200) |  | true |  |  | the second line of the address, Data type = nvarchar(400), Nullable = Yes |
-| zip_code | nvarchar(50) |  | true |  |  | the zip_code of the address, Data type = nvarchar(100), Nullable = Yes |
-| phone_number | nvarchar(50) |  | true |  |  | the phone number, Data type = nvarchar(100), Nullable = Yes |
-| fax_number | nvarchar(50) |  | true |  |  | the fax number, Data type = nvarchar(100), Nullable = Yes |
-| email | nvarchar(50) |  | true |  |  | the email address, Data type = nvarchar(100), Nullable = Yes |
-| company_website | nvarchar(200) |  | true |  |  | the website of the company, Data type = nvarchar(400), Nullable = Yes |
-| support_contact_number | nvarchar(50) |  | true |  |  | the phone number for support for this account, Data type = nvarchar(100), Nullable = Yes |
-| city | nvarchar(50) |  | true |  |  | the city of the address, Data type = nvarchar(100), Nullable = Yes |
-| state | nvarchar(50) |  | true |  |  | the state/province of the address, Data type = nvarchar(100), Nullable = Yes |
+| organization | nvarchar(100) |  | false |  |  | the company name, Data type = nvarchar(100), Nullable = No |
+| company_address | nvarchar(200) |  | true |  |  | the address for the company, Data type = nvarchar(200), Nullable = Yes |
+| additional_address | nvarchar(200) |  | true |  |  | the second line of the address, Data type = nvarchar(200), Nullable = Yes |
+| zip_code | nvarchar(50) |  | true |  |  | the zip_code of the address, Data type = nvarchar(50), Nullable = Yes |
+| phone_number | nvarchar(50) |  | true |  |  | the phone number, Data type = nvarchar(50), Nullable = Yes |
+| fax_number | nvarchar(50) |  | true |  |  | the fax number, Data type = nvarchar(50), Nullable = Yes |
+| email | nvarchar(50) |  | true |  |  | the email address, Data type = nvarchar(50), Nullable = Yes |
+| company_website | nvarchar(200) |  | true |  |  | the website of the company, Data type = nvarchar(200), Nullable = Yes |
+| support_contact_number | nvarchar(50) |  | true |  |  | the phone number for support for this account, Data type = nvarchar(50), Nullable = Yes |
+| city | nvarchar(50) |  | true |  |  | the city of the address, Data type = nvarchar(50), Nullable = Yes |
+| state | nvarchar(50) |  | true |  |  | the state/province of the address, Data type = nvarchar(50), Nullable = Yes |
 | phone_extension | int |  | true |  |  | the extension of the phone number, Data type = int, Nullable = Yes |
-| country | nvarchar(50) |  | true |  |  | the country of the address, Data type = nvarchar(100), Nullable = Yes |
+| country | nvarchar(50) |  | true |  |  | the country of the address, Data type = nvarchar(50), Nullable = Yes |
 | dealer_rid | bigint |  | true |  | [dealer](dealer.md) | References column dealer_rid on table dealer, Data type = bigint, Nullable = Yes, References = [dbo].[dealer].[dealer_rid] |
 | csm_rid | bigint |  | true |  |  | UNDER CONSTRUCTION - might be used for celtrak_service_manager (a.k.a. CSM), Data type = bigint, Nullable = Yes |
 | account_type_rid | bigint | ((1)) | false |  | [account_type](account_type.md) | References column account_type_rid on table account_type, Data type = bigint, Nullable = No, References = [dbo].[account_type].[account_type_rid] |
@@ -37,7 +37,7 @@ the table that stores the details of the accounts
 | admin_user_rid | uniqueidentifier |  | false |  |  | the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = uniqueidentifier, Nullable = No |
 | created_by_user_rid | bigint |  | true |  |  |  |
 | updated_by_user_rid | bigint |  | true |  |  |  |
-| notes | nvarchar(1000) |  | true |  |  | Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes |
+| notes | nvarchar(1000) |  | true |  |  | Optional notes and comments about this record, Data type = nvarchar(1000), Nullable = Yes |
 | test_data_group | int |  | true |  |  | used for the Dev test data process, Data type = int, Nullable = Yes |
 | active | bit |  | false |  |  | DEPRECATED - replaced by is_active, Data type = bit, Nullable = No |
 | created | datetime | (getdate()) | false |  |  | DEPRECATED - replaced by created_date, Data type = datetime, Nullable = No |

@@ -14,7 +14,7 @@ Used for Lookup Values (formerly called Master Tables)
 | code_without_prefix_camel_case | varchar(30) |  | false |  |  |  |
 | short_desc | varchar(200) |  | false |  |  |  |
 | long_desc | varchar(1200) |  | false |  |  |  |
-| notes | nvarchar(500) |  | true |  |  | Optional notes and comments about this record, Data type = nvarchar(1000), Nullable = Yes |
+| notes | nvarchar(500) |  | true |  |  | Optional notes and comments about this record, Data type = nvarchar(500), Nullable = Yes |
 | custom_col1_desc | varchar(50) |  | false |  |  |  |
 | custom_col1 | varchar(50) |  | false |  |  |  |
 | custom_col2_desc | varchar(50) |  | false |  |  |  |

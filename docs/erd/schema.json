@@ -113,7 +113,7 @@
           "name": "notes",
           "type": "nvarchar(1000)",
           "nullable": true,
-          "comment": "Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
+          "comment": "Optional notes and comments about this record, Data type = nvarchar(1000), Nullable = Yes"
         },
         {
           "name": "phone_number",
@@ -305,13 +305,13 @@
           "name": "name",
           "type": "nvarchar(100)",
           "nullable": false,
-          "comment": "the short description of the record, Data type = nvarchar(200), Nullable = No"
+          "comment": "the short description of the record, Data type = nvarchar(100), Nullable = No"
         },
         {
           "name": "description",
           "type": "nvarchar(100)",
           "nullable": false,
-          "comment": "the long description of the record, Data type = nvarchar(200), Nullable = No"
+          "comment": "the long description of the record, Data type = nvarchar(100), Nullable = No"
         },
         {
           "name": "role_type_code",
@@ -361,7 +361,7 @@
           "name": "notes",
           "type": "nvarchar(1000)",
           "nullable": true,
-          "comment": "Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
+          "comment": "Optional notes and comments about this record, Data type = nvarchar(1000), Nullable = Yes"
         },
         {
           "name": "test_data_group",
@@ -558,7 +558,7 @@
           "name": "notes",
           "type": "nvarchar(1000)",
           "nullable": true,
-          "comment": "Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
+          "comment": "Optional notes and comments about this record, Data type = nvarchar(1000), Nullable = Yes"
         }
       ],
       "indexes": [
@@ -710,33 +710,33 @@
           "name": "user_name",
           "type": "nvarchar(200)",
           "nullable": true,
-          "comment": "the user name of the user, Data type = nvarchar(400), Nullable = Yes"
+          "comment": "the user name of the user, Data type = nvarchar(200), Nullable = Yes"
         },
         {
           "name": "first_name",
           "type": "nvarchar(50)",
           "nullable": false,
           "default": "('Tracking')",
-          "comment": "the first name of the user, Data type = nvarchar(100), Nullable = No"
+          "comment": "the first name of the user, Data type = nvarchar(50), Nullable = No"
         },
         {
           "name": "last_name",
           "type": "nvarchar(50)",
           "nullable": false,
           "default": "('User')",
-          "comment": "the last name of the user, Data type = nvarchar(100), Nullable = No"
+          "comment": "the last name of the user, Data type = nvarchar(50), Nullable = No"
         },
         {
           "name": "email_address",
           "type": "nvarchar(300)",
           "nullable": false,
-          "comment": "the email address, Data type = nvarchar(600), Nullable = No"
+          "comment": "the email address, Data type = nvarchar(300), Nullable = No"
         },
         {
           "name": "phone_number",
           "type": "nvarchar(50)",
           "nullable": true,
-          "comment": "the phone number, Data type = nvarchar(100), Nullable = Yes"
+          "comment": "the phone number, Data type = nvarchar(50), Nullable = Yes"
         },
         {
           "name": "phone_extension",
@@ -748,20 +748,20 @@
           "name": "title",
           "type": "nvarchar(200)",
           "nullable": true,
-          "comment": "the job title of the user, Data type = nvarchar(400), Nullable = Yes"
+          "comment": "the job title of the user, Data type = nvarchar(200), Nullable = Yes"
         },
         {
           "name": "landing_page",
           "type": "nvarchar(55)",
           "nullable": false,
           "default": "('DEFAULT')",
-          "comment": "the page on the UI where the user should land when signing on to the website, Data type = nvarchar(110), Nullable = No"
+          "comment": "the page on the UI where the user should land when signing on to the website, Data type = nvarchar(55), Nullable = No"
         },
         {
           "name": "object_id",
           "type": "nvarchar(50)",
           "nullable": true,
-          "comment": "the Microsoft Entra ID for the user, Data type = nvarchar(100), Nullable = Yes"
+          "comment": "the Microsoft Entra ID for the user, Data type = nvarchar(50), Nullable = Yes"
         },
         {
           "name": "role_rid",
@@ -901,7 +901,7 @@
           "name": "notes",
           "type": "nvarchar(1000)",
           "nullable": true,
-          "comment": "Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
+          "comment": "Optional notes and comments about this record, Data type = nvarchar(1000), Nullable = Yes"
         },
         {
           "name": "test_data_group",
@@ -1382,13 +1382,13 @@
           "name": "grid_name",
           "type": "nvarchar(200)",
           "nullable": false,
-          "comment": "the grid name the user has selected for the preference settings, Data type = nvarchar(400), Nullable = No"
+          "comment": "the grid name the user has selected for the preference settings, Data type = nvarchar(200), Nullable = No"
         },
         {
           "name": "columns_hidden",
           "type": "nvarchar(3000)",
           "nullable": false,
-          "comment": "what columns the user has selected to be hidden, Data type = nvarchar(6000), Nullable = No"
+          "comment": "what columns the user has selected to be hidden, Data type = nvarchar(3000), Nullable = No"
         },
         {
           "name": "created_date",
@@ -1412,7 +1412,7 @@
           "name": "notes",
           "type": "nvarchar(1000)",
           "nullable": true,
-          "comment": "Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
+          "comment": "Optional notes and comments about this record, Data type = nvarchar(1000), Nullable = Yes"
         },
         {
           "name": "created",
@@ -1652,7 +1652,7 @@
           "name": "notes",
           "type": "nvarchar(500)",
           "nullable": true,
-          "comment": "Optional notes and comments about this record, Data type = nvarchar(1000), Nullable = Yes"
+          "comment": "Optional notes and comments about this record, Data type = nvarchar(500), Nullable = Yes"
         },
         {
           "name": "custom_col1_desc",
@@ -1799,7 +1799,7 @@
           "name": "notes",
           "type": "nvarchar(500)",
           "nullable": true,
-          "comment": "Optional notes and comments about this record, Data type = nvarchar(1000), Nullable = Yes"
+          "comment": "Optional notes and comments about this record, Data type = nvarchar(500), Nullable = Yes"
         },
         {
           "name": "former_table_db",
@@ -1940,7 +1940,7 @@
           "name": "notes",
           "type": "nvarchar(1000)",
           "nullable": true,
-          "comment": "Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
+          "comment": "Optional notes and comments about this record, Data type = nvarchar(1000), Nullable = Yes"
         }
       ],
       "indexes": [
@@ -2205,7 +2205,7 @@
           "name": "notes",
           "type": "nvarchar(1000)",
           "nullable": true,
-          "comment": "Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
+          "comment": "Optional notes and comments about this record, Data type = nvarchar(1000), Nullable = Yes"
         },
         {
           "name": "notes_dealer",
@@ -2350,67 +2350,67 @@
           "name": "organization",
           "type": "nvarchar(100)",
           "nullable": false,
-          "comment": "the company name, Data type = nvarchar(200), Nullable = No"
+          "comment": "the company name, Data type = nvarchar(100), Nullable = No"
         },
         {
           "name": "company_address",
           "type": "nvarchar(200)",
           "nullable": true,
-          "comment": "the address for the company, Data type = nvarchar(400), Nullable = Yes"
+          "comment": "the address for the company, Data type = nvarchar(200), Nullable = Yes"
         },
         {
           "name": "additional_address",
           "type": "nvarchar(200)",
           "nullable": true,
-          "comment": "the second line of the address, Data type = nvarchar(400), Nullable = Yes"
+          "comment": "the second line of the address, Data type = nvarchar(200), Nullable = Yes"
         },
         {
           "name": "zip_code",
           "type": "nvarchar(50)",
           "nullable": true,
-          "comment": "the zip_code of the address, Data type = nvarchar(100), Nullable = Yes"
+          "comment": "the zip_code of the address, Data type = nvarchar(50), Nullable = Yes"
         },
         {
           "name": "phone_number",
           "type": "nvarchar(50)",
           "nullable": true,
-          "comment": "the phone number, Data type = nvarchar(100), Nullable = Yes"
+          "comment": "the phone number, Data type = nvarchar(50), Nullable = Yes"
         },
         {
           "name": "fax_number",
           "type": "nvarchar(50)",
           "nullable": true,
-          "comment": "the fax number, Data type = nvarchar(100), Nullable = Yes"
+          "comment": "the fax number, Data type = nvarchar(50), Nullable = Yes"
         },
         {
           "name": "email",
           "type": "nvarchar(50)",
           "nullable": true,
-          "comment": "the email address, Data type = nvarchar(100), Nullable = Yes"
+          "comment": "the email address, Data type = nvarchar(50), Nullable = Yes"
         },
         {
           "name": "company_website",
           "type": "nvarchar(200)",
           "nullable": true,
-          "comment": "the website of the company, Data type = nvarchar(400), Nullable = Yes"
+          "comment": "the website of the company, Data type = nvarchar(200), Nullable = Yes"
         },
         {
           "name": "support_contact_number",
           "type": "nvarchar(50)",
           "nullable": true,
-          "comment": "the phone number for support for this account, Data type = nvarchar(100), Nullable = Yes"
+          "comment": "the phone number for support for this account, Data type = nvarchar(50), Nullable = Yes"
         },
         {
           "name": "city",
           "type": "nvarchar(50)",
           "nullable": true,
-          "comment": "the city of the address, Data type = nvarchar(100), Nullable = Yes"
+          "comment": "the city of the address, Data type = nvarchar(50), Nullable = Yes"
         },
         {
           "name": "state",
           "type": "nvarchar(50)",
           "nullable": true,
-          "comment": "the state/province of the address, Data type = nvarchar(100), Nullable = Yes"
+          "comment": "the state/province of the address, Data type = nvarchar(50), Nullable = Yes"
         },
         {
           "name": "phone_extension",
@@ -2422,7 +2422,7 @@
           "name": "country",
           "type": "nvarchar(50)",
           "nullable": true,
-          "comment": "the country of the address, Data type = nvarchar(100), Nullable = Yes"
+          "comment": "the country of the address, Data type = nvarchar(50), Nullable = Yes"
         },
         {
           "name": "dealer_rid",
@@ -2520,7 +2520,7 @@
           "name": "notes",
           "type": "nvarchar(1000)",
           "nullable": true,
-          "comment": "Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
+          "comment": "Optional notes and comments about this record, Data type = nvarchar(1000), Nullable = Yes"
         },
         {
           "name": "test_data_group",
@@ -2724,7 +2724,7 @@
           "name": "notes",
           "type": "nvarchar(1000)",
           "nullable": true,
-          "comment": "Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
+          "comment": "Optional notes and comments about this record, Data type = nvarchar(1000), Nullable = Yes"
         },
         {
           "name": "status",
@@ -3006,7 +3006,7 @@
           "name": "role_rid",
           "type": "bigint",
           "nullable": false,
-          "comment": "References column role_rid on table role, Data type = bigint, Nullable = No, References = [dbo].[role].[role_rid]"
+          "comment": "MANY-TO-MANY composite primary key field for Role and Permission, Data type = bigint, Nullable = No, References = [dbo].[role].[role_rid]"
         },
         {
           "name": "created_by_user_rid",
@@ -3017,7 +3017,7 @@
           "name": "notes",
           "type": "nvarchar(1000)",
           "nullable": true,
-          "comment": "Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
+          "comment": "Optional notes and comments about this record, Data type = nvarchar(1000), Nullable = Yes"
         }
       ],
       "indexes": [
@@ -3184,25 +3184,25 @@
           "name": "first_name",
           "type": "nvarchar(100)",
           "nullable": true,
-          "comment": "the first name of the contact, Data type = nvarchar(200), Nullable = Yes"
+          "comment": "the first name of the contact, Data type = nvarchar(100), Nullable = Yes"
         },
         {
           "name": "last_name",
           "type": "nvarchar(100)",
           "nullable": true,
-          "comment": "the last name of the contact, Data type = nvarchar(200), Nullable = Yes"
+          "comment": "the last name of the contact, Data type = nvarchar(100), Nullable = Yes"
         },
         {
           "name": "email_id",
           "type": "nvarchar(60)",
           "nullable": true,
-          "comment": "the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = nvarchar(120), Nullable = Yes"
+          "comment": "the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = nvarchar(60), Nullable = Yes"
         },
         {
           "name": "mobile_number",
           "type": "nvarchar(20)",
           "nullable": true,
-          "comment": "the mobile phone number, Data type = nvarchar(40), Nullable = Yes"
+          "comment": "the mobile phone number, Data type = nvarchar(20), Nullable = Yes"
         },
         {
           "name": "language_code",
@@ -3294,7 +3294,7 @@
           "name": "notes",
           "type": "nvarchar(1000)",
           "nullable": true,
-          "comment": "Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
+          "comment": "Optional notes and comments about this record, Data type = nvarchar(1000), Nullable = Yes"
         },
         {
           "name": "active",
@@ -3592,7 +3592,7 @@
           "name": "notes",
           "type": "nvarchar(1000)",
           "nullable": true,
-          "comment": "Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
+          "comment": "Optional notes and comments about this record, Data type = nvarchar(1000), Nullable = Yes"
         }
       ],
       "indexes": [
@@ -3757,7 +3757,7 @@
           "name": "notes",
           "type": "nvarchar(1000)",
           "nullable": true,
-          "comment": "Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
+          "comment": "Optional notes and comments about this record, Data type = nvarchar(1000), Nullable = Yes"
         },
         {
           "name": "admin_notes",
@@ -3966,7 +3966,7 @@
           "name": "notes",
           "type": "nvarchar(1000)",
           "nullable": true,
-          "comment": "Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
+          "comment": "Optional notes and comments about this record, Data type = nvarchar(1000), Nullable = Yes"
         },
         {
           "name": "rate_approver_notes",
@@ -4231,7 +4231,7 @@
           "name": "notes",
           "type": "nvarchar(1000)",
           "nullable": true,
-          "comment": "Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
+          "comment": "Optional notes and comments about this record, Data type = nvarchar(1000), Nullable = Yes"
         }
       ],
       "indexes": [
@@ -4436,7 +4436,7 @@
           "name": "notes",
           "type": "nvarchar(1000)",
           "nullable": true,
-          "comment": "Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes"
+          "comment": "Optional notes and comments about this record, Data type = nvarchar(1000), Nullable = Yes"
         }
       ],
       "indexes": [

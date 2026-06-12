@@ -11,10 +11,10 @@ the table that stores the details of the contacts
 | contact_uuid | uniqueidentifier | (newsequentialid()) | false |  |  | Unique identifier for the record, a unique nonclustered key for the table. Must be a SQL-sortable UUIDv7. , Data type = uniqueidentifier, Nullable = No |
 | contact_rid | bigint |  | false |  |  | Unique RowID for the record, part of composite primary key for the table after tenant_uuid, a unique clustered key for the table, Data type = bigint, Nullable = No |
 | tenant_uuid | uniqueidentifier |  | false |  | [account_details](account_details.md) | the uniqueidentifier for the tenant/customer.  Used as a partitioning key., Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid] |
-| first_name | nvarchar(100) |  | true |  |  | the first name of the contact, Data type = nvarchar(200), Nullable = Yes |
-| last_name | nvarchar(100) |  | true |  |  | the last name of the contact, Data type = nvarchar(200), Nullable = Yes |
-| email_id | nvarchar(60) |  | true |  |  | the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = nvarchar(120), Nullable = Yes |
-| mobile_number | nvarchar(20) |  | true |  |  | the mobile phone number, Data type = nvarchar(40), Nullable = Yes |
+| first_name | nvarchar(100) |  | true |  |  | the first name of the contact, Data type = nvarchar(100), Nullable = Yes |
+| last_name | nvarchar(100) |  | true |  |  | the last name of the contact, Data type = nvarchar(100), Nullable = Yes |
+| email_id | nvarchar(60) |  | true |  |  | the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = nvarchar(60), Nullable = Yes |
+| mobile_number | nvarchar(20) |  | true |  |  | the mobile phone number, Data type = nvarchar(20), Nullable = Yes |
 | language_code | varchar(30) | ('LNG_ENUS') | false |  | [lookup_code](lookup_code.md) | see lookup.code for information about these values, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code] |
 | timezone_code | varchar(30) | ('TMZ_AMERICA_DETROIT') | false |  | [lookup_code](lookup_code.md) | see lookup.code for information about these values, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code] |
 | speed_type_code | varchar(30) | ('SPT_MPH') | false |  | [lookup_code](lookup_code.md) | see lookup.code for information about these values, Data type = varchar(30), Nullable = No, References = [dbo].[lookup_code].[code] |
@@ -28,7 +28,7 @@ the table that stores the details of the contacts
 | updated_date | datetime |  | true |  |  | the date the record was updated or created, Data type = datetime, Nullable = Yes |
 | created_by_user_rid | bigint |  | true |  | [user_accounts](user_accounts.md) |  |
 | updated_by_user_rid | bigint |  | true |  | [user_accounts](user_accounts.md) |  |
-| notes | nvarchar(1000) |  | true |  |  | Optional notes and comments about this record, Data type = nvarchar(2000), Nullable = Yes |
+| notes | nvarchar(1000) |  | true |  |  | Optional notes and comments about this record, Data type = nvarchar(1000), Nullable = Yes |
 | active | bit | ((1)) | true |  |  | DEPRECATED - replaced by is_active, Data type = bit, Nullable = Yes |
 | created | datetime | (getdate()) | true |  |  | DEPRECATED - replaced by created_date, Data type = datetime, Nullable = Yes |
 | created_by | uniqueidentifier |  | true |  |  | who created the contact, Data type = uniqueidentifier, Nullable = Yes |
