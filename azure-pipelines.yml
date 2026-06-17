@@ -2,8 +2,7 @@ trigger:
   branches:
     include:
       - main
-      - create_pipeline_account
-      - dm_changes
+      - Story150432_Sprint2026K_RefactorAzureSQL
 
 pool:
   vmImage: 'windows-latest'
@@ -12,8 +11,17 @@ variables:
   sqlServerName: 'asql-tkv2-eastus-dev.database.windows.net'
   databaseName: 'Account'
   projectPath: '**/*.sqlproj'
+  ${{ if contains(variables['sqlServerName'], '-dev') }}:
+    blockDataLoss: 'false'
+    dropObjects: 'false'
+  ${{ else }}:
+    blockDataLoss: 'true'
+    dropObjects: 'false'
 
 steps:
+  - checkout: self
+    persistCredentials: true
+    
   - task: UseDotNet@2
     displayName: 'Use .NET SDK'
     inputs:
@@ -68,6 +76,7 @@ steps:
           /TargetDatabaseName:"$(databaseName)" `
           /TargetUser:"$(sqlUser)" `
           /TargetPassword:"$(sqlPassword)"
+      additionalArguments: '/p:BlockOnPossibleDataLoss=$(blockDataLoss) /p:DropObjectsNotInSource=$(dropObjects) /p:DropExtendedPropertiesNotInSource=false'
 
   - task: PowerShell@2
     displayName: 'Deploy Account dacpac to Azure SQL Dev'
@@ -82,9 +91,9 @@ steps:
           /TargetServerName:"$(sqlServerName)" `
           /TargetDatabaseName:"$(databaseName)" `
           /TargetUser:"$(sqlUser)" `
-          /TargetPassword:"$(sqlPassword)"          
-  
-  
+          /TargetPassword:"$(sqlPassword)"    
+      additionalArguments: '/p:BlockOnPossibleDataLoss=$(blockDataLoss) /p:DropObjectsNotInSource=$(dropObjects) /p:DropExtendedPropertiesNotInSource=false'    
+       
   - task: PowerShell@2
     displayName: 'Update extended properties'
     continueOnError: true
@@ -104,6 +113,60 @@ steps:
         Write-Host "Integrity check proc completed."
 
         $conn.Close()        
+ 
+  - task: PowerShell@2
+    displayName: 'Generate ERD with tbls'
+    continueOnError: true
+    env:
+      SQLPASS: $(sqlPassword)
+    inputs:
+      targetType: 'inline'
+      script: |
+        $tblsVersion = 'v1.94.5'
+        $zip  = Join-Path $env:AGENT_TEMPDIRECTORY 'tbls.zip'
+        $dest = Join-Path $env:AGENT_TEMPDIRECTORY 'tbls'
+        Invoke-WebRequest -Uri "https://github.com/k1LoW/tbls/releases/download/$tblsVersion/tbls_${tblsVersion}_windows_amd64.zip" -OutFile $zip
+        Expand-Archive -Path $zip -DestinationPath $dest -Force
+ 
+        Write-Host "Target server: '$(sqlServerName)'  database: '$(databaseName)'  user: '$(sqlUser)'"
+ 
+        $pass = [uri]::EscapeDataString($env:SQLPASS)
+        $dsn  = "mssql://$(sqlUser):$pass@$(sqlServerName):1433/$(databaseName)?encrypt=true"
+        Set-Location "$(Build.SourcesDirectory)"
+ 
+        $ErrorActionPreference = 'Continue'
+        for ($i = 1; $i -le 6; $i++) {
+          Write-Host "tbls attempt $i..."
+          & "$dest/tbls.exe" doc --force --rm-dist $dsn "$(Build.SourcesDirectory)/docs/erd"
+          if ($LASTEXITCODE -eq 0) { Write-Host "ERD generated."; break }
+          if ($i -eq 6) { throw "tbls failed after 6 attempts (exit $LASTEXITCODE)." }
+          Write-Host "Not ready (exit $LASTEXITCODE). Waiting 20s..."
+          Start-Sleep -Seconds 20
+        }
+ 
+  - task: PublishPipelineArtifact@1
+    displayName: 'Publish ERD artifact'
+    continueOnError: true
+    inputs:
+      targetPath: '$(Build.SourcesDirectory)/docs/erd'
+      artifact: 'erd'
+  
+  - task: PowerShell@2
+    displayName: 'Commit ERD to repo'
+    continueOnError: true
+    inputs:
+      targetType: 'inline'
+      script: |
+        git config user.email "$(Build.RequestedForEmail)"
+        git config user.name "$(Build.RequestedFor)"
+        git add -A docs/erd
+        $changes = git status --porcelain docs/erd
+        if ([string]::IsNullOrWhiteSpace($changes)) {
+          Write-Host "No ERD changes to commit."
+          exit 0
+        }
+        git commit -m "Auto-update ERD [skip ci]"
+        git push origin "HEAD:$(Build.SourceBranch)"
 
   - task: PowerShell@2
     displayName: 'Populate test data on DEV'

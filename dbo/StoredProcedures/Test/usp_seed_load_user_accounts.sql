@@ -3,7 +3,10 @@ AS
 BEGIN
 
     SET NOCOUNT ON;
-
+   -- delete from dbo.contact
+   -- delete from dbo.dealer
+   -- delete from dbo.role_permission_mapping
+   -- delete from dbo.user_grid_view_preference
     -- Guard: only allow on Dev servers
     IF @@SERVERNAME NOT LIKE '%dev%'
     BEGIN
@@ -13,7 +16,7 @@ BEGIN
 
     -- Flush-fill: clear existing data first
     --  alter table dbo.user_accounts add notes varchar(255) null
-    DELETE FROM dbo.account_details where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV';
+    --DELETE FROM dbo.account_details where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV';
     DELETE FROM dbo.user_accounts where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV';
 
     --  alter table dbo.user_accounts drop constraint if exists fk_user_accounts_nboarding_status_code
@@ -238,8 +241,8 @@ where name like '%Walmart%'
     --select * from information_schema.columns where TABLE_NAME = 'user_accounts' and TABLE_SCHEMA = 'dbo' order by ORDINAL_POSITION
     INSERT INTO dbo.user_accounts
         (
-        -- user_rid
-        user_name
+         user_uuid
+        ,user_name
         ,first_name
         ,last_name
         ,account_type_code
@@ -256,7 +259,7 @@ where name like '%Walmart%'
         ,updated_date
         ,activated_date
         ,phone_extension
-        ,created_by_user_uuid
+        ,created_by_user_rid
         ,speed_type_code
         ,language_code
         ,temperature_type_code
@@ -271,8 +274,8 @@ where name like '%Walmart%'
         ,notes
         )
     SELECT
-        --user_rid
-        user_name
+       NEWID()
+     ,user_name
     , first_name
     , last_name
     , 'ACT_CUSTOMER' as account_type_code

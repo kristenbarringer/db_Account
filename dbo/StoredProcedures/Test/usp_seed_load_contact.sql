@@ -12,26 +12,23 @@ BEGIN
         RETURN;
     END;
 
-    declare @user_uuid uniqueidentifier
+    declare @user_uuid BIGINT
     declare @tenant_uuid uniqueidentifier
-    select @user_uuid = max(user_uuid)
+    select @user_uuid = max(user_rid)
     from dbo.user_accounts
+    --if @user_uuid is null set @user_uuid = NEWID()
     select @tenant_uuid = max(tenant_uuid)
-    from dbo.tenantinfo
+    from dbo.account_details
     --where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV'
 
     insert into contact
-        (tenant_uuid,first_name,last_name,created_by_user_uuid,created_by, language_code, notes)
+        (contact_uuid, tenant_uuid,first_name,last_name,created_by_user_rid, language_code, notes)
     values
-        ('3E2070B4-5B0E-499B-BFC0-2001D796581A', 'John', 'Smith', @user_uuid, @user_uuid, 'LNG_ENUS', 'TEST DATA PROCESS ON DEV')
-,
-        ('391AFAAD-4A35-4ACE-8770-3F9D5C2D005D', 'John', 'Smith', @user_uuid, @user_uuid, 'LNG_ENUS', 'TEST DATA PROCESS ON DEV')
-,
-        ('51EE8B72-0B78-450A-ABEA-61022393CD99', 'John', 'Smith', @user_uuid, @user_uuid, 'LNG_ENUS', 'TEST DATA PROCESS ON DEV')
-,
-        ('0655A47A-D24B-43AB-A691-B4FFBB0D9677', 'John', 'Smith', @user_uuid, @user_uuid, 'LNG_ENUS', 'TEST DATA PROCESS ON DEV')
-,
-        ('30B4F849-7138-4817-8F3B-DAB8AE5C9A54', 'John', 'Smith', @user_uuid, @user_uuid, 'LNG_ENUS', 'TEST DATA PROCESS ON DEV')
+        (NEWID(), '3e2070b4-5b0e-499b-bfc0-2001d796581a', 'John', 'Smith', @user_uuid, 'LNG_ENUS', 'TEST DATA PROCESS ON DEV'),                                                                                    
+        (NEWID(), '391afaad-4a35-4ace-8770-3f9d5c2d005d', 'John', 'Smith', @user_uuid, 'LNG_ENUS', 'TEST DATA PROCESS ON DEV'),                                                                                    
+        (NEWID(), '51ee8b72-0b78-450a-abea-61022393cd99', 'John', 'Smith', @user_uuid, 'LNG_ENUS', 'TEST DATA PROCESS ON DEV'),                                                                                    
+        (NEWID(), '0655a47a-d24b-43ab-a691-b4ffbb0d9677', 'John', 'Smith', @user_uuid, 'LNG_ENUS', 'TEST DATA PROCESS ON DEV'),                                                                                    
+        (NEWID(), '30b4f849-7138-4817-8f3b-dab8ae5c9a54', 'John', 'Smith', @user_uuid, 'LNG_ENUS', 'TEST DATA PROCESS ON DEV')
 
 
     DECLARE @rows INT = @@ROWCOUNT;

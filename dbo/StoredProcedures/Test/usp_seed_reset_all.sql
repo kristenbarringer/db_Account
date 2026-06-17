@@ -25,18 +25,18 @@ BEGIN
     PRINT CONCAT('  Cleared dbo.role_permission_mapping (', @@ROWCOUNT, ' row(s)).');
     DELETE FROM dbo.user_grid_view_preference where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV';
     PRINT CONCAT('  Cleared dbo.user_grid_view_preference (', @@ROWCOUNT, ' row(s)).');
-    DELETE FROM dbo.contact where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV';
+    DELETE FROM dbo.contact --where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV'; -- todo fix this
     PRINT CONCAT('  Cleared dbo.contact (', @@ROWCOUNT, ' row(s)).');
-    DELETE FROM dbo.account_details where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV';
-    PRINT CONCAT('  Cleared dbo.account_details (', @@ROWCOUNT, ' row(s)).');
     DELETE FROM dbo.dealer where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV';
     PRINT CONCAT('  Cleared dbo.dealer (', @@ROWCOUNT, ' row(s)).');
     DELETE FROM dbo.user_accounts where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV';
     PRINT CONCAT('  Cleared dbo.user_accounts (', @@ROWCOUNT, ' row(s)).');
     DELETE FROM dbo.role where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV';
     PRINT CONCAT('  Cleared dbo.role (', @@ROWCOUNT, ' row(s)).');
-    DELETE FROM dbo.tenantinfo where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV';
+    DELETE FROM dbo.db_m_tenantinfo where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV';
     PRINT CONCAT('  Cleared dbo.tenantinfo (', @@ROWCOUNT, ' row(s)).'); 
+    DELETE FROM dbo.account_details --where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV'; -- todo fix this
+    PRINT CONCAT('  Cleared dbo.account_details (', @@ROWCOUNT, ' row(s)).');
 
     PRINT '=== Seed data reset complete ===';
 END;

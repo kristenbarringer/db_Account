@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build">
-  <Sdk Name="Microsoft.Build.Sql" Version="2.1.0" />
+  <Sdk Name="Microsoft.Build.Sql" Version="2.2.0" />
   <PropertyGroup>
     <Name>Account</Name>
     <ProjectGuid>{2B1CE79A-734F-49C6-9871-0A9E224F7785}</ProjectGuid>

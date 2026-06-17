@@ -1,4 +1,0 @@
-CREATE USER [Abhishek.BM@tranetechnologies.com]
-    WITH SID = 0x22EBF757DF07EC4CB584DF89D5CCE009, TYPE = E;
-GO
-

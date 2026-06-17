@@ -1,4 +1,0 @@
-CREATE USER [Smita.Parial@tranetechnologies.com]
-    WITH SID = 0x7FA31F8ED68D5647A062A088FF609AD5, TYPE = E;
-GO
-

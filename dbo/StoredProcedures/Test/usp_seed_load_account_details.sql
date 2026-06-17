@@ -1,3 +1,7 @@
+--alter table account_details add [account_type_rid] BIGINT CONSTRAINT [df_account_details_type_rid] DEFAULT (1) NOT NULL 
+--exec usp_seed_reset_all
+--exec usp_seed_load_all
+
 CREATE PROCEDURE [dbo].[usp_seed_load_account_details]
 AS
 BEGIN
@@ -10,7 +14,46 @@ BEGIN
     RAISERROR('usp_seed_load_account_details may only run on Dev servers. Current server: %s', 16, 1, @@SERVERNAME);
     RETURN;
   END;
+ 
+BEGIN
+SET IDENTITY_INSERT dbo.account_type ON;
+MERGE INTO dbo.account_type AS target
+USING (VALUES
+    (1,'Customer',1),
+    (2,'tkadmin',0),
+    (3,'Dealer',1),
+    (4,'Partner',1),
+    (5,'Demo',1),
+    (6,'Lease',1),
+    (8,'TKNotify',0),
+    (9,'tkmaster',0),
+    (10,'Master Customer',1),
+    (11,'Sub Customer',1),
+    (24,'Technical Manager',1)
 
+) AS source (account_type_rid,description,status)
+ 
+
+ON target.account_type_rid = source.account_type_rid
+WHEN MATCHED AND (
+        target.description                <> source.description
+     OR ISNULL(target.status, '') <> ISNULL(source.status, '')
+    ) THEN
+    UPDATE SET
+        target.description   = source.description,
+        target.status = source.status
+WHEN NOT MATCHED BY TARGET THEN
+
+    INSERT (account_type_rid, description, status)
+    VALUES (source.account_type_rid, source.description , source.status)
+
+WHEN NOT MATCHED BY SOURCE THEN
+    DELETE;
+SET IDENTITY_INSERT dbo.account_type OFF;
+    END
+
+
+   -- select * from dbo.account_type
   -- Flush-fill: clear existing data first
 
   DELETE FROM dbo.account_details where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV';
@@ -37,17 +80,18 @@ BEGIN
   declare @user_rid uniqueidentifier
   select @user_rid = max(user_uuid)
   from dbo.user_accounts
+    if @user_rid is null set @user_rid = NEWID()
 
   --select top 100 * from dbo.account_details where coalesce(notes, '') = 'TEST DATA PROCESS ON DEV' order by tenant_uuid asc
   -- [usp_seed_load_account_details]
   --select * from dbo.user_accounts
   INSERT INTO dbo.account_details
     (
-    [account_uuid],
+    --[account_uuid],
     -- [account_rid],
     [organization],
 
-    [tenant_uuid],
+    [tenant_uuid],--customer_rid,
     [company_address],
     [additional_address],
     [zip_code],
@@ -65,16 +109,16 @@ BEGIN
     [country],
     [admin_user_rid],
     -- [account_type_rid],
-    [account_type_code],
+    [account_type_rid],
     [migrated_data],
     notes
     )
   SELECT
-    NEWID() as account_uuid,
+  
     -- xxxx as account_rid,
     c.name as organization,
 
-    c.tenant_uuid      AS tenant_id,
+    c.tenant_uuid      AS tenant_id, --rid,
     address_1 as company_address,
     additional_address2 as additional_address,
     '60803' as zip_code,
@@ -92,7 +136,7 @@ BEGIN
     'USA' as country,
     @user_rid as admin_user_rid,
     -- 1 as account_type_rid,
-    account_type_code2 as account_type_code,
+    1 as account_type_rid,
     0 as migrated_data,
     'TEST DATA PROCESS ON DEV'
 

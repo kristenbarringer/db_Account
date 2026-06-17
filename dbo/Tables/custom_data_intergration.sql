@@ -1,3 +1,4 @@
+/* TODO what is this table?
 CREATE TABLE [dbo].[custom_data_intergration] (
     [custom_data_intergration_rid]       INT             IDENTITY (1, 1) NOT NULL,
     [customer_rid]                       INT             NULL,
@@ -28,3 +29,4 @@ ALTER TABLE [dbo].[custom_data_intergration]
     ADD CONSTRAINT [PK_custom_data_intergration] PRIMARY KEY NONCLUSTERED ([custom_data_intergration_rid] ASC) WITH (DATA_COMPRESSION = PAGE);
 GO
 
+*/

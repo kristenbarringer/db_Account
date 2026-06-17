@@ -1,4 +1,0 @@
-CREATE USER [Karthick.S@tranetechnologies.com]
-    WITH SID = 0xF4250E3E1898794BB8924E51441A0B82, TYPE = E;
-GO
-

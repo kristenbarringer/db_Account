@@ -15,17 +15,18 @@ BEGIN
         RAISERROR('usp_seed_load_all may only run on Dev servers. Current server: %s', 16, 1, @@SERVERNAME);
         RETURN;
     END;
-
+    -- alter table account_details drop constraint fk_account_details_admin_user_rid
+    -- alter table account_details drop constraint fk_account_details_created_by_user_rid
     PRINT '=== Starting seed data reset ===';
     exec dbo.usp_seed_reset_all
 
     PRINT '=== Starting seed data load ===';
     
+    EXEC dbo.usp_seed_load_account_details;
     EXEC dbo.usp_seed_load_tenantinfo;
     EXEC dbo.usp_seed_load_role;
-    EXEC dbo.usp_seed_load_dealer;
     EXEC dbo.usp_seed_load_user_accounts;
-    EXEC dbo.usp_seed_load_account_details;
+    EXEC dbo.usp_seed_load_dealer;
     EXEC dbo.usp_seed_load_contact;
     EXEC dbo.usp_seed_load_user_grid_pref;
     EXEC dbo.usp_seed_load_role_perm;

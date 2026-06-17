@@ -1,4 +1,0 @@
-CREATE USER [Sydnie.Gjerald@tranetechnologies.com]
-    WITH SID = 0xB6C9DED948993640805B957BF085C90D, TYPE = E;
-GO
-
