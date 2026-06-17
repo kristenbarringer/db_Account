@@ -39,9 +39,6 @@ CREATE TABLE [dbo].[account_details]
     [default_role_code] VARCHAR (30) CONSTRAINT [df_account_default_role_code] DEFAULT ('ROL_BASIC') NOT NULL,
     -- bit flag columns
     [is_active] BIT CONSTRAINT [df_account_details_is_active] DEFAULT (1) NOT NULL,
-    [is_door_sensor_1] BIT NULL,
-    [is_door_sensor_2] BIT NULL,
-    [is_door_sensor_3] BIT NULL,
     -- date columns    
     [created_date] DATETIME CONSTRAINT [df_account_details_created_date] DEFAULT (getdate()) NOT NULL,
     [updated_date] DATETIME NULL,
