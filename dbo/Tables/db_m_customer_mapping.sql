@@ -1,13 +1,8 @@
-CREATE TABLE [dbo].[db_m_customer_mapping]
-(
- 
-tenant_uuid UNIQUEIDENTIFIER,
-v1_customer_rid BIGINT NULL,
-last_modified datetime,
-last_sync_time datetime,
-last_entry_hash [nvarchar](max)
-
-)
- 
- 
- 
+CREATE TABLE [dbo].[db_m_customer_mapping](
+	[tenant_uuid] [nvarchar](max) NOT NULL,
+	[v1_customer_rid] [int] NULL,
+	[last_modified] [nvarchar](max) NOT NULL,
+	[last_sync_time] [nvarchar](max) NOT NULL,
+	[last_entry_hash] [nvarchar](max) NOT NULL
+) 
+GO
