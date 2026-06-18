@@ -12,10 +12,10 @@ variables:
   projectPath: '**/*.sqlproj'
   ${{ if contains(variables['sqlServerName'], '-dev') }}:
     blockDataLoss: 'false'
-    dropObjects: 'false'
+    dropObjects: 'true'
   ${{ else }}:
     blockDataLoss: 'true'
-    dropObjects: 'false'
+    dropObjects: 'true'
 
 steps:
   - checkout: self
@@ -68,17 +68,19 @@ steps:
             Write-Error "Shared.dacpac not found in $(Build.SourcesDirectory)/references"
             exit 1
             }
-        Write-Host "Deploying shared dacpac: $($dacpac.FullName)"
+        Write-Host "Deploying shared dacpac: $($dacpac.FullName)"        
         SqlPackage /Action:Publish `
           /SourceFile:"$($dacpac.FullName)" `
           /TargetServerName:"$(sqlServerName)" `
           /TargetDatabaseName:"$(databaseName)" `
           /TargetUser:"$(sqlUser)" `
-          /TargetPassword:"$(sqlPassword)"
-      additionalArguments: '/p:BlockOnPossibleDataLoss=$(blockDataLoss) /p:DropObjectsNotInSource=$(dropObjects) /p:DropExtendedPropertiesNotInSource=false'
-
+          /TargetPassword:"$(sqlPassword)" `
+          /p:BlockOnPossibleDataLoss=$(blockDataLoss) `
+          /p:DropObjectsNotInSource=false `
+          /p:DropExtendedPropertiesNotInSource=false
+   
   - task: PowerShell@2
-    displayName: 'Deploy Account dacpac to Azure SQL Dev'
+    displayName: 'Deploy Account dacpac to Azure SQL'
     inputs:
       targetType: 'inline'
       script: |
@@ -90,9 +92,12 @@ steps:
           /TargetServerName:"$(sqlServerName)" `
           /TargetDatabaseName:"$(databaseName)" `
           /TargetUser:"$(sqlUser)" `
-          /TargetPassword:"$(sqlPassword)"    
-      additionalArguments: '/p:BlockOnPossibleDataLoss=$(blockDataLoss) /p:DropObjectsNotInSource=$(dropObjects) /p:DropExtendedPropertiesNotInSource=false'    
-       
+          /TargetPassword:"$(sqlPassword)" `
+          /p:BlockOnPossibleDataLoss=$(blockDataLoss) `
+          /p:DropObjectsNotInSource=$(dropObjects) `
+          /p:IncludeCompositeObjects=true `
+          /p:DropExtendedPropertiesNotInSource=false
+          
   - task: PowerShell@2
     displayName: 'Update extended properties'
     continueOnError: true
