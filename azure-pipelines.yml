@@ -166,7 +166,7 @@ steps:
           exit 0
         }
         git commit -m "Auto-update ERD [skip ci]"
-        git push origin "HEAD:refs/heads/erd-published"
+        git push origin --force "HEAD:refs/heads/erd-published"
 
   - task: PowerShell@2
     displayName: 'Populate test data on DEV'
