@@ -55,8 +55,8 @@ Used for Location-Related and Map Processes
 | pk_locations_common_tenant_uuid_locations_common_rid | CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, locations_common_rid ] |
 | uk_locations_common_uuid | NONCLUSTERED, unique, part of a UNIQUE constraint, [ locations_common_uuid ] |
 | uk_locations_common_rid | NONCLUSTERED, unique, part of a UNIQUE constraint, [ locations_common_rid ] |
-| ix_fk_locations_common_created_by_user_rid | NONCLUSTERED, [ created_by_user_rid ] |
 | ix_fk_locations_common_updated_by_user_rid | NONCLUSTERED, [ updated_by_user_rid ] |
+| ix_fk_locations_common_created_by_user_rid | NONCLUSTERED, [ created_by_user_rid ] |
 | ix_fk_locations_common_tenant_uuid | NONCLUSTERED, [ tenant_uuid ] |
 
 ## Relations

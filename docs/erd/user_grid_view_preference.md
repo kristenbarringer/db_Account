@@ -38,9 +38,9 @@ the table that stores the details of the user preferences
 | pk_user_grid_view_preference_tenant_uuid_user_grid_view_preference_rid | CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, user_grid_view_preference_rid ] |
 | uk_user_grid_view_preference_uuid | NONCLUSTERED, unique, part of a UNIQUE constraint, [ user_grid_view_preference_uuid ] |
 | uk_user_grid_view_preference_rid | NONCLUSTERED, unique, part of a UNIQUE constraint, [ user_grid_view_preference_rid ] |
+| ix_fk_user_grid_view_preference_created_by_user_rid | NONCLUSTERED, [ created_by_user_rid ] |
 | ix_fk_user_grid_view_pref_tenant_uuid | NONCLUSTERED, [ tenant_uuid ] |
 | ix_fk_user_grid_view_pref_user_id | NONCLUSTERED, [ user_rid ] |
-| ix_fk_user_grid_view_preference_created_by_user_rid | NONCLUSTERED, [ created_by_user_rid ] |
 
 ## Relations
 

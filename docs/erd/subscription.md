@@ -36,9 +36,9 @@
 | pk_subscription_tenant_uuid_subscription_rid | CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, subscription_rid ] |
 | uk_subscription_uuid | NONCLUSTERED, unique, part of a UNIQUE constraint, [ subscription_uuid ] |
 | uk_subscription_rid | NONCLUSTERED, unique, part of a UNIQUE constraint, [ subscription_rid ] |
+| ix_fk_subscription_created_by_user_rid | NONCLUSTERED, [ created_by_user_rid ] |
 | ix_fk_subscription_tenant_uuid | NONCLUSTERED, [ tenant_uuid ] |
 | ix_fk_subscription_updated_by_user_rid | NONCLUSTERED, [ updated_by_user_rid ] |
-| ix_fk_subscription_created_by_user_rid | NONCLUSTERED, [ created_by_user_rid ] |
 
 ## Relations
 
