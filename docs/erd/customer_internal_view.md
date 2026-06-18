@@ -37,8 +37,8 @@
 | pk_customer_internal_view_tenant_uuid_customer_internal_view_rid | CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, customer_internal_view_rid ] |
 | uk_customer_internal_view_uuid | NONCLUSTERED, unique, part of a UNIQUE constraint, [ customer_internal_view_uuid ] |
 | uk_customer_internal_view_rid | NONCLUSTERED, unique, part of a UNIQUE constraint, [ customer_internal_view_rid ] |
-| ix_fk_customer_internal_view_tenant_uuid | NONCLUSTERED, [ tenant_uuid ] |
 | ix_fk_customer_internal_view_updated_by_user_rid | NONCLUSTERED, [ updated_by_user_rid ] |
+| ix_fk_customer_internal_view_tenant_uuid | NONCLUSTERED, [ tenant_uuid ] |
 | ix_fk_customer_internal_view_created_by_user_rid | NONCLUSTERED, [ created_by_user_rid ] |
 
 ## Relations

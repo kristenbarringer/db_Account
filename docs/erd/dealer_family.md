@@ -33,8 +33,8 @@
 | pk_dealer_family_tenant_uuid_dealer_family_rid | CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, dealer_family_rid ] |
 | uk_dealer_family_uuid | NONCLUSTERED, unique, part of a UNIQUE constraint, [ dealer_family_uuid ] |
 | uk_dealer_family_rid | NONCLUSTERED, unique, part of a UNIQUE constraint, [ dealer_family_rid ] |
-| ix_fk_dealer_family_tenant_uuid | NONCLUSTERED, [ tenant_uuid ] |
 | ix_fk_dealer_family_created_by_user_rid | NONCLUSTERED, [ created_by_user_rid ] |
+| ix_fk_dealer_family_tenant_uuid | NONCLUSTERED, [ tenant_uuid ] |
 | ix_fk_dealer_family_updated_by_user_rid | NONCLUSTERED, [ updated_by_user_rid ] |
 
 ## Relations

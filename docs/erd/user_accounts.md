@@ -9,7 +9,7 @@ the table that stores the details of the users
 | Name | Type | Default | Nullable | Children | Parents | Comment |
 | ---- | ---- | ------- | -------- | -------- | ------- | ------- |
 | user_uuid | uniqueidentifier | (newsequentialid()) | false |  |  | the uuid of the user, Data type = uniqueidentifier, Nullable = No |
-| user_rid | bigint |  | false | [locations_common](locations_common.md) [subscription](subscription.md) [user_grid_view_preference](user_grid_view_preference.md) [customer_account_information](customer_account_information.md) [customer_billing_information](customer_billing_information.md) [account_type](account_type.md) [account_type_permission_mapping](account_type_permission_mapping.md) [role_permission_mapping](role_permission_mapping.md) [contact](contact.md) [tenant_service_level_mapping](tenant_service_level_mapping.md) [customer_internal_view](customer_internal_view.md) [customer_rate_information](customer_rate_information.md) [dealer](dealer.md) [dealer_family](dealer_family.md) |  | the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = bigint, Nullable = No |
+| user_rid | bigint |  | false | [locations_common](locations_common.md) [role_permission_mapping](role_permission_mapping.md) [subscription](subscription.md) [tenant_service_level_mapping](tenant_service_level_mapping.md) [user_grid_view_preference](user_grid_view_preference.md) [account_type](account_type.md) [contact](contact.md) [customer_account_information](customer_account_information.md) [customer_billing_information](customer_billing_information.md) [customer_internal_view](customer_internal_view.md) [customer_rate_information](customer_rate_information.md) [dealer](dealer.md) [dealer_family](dealer_family.md) |  | the rid (integer identity) which might be deprecated and replaced by the uuid, Data type = bigint, Nullable = No |
 | tenant_uuid | uniqueidentifier |  | false |  | [account_details](account_details.md) | the uniqueidentifier for the tenant/customer.  Used as a partitioning key., Data type = uniqueidentifier, Nullable = No, References = [dbo].[account_details].[tenant_uuid] |
 | user_name | nvarchar(200) |  | true |  |  | the user name of the user, Data type = nvarchar(200), Nullable = Yes |
 | first_name | nvarchar(50) | ('Tracking') | false |  |  | the first name of the user, Data type = nvarchar(50), Nullable = No |
@@ -72,19 +72,19 @@ the table that stores the details of the users
 | pk_user_accounts_tenant_uuid_user_accounts_rid | CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, user_rid ] |
 | uk_user_accounts_uuid | NONCLUSTERED, unique, part of a UNIQUE constraint, [ user_uuid ] |
 | uk_user_accounts_rid | NONCLUSTERED, unique, part of a UNIQUE constraint, [ user_rid ] |
-| ix_user_accounts_tenant_uuid_status_code | NONCLUSTERED, [ tenant_uuid, status_code ] |
-| ix_fk_user_accounts_account_type_code | NONCLUSTERED, [ account_type_code ] |
-| ix_fk_user_accounts_fuel_type_code | NONCLUSTERED, [ fuel_type_code ] |
 | ix_fk_user_accounts_phone_type_code | NONCLUSTERED, [ phone_type_code ] |
-| ix_fk_user_accounts_timezone_code | NONCLUSTERED, [ timezone_code ] |
-| ix_fk_user_accounts_language_code | NONCLUSTERED, [ language_code ] |
 | ix_fk_user_accounts_tour_status_code | NONCLUSTERED, [ tour_status_code ] |
 | ix_fk_user_accounts_speed_type_code | NONCLUSTERED, [ speed_type_code ] |
-| ix_fk_user_accounts_tenant_uuid | NONCLUSTERED, [ tenant_uuid ] |
-| ix_fk_user_accounts_status_code | NONCLUSTERED, [ status_code ] |
-| ix_fk_user_accounts_temperature_type_code | NONCLUSTERED, [ temperature_type_code ] |
-| ix_fk_user_accounts_role_rid | NONCLUSTERED, [ role_rid ] |
+| ix_fk_user_accounts_account_type_code | NONCLUSTERED, [ account_type_code ] |
 | ix_fk_user_accounts_theme_code | NONCLUSTERED, [ theme_code ] |
+| ix_fk_user_accounts_temperature_type_code | NONCLUSTERED, [ temperature_type_code ] |
+| ix_fk_user_accounts_language_code | NONCLUSTERED, [ language_code ] |
+| ix_user_accounts_tenant_uuid_status_code | NONCLUSTERED, [ tenant_uuid, status_code ] |
+| ix_fk_user_accounts_role_rid | NONCLUSTERED, [ role_rid ] |
+| ix_fk_user_accounts_tenant_uuid | NONCLUSTERED, [ tenant_uuid ] |
+| ix_fk_user_accounts_timezone_code | NONCLUSTERED, [ timezone_code ] |
+| ix_fk_user_accounts_status_code | NONCLUSTERED, [ status_code ] |
+| ix_fk_user_accounts_fuel_type_code | NONCLUSTERED, [ fuel_type_code ] |
 
 ## Relations
 

@@ -50,8 +50,8 @@ this table stores dealer information
 | pk_dealer_tenant_uuid_dealer_rid | CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, dealer_rid ] |
 | uk_dealer_uuid | NONCLUSTERED, unique, part of a UNIQUE constraint, [ dealer_uuid ] |
 | uk_dealer_rid | NONCLUSTERED, unique, part of a UNIQUE constraint, [ dealer_rid ] |
-| ix_fk_dealer_updated_by_user_rid | NONCLUSTERED, [ updated_by_user_rid ] |
 | ix_fk_dealer_dealer_family_rid | NONCLUSTERED, [ dealer_family_rid ] |
+| ix_fk_dealer_updated_by_user_rid | NONCLUSTERED, [ updated_by_user_rid ] |
 | ix_fk_dealer_tenant_uuid | NONCLUSTERED, [ tenant_uuid ] |
 | ix_fk_dealer_created_by_user_rid | NONCLUSTERED, [ created_by_user_rid ] |
 

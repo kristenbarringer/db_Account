@@ -38,9 +38,9 @@
 | pk_customer_rate_information_tenant_uuid_customer_rate_information_rid | CLUSTERED, unique, part of a PRIMARY KEY constraint, [ tenant_uuid, customer_rate_information_rid ] |
 | uk_customer_rate_information_uuid | NONCLUSTERED, unique, part of a UNIQUE constraint, [ customer_rate_information_uuid ] |
 | uk_customer_rate_information_rid | NONCLUSTERED, unique, part of a UNIQUE constraint, [ customer_rate_information_rid ] |
-| ix_fk_customer_rate_information_tenant_uuid | NONCLUSTERED, [ tenant_uuid ] |
-| ix_fk_customer_rate_information_created_by_user_rid | NONCLUSTERED, [ created_by_user_rid ] |
 | ix_fk_customer_rate_information_updated_by_user_rid | NONCLUSTERED, [ updated_by_user_rid ] |
+| ix_fk_customer_rate_information_created_by_user_rid | NONCLUSTERED, [ created_by_user_rid ] |
+| ix_fk_customer_rate_information_tenant_uuid | NONCLUSTERED, [ tenant_uuid ] |
 
 ## Relations
 

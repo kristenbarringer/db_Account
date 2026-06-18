@@ -57,13 +57,13 @@ the table that stores the details of the contacts
 | uk_contact_uuid | NONCLUSTERED, unique, part of a UNIQUE constraint, [ contact_uuid ] |
 | uk_contact_rid | NONCLUSTERED, unique, part of a UNIQUE constraint, [ contact_rid ] |
 | ix_fk_contact_temperature_type_code | NONCLUSTERED, [ temperature_type_code ] |
+| ix_fk_contact_created_by_user_rid | NONCLUSTERED, [ created_by_user_rid ] |
+| ix_fk_contact_language_code | NONCLUSTERED, [ language_code ] |
 | ix_fk_contact_updated_by_user_rid | NONCLUSTERED, [ updated_by_user_rid ] |
+| ix_fk_contact_speed_type_code | NONCLUSTERED, [ speed_type_code ] |
+| ix_fk_contact_fuel_type_code | NONCLUSTERED, [ fuel_type_code ] |
 | ix_fk_contact_timezone_code | NONCLUSTERED, [ timezone_code ] |
 | ix_fk_contact_tenant_uuid | NONCLUSTERED, [ tenant_uuid ] |
-| ix_fk_contact_fuel_type_code | NONCLUSTERED, [ fuel_type_code ] |
-| ix_fk_contact_language_code | NONCLUSTERED, [ language_code ] |
-| ix_fk_contact_speed_type_code | NONCLUSTERED, [ speed_type_code ] |
-| ix_fk_contact_created_by_user_rid | NONCLUSTERED, [ created_by_user_rid ] |
 
 ## Relations
 
