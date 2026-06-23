@@ -29,6 +29,7 @@ CREATE TABLE [dbo].[account_details]
                     V
                 Customer (tk_customer)
     */
+    [master_customer_rid] BIGINT NULL,-- TODO came from master_customer_mapping -- TODO make this a self-referencing FK to account_details -maybe with a check constraint
     [dealer_rid] BIGINT NULL,-- TODO came from customer_dealer_mapping 
     [csm_rid] BIGINT NULL, -- TODO do we need this?  This is for tk_Admin and tk_Master (formerly known as celtrak_service_manager, a.k.a. "CSM")
     -- TODO came from customer_dealer_mapping  
