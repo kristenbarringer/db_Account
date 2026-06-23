@@ -1,4 +1,4 @@
-CREATE TABLE [dbo].[db_m_customer_mapping]
+CREATE TABLE [dbo].[db_m_customer_mapping] -- todo add extended property to say this used to be called tenantinfo
 (
 	[tenant_uuid] UNIQUEIDENTIFIER NOT NULL,
 	[v1_customer_rid] [bigint] NULL,
