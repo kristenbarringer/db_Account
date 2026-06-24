@@ -75,7 +75,7 @@ BEGIN
         ,user_name = 'jhsmith'
         ,first_name = 'John'
         ,last_name = 'Smith'
-        ,account_type_code = 'WRK_TODO' -- TODO FIX THIS
+        
         ,tenant_id = 'tenant_id'
         ,role_code = 'role_code'
         ,active2 = 'active2'
@@ -107,7 +107,7 @@ where name like '%Walmart%'
         ,user_name = 'jasmith'
         ,first_name = 'Jane'
         ,last_name = 'Smith'
-        ,account_type_code = 'WRK_TODO' -- TODO FIX THIS
+        
         ,tenant_id = 'tenant_id'
         ,role_code = 'role_code'
         ,active2 = 'active2'
@@ -138,7 +138,7 @@ where name like '%Walmart%'
         ,user_name = 'bbunny'
         ,first_name = 'Bugs'
         ,last_name = 'Bunny'
-        ,account_type_code = 'WRK_TODO' -- TODO FIX THIS
+        
         ,tenant_id = 'tenant_id'
         ,role_code = 'role_code'
         ,active2 = 'active2'
@@ -169,7 +169,7 @@ where name like '%Walmart%'
         ,user_name = 'rrunner'
         ,first_name = 'Road'
         ,last_name = 'Runner'
-        ,account_type_code = 'WRK_TODO' -- TODO FIX THIS
+        
         ,tenant_id = 'tenant_id'
         ,role_code = 'role_code'
         ,active2 = 'active2'
@@ -200,7 +200,7 @@ where name like '%Walmart%'
         ,user_name = 'wcoyote'
         ,first_name = 'Wiley'
         ,last_name = 'Coyote'
-        ,account_type_code = 'WRK_TODO' -- TODO FIX THIS
+        
         ,tenant_id = 'tenant_id'
         ,role_code = 'role_code'
         ,active2 = 'active2'
@@ -245,7 +245,7 @@ where name like '%Walmart%'
         ,user_name
         ,first_name
         ,last_name
-        ,account_type_code
+        ,account_type_rid
         ,tenant_uuid
         ,role_rid
         ,active
@@ -278,7 +278,7 @@ where name like '%Walmart%'
      ,user_name
     , first_name
     , last_name
-    , 'WRK_TODO' as account_type_code
+    , 1 as account_type_rid
 
   
       , c.tenant_uuid      AS tenant_uuid

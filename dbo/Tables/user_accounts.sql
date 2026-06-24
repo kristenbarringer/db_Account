@@ -19,8 +19,8 @@ CREATE TABLE [dbo].[user_accounts]
     -- the object_id in user_accounts is the Entra ID object ID for the user 
     -- fk columns - other main fks
     [role_rid] BIGINT CONSTRAINT [DF_user_accounts_role_rid] DEFAULT (1) NULL,
+    [account_type_rid] BIGINT CONSTRAINT [df_user_accounts_account_type_rid] DEFAULT (1) NOT NULL,
     -- fk columns - to lookup code
-    [account_type_code] VARCHAR (30) CONSTRAINT [df_user_accounts_account_type_code] DEFAULT ('ACT_CUSTOMER') NOT NULL,
     [speed_type_code] VARCHAR (30) CONSTRAINT [df_user_accounts_speed_type_code] DEFAULT ('SPT_MPH') NOT NULL,
     [language_code] VARCHAR (30) CONSTRAINT [df_user_accounts_language_code] DEFAULT ('ENUS') NOT NULL,
     [temperature_type_code] VARCHAR (30) CONSTRAINT [df_user_accounts_temperature_type_code] DEFAULT ('TMP_FAHRENHEIT') NOT NULL,
@@ -65,7 +65,11 @@ ALTER TABLE [dbo].[user_accounts] ADD CONSTRAINT [fk_user_accounts_role_rid] FOR
 GO
 CREATE NONCLUSTERED INDEX [ix_fk_user_accounts_role_rid] ON [dbo].[user_accounts] ([role_rid] ASC);
 GO
-
+ALTER TABLE [dbo].[user_accounts] ADD CONSTRAINT [fk_user_accounts_account_type_rid] FOREIGN KEY ([account_type_rid]) REFERENCES [dbo].[account_type] ([account_type_rid]); 
+GO
+CREATE NONCLUSTERED INDEX [ix_fk_user_accounts_account_type_rid]
+ON [dbo].[user_accounts]([account_type_rid] ASC); 
+GO
 -- fks - to tenant
 ALTER TABLE [dbo].[user_accounts] ADD CONSTRAINT [fk_user_accounts_tenant_uuid] FOREIGN KEY ([tenant_uuid]) REFERENCES [dbo].[account_details] ([tenant_uuid]); 
  GO
@@ -81,12 +85,6 @@ CREATE NONCLUSTERED INDEX [ix_fk_user_accounts_tenant_uuid] -- add explicit inde
 -- GO
  
 -- fks - to lookup code
---   [[account_type_code]] VARCHAR (30) CONSTRAINT [df_user_accounts_account_type_code] DEFAULT ('ACT_CUSTOMER') NOT NULL,
-ALTER TABLE [dbo].[user_accounts] ADD CONSTRAINT [fk_user_accounts_account_type_code] FOREIGN KEY ([account_type_code]) REFERENCES [dbo].[lookup_code] ([code]); 
-GO
-CREATE NONCLUSTERED INDEX [ix_fk_user_accounts_account_type_code] -- add explicit index for the FK column, to improve join performance
-ON [dbo].[user_accounts]([account_type_code] ASC); 
-GO
 --   [speed_type_code] VARCHAR (30) CONSTRAINT [df_user_accounts_speed_type_code] DEFAULT ('SPT_MPH') NOT NULL,
 ALTER TABLE [dbo].[user_accounts] ADD CONSTRAINT [fk_user_accounts_speed_type_code] FOREIGN KEY ([speed_type_code]) REFERENCES [dbo].[lookup_code] ([code]); 
 GO
